@@ -1,5 +1,6 @@
 import requests
 from eve.auth import TokenAuth
+
 from settings import OAUTH_PROVIDERS
 
 from jwt import (
@@ -53,9 +54,11 @@ class JWTokenAuth(TokenAuth):
         keys_cache = KeyCache(OAUTH_PROVIDERS, timedelta(minutes=10))
         keys = keys_cache.get_keys()
         user_info = None
+        key=None
         for key in keys:
             try:
                 user_info = jwt.decode(token, key['key'])
+                key=key
                 break
             except Exception as e:
                 pass
@@ -64,12 +67,19 @@ class JWTokenAuth(TokenAuth):
         issuer = user_info['iss']
         expiration = datetime.utcfromtimestamp(user_info['exp'])
         role = user_info['role']
-        flexId = user_info['flexId']
+        flexId = user_info['sub']
         now_time = datetime.utcnow()
         if expiration < now_time:
             return False
         if issuer != key['iss']:
             return False
         self.set_request_auth_value(flexId)
+        # TODO: define what to do with the roles
+        if role == "prosumer":
+            pass
+        elif role == "aggragator":
+            pass
+        elif role == "sevice":
+            pass
         return True
 
