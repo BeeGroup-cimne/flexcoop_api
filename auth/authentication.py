@@ -73,10 +73,9 @@ class JWTokenAuth(TokenAuth):
             return False
         if issuer != key['iss']:
             return False
-        self.set_request_auth_value(flexId)
         # TODO: define what to do with the roles
         if role == "prosumer":
-            pass
+            self.set_request_auth_value(flexId)
         elif role == "aggragator":
             pass
         elif role == "sevice":
