@@ -1,15 +1,14 @@
 {
   "item_title": "flexibility",
-  "additional_lookup": {
-    "url": "regex(\"[\\w]+\")",
-    "field": "flexibility"
-  },
   "cache_control": "max-age=10,must-revalidate",
   "cache_expires": 10,
   "resource_methods": [
     "GET",
     "POST"
   ],
+  "flexibility": {
+    "index_field": "sender"
+  },
   "schema": {
     "sender": {
       "type": "string",
