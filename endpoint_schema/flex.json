@@ -1,0 +1,58 @@
+{
+  "item_title": "flexibility",
+  "additional_lookup": {
+    "url": "regex(\"[\\w]+\")",
+    "field": "flexibility"
+  },
+  "cache_control": "max-age=10,must-revalidate",
+  "cache_expires": 10,
+  "resource_methods": [
+    "GET",
+    "POST"
+  ],
+  "schema": {
+    "sender": {
+      "type": "string",
+      "minlength": 1,
+      "maxlength": 64,
+      "required": true
+    },
+    "recipient": {
+      "type": "string",
+      "minlength": 1,
+      "maxlength": 64,
+      "required": true
+    },
+    "asset_id": {
+      "type": "string",
+      "minlength": 1,
+      "maxlength": 64,
+      "required": true
+    },
+    "device_type": {
+      "type": "string",
+      "minlength": 1,
+      "maxlength": 64,
+      "required": true
+    },
+    "timestamp": {
+      "type": "datetime",
+      "minlength": 1,
+      "maxlength": 64,
+      "required": true
+    },
+    "devices": {
+      "type": "string",
+      "minlength": 1,
+      "maxlength": 64,
+      "required": true
+    }
+  }
+}
+
+
+
+
+
+
+
