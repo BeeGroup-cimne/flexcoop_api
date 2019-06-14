@@ -4,7 +4,14 @@
   "cache_expires": 10,
   "resource_methods": [
     "GET",
-    "POST"
+    "POST",
+    "DELETE"
+  ],
+  "item_methods": [
+    "GET",
+    "PATCH",
+    "PUT",
+    "DELETE"
   ],
   "flexibility": {
     "index_field": "sender"
@@ -38,7 +45,8 @@
       "type": "datetime",
       "minlength": 1,
       "maxlength": 64,
-      "required": true
+      "required": true,
+      "unique": true
     },
     "devices": {
       "type": "string",
