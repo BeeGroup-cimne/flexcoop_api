@@ -2,28 +2,66 @@
   "item_title": "der",
   "cache_control": "max-age=10,must-revalidate",
   "cache_expires": 10,
+  "item_url": "regex(\"[a-f0-9]{8}-?[a-f0-9]{4}-?4[a-f0-9]{3}-?[89ab][a-f0-9]{3}-?[a-f0-9]{12}\")",
   "resource_methods": [
     "GET",
     "POST"
   ],
-  "flexibility": {
+  "item_methods": [
+    "GET",
+    "PATCH",
+    "PUT",
+    "DELETE"
+  ],
+  "der": {
     "index_field": "device_id"
   },
   "schema": {
+    "_id": {
+      "type": "uuid"
+    },
     "device_id": {
-      "type": "string",
+      "type": "uuid",
       "minlength": 1,
       "maxlength": 64,
       "required": true
     },
     "status": {
       "type": "string",
+      "regex": "^(on|off)$",
+      "required": true
+    },
+    "availability": {
+      "type": "string",
+      "regex": "^(yes|no)$",
+      "required": true
+    },
+    "location": {
+      "type": "string",
       "minlength": 1,
       "maxlength": 64,
       "required": true
+    },
+    "osb_id": {
+      "type": "uuid",
+      "minlength": 1,
+      "maxlength": 64,
+      "required": true
+    },
+    "account": {
+      "type": "uuid",
+      "minlength": 1,
+      "maxlength": 64,
+      "required": true
+    },
+    "OpenADR_ID": {
+      "type": "string",
+      "length": 29,
+      "regex": "^([0-9a-fA-F][0-9a-fA-F]:){9}([0-9a-fA-F][0-9a-fA-F])$"
     }
   }
 }
+
 
 
 
