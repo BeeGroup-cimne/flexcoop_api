@@ -3,9 +3,11 @@ from eve_swagger import swagger, add_documentation
 from flask_swagger_ui import get_swaggerui_blueprint
 from auth.authentication import JWTokenAuth
 
+from datatypes import UUIDEncoder, UUIDValidator
+
 SWAGGER_URL = '/docs'
 API_URL = '/api-docs'
-app = Eve(auth=JWTokenAuth)
+app = Eve(auth=JWTokenAuth, json_encoder=UUIDEncoder, validator=UUIDValidator)
 app.register_blueprint(swagger)
 SWAGGER_EXT = {
     'securityDefinitions': {
