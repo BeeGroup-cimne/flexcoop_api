@@ -45,4 +45,4 @@ swaggerui_blueprint = get_swaggerui_blueprint(
 
 app.register_blueprint(swaggerui_blueprint, url_prefix=SWAGGER_URL)
 
-app.run()
+app.run(port=int(8080), host=("0.0.0.0"))
