@@ -1,7 +1,6 @@
 from eve import Eve
 from eve_swagger import swagger, add_documentation
 from flask_swagger_ui import get_swaggerui_blueprint
-
 from auth.authentication import JWTokenAuth
 
 SWAGGER_URL = '/docs'
@@ -17,7 +16,7 @@ SWAGGER_EXT = {
         }
     },
     'security': [
-        {'JWTAuth':[]}
+        {'JWTAuth': []}
     ],
 }
 add_documentation(SWAGGER_EXT)
@@ -36,14 +35,13 @@ for resource, rd in app.config['DOMAIN'].items():
     for method in methods:
         add_documentation({'paths': {url: {method.lower(): {"security": [{"JWTAuth": []}]}}}})
 
-
 # required. See http://swagger.io/specification/#infoObject for details.
 swaggerui_blueprint = get_swaggerui_blueprint(
-SWAGGER_URL, # Swagger UI static files will be mapped to '{SWAGGER_URL}/dist/'
-API_URL,
-config={ # Swagger UI config overrides
-    'app_name': 'FLEXCoop REST API'
-})
+    SWAGGER_URL,  # Swagger UI static files will be mapped to '{SWAGGER_URL}/dist/'
+    API_URL,
+    config={  # Swagger UI config overrides
+        'app_name': 'FLEXCoop REST API'
+    })
 
 app.register_blueprint(swaggerui_blueprint, url_prefix=SWAGGER_URL)
 
