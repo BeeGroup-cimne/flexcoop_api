@@ -56,7 +56,8 @@
     },
     "OpenADR_ID": {
       "type": "string",
-      "length": 29,
+      "minlength": 29,
+      "maxlength": 29,
       "regex": "^([0-9a-fA-F][0-9a-fA-F]:){9}([0-9a-fA-F][0-9a-fA-F])$"
     }
   }
