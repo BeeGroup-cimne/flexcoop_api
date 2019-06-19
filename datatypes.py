@@ -1,9 +1,9 @@
-from eve.io.base import BaseJSONEncoder
+from eve.io.mongo import MongoJSONEncoder
 from eve.io.mongo import Validator
 from uuid import UUID
 
 
-class UUIDEncoder(BaseJSONEncoder):
+class UUIDEncoder(MongoJSONEncoder):
     """ JSONEconder subclass used by the json render function.
     This is different from BaseJSONEoncoder since it also addresses
     encoding of UUID
@@ -16,6 +16,7 @@ class UUIDEncoder(BaseJSONEncoder):
             # delegate rendering to base class method (the base class
             # will properly render ObjectIds, datetimes, etc.)
             return super(UUIDEncoder, self).default(obj)
+            #return BaseJSONEncoder.default(self, obj)
 
 
 class UUIDValidator(Validator):
@@ -28,5 +29,6 @@ class UUIDValidator(Validator):
             UUID(value)
             return True
         except ValueError:
-            return False
+            #return False
+            pass
 

@@ -1,7 +1,7 @@
 {
-  "item_title": "der",
-  "id_field": "device_id",
-  "item_lookup_field": "device_id",
+  "item_title": "contract",
+  "id_field": "contract_id",
+  "item_lookup_field": "contract_id",
   "cache_control": "max-age=10,must-revalidate",
   "cache_expires": 10,
   "item_url": "regex(\"[a-f0-9]{8}-?[a-f0-9]{4}-?4[a-f0-9]{3}-?[89ab][a-f0-9]{3}-?[a-f0-9]{12}\")",
@@ -17,53 +17,47 @@
     "DELETE"
   ],
   "schema": {
-    "device_id": {
+    "contract_id": {
       "type": "uuid",
       "minlength": 1,
       "maxlength": 64,
       "required": true
+    },
+    "start_date": {
+      "type": "datetime",
+      "required": true
+    },
+    "end_date": {
+      "type": "datetime",
+      "required": true
+    },
+    "agr_id": {
+      "type": "uuid",
+      "minlength": 1,
+      "maxlength": 64,
+      "required": true
+    },
+    "prosumer_id": {
+      "type": "uuid",
+      "minlength": 1,
+      "maxlength": 64,
+      "required": true
+    },
+    "details": {
+      "type": "dict",
+      "schema": {
+        "description": {
+          "type": "string"
+        },
+        "flexibility_id": {
+          "type": "uuid"
+        }
+      }
     },
     "status": {
       "type": "string",
-      "regex": "^(on|off)$",
+      "regex": "^(active|canceled|hold)$",
       "required": true
-    },
-    "availability": {
-      "type": "string",
-      "regex": "^(yes|no)$",
-      "required": true
-    },
-    "location": {
-      "type": "string",
-      "minlength": 1,
-      "maxlength": 64,
-      "required": true
-    },
-    "osb_id": {
-      "type": "uuid",
-      "minlength": 1,
-      "maxlength": 64,
-      "required": true
-    },
-    "account": {
-      "type": "uuid",
-      "minlength": 1,
-      "maxlength": 64,
-      "required": true
-    },
-    "OpenADR_ID": {
-      "type": "string",
-      "minlength": 29,
-      "maxlength": 29,
-      "regex": "^([0-9a-fA-F][0-9a-fA-F]:){9}([0-9a-fA-F][0-9a-fA-F])$"
     }
   }
 }
-
-
-
-
-
-
-
-

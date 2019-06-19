@@ -1,5 +1,7 @@
 {
   "item_title": "flexibility",
+  "id_field": "flexibility_id",
+  "item_lookup_field": "flexibility_id",
   "cache_control": "max-age=10,must-revalidate",
   "cache_expires": 10,
   "resource_methods": [
@@ -13,10 +15,11 @@
     "PUT",
     "DELETE"
   ],
-  "flexibility": {
-    "index_field": "sender"
-  },
   "schema": {
+    "flexibility_id": {
+      "type": "uuid",
+      "required:": true
+    },
     "sender": {
       "type": "string",
       "minlength": 1,
@@ -40,7 +43,7 @@
       "minlength": 1,
       "maxlength": 64,
       "required": true
-    },
+    },q
     "timestamp": {
       "type": "datetime",
       "minlength": 1,

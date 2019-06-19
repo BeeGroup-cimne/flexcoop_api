@@ -8,6 +8,7 @@ from datatypes import UUIDEncoder, UUIDValidator
 SWAGGER_URL = '/docs'
 API_URL = '/api-docs'
 app = Eve(auth=JWTokenAuth, json_encoder=UUIDEncoder, validator=UUIDValidator)
+app.json_encoder = UUIDEncoder
 app.register_blueprint(swagger)
 SWAGGER_EXT = {
     'securityDefinitions': {
