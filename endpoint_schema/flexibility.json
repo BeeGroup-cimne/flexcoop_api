@@ -56,13 +56,47 @@
       "minlength": 1,
       "maxlength": 64,
       "required": true
+    },
+    "schedule": {
+      "type": "list",
+      "required": true,
+      "schema": {
+        "type": "dict",
+        "schema": {
+          "timestamp": {
+            "type": "datetime",
+            "required": true
+          },
+          "upwards": {
+            "type": "dict",
+            "required": true,
+            "schema": {
+              "value": {
+                "type": "float",
+                "required": true
+              },
+              "price": {
+                "type": "float",
+                "required": true
+              }
+            }
+          },
+          "downwards": {
+            "type": "dict",
+            "required": true,
+            "schema": {
+              "value": {
+                "type": "float",
+                "required": true
+              },
+              "price": {
+                "type": "float",
+                "required": true
+              }
+            }
+          }
+        }
+      }
     }
   }
 }
-
-
-
-
-
-
-
