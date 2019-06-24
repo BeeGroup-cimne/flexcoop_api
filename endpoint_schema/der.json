@@ -45,7 +45,7 @@
       "maxlength": 64,
       "required": true
     },
-    "account": {
+    "account_id": {
       "type": "uuid",
       "minlength": 1,
       "maxlength": 64,
