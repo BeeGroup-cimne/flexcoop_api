@@ -18,7 +18,8 @@
   ],
   "schema": {
     "device_id": {
-      "type": "uuid",
+      "type": "string",
+      "format": "uuid",
       "minlength": 1,
       "maxlength": 64,
       "required": true
