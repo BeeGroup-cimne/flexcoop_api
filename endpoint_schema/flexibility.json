@@ -17,7 +17,11 @@
   ],
   "schema": {
     "flexibility_id": {
-      "type": "uuid",
+      "type": "string",
+      "format": "uuid",
+      "regex": "[a-f0-9]{8}-?[a-f0-9]{4}-?4[a-f0-9]{3}-?[89ab][a-f0-9]{3}-?[a-f0-9]{12}",
+      "minlength": 36,
+      "maxlength": 36,
       "required:": true
     },
     "sender": {
