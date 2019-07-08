@@ -20,8 +20,9 @@
     "device_id": {
       "type": "string",
       "format": "uuid",
-      "minlength": 1,
-      "maxlength": 64,
+      "regex": "[a-f0-9]{8}-?[a-f0-9]{4}-?4[a-f0-9]{3}-?[89ab][a-f0-9]{3}-?[a-f0-9]{12}",
+      "minlength": 36,
+      "maxlength": 36,
       "required": true
     },
     "status": {
