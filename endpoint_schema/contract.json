@@ -58,6 +58,23 @@
       "type": "string",
       "regex": "^(active|canceled|hold)$",
       "required": true
+    },
+    "asset_ID": {
+      "type": "uuid"
+    },
+    "type": {
+      "type": "string",
+      "regex": "^(contract|something|something)$"
+    },
+    "acknowledgement": {
+      "type": "string"
+    },
+    "parameters": {
+      "type": "list",
+      "schema": {
+        "type"
+      }
     }
+
   }
 }
