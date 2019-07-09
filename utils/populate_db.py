@@ -1,0 +1,23 @@
+from requests import Session
+import json
+
+base_url = 'http://middleware-rest-flexcoop-demo.okd.fokus.fraunhofer.de/1/'
+token = 'eyJhbGciOiJSUzI1NiIsInR5cCIgOiAiSldUIiwia2lkIiA6ICI4aG1NUHZNdlVLZko1dnMwTHA3XzYyNTZYLXBmM2dka2tyS2lsOWdkbTNJIn0.eyJqdGkiOiIwMGNiNDhjNC02MTQyLTRjN2QtODFmNi04NGQ1NTM1MmFiNWUiLCJleHAiOjE1NjI2NDY3MDgsIm5iZiI6MCwiaWF0IjoxNTYyNjAzNTA4LCJpc3MiOiJodHRwczovL29hdXRoMi1mbGV4Y29vcC1rZXljbG9hay5va2QuZm9rdXMuZnJhdW5ob2Zlci5kZS9hdXRoL3JlYWxtcy9mbGV4Y29vcCIsImF1ZCI6ImJhY2tlbmQtbW9ja3VwIiwic3ViIjoiNzcyM2VhMWYtZTJiZS00M2MyLWFjZGYtMDUxZDgwYWFlN2U2IiwidHlwIjoiQmVhcmVyIiwiYXpwIjoiYmFja2VuZC1tb2NrdXAiLCJhdXRoX3RpbWUiOjE1NjI2MDM1MDgsInNlc3Npb25fc3RhdGUiOiI4NGMxYzZiOS03YmUyLTRlNjgtYWIzMC0xNDg4NGQ1MjQyZDYiLCJhY3IiOiIxIiwiYWxsb3dlZC1vcmlnaW5zIjpbImh0dHA6Ly9sb2NhbGhvc3Q6ODA4MC8qIiwiaHR0cHM6Ly9mbGV4Y29vcC1iYWNrZW5kLW1vY2t1cC5va2QuZm9rdXMuZnJhdW5ob2Zlci5kZS8qIl0sInJlYWxtX2FjY2VzcyI6eyJyb2xlcyI6WyJwcm9zdW1lciJdfSwicmVzb3VyY2VfYWNjZXNzIjp7ImV4YW1wbGUtc2VydmljZS0xIjp7InJvbGVzIjpbInNlcnZpY2UtMS1yZWFkIiwic2VydmljZS0xLXdyaXRlIl19LCJhY2NvdW50Ijp7InJvbGVzIjpbIm1hbmFnZS1hY2NvdW50IiwibWFuYWdlLWFjY291bnQtbGlua3MiLCJ2aWV3LXByb2ZpbGUiXX19LCJzY29wZSI6Im9wZW5pZCIsInJvbGUiOiJwcm9zdW1lciJ9.KO6ZCa9u5CpMilRYoVa9obU5ggGBMmnFE2ZksJmSVmT_dl2zubRf72Ic139dv22QlxR9G1m3DWX8_2rdLaflLzmSSqCAS-F0ywlr-PdQBbRnF3go45hypn6iDwaYtmTdPLy5QS3B3h7NmCKVyjN3b3k6gALORLWkz0VBSRHzzzLoS8aqJ27WYiErSYSIPYHoHOcUsOkwaaG-34MBMMZz-Q1TIUDNkuPxZW94Ko9LKQ0VvhpDiLXaEjj-_D9syaWfOLKQHm0uVHkycdBRn_X4l55guxLZXuAnAPS8LIvVY1RcKqlhbnDu_VersBetCM83_NpAvGBW7mX1jgGFt0Ujkw'
+
+headers = {'accept': 'application/xml', 'Authorization': token}
+
+session = Session()
+
+payload = {
+  "device_id": "7f662ba9-64d3-45b7-b02c-a0b33f85d250",
+  "status": "on",
+  "availability": "yes",
+  "location": "berlin",
+  "osb_id": "0948dd41-9983-49a1-82d9-e5f623e4ad7f",
+  "account": "d01f13d1-6266-45b0-a24b-ff287c90e6e6",
+  "OpenADR_ID": "00:00:00:00:00:00:00:00:00:00"
+}
+
+domain = "der"
+
+r = session.post(base_url + domain, headers=headers)

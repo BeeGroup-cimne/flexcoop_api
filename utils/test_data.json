@@ -1,0 +1,69 @@
+{
+  "ders": [
+    {
+      "device_id": "7f662ba9-64d3-45b7-b02c-a0b33f85d251",
+      "status": "on",
+      "availability": "yes",
+      "location": "berlin",
+      "osb_id": "0948dd41-9983-49a1-82d9-e5f623e4ad71",
+      "account": "d01f13d1-6266-45b0-a24b-ff287c90e6e1",
+      "OpenADR_ID": "00:00:00:00:00:00:00:00:00:01"
+    },
+    {
+      "device_id": "7f662ba9-64d3-45b7-b02c-a0b33f85d252",
+      "status": "on",
+      "availability": "yes",
+      "location": "barcelona",
+      "osb_id": "0948dd41-9983-49a1-82d9-e5f623e4ad72",
+      "account": "d01f13d1-6266-45b0-a24b-ff287c90e6e2",
+      "OpenADR_ID": "00:00:00:00:00:00:00:00:00:02"
+    },
+    {
+      "device_id": "7f662ba9-64d3-45b7-b02c-a0b33f85d253",
+      "status": "on",
+      "availability": "yes",
+      "location": "athens",
+      "osb_id": "0948dd41-9983-49a1-82d9-e5f623e4ad73",
+      "account": "d01f13d1-6266-45b0-a24b-ff287c90e6e3",
+      "OpenADR_ID": "00:00:00:00:00:00:00:00:00:03"
+    }
+  ],
+  "flexibilities": [
+    {
+      "flexibility_id": "e60707f9-2eb7-4404-a373-7e87623e4a88",
+      "sender": "string",
+      "recipient": "string",
+      "asset_id": "string",
+      "device_type": "string",
+      "timestamp": "2019-06-21T13:42:59.823Z",
+      "devices": "string",
+      "schedule": [
+        {
+          "timestamp": "2019-06-21T13:42:59.823Z",
+          "upwards": {
+            "value": 0,
+            "price": 0
+          },
+          "downwards": {
+            "value": 0,
+            "price": 0
+          }
+        }
+      ]
+    }
+  ],
+  "contracts": [
+    {
+      "contract_id": "b330574b-d352-4ae1-b39c-7f869ce810ad",
+      "start_date": "2019-07-09T15:48:58.476Z",
+      "end_date": "2019-07-09T15:48:58.476Z",
+      "agr_id": "3f6a7f3c-9d55-4459-8702-400460dc7110",
+      "prosumer_id": "284816d6-2d14-459d-abcf-ea14651f6398",
+      "details": {
+        "description": "string",
+        "flexibility_id": "d139a0e4-2a92-4a78-a340-3d6f8429a16b"
+      },
+      "status": "string"
+    }
+  ]
+}
