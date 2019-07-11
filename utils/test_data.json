@@ -63,7 +63,10 @@
         "description": "string",
         "flexibility_id": "d139a0e4-2a92-4a78-a340-3d6f8429a16b"
       },
-      "status": "string"
+      "status": "active",
+      "asset_ID": "ee1cf130-27a0-4d7e-9b7e-d074e4f80f99",
+      "contract_type": "contract",
+      "acknowledgement": "yessss"
     }
   ]
 }
