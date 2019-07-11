@@ -1,12 +1,12 @@
 {
-  "ders": [
+  "der": [
     {
       "device_id": "7f662ba9-64d3-45b7-b02c-a0b33f85d251",
       "status": "on",
       "availability": "yes",
       "location": "berlin",
       "osb_id": "0948dd41-9983-49a1-82d9-e5f623e4ad71",
-      "account": "d01f13d1-6266-45b0-a24b-ff287c90e6e1",
+      "account_id": "d01f13d1-6266-45b0-a24b-ff287c90e6e1",
       "OpenADR_ID": "00:00:00:00:00:00:00:00:00:01"
     },
     {
@@ -15,7 +15,7 @@
       "availability": "yes",
       "location": "barcelona",
       "osb_id": "0948dd41-9983-49a1-82d9-e5f623e4ad72",
-      "account": "d01f13d1-6266-45b0-a24b-ff287c90e6e2",
+      "account_id": "d01f13d1-6266-45b0-a24b-ff287c90e6e2",
       "OpenADR_ID": "00:00:00:00:00:00:00:00:00:02"
     },
     {
@@ -24,11 +24,11 @@
       "availability": "yes",
       "location": "athens",
       "osb_id": "0948dd41-9983-49a1-82d9-e5f623e4ad73",
-      "account": "d01f13d1-6266-45b0-a24b-ff287c90e6e3",
+      "account_id": "d01f13d1-6266-45b0-a24b-ff287c90e6e3",
       "OpenADR_ID": "00:00:00:00:00:00:00:00:00:03"
     }
   ],
-  "flexibilities": [
+  "flexibility": [
     {
       "flexibility_id": "e60707f9-2eb7-4404-a373-7e87623e4a88",
       "sender": "string",
@@ -52,7 +52,7 @@
       ]
     }
   ],
-  "contracts": [
+  "contract": [
     {
       "contract_id": "b330574b-d352-4ae1-b39c-7f869ce810ad",
       "start_date": "2019-07-09T15:48:58.476Z",

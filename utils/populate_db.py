@@ -1,23 +1,32 @@
 from requests import Session
 import json
+import sys
 
-base_url = 'http://middleware-rest-flexcoop-demo.okd.fokus.fraunhofer.de/1/'
-token = 'eyJhbGciOiJSUzI1NiIsInR5cCIgOiAiSldUIiwia2lkIiA6ICI4aG1NUHZNdlVLZko1dnMwTHA3XzYyNTZYLXBmM2dka2tyS2lsOWdkbTNJIn0.eyJqdGkiOiIwMGNiNDhjNC02MTQyLTRjN2QtODFmNi04NGQ1NTM1MmFiNWUiLCJleHAiOjE1NjI2NDY3MDgsIm5iZiI6MCwiaWF0IjoxNTYyNjAzNTA4LCJpc3MiOiJodHRwczovL29hdXRoMi1mbGV4Y29vcC1rZXljbG9hay5va2QuZm9rdXMuZnJhdW5ob2Zlci5kZS9hdXRoL3JlYWxtcy9mbGV4Y29vcCIsImF1ZCI6ImJhY2tlbmQtbW9ja3VwIiwic3ViIjoiNzcyM2VhMWYtZTJiZS00M2MyLWFjZGYtMDUxZDgwYWFlN2U2IiwidHlwIjoiQmVhcmVyIiwiYXpwIjoiYmFja2VuZC1tb2NrdXAiLCJhdXRoX3RpbWUiOjE1NjI2MDM1MDgsInNlc3Npb25fc3RhdGUiOiI4NGMxYzZiOS03YmUyLTRlNjgtYWIzMC0xNDg4NGQ1MjQyZDYiLCJhY3IiOiIxIiwiYWxsb3dlZC1vcmlnaW5zIjpbImh0dHA6Ly9sb2NhbGhvc3Q6ODA4MC8qIiwiaHR0cHM6Ly9mbGV4Y29vcC1iYWNrZW5kLW1vY2t1cC5va2QuZm9rdXMuZnJhdW5ob2Zlci5kZS8qIl0sInJlYWxtX2FjY2VzcyI6eyJyb2xlcyI6WyJwcm9zdW1lciJdfSwicmVzb3VyY2VfYWNjZXNzIjp7ImV4YW1wbGUtc2VydmljZS0xIjp7InJvbGVzIjpbInNlcnZpY2UtMS1yZWFkIiwic2VydmljZS0xLXdyaXRlIl19LCJhY2NvdW50Ijp7InJvbGVzIjpbIm1hbmFnZS1hY2NvdW50IiwibWFuYWdlLWFjY291bnQtbGlua3MiLCJ2aWV3LXByb2ZpbGUiXX19LCJzY29wZSI6Im9wZW5pZCIsInJvbGUiOiJwcm9zdW1lciJ9.KO6ZCa9u5CpMilRYoVa9obU5ggGBMmnFE2ZksJmSVmT_dl2zubRf72Ic139dv22QlxR9G1m3DWX8_2rdLaflLzmSSqCAS-F0ywlr-PdQBbRnF3go45hypn6iDwaYtmTdPLy5QS3B3h7NmCKVyjN3b3k6gALORLWkz0VBSRHzzzLoS8aqJ27WYiErSYSIPYHoHOcUsOkwaaG-34MBMMZz-Q1TIUDNkuPxZW94Ko9LKQ0VvhpDiLXaEjj-_D9syaWfOLKQHm0uVHkycdBRn_X4l55guxLZXuAnAPS8LIvVY1RcKqlhbnDu_VersBetCM83_NpAvGBW7mX1jgGFt0Ujkw'
+base_url = 'http://localhost:8080/1/'
+token = 'eyJhbGciOiJSUzI1NiIsInR5cCIgOiAiSldUIiwia2lkIiA6ICJ2Ql80R2RaVXVaYWFvd0xDa08zQVBSYnhDUkNXMDY3Y3p2NEgwQk1wNWxZIn0.eyJqdGkiOiIyMGVkNTRlNi1hNzBlLTQ2ZTQtOGY2NS0zOTlmYjUyOTNmZTgiLCJleHAiOjE1NjI4OTE3MzEsIm5iZiI6MCwiaWF0IjoxNTYyODU1NzMxLCJpc3MiOiJodHRwczovL29hdXRoMi1mbGV4Y29vcC1rZXljbG9hay5va2QuZm9rdXMuZnJhdW5ob2Zlci5kZS9hdXRoL3JlYWxtcy9mbGV4Y29vcCIsImF1ZCI6ImJhY2tlbmQtbW9ja3VwIiwic3ViIjoiYTdhNWY3MGUtZTA1Yy00OWJiLThiNmQtOTkxYzQyOTc0NDkzIiwidHlwIjoiQmVhcmVyIiwiYXpwIjoiYmFja2VuZC1tb2NrdXAiLCJhdXRoX3RpbWUiOjE1NjI4NTU3MzEsInNlc3Npb25fc3RhdGUiOiJhNzU0ZjY4Ny04OTBlLTQ3NzgtODc1MS05ZmE2MGQxNTRiMWMiLCJhY3IiOiIxIiwiYWxsb3dlZC1vcmlnaW5zIjpbImh0dHA6Ly9sb2NhbGhvc3Q6ODA4MC8qIiwiaHR0cHM6Ly9mbGV4Y29vcC1iYWNrZW5kLW1vY2t1cC5va2QuZm9rdXMuZnJhdW5ob2Zlci5kZS8qIl0sInJlc291cmNlX2FjY2VzcyI6e30sInNjb3BlIjoib3BlbmlkIiwicm9sZSI6InByb3N1bWVyIn0.X2v_QMGu-gEb80UKGC7QJZiTsmOI2hLpi8mBk5_hkoDTkVFaOKgI3VDKHmhU4eo6Kcc4iAKp_QYz5xI5pzq8rewzmlml5rqcXUU0UukT9jW8iLX54PWKUCrU1Gc0IBAmL4rzRms7ji-xDDwHeJgyGxLWz_lavS7UKxxbjCOKuJMFXlk-y--tG_ujtck0VbKmeUtVnVP4h6aY3GWXN4MLRs2kJ2mnr1K2LnrOGYBfcXU7X0ifOmUtvGEF2VAgWN2AtHsRUe8llQ4FPwqLxj2qdgTRb6EpFlB1WPBTuMJOIWRMSw4COL3EtQmWz3nVPO3KNeqOz03YF3ufeYGyBTVZoQ'
 
-headers = {'accept': 'application/xml', 'Authorization': token}
+headers = {'accept': 'application/xml', 'Authorization': token, "Content-Type": "application/json"}
 
 session = Session()
+session.headers = headers
 
-payload = {
-  "device_id": "7f662ba9-64d3-45b7-b02c-a0b33f85d250",
-  "status": "on",
-  "availability": "yes",
-  "location": "berlin",
-  "osb_id": "0948dd41-9983-49a1-82d9-e5f623e4ad7f",
-  "account": "d01f13d1-6266-45b0-a24b-ff287c90e6e6",
-  "OpenADR_ID": "00:00:00:00:00:00:00:00:00:00"
-}
+tree = None
+with open("test_data.json") as json_file:
+    #print(json_file)
+    json_data = json.load(json_file)
+    #print(json_data)
 
-domain = "der"
+for domain in json_data:
+    for item in json_data[domain]:
+        #print(item)
+        r = session.post(base_url + domain, data=json.dumps(item))
+        # print(session.headers)
+        print("HTTP status code: " + str(r.status_code) + " while connecting to " + base_url + domain)
+        print(json.dumps(item))
+        #print(r.content)
 
-r = session.post(base_url + domain, headers=headers)
+
+
+
+
+
