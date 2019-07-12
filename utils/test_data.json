@@ -7,7 +7,14 @@
       "location": "berlin",
       "osb_id": "0948dd41-9983-49a1-82d9-e5f623e4ad71",
       "account_id": "d01f13d1-6266-45b0-a24b-ff287c90e6e1",
-      "OpenADR_ID": "00:00:00:00:00:00:00:00:00:01"
+      "OpenADR_ID": "00:00:00:00:00:00:00:00:00:01",
+      "Device_type": "Generation",
+      "Max_Capacity": 120,
+      "Available_Capacity": 10,
+      "Cluster_id": "cbde9281-03de-464d-a6dc-50214a12d0d1",
+      "Cluster_type": "Cluster",
+      "device_typ": "HVAC",
+      "VPP_id": "d4226089-42d0-4ca0-8e15-34188e0722c1"
     },
     {
       "device_id": "7f662ba9-64d3-45b7-b02c-a0b33f85d252",
@@ -16,7 +23,14 @@
       "location": "barcelona",
       "osb_id": "0948dd41-9983-49a1-82d9-e5f623e4ad72",
       "account_id": "d01f13d1-6266-45b0-a24b-ff287c90e6e2",
-      "OpenADR_ID": "00:00:00:00:00:00:00:00:00:02"
+      "OpenADR_ID": "00:00:00:00:00:00:00:00:00:02",
+      "Device_type": "Storage",
+      "Max_Capacity": 120,
+      "Available_Capacity": 10,
+      "Cluster_id": "cbde9281-03de-464d-a6dc-50214a12d0d2",
+      "Cluster_type": "Cluster",
+      "device_typ": "HVAC",
+      "VPP_id": "d4226089-42d0-4ca0-8e15-34188e0722c2"
     },
     {
       "device_id": "7f662ba9-64d3-45b7-b02c-a0b33f85d253",
@@ -25,16 +39,23 @@
       "location": "athens",
       "osb_id": "0948dd41-9983-49a1-82d9-e5f623e4ad73",
       "account_id": "d01f13d1-6266-45b0-a24b-ff287c90e6e3",
-      "OpenADR_ID": "00:00:00:00:00:00:00:00:00:03"
+      "OpenADR_ID": "00:00:00:00:00:00:00:00:00:03",
+      "Device_type": "Demand",
+      "Max_Capacity": 120,
+      "Available_Capacity": 10,
+      "Cluster_id": "cbde9281-03de-464d-a6dc-50214a12d0d3",
+      "Cluster_type": "Cluster",
+      "device_typ": "HVAC",
+      "VPP_id": "d4226089-42d0-4ca0-8e15-34188e0722c3"
     }
   ],
   "flexibility": [
     {
       "flexibility_id": "e60707f9-2eb7-4404-a373-7e87623e4a88",
-      "sender": "string",
-      "recipient": "string",
-      "asset_id": "string",
-      "device_type": "string",
+      "sender": "4481b66f-2ce3-4952-abf4-fbf9aec0e4b9",
+      "recipient": "003f2f21-06d2-4b5f-b8d8-bde8b44b6635",
+      "asset_id": "ef7cbed7-eba8-4b96-807c-5ced16111067",
+      "device_type": "Lights",
       "timestamp": "2019-06-21T13:42:59.823Z",
       "devices": "string",
       "schedule": [
