@@ -62,7 +62,7 @@
     "asset_ID": {
       "type": "uuid"
     },
-    "type": {
+    "contract_type": {
       "type": "string",
       "regex": "^(contract|something|something)$"
     },

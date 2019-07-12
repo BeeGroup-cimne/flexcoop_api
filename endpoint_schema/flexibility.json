@@ -20,7 +20,7 @@
       "type": "uuid",
       "minlength": 36,
       "maxlength": 36,
-      "required:": true
+      "required": true
     },
     "sender": {
       "type": "string",
