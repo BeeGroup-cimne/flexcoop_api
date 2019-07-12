@@ -33,14 +33,14 @@
     },
     "agr_id": {
       "type": "uuid",
-      "minlength": 1,
-      "maxlength": 64,
+      "minlength": 36,
+      "maxlength": 36,
       "required": true
     },
     "prosumer_id": {
       "type": "uuid",
-      "minlength": 1,
-      "maxlength": 64,
+      "minlength": 36,
+      "maxlength": 36,
       "required": true
     },
     "details": {

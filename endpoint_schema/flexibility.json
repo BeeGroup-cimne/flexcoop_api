@@ -23,28 +23,26 @@
       "required": true
     },
     "sender": {
-      "type": "string",
-      "minlength": 1,
-      "maxlength": 64,
+      "type": "uuid",
+      "minlength": 36,
+      "maxlength": 36,
       "required": true
     },
     "recipient": {
-      "type": "string",
-      "minlength": 1,
-      "maxlength": 64,
+      "type": "uuid",
+      "minlength": 36,
+      "maxlength": 36,
       "required": true
     },
     "asset_id": {
-      "type": "string",
-      "minlength": 1,
-      "maxlength": 64,
+      "type": "uuid",
+      "minlength": 36,
+      "maxlength": 36,
       "required": true
     },
     "device_type": {
       "type": "string",
-      "minlength": 1,
-      "maxlength": 64,
-      "required": true
+      "regex": "^(HVAC|Lights|DHW|PV|EV)$"
     },
     "timestamp": {
       "type": "datetime",
