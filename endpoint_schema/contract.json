@@ -18,9 +18,7 @@
   ],
   "schema": {
     "contract_id": {
-      "type": "string",
-      "format": "uuid",
-      "regex": "[a-f0-9]{8}-?[a-f0-9]{4}-?4[a-f0-9]{3}-?[89ab][a-f0-9]{3}-?[a-f0-9]{12}",
+      "type": "uuid",
       "minlength": 36,
       "maxlength": 36,
       "required": true
@@ -64,7 +62,7 @@
     "asset_ID": {
       "type": "uuid"
     },
-    "type": {
+    "contract_type": {
       "type": "string",
       "regex": "^(contract|something|something)$"
     },
@@ -74,7 +72,7 @@
     "parameters": {
       "type": "list",
       "schema": {
-        "type"
+        "type": "string"
       }
     }
 
