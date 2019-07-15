@@ -59,7 +59,7 @@
       "regex": "^(active|canceled|hold)$",
       "required": true
     },
-    "asset_ID": {
+    "asset_id": {
       "type": "uuid"
     },
     "contract_type": {
