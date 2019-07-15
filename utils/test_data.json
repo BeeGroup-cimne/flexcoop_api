@@ -7,14 +7,14 @@
       "location": "berlin",
       "osb_id": "0948dd41-9983-49a1-82d9-e5f623e4ad71",
       "account_id": "d01f13d1-6266-45b0-a24b-ff287c90e6e1",
-      "OpenADR_ID": "00:00:00:00:00:00:00:00:00:01",
-      "Device_type": "Generation",
-      "Max_Capacity": 120,
-      "Available_Capacity": 10,
-      "Cluster_id": "cbde9281-03de-464d-a6dc-50214a12d0d1",
-      "Cluster_type": "Cluster",
-      "device_typ": "HVAC",
-      "VPP_id": "d4226089-42d0-4ca0-8e15-34188e0722c1"
+      "openadr_id": "00:00:00:00:00:00:00:00:00:01",
+      "device_type": "Generation",
+      "max_capacity": 120,
+      "available_capacity": 10,
+      "cluster_id": "cbde9281-03de-464d-a6dc-50214a12d0d1",
+      "cluster_type": "Cluster",
+      "device_class": "HVAC",
+      "vpp_id": "d4226089-42d0-4ca0-8e15-34188e0722c1"
     },
     {
       "device_id": "7f662ba9-64d3-45b7-b02c-a0b33f85d252",
@@ -23,14 +23,14 @@
       "location": "barcelona",
       "osb_id": "0948dd41-9983-49a1-82d9-e5f623e4ad72",
       "account_id": "d01f13d1-6266-45b0-a24b-ff287c90e6e2",
-      "OpenADR_ID": "00:00:00:00:00:00:00:00:00:02",
-      "Device_type": "Storage",
-      "Max_Capacity": 120,
-      "Available_Capacity": 10,
-      "Cluster_id": "cbde9281-03de-464d-a6dc-50214a12d0d2",
-      "Cluster_type": "Cluster",
-      "device_typ": "HVAC",
-      "VPP_id": "d4226089-42d0-4ca0-8e15-34188e0722c2"
+      "openadr_id": "00:00:00:00:00:00:00:00:00:02",
+      "device_type": "Storage",
+      "max_capacity": 120,
+      "available_capacity": 10,
+      "cluster_id": "cbde9281-03de-464d-a6dc-50214a12d0d2",
+      "cluster_type": "Cluster",
+      "device_class": "HVAC",
+      "vpp_id": "d4226089-42d0-4ca0-8e15-34188e0722c2"
     },
     {
       "device_id": "7f662ba9-64d3-45b7-b02c-a0b33f85d253",
@@ -39,14 +39,14 @@
       "location": "athens",
       "osb_id": "0948dd41-9983-49a1-82d9-e5f623e4ad73",
       "account_id": "d01f13d1-6266-45b0-a24b-ff287c90e6e3",
-      "OpenADR_ID": "00:00:00:00:00:00:00:00:00:03",
-      "Device_type": "Demand",
-      "Max_Capacity": 120,
-      "Available_Capacity": 10,
-      "Cluster_id": "cbde9281-03de-464d-a6dc-50214a12d0d3",
-      "Cluster_type": "Cluster",
-      "device_typ": "HVAC",
-      "VPP_id": "d4226089-42d0-4ca0-8e15-34188e0722c3"
+      "openadr_id": "00:00:00:00:00:00:00:00:00:03",
+      "device_type": "Demand",
+      "max_capacity": 120,
+      "available_capacity": 10,
+      "cluster_id": "cbde9281-03de-464d-a6dc-50214a12d0d3",
+      "cluster_type": "Cluster",
+      "device_class": "HVAC",
+      "vpp_id": "d4226089-42d0-4ca0-8e15-34188e0722c3"
     }
   ],
   "flexibility": [
@@ -85,9 +85,15 @@
         "flexibility_id": "d139a0e4-2a92-4a78-a340-3d6f8429a16b"
       },
       "status": "active",
-      "asset_ID": "ee1cf130-27a0-4d7e-9b7e-d074e4f80f99",
+      "asset_id": "ee1cf130-27a0-4d7e-9b7e-d074e4f80f99",
       "contract_type": "contract",
       "acknowledgement": "yes"
+    }
+  ],
+  "vpp": [
+    {
+      "vpp_id": "77d9a9a9-acf1-4a13-ab05-02905d97d125",
+      "agr_id": "0d805bca-51fc-4199-8079-f06c01038b5e"
     }
   ]
 }
