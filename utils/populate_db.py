@@ -1,10 +1,53 @@
 from requests import Session
 import json
+import argparse
+import configparser
+import os, sys
 
-base_url = 'http://localhost:8080/1/'
-token = 'eyJhbGciOiJSUzI1NiIsInR5cCIgOiAiSldUIiwia2lkIiA6ICJ2Ql80R2RaVXVaYWFvd0xDa08zQVBSYnhDUkNXMDY3Y3p2NEgwQk1wNWxZIn0.eyJqdGkiOiJmZTg5YzQwNS0wYmFlLTQ2NDQtYWJjMS0yMjI2NDFjNzIwY2QiLCJleHAiOjE1NjMyMzAyNzEsIm5iZiI6MCwiaWF0IjoxNTYzMTk0MjcxLCJpc3MiOiJodHRwczovL29hdXRoMi1mbGV4Y29vcC1rZXljbG9hay5va2QuZm9rdXMuZnJhdW5ob2Zlci5kZS9hdXRoL3JlYWxtcy9mbGV4Y29vcCIsImF1ZCI6ImJhY2tlbmQtbW9ja3VwIiwic3ViIjoiYTdhNWY3MGUtZTA1Yy00OWJiLThiNmQtOTkxYzQyOTc0NDkzIiwidHlwIjoiQmVhcmVyIiwiYXpwIjoiYmFja2VuZC1tb2NrdXAiLCJhdXRoX3RpbWUiOjE1NjMxOTQyNzEsInNlc3Npb25fc3RhdGUiOiJhNjVlNDVlNC0wZmE1LTQ3MWQtYTBiMi04NzM2MzU3NzUwZTkiLCJhY3IiOiIxIiwiYWxsb3dlZC1vcmlnaW5zIjpbImh0dHA6Ly9sb2NhbGhvc3Q6ODA4MC8qIiwiaHR0cHM6Ly9mbGV4Y29vcC1iYWNrZW5kLW1vY2t1cC5va2QuZm9rdXMuZnJhdW5ob2Zlci5kZS8qIl0sInJlc291cmNlX2FjY2VzcyI6e30sInNjb3BlIjoib3BlbmlkIiwicm9sZSI6InByb3N1bWVyIn0.UNc08vOUHWdVT_23XOeQaTMvgRCoPVF8wqdEVz0gMtLLRgBlwevWSdtUIqu8HzbngX7MRHEXhVBZddmikClPyUm-ySLMPXcU_KtOpzJH9jDY8wGGid9n24mayhRPWBaopUsp4fiWePfU0ocEkOvIrVw1d1lXvLwhvE1lu17R_r0BTpv35b6yW_ZjxZWeqx5XLEJw0zXzPl4vscn28og0-A2_fJr51vBXiIQGe0kbB34S1CGsNyemNuklhmO9cU_A15XqFwTT0og8onHVGcM1_BbKM4plNnalLL-wGuNw8C_UH-NBWnjv2XBEu-dQ_vOBhJpTVarP_26iPOtuwgPcTA'
+# handle cmd arguments
+parser = argparse.ArgumentParser(description="Submit test data to the FLEXCoop API. All options can also be defined "
+                                             "in the configuration ini file.")
+parser.add_argument('-c', '--config', help='config file to use. (default: populate_db.ini)',
+                    default='populate_db.ini')
+
+parser.add_argument('-d', '--delete', help='delete database entries before creating new ones. (default: false)',
+                    default=False)
+parser.add_argument('-u', '--url', help='base URL for API calls')
+parser.add_argument('-t', '--token', help='OAuth2 API Token')
+args = parser.parse_args()
+
+# load config
+if not os.path.exists(args.config):
+    raise IOError("Error: config file not found")
+
+
+config = configparser.ConfigParser()
+config.read(args.config)
+
+if args.url:
+    base_url = args.url
+elif config.has_option('DEFAULT', 'base_url'):
+    base_url = config['DEFAULT']['base_url']
+else:
+    print("No base URL found. User -u or set base_url in the ini file")
+    sys.exit(-1)
+
+if args.token:
+    token = args.token
+elif config.has_option('DEFAULT', 'token'):
+    token = config['DEFAULT']['token']
+else:
+    print("No token found. Use -t or set token in the ini file")
+
+if args.delete:
+    delete_first = True
+elif config.has_option('DEFAULT', 'delete'):
+    delete_first = config['DEFAULT']['delete']
+else:
+    delete_first = False
+
 headers = {'accept': 'application/xml', 'Authorization': token, "Content-Type": "application/json"}
-delete_first = True
+
 
 session = Session()
 session.headers = headers
