@@ -34,7 +34,7 @@
       "required": true
     },
     "location": {
-      "type": "string",
+      "type": "point",
       "minlength": 1,
       "maxlength": 36,
       "required": true
