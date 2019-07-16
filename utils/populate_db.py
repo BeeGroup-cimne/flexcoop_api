@@ -12,6 +12,7 @@ parser.add_argument('-c', '--config', help='config file to use. (default: popula
 
 parser.add_argument('-d', '--delete', help='delete database entries before creating new ones. (default: false)',
                     default=False)
+parser.add_argument('-j', '--json', help='JSON file with test data. (default: test_data.json)')
 parser.add_argument('-u', '--url', help='base URL for API calls')
 parser.add_argument('-t', '--token', help='OAuth2 API Token')
 args = parser.parse_args()
@@ -38,6 +39,7 @@ elif config.has_option('DEFAULT', 'token'):
     token = config['DEFAULT']['token']
 else:
     print("No token found. Use -t or set token in the ini file")
+    sys.exit(-1)
 
 if args.delete:
     delete_first = True
@@ -46,16 +48,21 @@ elif config.has_option('DEFAULT', 'delete'):
 else:
     delete_first = False
 
+if args.json:
+    input_data = args.json
+elif config.has_option('DEFAULT', 'json'):
+    input_data = config['DEFAULT']['json']
+else:
+    input_data = 'test_data.json'
+
 headers = {'accept': 'application/xml', 'Authorization': token, "Content-Type": "application/json"}
 
 
 session = Session()
 session.headers = headers
 
-with open("test_data.json") as json_file:
-    # print(json_file)
+with open(input_data) as json_file:
     json_data = json.load(json_file)
-    # print(json_data)
 
 
 for domain in json_data:
@@ -63,16 +70,13 @@ for domain in json_data:
         session.delete(base_url + domain)
 
     for item in json_data[domain]:
-        # print(item)
         r = session.post(base_url + domain, data=json.dumps(item))
-        # print(session.headers)
         print("HTTP status code: " + str(r.status_code) + " while connecting to " + base_url + domain)
         if r.status_code == 201:
             print(json.dumps(item))
         else:
             print(r.text)
         print('=================================================')
-        # print(r.content)
 
 
 
