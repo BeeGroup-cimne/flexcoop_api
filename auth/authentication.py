@@ -73,13 +73,18 @@ class JWTokenAuth(TokenAuth):
             return False
         if issuer != key['iss']:
             return False
-        self.set_request_auth_value(flexId)
+
+        # Disabled 'User-Restricted Resource Access'
+        # See middleware wiki: https://gitlab.fokus.fraunhofer.de/FlexCoop/Documentation/wikis/middleware_info
+        #
+        # self.set_request_auth_value(flexId)
+
         # TODO: define what to do with the roles
         if role == "prosumer":
             pass
-        elif role == "aggragator":
+        elif role == "aggregator":
             pass
-        elif role == "sevice":
+        elif role == "service":
             pass
         return True
 

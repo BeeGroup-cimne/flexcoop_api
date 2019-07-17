@@ -15,4 +15,7 @@ OAUTH_PROVIDERS = [
     "https://flexcoop-auth-server.okd.fokus.fraunhofer.de",
     "https://oauth2-flexcoop-keycloak.okd.fokus.fraunhofer.de/auth/realms/flexcoop"
 ]
-AUTH_FIELD = "account"
+# Disabled 'User-Restricted Resource Access'
+# See middleware wiki: https://gitlab.fokus.fraunhofer.de/FlexCoop/Documentation/wikis/middleware_info
+#
+# AUTH_FIELD = "account"
