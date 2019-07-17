@@ -57,7 +57,7 @@
       "asset_id": "ef7cbed7-eba8-4b96-807c-5ced16111067",
       "device_type": "Lights",
       "timestamp": "2019-06-21T13:42:59.823Z",
-      "devices": "string",
+      "device": "d481651c-1a16-4f00-80f1-c48f55ca3022",
       "schedule": [
         {
           "timestamp": "2019-06-21T13:42:59.823Z",
