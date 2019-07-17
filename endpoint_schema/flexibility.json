@@ -51,10 +51,10 @@
       "required": true,
       "unique": true
     },
-    "devices": {
-      "type": "string",
-      "minlength": 1,
-      "maxlength": 64,
+    "device": {
+      "type": "uuid",
+      "minlength": 36,
+      "maxlength": 36,
       "required": true
     },
     "schedule": {
