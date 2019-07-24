@@ -5,8 +5,8 @@ from auth.authentication import JWTokenAuth
 
 from datatypes import UUIDEncoder, UUIDValidator
 
-from modules.der_registry.der_registry import pre_der_get_callback
-from modules.marketplace.marketplace import pre_contract_get_callback
+from modules.der_registry.der_registry import pre_der_GET_callback, pre_der_POST_callback
+from modules.marketplace.marketplace import pre_contract_GET_callback
 from os import environ
 
 try:
@@ -56,7 +56,8 @@ swaggerui_blueprint = get_swaggerui_blueprint(
     })
 
 app.register_blueprint(swaggerui_blueprint, url_prefix=SWAGGER_URL)
-app.on_pre_GET_der += pre_der_get_callback
-app.on_pre_Get_contract += pre_contract_get_callback
+app.on_pre_GET_der += pre_der_GET_callback
+app.on_pre_POST_der += pre_der_POST_callback
+app.on_pre_GET_contract += pre_contract_GET_callback
 
 app.run(port=int(HOST_PORT), host=("0.0.0.0"))

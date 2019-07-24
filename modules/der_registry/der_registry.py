@@ -30,7 +30,7 @@ def get_sub_and_role_from_request(request):
     return sub, role
 
 
-def pre_der_get_callback(request, lookup):
+def pre_der_GET_callback(request, lookup):
     print('A GET request on a DER  endpoint has just been received!')
     print(request)
 
@@ -46,6 +46,6 @@ def pre_der_get_callback(request, lookup):
     # print(lookup)
 
 
-def pre_der_post_callback(request, lookup):
+def pre_der_POST_callback(request):
     print('A POST request on a DER  endpoint has just been received!')
     print(request)
