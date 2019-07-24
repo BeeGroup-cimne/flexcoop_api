@@ -23,7 +23,7 @@
       "maxlength": 36,
       "required": true
     },
-    "status": {
+    "state": {
       "type": "string",
       "regex": "^(on|off)$",
       "required": true
