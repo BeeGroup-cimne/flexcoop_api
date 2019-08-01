@@ -37,13 +37,12 @@ def pre_der_GET_callback(request, lookup):
     sub, role = get_sub_and_role_from_request(request)
 
     if role is None:
+        print('unknown role, query will produce empty result')
         lookup["account_id"] = 'undefined'
 
     elif role == 'prosumer':
+        print('limiting results to account_id')
         lookup["account_id"] = sub
-
-    # lookup["device_class"] = {'$eq': 'HVAC'}
-    # print(lookup)
 
 
 def pre_der_POST_callback(request):
