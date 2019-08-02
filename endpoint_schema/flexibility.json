@@ -26,23 +26,24 @@
       "type": "uuid",
       "minlength": 36,
       "maxlength": 36,
-      "required": true
+      "required": false
     },
     "recipient": {
       "type": "uuid",
       "minlength": 36,
       "maxlength": 36,
-      "required": true
+      "required": false
     },
     "asset_id": {
       "type": "uuid",
       "minlength": 36,
       "maxlength": 36,
-      "required": true
+      "required": false
     },
     "device_type": {
       "type": "string",
-      "regex": "^(HVAC|Lights|DHW|PV|EV)$"
+      "regex": "^(HVAC|Lights|DHW|PV|EV)$",
+      "required": false
     },
     "timestamp": {
       "type": "datetime",
