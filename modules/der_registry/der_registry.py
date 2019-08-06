@@ -48,3 +48,24 @@ def pre_der_GET_callback(request, lookup):
 def pre_der_POST_callback(request):
     print('A POST request on a DER  endpoint has just been received!')
     print(request)
+
+
+
+def pre_flexibility_GET_callback(request, lookup):
+    print('A GET request on a Flexibility  endpoint has just been received!')
+    print(request)
+
+    sub, role = get_sub_and_role_from_request(request)
+
+    if role is None:
+        print('unknown role, query will produce empty result')
+        lookup["account_id"] = 'undefined'
+
+    elif role == 'prosumer':
+        print('limiting results to account_id')
+        lookup["account_id"] = sub
+
+
+def pre_flexibility_POST_callback(request):
+    print('A POST request on a Flexibility  endpoint has just been received!')
+    print(request)
