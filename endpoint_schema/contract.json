@@ -71,7 +71,8 @@
       "regex": "^(contract|something|something)$"
     },
     "acknowledgement": {
-      "type": "^(undefined|accepted|rejected)$",
+      "type": "string",
+      "regex": "^(undefined|accepted|rejected)$",
       "required": true
     },
     "parameters": {
