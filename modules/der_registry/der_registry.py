@@ -1,6 +1,7 @@
 
 from jwt import JWT
 from jwt.exceptions import JWTDecodeError
+import flask
 
 jwt = JWT()
 
@@ -37,8 +38,8 @@ def pre_der_GET_callback(request, lookup):
     sub, role = get_sub_and_role_from_request(request)
 
     if role is None:
-        print('unknown role, query will produce empty result')
-        lookup["account_id"] = 'undefined'
+        print('unknown role')
+        flask.abort(403)
 
     elif role == 'prosumer':
         print('limiting results to account_id')
@@ -47,7 +48,11 @@ def pre_der_GET_callback(request, lookup):
 
 def pre_der_POST_callback(request):
     print('A POST request on a DER  endpoint has just been received!')
-    print(request)
+
+    sub, role = get_sub_and_role_from_request(request)
+    if role != 'prosumer':
+        print('role != prosumer')
+        flask.abort(403)
 
 
 
@@ -58,8 +63,8 @@ def pre_flexibility_GET_callback(request, lookup):
     sub, role = get_sub_and_role_from_request(request)
 
     if role is None:
-        print('unknown role, query will produce empty result')
-        lookup["account_id"] = 'undefined'
+        print('unknown role')
+        flask.abort(403)
 
     elif role == 'prosumer':
         print('limiting results to account_id')
