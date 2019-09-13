@@ -3,7 +3,7 @@ from eve_swagger import swagger
 from flask_swagger_ui import get_swaggerui_blueprint
 from documentation import *
 from auth.authentication import JWTokenAuth
-
+from flexcoop_blueprints import flexcoop_blueprints, set_documentation
 
 app = Eve(auth=JWTokenAuth)
 # we have to call init_documentation to set the "SWAGGER_INFO" config variable before the registration of the blueprint
@@ -26,5 +26,7 @@ config={ # Swagger UI config overrides
 
 app.register_blueprint(swaggerui_blueprint, url_prefix=SWAGGER_URL)
 
+app.register_blueprint(flexcoop_blueprints, url_prefix="/"+app.config['API_VERSION'])
+set_documentation()
 
 app.run()
