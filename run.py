@@ -29,4 +29,5 @@ app.register_blueprint(swaggerui_blueprint, url_prefix=SWAGGER_URL)
 app.register_blueprint(flexcoop_blueprints, url_prefix="/"+app.config['API_VERSION'])
 set_documentation()
 
-app.run()
+if __name__ == '__main__':
+    app.run()
