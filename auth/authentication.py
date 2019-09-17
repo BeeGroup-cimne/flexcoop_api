@@ -1,6 +1,7 @@
 import requests
 from eve.auth import TokenAuth
 
+from flask import current_app as app
 from settings import OAUTH_PROVIDERS
 
 from jwt import (
@@ -50,39 +51,68 @@ class KeyCache(object):
 
 class JWTokenAuth(TokenAuth):
     def check_auth(self, token, allowed_roles, resource, method):
-        #konami code:
-        #TODO: Remove when release
-        if token == "UUDDLRLRBA":
-            return True
-        jwt = JWT()
-        keys_cache = KeyCache(OAUTH_PROVIDERS, timedelta(minutes=10))
-        keys = keys_cache.get_keys()
-        user_info = None
-        key=None
-        for key in keys:
-            try:
-                user_info = jwt.decode(token, key['key'])
-                key=key
-                break
-            except Exception as e:
-                pass
-        if not user_info:
-            return False
-        issuer = user_info['iss']
-        expiration = datetime.utcfromtimestamp(user_info['exp'])
-        role = user_info['role']
-        flexId = user_info['sub']
-        now_time = datetime.utcnow()
-        if expiration < now_time:
-            return False
-        if issuer != key['iss']:
-            return False
+        #TODO: konami code!! Remove when release
+        #TODO:____________KONAMI CODE START______________________
+        flexId = None
+        if token == "UUDDLRLRBA1":
+            role = "prosumer"
+            flexId = "1111111-1111-1111-1111-111111111111"
+            issuer = "http://217.182.160.171:9042"
+        if token == "UUDDLRLRBA11":
+            role = "prosumer"
+            flexId = "1111111-1111-1111-1111-111111111112"
+            issuer = "http://217.182.160.171:9043"
+        if token == "UUDDLRLRBA2":
+            role = "aggregator"
+            flexId = "2222222-2222-2222-2222-222222222222"
+            issuer = "http://217.182.160.171:9043"
+        if token == "UUDDLRLRBA3":
+            role = "service"
+            flexId = "3333333-3333-3333-3333-333333333333"
+            issuer = ""
+        # TODO:____________KONAMI CODE END______________________
+        if flexId is None:
+            jwt = JWT()
+            keys_cache = KeyCache(OAUTH_PROVIDERS, timedelta(minutes=10))
+            keys = keys_cache.get_keys()
+            user_info = None
+            key=None
+            for key in keys:
+                try:
+                    user_info = jwt.decode(token, key['key'])
+                    key=key
+                    break
+                except Exception as e:
+                    pass
+            if not user_info:
+                return False
+            issuer = user_info['iss']
+            expiration = datetime.utcfromtimestamp(user_info['exp'])
+            role = user_info['role']
+            flexId = user_info['sub']
+            now_time = datetime.utcnow()
+            if expiration < now_time:
+                return False
+            if issuer != key['iss']:
+                return False
+        org_id = issuer
+
         # TODO: define what to do with the roles
         if role == "prosumer":
-            self.set_request_auth_value(flexId)
-        elif role == "aggragator":
-            pass
-        elif role == "sevice":
-            pass
-        return True
+            self.set_request_auth_value([flexId, org_id])
+            return True
+        elif role == "aggregator":
+            try:
+                #user = app.data.driver.db['aggregators'].find_one({'account': flexId})
+                db_resource = app.config['DOMAIN'][resource]
+                if db_resource['datasource']['filter'] is None:
+                    db_resource['datasource']['filter'] = {"{}.1".format(app.config['AUTH_FIELD']): org_id}
+                else:
+                    db_resource['datasource']['filter'].update({"{}.1".format(app.config['AUTH_FIELD']): org_id})
+                return True
+            except Exception as e:
+                return False
+        elif role == "service":
+            return True
+        return False
 
