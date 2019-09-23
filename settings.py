@@ -22,4 +22,4 @@ OAUTH_PROVIDERS = [
 # Disabled 'User-Restricted Resource Access'
 # See middleware wiki: https://gitlab.fokus.fraunhofer.de/FlexCoop/Documentation/wikis/middleware_info
 #
-# AUTH_FIELD = "account"
+AUTH_FIELD = "account"

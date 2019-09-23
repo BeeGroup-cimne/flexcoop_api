@@ -32,7 +32,7 @@ class KeyCache(object):
                     key_list = requests.get(key_url).json()
                     for key in key_list['keys']:
                         self.keys.append({"key": jwk_from_dict(key), "iss": provider, "kid": key['kid']})
-                except:
+                except:  # todo  Handle only the coresponding exection type
                     self.keys.append({"key": None, "iss": provider, "kid": None})
             return self.keys
 
