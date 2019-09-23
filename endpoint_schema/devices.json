@@ -1,27 +1,75 @@
 {
-    "item_title": "devices",
-    "resource_methods": ["GET"],
-    "schema": {
-        "sender": {"type": "string", "required": true, "minlength": 3, "maxlength": 100},
-        "recipient": {"type": "string", "required": true, "minlength": 3, "maxlength": 100},
-        "asset_id": {"type": "string", "required": true, "minlength": 3, "maxlength": 100},
-        "type": {"type": "string", "required": true, "minlength": 3, "maxlength": 100},
-        "timestamp": {"type": "string", "required": true, "minlength": 25, "maxlength": 25},
-        "city": {"type": "string", "required": true, "minlength": 3, "maxlength": 100},
-        "building_type": {"type": "string", "required": true, "minlength": 3, "maxlength": 100},
-        "devices": {
-            "type": "list",
-            "required": true,
-            "schema": {
-                "type": "dict",
-                "require_all": true,
-                "schema": {
-                    "device_id": {"type": "integer", "min": 0},
-                    "device_type": {"type": "string", "minlength": 3, "maxlength": 100},
-                    "device_name": {"type": "string", "minlength": 3, "maxlength": 100}
-                }
-            }
+  "item_title": "devices",
+  "resource_methods": [
+    "GET"
+  ],
+  "schema": {
+    "sender": {
+      "type": "string",
+      "required": true,
+      "minlength": 3,
+      "maxlength": 100
+    },
+    "recipient": {
+      "type": "string",
+      "required": true,
+      "minlength": 3,
+      "maxlength": 100
+    },
+    "asset_id": {
+      "type": "string",
+      "required": true,
+      "minlength": 3,
+      "maxlength": 100
+    },
+    "type": {
+      "type": "string",
+      "required": true,
+      "minlength": 3,
+      "maxlength": 100
+    },
+    "timestamp": {
+      "type": "string",
+      "required": true,
+      "minlength": 25,
+      "maxlength": 25
+    },
+    "city": {
+      "type": "string",
+      "required": true,
+      "minlength": 3,
+      "maxlength": 100
+    },
+    "building_type": {
+      "type": "string",
+      "required": true,
+      "minlength": 3,
+      "maxlength": 100
+    },
+    "devices": {
+      "type": "list",
+      "required": true,
+      "schema": {
+        "type": "dict",
+        "require_all": true,
+        "schema": {
+          "device_id": {
+            "type": "integer",
+            "min": 0
+          },
+          "device_type": {
+            "type": "string",
+            "minlength": 3,
+            "maxlength": 100
+          },
+          "device_name": {
+            "type": "string",
+            "minlength": 3,
+            "maxlength": 100
+          }
         }
+      }
     }
+  }
 }
 
