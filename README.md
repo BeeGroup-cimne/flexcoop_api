@@ -96,5 +96,10 @@ To install or build the repository in your own server, follow this steps:
    export MONGO_DBNAME='<mongo_database>'
    ```
    (you may want to store this e.g. in a set_env.sh which you can source every time you need it)
+   
+   To be able to run several components on a single computer, the host port can be specified by an optional environment variable: 
+   ```bash
+   export HOST_PORT=8081
+   ```
 4. run the server with `python run.py`
 

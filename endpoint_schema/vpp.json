@@ -28,6 +28,16 @@
       "minlength": 36,
       "maxlength": 36,
       "required": true
+    },
+    "der_ids": {
+      "type": "list",
+      "required": true,
+      "schema": {
+         "type": "uuid",
+         "minlength": 36,
+         "maxlength": 36,
+         "required": true
+      }
     }
   }
 }

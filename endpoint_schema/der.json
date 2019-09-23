@@ -23,7 +23,7 @@
       "maxlength": 36,
       "required": true
     },
-    "status": {
+    "state": {
       "type": "string",
       "regex": "^(on|off)$",
       "required": true
@@ -55,11 +55,17 @@
       "type": "string",
       "minlength": 29,
       "maxlength": 29,
-      "regex": "^([0-9a-fA-F][0-9a-fA-F]:){9}([0-9a-fA-F][0-9a-fA-F])$"
+      "regex": "^([0-9a-fA-F][0-9a-fA-F]:){9}([0-9a-fA-F][0-9a-fA-F])$",
+      "required": true
     },
     "device_type": {
       "type": "string",
       "regex": "^(Demand|Generation|Storage)$",
+      "required": true
+    },
+    "device_class": {
+      "type": "string",
+      "regex": "^(HVAC|Lights|DHW|PV|EV)$",
       "required": true
     },
     "max_capacity": {
@@ -74,22 +80,18 @@
       "type": "uuid",
       "minlength": 36,
       "maxlength": 36,
-      "required": true
+      "required": false
     },
     "cluster_type": {
       "type": "string",
       "regex": "^(Cluster|TBD)$",
-      "required": true
-    },
-    "device_class": {
-      "type": "string",
-      "regex": "^(HVAC|Lights|DHW|PV|EV)$"
+      "required": false
     },
     "vpp_id": {
       "type": "uuid",
       "minlength": 36,
       "maxlength": 36,
-      "required": true
+      "required": false
     }
   }
 }

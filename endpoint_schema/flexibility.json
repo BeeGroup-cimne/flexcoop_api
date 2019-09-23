@@ -4,6 +4,7 @@
   "item_lookup_field": "flexibility_id",
   "cache_control": "max-age=10,must-revalidate",
   "cache_expires": 10,
+  "item_url": "regex(\"[a-f0-9]{8}-?[a-f0-9]{4}-?4[a-f0-9]{3}-?[89ab][a-f0-9]{3}-?[a-f0-9]{12}\")",
   "resource_methods": [
     "GET",
     "POST",
@@ -22,34 +23,40 @@
       "maxlength": 36,
       "required": true
     },
-    "sender": {
+    "account_id": {
       "type": "uuid",
       "minlength": 36,
       "maxlength": 36,
       "required": true
+    },
+    "sender": {
+      "type": "uuid",
+      "minlength": 36,
+      "maxlength": 36,
+      "required": false
     },
     "recipient": {
       "type": "uuid",
       "minlength": 36,
       "maxlength": 36,
-      "required": true
+      "required": false
     },
     "asset_id": {
       "type": "uuid",
       "minlength": 36,
       "maxlength": 36,
-      "required": true
+      "required": false
     },
     "device_type": {
       "type": "string",
-      "regex": "^(HVAC|Lights|DHW|PV|EV)$"
+      "regex": "^(HVAC|Lights|DHW|PV|EV)$",
+      "required": false
     },
     "timestamp": {
       "type": "datetime",
       "minlength": 1,
       "maxlength": 64,
-      "required": true,
-      "unique": true
+      "required": true
     },
     "device": {
       "type": "uuid",

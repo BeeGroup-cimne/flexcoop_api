@@ -40,8 +40,12 @@
     "prosumer_id": {
       "type": "uuid",
       "minlength": 36,
-      "maxlength": 36,
-      "required": true
+      "maxlength": 36
+    },
+    "template_id": {
+      "type": "uuid",
+      "minlength": 36,
+      "maxlength": 36
     },
     "details": {
       "type": "dict",
@@ -67,7 +71,9 @@
       "regex": "^(contract|something|something)$"
     },
     "acknowledgement": {
-      "type": "string"
+      "type": "string",
+      "regex": "^(undefined|accepted|rejected)$",
+      "required": true
     },
     "parameters": {
       "type": "list",

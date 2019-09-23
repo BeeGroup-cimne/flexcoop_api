@@ -2,7 +2,7 @@
   "der": [
     {
       "device_id": "7f662ba9-64d3-45b7-b02c-a0b33f85d251",
-      "status": "on",
+      "state": "on",
       "availability": "yes",
       "location": {"type":"Point","coordinates":[100.0,10.0]},
       "osb_id": "0948dd41-9983-49a1-82d9-e5f623e4ad71",
@@ -18,7 +18,7 @@
     },
     {
       "device_id": "7f662ba9-64d3-45b7-b02c-a0b33f85d252",
-      "status": "on",
+      "state": "on",
       "availability": "yes",
       "location": {"type":"Point","coordinates":[100.0,10.0]},
       "osb_id": "0948dd41-9983-49a1-82d9-e5f623e4ad72",
@@ -34,7 +34,7 @@
     },
     {
       "device_id": "7f662ba9-64d3-45b7-b02c-a0b33f85d253",
-      "status": "on",
+      "state": "on",
       "availability": "yes",
       "location": {"type":"Point","coordinates":[100.0,10.0]},
       "osb_id": "0948dd41-9983-49a1-82d9-e5f623e4ad73",
