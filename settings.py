@@ -1,11 +1,15 @@
 from endpoint_schema import DOMAIN
-from documentation import SWAGGER_INFO
 import os
 MONGO_HOST = os.environ['MONGO_HOST']
 MONGO_PORT = int(os.environ['MONGO_PORT'])
 MONGO_USERNAME = os.environ['MONGO_USERNAME']
 MONGO_PASSWORD = os.environ['MONGO_PASSWORD']
 MONGO_DBNAME = os.environ['MONGO_DBNAME']
+
+RENDERERS = [
+    'eve.render.JSONRenderer',
+    'eve.render.XMLRenderer'
+]
 
 DATE_FORMAT = "%Y-%m-%dT%H:%M:%S.%fZ"
 API_VERSION = "1"

@@ -1,14 +1,15 @@
-import requests
-from eve.auth import TokenAuth
-
-from settings import OAUTH_PROVIDERS
+from datetime import datetime, timedelta
 
 from jwt import (
     JWT,
-    jwk_from_dict,
-    jwk_from_pem,
+    jwk_from_dict
 )
-from datetime import datetime, timedelta
+import requests
+from eve.auth import TokenAuth
+from flask import current_app as app
+
+from settings import OAUTH_PROVIDERS
+
 
 class KeyCache(object):
     class _KeyCache(object):
@@ -50,41 +51,82 @@ class KeyCache(object):
 
 class JWTokenAuth(TokenAuth):
     def check_auth(self, token, allowed_roles, resource, method):
-        jwt = JWT()
-        keys_cache = KeyCache(OAUTH_PROVIDERS, timedelta(minutes=10))
-        keys = keys_cache.get_keys()
-        user_info = None
-        key=None
-        for key in keys:
-            try:
-                user_info = jwt.decode(token, key['key'])
-                key=key
-                break
-            except Exception as e:
-                pass
-        if not user_info:
-            return False
-        issuer = user_info['iss']
-        expiration = datetime.utcfromtimestamp(user_info['exp'])
-        role = user_info['role']
-        flexId = user_info['sub']
-        now_time = datetime.utcnow()
-        if expiration < now_time:
-            return False
-        if issuer != key['iss']:
-            return False
+        # TODO: konami code!! Remove when release
+        # TODO:____________KONAMI CODE START______________________
+        flex_id = None
+        issuer = None
+        role = None
+        if token == "UUDDLRLRBA1":
+            role = "prosumer"
+            flex_id = "1111111-1111-1111-1111-111111111111"
+            issuer = "http://217.182.160.171:9042"
+        if token == "UUDDLRLRBA11":
+            role = "prosumer"
+            flex_id = "1111111-1111-1111-1111-111111111112"
+            issuer = "http://217.182.160.171:9043"
+        if token == "UUDDLRLRBA2":
+            role = "aggregator"
+            flex_id = "2222222-2222-2222-2222-222222222222"
+            issuer = "http://217.182.160.171:9043"
+        if token == "UUDDLRLRBA3":
+            role = "service"
+            flex_id = "3333333-3333-3333-3333-333333333333"
+            issuer = ""
+        # TODO:____________KONAMI CODE END______________________
+        if flex_id is None:
+            jwt = JWT()
+            keys_cache = KeyCache(OAUTH_PROVIDERS, timedelta(minutes=10))
+            keys = keys_cache.get_keys()
+            user_info = None
+            key = None
+            for key in keys:
+                try:
+                    user_info = jwt.decode(token, key['key'])
+                    key = key
+                    break
+                except Exception as e:  # todo catch only corresponding exceptions here
+                    pass
+            if not user_info:
+                return False
+            else:
+                issuer = user_info['iss']
+                expiration = datetime.utcfromtimestamp(user_info['exp'])
+                role = user_info['role']
+                flex_id = user_info['sub']
+                now_time = datetime.utcnow()
+                if expiration < now_time:
+                    return False
+                if issuer != key['iss']:
+                    return False
+        if issuer is None:  # make sure the code above has catched all conditions
+            raise AuthenticationException("No issuer was detected, this should not happen")
+        else:
+            org_id = issuer  # todo why do we do this inited of using issuer?
 
-        # Disabled 'User-Restricted Resource Access'
-        # See middleware wiki: https://gitlab.fokus.fraunhofer.de/FlexCoop/Documentation/wikis/middleware_info
-        #
-        # self.set_request_auth_value(flexId)
+        if role is None:
+            raise AuthenticationException("No role was detected, this should not happen")
 
         # TODO: define what to do with the roles
         if role == "prosumer":
-            pass
+            self.set_request_auth_value([flex_id, org_id])
+            return True
         elif role == "aggregator":
-            pass
-        elif role == "service":
-            pass
-        return True
+            try:
+                # user = app.data.driver.db['aggregators'].find_one({'account': flex_id})
+                db_resource = app.config['DOMAIN'][resource]
+                if db_resource['datasource']['filter'] is None:
+                    db_resource['datasource']['filter'] = {"{}.1".format(app.config['AUTH_FIELD']): org_id}
+                else:
+                    db_resource['datasource']['filter'].update({"{}.1".format(app.config['AUTH_FIELD']): org_id})
+                return True
+            except Exception as e:
+                # return False
+                raise AuthenticationException(e)
 
+        elif role == "service":
+            return True
+        return False
+
+
+class AuthenticationException(Exception):
+    pass

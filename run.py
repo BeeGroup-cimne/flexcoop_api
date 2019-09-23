@@ -1,23 +1,26 @@
+from os import environ
+
 from eve import Eve
-from eve_swagger import swagger, add_documentation
+from eve_swagger import swagger
 from flask_swagger_ui import get_swaggerui_blueprint
-from auth.authentication import JWTokenAuth
 
+from documentation import *
+from flexcoop_blueprints import flexcoop_blueprints, set_documentation
 from datatypes import UUIDEncoder, UUIDValidator
-
+from auth.authentication import JWTokenAuth
 from modules.der_registry.der_registry import pre_der_GET_callback, pre_der_POST_callback, \
     pre_flexibility_GET_callback, pre_flexibility_POST_callback
 from modules.marketplace.marketplace import pre_contract_GET_callback
-from os import environ
-
-try:
-    HOST_PORT = environ['HOST_PORT']
-except KeyError:
-    HOST_PORT = 8080
 
 SWAGGER_URL = '/docs'
 API_URL = '/api-docs'
 app = Eve(auth=JWTokenAuth, json_encoder=UUIDEncoder, validator=UUIDValidator)
+
+# we have to call init_documentation to set the "SWAGGER_INFO" config variable before the registration of the blueprint
+init_documentation(app)
+
+# This is done to add extra information to the methods presented, as the "TOKEN" authentication
+set_methods_documentation(app)
 app.json_encoder = UUIDEncoder
 app.register_blueprint(swagger)
 SWAGGER_EXT = {
@@ -38,14 +41,14 @@ for resource, rd in app.config['DOMAIN'].items():
     if (rd.get('disable_documentation')
             or resource.endswith('_versions')):
         continue
-    methods = rd['resource_methods']
+    resource_methods = rd['resource_methods']
     url = '/%s' % rd['url']
-    for method in methods:
+    for method in resource_methods:
         add_documentation({'paths': {url: {method.lower(): {"security": [{"JWTAuth": []}]}}}})
-    methods = rd['item_methods']
+    item_methods = rd['item_methods']
     item_id = '%sId' % rd['item_title'].lower()
     url = '/%s/{%s}' % (rd['url'], item_id)
-    for method in methods:
+    for method in item_methods:
         add_documentation({'paths': {url: {method.lower(): {"security": [{"JWTAuth": []}]}}}})
 
 # required. See http://swagger.io/specification/#infoObject for details.
@@ -63,4 +66,12 @@ app.on_pre_GET_contract += pre_contract_GET_callback
 app.on_pre_GET_flexibility += pre_flexibility_GET_callback
 app.on_pre_POST_flexibility += pre_flexibility_POST_callback
 
-app.run(port=int(HOST_PORT), host=("0.0.0.0"))
+app.register_blueprint(flexcoop_blueprints, url_prefix="/" + app.config['API_VERSION'])
+set_documentation()
+
+if __name__ == '__main__':
+    try:
+        HOST_PORT = environ['HOST_PORT']
+    except KeyError:
+        HOST_PORT = 8080
+    app.run(port=int(HOST_PORT), host="0.0.0.0")
