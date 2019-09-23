@@ -1,9 +1,9 @@
-
 from jwt import JWT
 from jwt.exceptions import JWTDecodeError
 import flask
 
 jwt = JWT()
+
 
 def get_sub_and_role_from_request(request):
     sub = None
@@ -53,7 +53,6 @@ def pre_der_POST_callback(request):
     if role != 'prosumer':
         print('role != prosumer')
         flask.abort(403)
-
 
 
 def pre_flexibility_GET_callback(request, lookup):
