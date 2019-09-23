@@ -8,9 +8,7 @@ from documentation import *
 from flexcoop_blueprints import flexcoop_blueprints, set_documentation
 from datatypes import UUIDEncoder, UUIDValidator
 from auth.authentication import JWTokenAuth
-from modules.der_registry.der_registry import pre_der_GET_callback, pre_der_POST_callback, \
-    pre_flexibility_GET_callback, pre_flexibility_POST_callback
-from modules.marketplace.marketplace import pre_contract_GET_callback
+import modules
 
 SWAGGER_URL = '/docs'
 API_URL = '/api-docs'
@@ -19,38 +17,12 @@ app = Eve(auth=JWTokenAuth, json_encoder=UUIDEncoder, validator=UUIDValidator)
 # we have to call init_documentation to set the "SWAGGER_INFO" config variable before the registration of the blueprint
 init_documentation(app)
 
+app.register_blueprint(swagger)
+
 # This is done to add extra information to the methods presented, as the "TOKEN" authentication
 set_methods_documentation(app)
+
 app.json_encoder = UUIDEncoder
-app.register_blueprint(swagger)
-SWAGGER_EXT = {
-    'securityDefinitions': {
-        'JWTAuth': {
-            'type': 'apiKey',
-            'in': 'header',
-            'name': 'Authorization'
-        }
-    },
-    'security': [
-        {'JWTAuth': []}
-    ],
-}
-add_documentation(SWAGGER_EXT)
-
-for resource, rd in app.config['DOMAIN'].items():
-    if (rd.get('disable_documentation')
-            or resource.endswith('_versions')):
-        continue
-    resource_methods = rd['resource_methods']
-    url = '/%s' % rd['url']
-    for method in resource_methods:
-        add_documentation({'paths': {url: {method.lower(): {"security": [{"JWTAuth": []}]}}}})
-    item_methods = rd['item_methods']
-    item_id = '%sId' % rd['item_title'].lower()
-    url = '/%s/{%s}' % (rd['url'], item_id)
-    for method in item_methods:
-        add_documentation({'paths': {url: {method.lower(): {"security": [{"JWTAuth": []}]}}}})
-
 # required. See http://swagger.io/specification/#infoObject for details.
 swaggerui_blueprint = get_swaggerui_blueprint(
     SWAGGER_URL,  # Swagger UI static files will be mapped to '{SWAGGER_URL}/dist/'
@@ -60,14 +32,12 @@ swaggerui_blueprint = get_swaggerui_blueprint(
     })
 
 app.register_blueprint(swaggerui_blueprint, url_prefix=SWAGGER_URL)
-app.on_pre_GET_der += pre_der_GET_callback
-app.on_pre_POST_der += pre_der_POST_callback
-app.on_pre_GET_contract += pre_contract_GET_callback
-app.on_pre_GET_flexibility += pre_flexibility_GET_callback
-app.on_pre_POST_flexibility += pre_flexibility_POST_callback
 
 app.register_blueprint(flexcoop_blueprints, url_prefix="/" + app.config['API_VERSION'])
 set_documentation()
+
+modules.add_resource_hooks(app)
+
 
 if __name__ == '__main__':
     try:

@@ -47,3 +47,6 @@ def pre_contract_GET_callback(request, lookup):
         print('limiting results to agr_id')
         lookup["agr_id"] = sub
 
+
+def set_hooks(app):
+    app.on_pre_GET_contract += pre_contract_GET_callback

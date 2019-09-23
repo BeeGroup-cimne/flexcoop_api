@@ -17,7 +17,9 @@ TRANSPARENT_SCHEMA_RULES = True
 DEBUG = False
 OAUTH_PROVIDERS = [
     "https://flexcoop-auth-server.okd.fokus.fraunhofer.de",
-    "https://oauth2-flexcoop-keycloak.okd.fokus.fraunhofer.de/auth/realms/flexcoop"
+    "https://oauth2-flexcoop-keycloak.okd.fokus.fraunhofer.de/auth/realms/flexcoop",
+    'http://127.0.0.1:8000',
+    'http://217.182.160.171:9042'
 ]
 # Disabled 'User-Restricted Resource Access'
 # See middleware wiki: https://gitlab.fokus.fraunhofer.de/FlexCoop/Documentation/wikis/middleware_info

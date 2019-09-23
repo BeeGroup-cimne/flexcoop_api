@@ -58,19 +58,19 @@ class JWTokenAuth(TokenAuth):
         role = None
         if token == "UUDDLRLRBA1":
             role = "prosumer"
-            flex_id = "1111111-1111-1111-1111-111111111111"
+            flex_id = "git"
             issuer = "http://217.182.160.171:9042"
         if token == "UUDDLRLRBA11":
             role = "prosumer"
-            flex_id = "1111111-1111-1111-1111-111111111112"
+            flex_id = "11111111-1111-1111-1111-111111111112"
             issuer = "http://217.182.160.171:9043"
         if token == "UUDDLRLRBA2":
             role = "aggregator"
-            flex_id = "2222222-2222-2222-2222-222222222222"
+            flex_id = "22222222-2222-2222-2222-222222222222"
             issuer = "http://217.182.160.171:9043"
         if token == "UUDDLRLRBA3":
             role = "service"
-            flex_id = "3333333-3333-3333-3333-333333333333"
+            flex_id = "33333333-3333-3333-3333-333333333333"
             issuer = ""
         # TODO:____________KONAMI CODE END______________________
         if flex_id is None:

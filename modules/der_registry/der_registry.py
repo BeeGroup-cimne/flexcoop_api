@@ -73,3 +73,10 @@ def pre_flexibility_GET_callback(request, lookup):
 def pre_flexibility_POST_callback(request):
     print('A POST request on a Flexibility  endpoint has just been received!')
     print(request)
+
+
+def set_hooks(app):
+    app.on_pre_GET_der += pre_der_GET_callback
+    app.on_pre_POST_der += pre_der_POST_callback
+    app.on_pre_GET_flexibility += pre_flexibility_GET_callback
+    app.on_pre_POST_flexibility += pre_flexibility_POST_callback
