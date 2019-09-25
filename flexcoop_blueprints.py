@@ -42,6 +42,9 @@ def aggregate_collection(collection, resolution, operation):
         last_url = "{}?page={}".format(base_url, max_page)
     else:
         items = df
+        next_url = None
+        max_page = 1
+        last_url = None
 
     items = items.sort_index()
     hateoas = {
