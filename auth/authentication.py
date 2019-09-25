@@ -28,14 +28,20 @@ class KeyCache(object):
             self.last_time = datetime.utcnow()
             for provider in self.providers:
                 try:
-                    p_info = requests.get("{}/.well-known/openid-configuration/".format(provider)).json()
-                    key_url = p_info["jwks_uri"]
-                    key_list = requests.get(key_url).json()
-                    for key in key_list['keys']:
-                        self.keys.append({"key": jwk_from_dict(key), "iss": provider, "kid": key['kid']})
+                    p_info = requests.get("{}/.well-known/openid-configuration/".format(provider))
+                    if p_info.ok:
+                        p_info=p_info.json()
+                        key_url = p_info["jwks_uri"]
+                        key_list = requests.get(key_url).json()
+                        for key in key_list['keys']:
+                            self.keys.append({"key": jwk_from_dict(key), "iss": provider, "kid": key['kid']})
+                        print("Provider {} correctly configured".format(provider))
+                    else:
+                        print("Error connecting with the provider {}: provided returned {}".format(provider,p_info.reason))
                 except RequestException as e:
-                    print("Error connecting with the provider {}".format(provider))
-
+                    print("Error connecting with the provider {}: provider not found".format(provider))
+                except TypeError as e:
+                    print("Error connecting with the provider {}: incorrect format of provider key".format(provider))
             if not self.keys:
                 raise ProviderNotFoundException("No provider found")
             return self.keys
