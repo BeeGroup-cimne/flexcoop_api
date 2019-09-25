@@ -15,9 +15,9 @@ Additionally, if some components needs to be notified when some new data is post
 
 To generate the endpoints required for your component, you should follow these points:
 
-1. Generate the resource schema. [see doc](#1-generate-the-resource-schema-info)
+1. Generate the resource schema. [see doc](#1-generate-the-resource-schema)
 2. Generate the resource hooks. [see doc](#2-generate-the-resource-hooks)
-3. Deploy your resource to CIMNE's middleware. [see doc](#3-deploy-your-resource-to-CIMNE-middleware)
+3. Deploy your resource to CIMNE's middleware. [see doc](3-deploy-your-resource-to-cimne-middleware)
 
 ### 1. Generate the resource schema
 
@@ -77,7 +77,7 @@ While the available configurations are the same as can be seen in the previous l
 
 This configuration result in an endpoint like http://<server ip>/<api version number>/tempreature . In a dev environment this will most likely be http://127.0.0.1:5000/1/temperature .
 
-### 2. Generate the resource hooks info
+### 2. Generate the resource hooks
 Hooks are programmable actions that will be called when communicating with the API. [See documentation](https://docs.python-eve.org/en/stable/features.html#event-hooks)
 
 To add them into the project, create a module into `modules` directory, and add the required functions within a file with the same name as the module. This module should implement a function `def set_hooks(app)`
@@ -164,7 +164,7 @@ To install or build the repository in your own server, follow this steps:
 
 1. Download or clone the repository
 2. Install the requirements of the project `requirements.txt`
-3. Create the following environment variables:
+3. Create the following environment variables (Notice you need a [local mongo](install-a-local-mongo) for debuging):
    ```bash
    export MONGO_HOST='<mongo_host>'
    export MONGO_PORT=<mongo_port>
@@ -189,3 +189,7 @@ The translation between cerberus schema (`python`) to `json` is very trivial.
 1. Make sure you are using double quotes `"` instead of single quotes `'` for all string delimiters.
 2. All variables should be in the `javascript` format. EX: the true value in python `True` should be `true` in the json.
 3. If you want to use the `regex` function, you have to escape all in-function `"` with `\"`. EX: `"regex(\"[a-f0-9]{8}-?[a-f0-9]{4}-?4[a-f0-9]{3}-?[89ab][a-f0-9]{3}-?[a-f0-9]{12}\")"`
+
+### Install a local mongo
+
+To install a local mongo, follow the instructions in the [mongo documentation](https://docs.mongodb.com/manual/installation/) depending on your operation system.
