@@ -34,25 +34,26 @@ While the available configurations are the same as can be seen in the previous l
 ```json
 {
   "item_title": "temperature",
-  "additional_lookup": {
-    "url": "regex(\"[a-f0-9]{8}-?[a-f0-9]{4}-?4[a-f0-9]{3}-?[89ab][a-f0-9]{3}-?[a-f0-9]{12}\")",
-    "field": "prosumer_id"
-  },
   "cache_control": "max-age=10,must-revalidate",
   "cache_expires": 10,
   "resource_methods": ["GET", "POST"],
-  "`":{
-    "index_field":"ts"
+  "item_methods": ["PATCH"],
+  "aggregation":{
+    "index_field":"timestamp"
   },
   "schema":{
-    "prosumer_id" : "uuid",
+    "prosumer_id" : {
+      "type" : "uuid"
+    },
     "timestamp": {
-      "type": "datetime"
+      "type": "datetime",
+      "required": true
     },
     "value": {
       "type": "float",
       "min": "-40",
-      "max": "40"
+      "max": "40",
+      "required": true
     },
     "space": {
       "type": "list",
@@ -60,10 +61,11 @@ While the available configurations are the same as can be seen in the previous l
     },
     "configuration": {
       "type": "dict",
-        "schema": {
-          "param1": {"type": "string"},
-          "param2": {"type": "float"}
-        }
+      "schema": {
+        "param1": {"type": "string"},
+        "param2": {"type": "float"}
+      },
+      "required": false
     }
   }
 }
@@ -72,6 +74,7 @@ While the available configurations are the same as can be seen in the previous l
 *Special remarks*
 
 1. `datetime` type has already been defined to match the [ISO 8601](https://www.iso.org/iso-8601-date-and-time-format.html) an should be pased using UTC timezone. `YYYY-MM-DDThh:mm:ss.fffZ`
+2. Is important to add all fields required for the access control. In this example `prosumer_id`.
 3. All the ID's in the document should be of the flexcoop agreed type `uuid`.
 4. An extra configuration `aggregation` file has been added in order to allow the resample of the data to other frequency. Set the aggregation_index_field for the timeseries, and call the API endpoint aggregate (Beta functionality).
 
@@ -89,13 +92,17 @@ You will need to use this hooks for programing the access control to your resour
 ```python
 import flask
 from flask import request
+
+
 def pre_temperature_GET_callback(request, lookup):
     print('A GET request on a temperature  endpoint has just been received!')
+    # access the user information in the request
 
     sub = request.sub
     role = request.role
     iss = request.iss
 
+    # program the access control
     if role == 'prosumer':
         print('limiting results to prosumer_id')
         lookup["prosumer_id"] = sub
@@ -107,13 +114,14 @@ def pre_temperature_GET_callback(request, lookup):
     else:
         print("the role does not exists")
         flask.abort(403)
-        
-def pre_temperature_POST_callback(request): 
+
+
+def pre_temperature_POST_callback(request):
     print('A POST request on a temperature  endpoint has just been received!')
     sub = request.sub
     role = request.role
     iss = request.iss
-    
+
     if role == 'prosumer':
         print('prosumer is allowed to post temperature')
     elif role == 'aggregator':
@@ -126,18 +134,40 @@ def pre_temperature_POST_callback(request):
         print("the role does not exists")
         flask.abort(403)
 
-# When the user inserts data, he does not know his anonimized_ID, or he can intentionally change it. To avoid this, the account values should be populated in a hook before inserting to the database
+
+# When the user inserts data, we can double check if the prosumer_id is equal to the user making the request
 def on_insert_temperature_callback(items):
+    print('An item is going to be inserted')
     for item in items:
-        item['prosumer_id'] = request.sub
-        
-  
+        if item['prosumer_id'] != request.sub:
+            flask.abort(403)
+
+
+# We can also define fieds that can't be changed during an update. For example, the user is only allowed to update the params, while the service is allowed to update all document
+def on_update_temperature_callback(updates, original):
+    print('An item is going to be updated')
+    sub=request.sub
+    role = request.role
+    if role == "prosumer":
+        allowed_keys = ["configuration"]
+        invalid_dic = {k: v for k, v in updates.items() if not k.startswith("_") and k not in allowed_keys}
+        print(invalid_dic)
+        if invalid_dic:
+            flask.abort(403, "The prosumer can only update: {}".format(", ".join(allowed_keys)))
+    elif role == "aggregator":
+        flask.abort(403)
+    elif role == "service":
+        print("Services can update everything")
+    else:
+        flask.abort(403)
+
+
 # Finally define your installing function:
 def set_hooks(app):
     app.on_pre_GET_temperature += pre_temperature_GET_callback
     app.on_pre_POST_temperature += pre_temperature_POST_callback
     app.on_insert_temperature += on_insert_temperature_callback
-      
+    app.on_update_temperature += on_update_temperature_callback
 ```
 
 ### 3. Deploy your resource to CIMNE middleware
