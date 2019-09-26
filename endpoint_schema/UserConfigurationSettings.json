@@ -1,0 +1,69 @@
+{
+  "item_title": "UserConfigurationSettings",
+  "cache_control": "max-age=10,must-revalidate",
+  "cache_expires": 10,
+  "resource_methods": [
+    "GET",
+    "POST"
+  ],
+  "schema": {
+    "OSBid": {
+      "type": "string",
+      "minlength": 1,
+      "maxlength": 100,
+      "required": true,
+      "unique": true
+    },
+     "DERid": {
+      "type": "string",
+      "minlength": 1,
+      "maxlength": 100,
+      "required": true,
+      "unique": true
+    },
+    "Type": {
+      "type": "list",
+      "allowed": [
+        "Light",
+        "HVAC"
+      ]
+    },
+    "Setpoint": {
+      "type": "number"
+    },
+    "Status": {
+      "type": "list",
+      "allowed": [
+        "on",
+        "off"
+      ]
+    },
+    "Mode": {
+      "type": "list",
+      "allowed": [
+        "Heat",
+        "Cool",
+        "Fan",
+        "Dry"
+      ]
+    },
+    "Timestamp": {
+      "type": "datetime",
+      "required": true
+    },
+    "Colour": {
+      "type": "dict",
+      "schema": {
+        "attr1": {
+          "type": "float"
+        },
+        "attr2": {
+          "type": "float"
+        },
+        "attr3": {
+          "type": "float"
+        }
+      }
+    }
+  }
+}

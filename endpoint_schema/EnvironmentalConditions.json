@@ -1,0 +1,34 @@
+{
+  "item_title": "EnvironmentalConditions",
+  "cache_control": "max-age=10,must-revalidate",
+  "cache_expires": 10,
+  "resource_methods": [
+    "GET",
+    "POST"
+  ],
+  "schema": {
+    "OSBid": {
+      "type": "string",
+      "minlength": 1,
+      "maxlength": 100,
+      "required": true,
+      "unique": true
+    },
+    "Type": {
+      "type": "list",
+      "allowed": [
+        "Temperature",
+        "Humidity",
+        "AirQuality",
+        "Illuminance"
+      ]
+    },
+    "Value": {
+      "type": "number"
+    },
+    "Timestamp": {
+      "type": "datetime",
+      "required": true
+    }
+  }
+}

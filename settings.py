@@ -1,10 +1,14 @@
 from endpoint_schema import DOMAIN
 import os
-MONGO_HOST = os.environ['MONGO_HOST']
-MONGO_PORT = int(os.environ['MONGO_PORT'])
-MONGO_USERNAME = os.environ['MONGO_USERNAME']
-MONGO_PASSWORD = os.environ['MONGO_PASSWORD']
-MONGO_DBNAME = os.environ['MONGO_DBNAME']
+# MONGO_HOST = os.environ['MONGO_HOST']
+# MONGO_PORT = int(os.environ['MONGO_PORT'])
+# MONGO_USERNAME = os.environ['MONGO_USERNAME']
+# MONGO_PASSWORD = os.environ['MONGO_PASSWORD']
+# MONGO_DBNAME = os.environ['MONGO_DBNAME']
+
+MONGO_HOST= 'localhost'
+MONGO_PORT = 27017
+MONGO_DBNAME='flexcoop_db'
 
 RENDERERS = [
     'eve.render.JSONRenderer',
