@@ -4,7 +4,14 @@
   "cache_expires": 10,
   "resource_methods": [
     "GET",
-    "POST"
+    "POST",
+    "DELETE"
+  ],
+  "item_methods": [
+    "GET",
+    "PATCH",
+    "PUT",
+    "DELETE"
   ],
   "schema": {
     "OSBid": {
