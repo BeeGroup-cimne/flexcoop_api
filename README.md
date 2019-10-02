@@ -193,7 +193,22 @@ You can customize the documentation of your provided endpoints following the [Py
 To install or build the repository in your own server, follow this steps:
 
 1. Download or clone the repository
+```bash
+git clone https://gitlab.fokus.fraunhofer.de/FlexCoop/middleware_rest
+```
 2. Install the requirements of the project `requirements.txt`
+```bash
+# create a python virtualenv
+virtualenv venv
+# activate the virtualenv
+source venv/bin/activate
+# now your shell hostname sould have the virtualenv between parentheses
+# install all requirements in the virtualenv
+
+pip install -r requirements.txt
+
+# remember to activate the virtualenv everytime you are going to use the server
+```
 3. Create the following environment variables (Notice you need a [local mongo](install-a-local-mongo) for debuging):
    ```bash
    export MONGO_HOST='<mongo_host>'
@@ -223,3 +238,24 @@ The translation between cerberus schema (`python`) to `json` is very trivial.
 ### Install a local mongo
 
 To install a local mongo, follow the instructions in the [mongo documentation](https://docs.mongodb.com/manual/installation/) depending on your operation system.
+
+Once installed, create the database and user to link the REST API.
+
+```bash
+
+#open mongodb shell
+
+mongo
+
+# this will only work for local connections, additional parameters can be used to connect to a remote mongo
+
+# create and connect to the database
+
+use 'databasename'
+
+# create the user with readWrite permissions in the database
+
+db.createUser({"user": "yourusername", "pwd": "yourpassword", "roles":["readWrite"]})
+
+
+```
