@@ -1,75 +1,147 @@
 {
   "item_title": "devices",
+  "id_field": "device_id",
+  "item_lookup_field": "device_id",
+  "item_url": "regex(\"[a-zA-Z0-9-]+\")",
+  "cache_control": "max-age=10,must-revalidate",
+  "cache_expires": 10,
   "resource_methods": [
-    "GET"
+    "GET",
+    "DELETE"
+  ],
+  "item_methods": [
+    "GET",
+    "PATCH",
+    "PUT",
+    "DELETE"
   ],
   "schema": {
-    "sender": {
-      "type": "string",
+    "device_id": {
+      "type": "uuid",
+      "minlength": 36,
+      "maxlength": 36,
       "required": true,
-      "minlength": 3,
-      "maxlength": 100
+      "unique": true
     },
-    "recipient": {
-      "type": "string",
-      "required": true,
-      "minlength": 3,
-      "maxlength": 100
-    },
-    "asset_id": {
-      "type": "string",
-      "required": true,
-      "minlength": 3,
-      "maxlength": 100
-    },
-    "type": {
-      "type": "string",
-      "required": true,
-      "minlength": 3,
-      "maxlength": 100
-    },
-    "timestamp": {
-      "type": "string",
-      "required": true,
-      "minlength": 25,
-      "maxlength": 25
-    },
-    "city": {
-      "type": "string",
-      "required": true,
-      "minlength": 3,
-      "maxlength": 100
-    },
-    "building_type": {
-      "type": "string",
-      "required": true,
-      "minlength": 3,
-      "maxlength": 100
-    },
-    "devices": {
-      "type": "list",
-      "required": true,
+    "status": {
+      "type": "dict",
       "schema": {
-        "type": "dict",
-        "require_all": true,
-        "schema": {
-          "device_id": {
-            "type": "integer",
-            "min": 0
-          },
-          "device_type": {
-            "type": "string",
-            "minlength": 3,
-            "maxlength": 100
-          },
-          "device_name": {
-            "type": "string",
-            "minlength": 3,
-            "maxlength": 100
+        "setPoint": {
+          "type": "dict",
+          "schema": {
+            "value": {
+              "type": "float"
+            }
+          }
+        },
+        "x-fanspeed": {
+          "type": "dict",
+          "schema": {
+            "value": {
+              "type": "float"
+            }
+          }
+        },
+        "mode": {
+          "type": "dict",
+          "schema": {
+            "value": {
+              "type": "string",
+              "allowed": [
+                "1",
+                "2",
+                "3",
+                "4",
+                "5"
+              ]
+            }
+          }
+        },
+        "operationState": {
+          "type": "dict",
+          "schema": {
+            "value": {
+              "type": "string",
+              "allowed": [
+                "0",
+                "1"
+              ]
+            }
           }
         }
       }
+    },
+    "availability": {
+      "type": "string",
+      "allowed": [
+        "yes",
+        "no",
+        "unknown"
+      ],
+      "required": true
+    },
+    "account_id": {
+      "type": "uuid",
+      "minlength": 36,
+      "maxlength": 36,
+      "required": true
+    },
+    "device_class": {
+      "type": "string",
+      "allowed": [
+        "hvacDevice",
+        "lightingLoad",
+        "dhwDevice",
+        "otherLoad"
+      ],
+      "required": true
+    },
+
+
+
+    "location": {
+      "type": "point",
+      "minlength": 1,
+      "maxlength": 36,
+      "required": true
+    },
+    "device_type": {
+      "type": "string",
+      "allowed": ["Demand","Generation","Storage"],
+      "required": true
+    },
+    "max_capacity": {
+      "type": "float",
+      "required": true
+    },
+    "available_capacity": {
+      "type": "float",
+      "required": true
+    },
+    "cluster_id": {
+      "type": "uuid",
+      "minlength": 36,
+      "maxlength": 36,
+      "required": false
+    },
+    "cluster_type": {
+      "type": "string",
+      "allowed": ["Cluster","TBD"],
+      "required": false
+    },
+    "vpp_id": {
+      "type": "uuid",
+      "minlength": 36,
+      "maxlength": 36,
+      "required": false
     }
   }
 }
+
+
+
+
+
+
+
 
