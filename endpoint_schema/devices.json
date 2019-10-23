@@ -86,6 +86,13 @@
       "maxlength": 36,
       "required": true
     },
+    "aggregator_id": {
+      "type": "string",
+      "minlength": 36,
+      "maxlength": 36,
+      "required": true
+    },
+
     "device_class": {
       "type": "string",
       "allowed": [
