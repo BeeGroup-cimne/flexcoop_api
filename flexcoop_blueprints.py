@@ -107,7 +107,7 @@ def oadr_notification_new_devices(report):
     if not PRODUCTION or not NOTIFICATION_OPENADR:
         flask.abort(403)
 
-    if request.environ["HTTP_HTTP_X_FORWARDED_FOR"] != NOTIFICATION_OPENADR:
+    if request.environ["HTTP_X_FORWARDED_FOR"] != NOTIFICATION_OPENADR:
             flask.abort(403)
 
     items = list(app.data.driver.db['devices'].find({"report":ObjectId(report)}))
