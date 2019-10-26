@@ -10,6 +10,9 @@ from datatypes import UUIDEncoder, UUIDValidator
 from flexcoop_hooks import filter_internal_schema, filter_item_schema
 from auth.authentication import JWTokenAuth
 import modules
+from werkzeug.middleware.proxy_fix import ProxyFix
+
+from settings import NUM_PROXIES
 
 SWAGGER_URL = '/docs'
 API_URL = '/api-docs'
@@ -49,4 +52,5 @@ if __name__ == '__main__':
         HOST_PORT = environ['HOST_PORT']
     except KeyError:
         HOST_PORT = 8080
+    app.wsgi_app = ProxyFix(app.wsgi_app, num_proxies=NUM_PROXIES)
     app.run(port=int(HOST_PORT), host="0.0.0.0")
