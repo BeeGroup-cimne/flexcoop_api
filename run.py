@@ -10,7 +10,6 @@ from datatypes import UUIDEncoder, UUIDValidator
 from flexcoop_hooks import filter_internal_schema, filter_item_schema
 from auth.authentication import JWTokenAuth
 import modules
-from settings import NUM_PROXIES
 
 SWAGGER_URL = '/docs'
 API_URL = '/api-docs'

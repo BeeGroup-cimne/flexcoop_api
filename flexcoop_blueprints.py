@@ -6,7 +6,7 @@ from bson import ObjectId
 from eve_swagger import add_documentation
 from flask import Blueprint, current_app as app, jsonify, request
 
-from settings import NOTIFICATION_OPENADR
+from settings import NOTIFICATION_OPENADR, PRODUCTION
 
 flexcoop_blueprints = Blueprint('1', __name__)
 
@@ -104,11 +104,15 @@ def set_documentation():
 
 @flexcoop_blueprints.route('/notify/der_installed/<report>', methods=['GET'])
 def oadr_notification_new_devices(report):
-    if request.remote_addr != NOTIFICATION_OPENADR:
+    if not PRODUCTION or not NOTIFICATION_OPENADR:
         flask.abort(403)
+
+    if request.environ["HTTP_HTTP_X_FORWARDED_FOR"] != NOTIFICATION_OPENADR:
+            flask.abort(403)
+
     items = list(app.data.driver.db['devices'].find({"report":ObjectId(report)}))
     getattr(app, 'on_insert_devices')(items)
-    return jsonify({"notification": str(request.environ)})
+    return jsonify({"notification": "OK"})
 
     # def post_get_callback(resource_name, response):
     #     if 'aggregate' in request.args:

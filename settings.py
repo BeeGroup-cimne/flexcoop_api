@@ -23,4 +23,4 @@ NOTIFICATION_OPENADR = os.environ.get("NOTIFICATION_OPENADR")
 # See middleware wiki: https://gitlab.fokus.fraunhofer.de/FlexCoop/Documentation/wikis/middleware_info
 #
 AUTH_FIELD = "account"
-NUM_PROXIES = os.environ["NUM_PROXIES"]
+PRODUCTION = os.environ.get("PRODUCTION", False)
