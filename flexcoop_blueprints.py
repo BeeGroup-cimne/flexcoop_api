@@ -108,7 +108,7 @@ def oadr_notification_new_devices(report):
         flask.abort(403)
     items = list(app.data.driver.db['devices'].find({"report":ObjectId(report)}))
     getattr(app, 'on_insert_devices')(items)
-    return jsonify({"notification": request.environ})
+    return jsonify({"notification": str(request.environ)})
 
     # def post_get_callback(resource_name, response):
     #     if 'aggregate' in request.args:
