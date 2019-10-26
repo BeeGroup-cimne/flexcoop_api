@@ -6,7 +6,8 @@ from flask_swagger_ui import get_swaggerui_blueprint
 
 from documentation import *
 from flexcoop_blueprints import flexcoop_blueprints, set_documentation
-from datatypes import UUIDEncoder, UUIDValidator, filter_internal_schema, filter_item_schema
+from datatypes import UUIDEncoder, UUIDValidator
+from flexcoop_hooks import filter_internal_schema, filter_item_schema
 from auth.authentication import JWTokenAuth
 import modules
 
@@ -38,6 +39,7 @@ set_documentation()
 
 modules.add_resource_hooks(app)
 
+#add flexcoop filtering hooks
 app.on_fetched_resource += filter_internal_schema
 app.on_fetched_item += filter_item_schema
 
