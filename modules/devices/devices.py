@@ -1,5 +1,5 @@
 import flask
-
+from flask import current_app
 
 
 def pre_devices_GET_callback(request, lookup):
@@ -36,7 +36,7 @@ def pre_devices_POST_callback(request):
 
 
 def on_insert_devices_callback(devices):
-    print(devices)
+    current_app.logger.info(str(devices))
 
 
 def set_hooks(app):
