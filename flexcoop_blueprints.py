@@ -110,7 +110,7 @@ def oadr_notification_new_devices(report):
     if request.environ["HTTP_X_FORWARDED_FOR"] != NOTIFICATION_OPENADR:
             flask.abort(403)
 
-    items = list(app.data.driver.db['devices'].find({"report":ObjectId(report)}))
+    items = list(app.data.driver.db['devices'].find({"report": ObjectId(report)}))
     getattr(app, 'on_insert_devices')(items)
     return jsonify({"notification": "OK"})
 
