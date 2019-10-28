@@ -1,8 +1,7 @@
 import requests
 from eve.utils import config
-
 from settings import OAUTH_PROVIDERS
-
+from flask import current_app
 
 def filter_field(data, schema):
     fitem = {}
@@ -42,6 +41,12 @@ def filter_internal_schema(resource_name, response):
     response["_items"] = filtered_items
 
 
-def get_middleware_token(client, secret):
+def get_middleware_token():
+    client = current_app.config['CLIENT']
+    secret = current_app.config['SECRET']
     login = {'grant_type': 'client_credentials', 'client_id': client, 'client_secret': secret}
-    response = requests.post(OAUTH_PROVIDERS['cimne']['url'], data=login, verify=False)
+    response = requests.post("{}/token".format(OAUTH_PROVIDERS['cimne']['url']), data=login, verify=OAUTH_PROVIDERS['cimne']['cert'])
+    if response.ok:
+        return response.json()['access_token']
+    else:
+        raise Exception("Oauth client not found")

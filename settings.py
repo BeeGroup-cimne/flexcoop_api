@@ -24,3 +24,5 @@ NOTIFICATION_OPENADR = os.environ.get("NOTIFICATION_OPENADR")
 #
 AUTH_FIELD = "account"
 PRODUCTION = os.environ.get("PRODUCTION", False)
+CLIENT = os.environ['CLIENT']
+SECRET = os.environ['SECRET']
