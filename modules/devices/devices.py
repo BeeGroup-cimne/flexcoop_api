@@ -35,11 +35,10 @@ def pre_devices_POST_callback(request):
         flask.abort(403)
 
 
-def on_insert_devices_callback(devices):
-    current_app.logger.info(str(devices))
-
+def on_inserted_devices_callback(devices):
+    pass
 
 def set_hooks(app):
     app.on_pre_GET_devices += pre_devices_GET_callback
     app.on_pre_POST_devices += pre_devices_POST_callback
-    app.on_insert_devices += on_insert_devices_callback
+    app.on_inserted_devices += on_inserted_devices_callback
