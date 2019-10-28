@@ -1,6 +1,9 @@
 import requests
 from eve.utils import config
 
+from settings import OAUTH_PROVIDERS
+
+
 def filter_field(data, schema):
     fitem = {}
     if schema['type'] == "dict" and "schema" in schema:
@@ -41,4 +44,4 @@ def filter_internal_schema(resource_name, response):
 
 def get_middleware_token(client, secret):
     login = {'grant_type': 'client_credentials', 'client_id': client, 'client_secret': secret}
-    response = requests.post(OAUTH_PROVIDERS['cimne'], data=login, verify=False)
+    response = requests.post(OAUTH_PROVIDERS['cimne']['url'], data=login, verify=False)

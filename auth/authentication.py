@@ -26,7 +26,7 @@ class KeyCache(object):
                 return self.keys
             self.keys = []
             self.last_time = datetime.utcnow()
-            for provider, provider_info in self.providers:
+            for provider, provider_info in self.providers.items():
                 try:
                     p_info = requests.get("{}/.well-known/openid-configuration/".format(provider_info['url']), verify=provider_info['cert'])
                     if p_info.ok:
