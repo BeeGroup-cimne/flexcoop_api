@@ -47,7 +47,7 @@ SWAGGER_INFO = {
         'name': 'Eloi Gabaldon',
         'url': 'mailto:egabaldon@cimne.upc.edu'
     },
-    'schemes': ['http', 'https'],
+    'schemes': [],
 }
 
 SWAGGER_EXT = {
