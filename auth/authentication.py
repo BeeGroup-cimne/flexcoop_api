@@ -26,15 +26,15 @@ class KeyCache(object):
                 return self.keys
             self.keys = []
             self.last_time = datetime.utcnow()
-            for provider in self.providers:
+            for provider, provider_info in self.providers:
                 try:
-                    p_info = requests.get("{}/.well-known/openid-configuration/".format(provider))
+                    p_info = requests.get("{}/.well-known/openid-configuration/".format(provider_info['url']), verify=provider_info['cert'])
                     if p_info.ok:
                         p_info=p_info.json()
                         key_url = p_info["jwks_uri"]
-                        key_list = requests.get(key_url).json()
+                        key_list = requests.get(key_url, verify=provider_info['cert']).json()
                         for key in key_list['keys']:
-                            self.keys.append({"key": jwk_from_dict(key), "iss": provider, "kid": key['kid']})
+                            self.keys.append({"key": jwk_from_dict(key), "iss": provider_info['url'], "kid": key['kid']})
                         print("Provider {} correctly configured".format(provider))
                     else:
                         print("Error connecting with the provider {}: provided returned {}".format(provider,p_info.reason))

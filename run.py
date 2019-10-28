@@ -7,7 +7,7 @@ from flask_swagger_ui import get_swaggerui_blueprint
 from documentation import *
 from flexcoop_blueprints import flexcoop_blueprints, set_documentation
 from datatypes import UUIDEncoder, UUIDValidator
-from flexcoop_hooks import filter_internal_schema, filter_item_schema
+from flexcoop_utils import filter_internal_schema, filter_item_schema
 from auth.authentication import JWTokenAuth
 import modules
 

@@ -1,3 +1,4 @@
+import requests
 from eve.utils import config
 
 def filter_field(data, schema):
@@ -36,3 +37,8 @@ def filter_internal_schema(resource_name, response):
 
         filtered_items.append(f_item)
     response["_items"] = filtered_items
+
+
+def get_middleware_token(client, secret):
+    login = {'grant_type': 'client_credentials', 'client_id': client, 'client_secret': secret}
+    response = requests.post(OAUTH_PROVIDERS['cimne'], data=login, verify=False)
