@@ -118,8 +118,8 @@ class JWTokenAuth(TokenAuth):
             raise AuthenticationException("No role was detected, this should not happen")
 
         request.role = role
-        request.sub = sub
-        request.iss = issuer
+        request.account_id = sub
+        request.aggregator_id = issuer
 
         return True
 

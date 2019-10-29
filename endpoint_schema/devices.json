@@ -6,14 +6,11 @@
   "cache_control": "max-age=10,must-revalidate",
   "cache_expires": 10,
   "resource_methods": [
-    "GET",
-    "DELETE"
+    "GET"
   ],
   "item_methods": [
     "GET",
-    "PATCH",
-    "PUT",
-    "DELETE"
+    "PATCH"
   ],
   "schema": {
     "device_id": {
@@ -71,15 +68,6 @@
         }
       }
     },
-    "availability": {
-      "type": "string",
-      "allowed": [
-        "yes",
-        "no",
-        "unknown"
-      ],
-      "required": true
-    },
     "account_id": {
       "type": "uuid",
       "minlength": 36,
@@ -104,8 +92,15 @@
       "required": true
     },
 
-
-
+    "availability": {
+      "type": "string",
+      "allowed": [
+        "yes",
+        "no",
+        "unknown"
+      ],
+      "required": true
+    },
     "location": {
       "type": "point",
       "minlength": 1,
