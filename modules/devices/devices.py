@@ -1,6 +1,6 @@
 import flask
 from flask import current_app
-
+from datetime import datetime
 
 def pre_devices_GET_callback(request, lookup):
     #print('A GET request on a DER  endpoint has just been received!')
@@ -34,6 +34,24 @@ def pre_devices_POST_callback(request):
         print('error: POST DER role != prosumer')
         flask.abort(403)
 
+def on_insterted_device(items):
+	handler = app.data.driver.db['local_demand_manager']
+	for item in items:
+		id = item.device_id
+		account = item.account_id
+		ldem = handler.find({"acount_id": account})
+		ldem_id = 1
+		if not ldm:			
+			resp = handler.insert_one({
+				'ldem_id': ldem_id,
+				'account_id': account,
+				'creation_date': datetime.now(),
+				'timestamp': null,
+				'ders': []
+			})		
+		else:
+			ldem.ders.append(id)
+			resp = handler.update({ldem_id: ldem_id}, {"$set": { ldem }})
 
 def on_inserted_devices_callback(devices):
     pass
