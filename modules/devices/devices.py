@@ -1,44 +1,61 @@
+import uuid
+
 import flask
 from flask import current_app
+from datetime import datetime
 
-
-def pre_devices_GET_callback(request, lookup):
-    #print('A GET request on a DER  endpoint has just been received!')
-    #print(request)
-
-    sub = request.sub
+def pre_devices_access_control_callback(request, lookup):
+    account_id = request.account_id
     role = request.role
-
+    aggregator_id = request.aggregator_id
     if role == 'prosumer':
-        #print('limiting results to account_id')
-        lookup["account_id"] = sub
+        lookup["account_id"] = account_id
 
-    elif role == 'aggregator' or role == 'service':
+    elif role == 'aggregator':
+        lookup["aggregator_id"] = aggregator_id
+
+    elif role == 'service':
         pass
-
     else:
-        print('error: GET DER unknown role ',role)
-        flask.abort(403)
+        flask.abort(403, "Unknown user role")
 
 
-def pre_devices_POST_callback(request):
-    #print('A POST request on a DER  endpoint has just been received!')
-    #print(request)
+def on_update_devices_callback(updates, original):
+    # Only allow the modification of non OSB fields
+    allowed_fields = ['availability', 'location', 'device_type', 'max_capacity', 'available_capacity', 'cluster_id', 'cluster_type', 'vpp_id']
+    for field in updates:
+        if field not in allowed_fields:
+            if updates[field] != original[field]:
+                flask.abort(403, "The modification of the field {} is not allowed".format(field))
 
-    role = request.role
 
-    if role == 'prosumer':
-        pass
-
+def on_insterted_devices_callback(items):
+    ldm_collection = current_app.data.driver.db['local_demand_manager']
+    devices_collection = current_app.data.driver.db['devices']
+    item = items[0] if len(items) > 0 else None
+    if item:
+        account_id = item['account_id']
     else:
-        print('error: POST DER role != prosumer')
-        flask.abort(403)
+        return
 
+    devices = [x['device_id'] for x in devices_collection.find({"account_id": account_id})]
 
-def on_inserted_devices_callback(devices):
-    pass
+    ldem = ldm_collection.find_one({"account_id": account_id})
+    if not ldem:
+        ldm_collection.insert_one({
+            'ldem_id': str(uuid.uuid1()),
+            'account_id': account_id,
+            'creation_date': datetime.now(),
+            'timestamp': None,
+            'ders': devices
+        })
+    else:
+        ldem['ders'] = devices
+        ldm_collection.update({'ldem_id': ldem['ldem_id']}, {"$set": ldem})
+
 
 def set_hooks(app):
-    app.on_pre_GET_devices += pre_devices_GET_callback
-    app.on_pre_POST_devices += pre_devices_POST_callback
-    app.on_inserted_devices += on_inserted_devices_callback
+    app.on_pre_GET_devices += pre_devices_access_control_callback
+    app.on_pre_PATCH_devices += pre_devices_access_control_callback
+    app.on_inserted_devices += on_insterted_devices_callback
+    app.on_update_devices += on_update_devices_callback
