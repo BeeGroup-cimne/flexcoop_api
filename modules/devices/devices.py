@@ -1,8 +1,11 @@
 import uuid
 
 import flask
+import requests
 from flask import current_app
 from datetime import datetime
+
+url = "https://<url>/gdem/newLDEM/{idLDEM}"
 
 def pre_devices_access_control_callback(request, lookup):
     account_id = request.account_id
@@ -42,13 +45,19 @@ def on_insterted_devices_callback(items):
 
     ldem = ldm_collection.find_one({"account_id": account_id})
     if not ldem:
-        ldm_collection.insert_one({
-            'ldem_id': str(uuid.uuid1()),
-            'account_id': account_id,
-            'creation_date': datetime.now(),
-            'timestamp': None,
-            'ders': devices
-        })
+		# If a new OSB is being registered, a new LDEM has to be instantiated containing all the DERs controlled by it
+		idLDEM = str(uuid.uuid1())
+		resp = requests.get(url.format(idLDEM))
+		if resp.status_code != 200:
+			flask.abort(403, "It has been not possible to register a new LDEM on the GDEM")
+		else:
+			ldm_collection.insert_one({
+				'ldem_id': idLDEM,
+				'account_id': account_id,
+				'creation_date': datetime.now(),
+				'timestamp': None,
+				'ders': devices
+			})		
     else:
         ldem['ders'] = devices
         ldm_collection.update({'ldem_id': ldem['ldem_id']}, {"$set": ldem})
