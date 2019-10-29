@@ -1,4 +1,5 @@
 from datetime import datetime, timedelta
+from urllib.parse import urlsplit
 
 import requests
 from jwt import (
@@ -119,7 +120,7 @@ class JWTokenAuth(TokenAuth):
 
         request.role = role
         request.sub = sub
-        request.iss = issuer
+        request.iss = urlsplit(issuer).netloc
 
         return True
 
