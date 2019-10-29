@@ -1,0 +1,47 @@
+{
+  "item_title": "dr_attributes",
+  "cache_control": "max-age=10,must-revalidate",
+  "cache_expires": 10,
+  "resource_methods": [
+    "GET",
+    "POST"
+  ],
+  "schema": {
+    "device_id": {
+      "type": "uuid",
+      "minlength": 36,
+      "maxlength": 36,
+      "required": true,
+      "unique": true
+    },
+    "account_id": {
+      "type": "uuid",
+      "minlength": 36,
+      "maxlength": 36,
+      "required": true
+    },
+    "aggregator_id": {
+      "type": "string",
+      "minlength": 36,
+      "maxlength": 36,
+      "required": true
+    },
+    "type": {
+      "type": "list",
+      "allowed": [
+        "Light",
+        "HVAC",
+        "DHW"
+      ]
+    },
+    "ramping_up": {
+      "type": "number"
+    },
+    "delivery_period": {
+      "type": "number"
+    },
+    "deactivation_eriod": {
+      "type": "number"
+    }
+  }
+}

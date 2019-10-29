@@ -1,0 +1,43 @@
+{
+  "item_title": "vpp",
+  "id_field": "vpp_id",
+  "item_lookup_field": "vpp_id",
+  "cache_control": "max-age=10,must-revalidate",
+  "cache_expires": 10,
+  "item_url": "regex(\"[a-f0-9]{8}-?[a-f0-9]{4}-?4[a-f0-9]{3}-?[89ab][a-f0-9]{3}-?[a-f0-9]{12}\")",
+  "resource_methods": [
+    "GET",
+    "POST",
+    "DELETE"
+  ],
+  "item_methods": [
+    "GET",
+    "PATCH",
+    "PUT",
+    "DELETE"
+  ],
+  "schema": {
+    "vpp_id": {
+      "type": "uuid",
+      "minlength": 36,
+      "maxlength": 36,
+      "required": true
+    },
+    "aggregator_id": {
+      "type": "string",
+      "minlength": 36,
+      "maxlength": 36,
+      "required": true
+    },
+    "devices": {
+      "type": "list",
+      "required": true,
+      "schema": {
+         "type": "uuid",
+         "minlength": 36,
+         "maxlength": 36,
+         "required": true
+      }
+    }
+  }
+}
