@@ -1,0 +1,54 @@
+{
+  "cache_control": "max-age=10,must-revalidate",
+  "cache_expires": 10,
+  "resource_methods": [
+    "GET",
+    "POST"
+  ],
+  "schema": {
+    "device_id": {
+      "type": "uuid",
+      "minlength": 36,
+      "maxlength": 36,
+      "required": true,
+      "unique": true
+    },
+    "account_id": {
+      "type": "uuid",
+      "minlength": 36,
+      "maxlength": 36,
+      "required": true
+    },
+    "aggregator_id": {
+      "type": "string",
+      "minlength": 36,
+      "maxlength": 36,
+      "required": true
+    },
+    "type": {
+      "type": "list",
+      "allowed": [
+        "Light",
+        "HVAC",
+        "DHW"
+      ]
+    },
+    "flexibility": {
+      "type": "dict",
+      "schema": {
+        "baseline": {
+          "type": "float"
+        },
+        "upwards": {
+          "type": "float"
+        },
+        "flexibility": {
+          "type": "float"
+        },
+        "interval": {
+          "type": "integer"
+        }
+      }
+    }
+  }
+}

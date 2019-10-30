@@ -1,0 +1,109 @@
+{
+  "item_title": "flexibility",
+  "id_field": "flexibility_id",
+  "item_lookup_field": "flexibility_id",
+  "cache_control": "max-age=10,must-revalidate",
+  "cache_expires": 10,
+  "item_url": "regex(\"[a-f0-9]{8}-?[a-f0-9]{4}-?4[a-f0-9]{3}-?[89ab][a-f0-9]{3}-?[a-f0-9]{12}\")",
+  "resource_methods": [
+    "GET",
+    "POST",
+    "DELETE"
+  ],
+  "item_methods": [
+    "GET",
+    "PATCH",
+    "PUT",
+    "DELETE"
+  ],
+  "schema": {
+    "flexibility_id": {
+      "type": "uuid",
+      "minlength": 36,
+      "maxlength": 36,
+      "required": true
+    },
+    "account_id": {
+      "type": "uuid",
+      "minlength": 36,
+      "maxlength": 36,
+      "required": true
+    },
+    "sender": {
+      "type": "uuid",
+      "minlength": 36,
+      "maxlength": 36,
+      "required": false
+    },
+    "recipient": {
+      "type": "uuid",
+      "minlength": 36,
+      "maxlength": 36,
+      "required": false
+    },
+    "asset_id": {
+      "type": "uuid",
+      "minlength": 36,
+      "maxlength": 36,
+      "required": false
+    },
+    "device_type": {
+      "type": "string",
+      "regex": "^(HVAC|Lights|DHW|PV|EV)$",
+      "required": false
+    },
+    "timestamp": {
+      "type": "datetime",
+      "minlength": 1,
+      "maxlength": 64,
+      "required": true
+    },
+    "device": {
+      "type": "uuid",
+      "minlength": 36,
+      "maxlength": 36,
+      "required": true
+    },
+    "schedule": {
+      "type": "list",
+      "required": true,
+      "schema": {
+        "type": "dict",
+        "schema": {
+          "timestamp": {
+            "type": "datetime",
+            "required": true
+          },
+          "upwards": {
+            "type": "dict",
+            "required": true,
+            "schema": {
+              "value": {
+                "type": "float",
+                "required": true
+              },
+              "price": {
+                "type": "float",
+                "required": true
+              }
+            }
+          },
+          "downwards": {
+            "type": "dict",
+            "required": true,
+            "schema": {
+              "value": {
+                "type": "float",
+                "required": true
+              },
+              "price": {
+                "type": "float",
+                "required": true
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
