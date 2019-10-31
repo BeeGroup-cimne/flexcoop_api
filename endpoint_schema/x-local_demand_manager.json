@@ -49,7 +49,7 @@
 			"items":[{"type": "uuid"}]
 		},
 		"global_aggregated_flexibility": {
-			"type": "uuid"			//Tendré otra colección llamada por ejemplo "AggFlex" donde se irán guardando las Agg Flex y cada elemento con su uuid, que será este
+			"type": "uuid"
 		}
 	}
 }
