@@ -1,0 +1,51 @@
+{
+  "item_title": "flexibility_forecasting_period",
+  "id_field": "???",
+  "item_lookup_field": "???",
+  "item_url": "regex(\"[a-zA-Z0-9-]+\")",
+  "cache_control": "max-age=10,must-revalidate",
+  "cache_expires": 10,
+  "resource_methods": [    
+    "POST",
+    "DELETE"
+  ],
+  "item_methods": [
+    "GET",
+    "PATCH",
+    "PUT",
+    "DELETE"
+  ],
+  "schema": {
+	"osb_id": {
+      "type": "uuid",
+      "minlength": 36,
+      "maxlength": 36,
+      "required": true
+    },
+	"device_type": {
+      "type": "string",
+      "allowed": [
+		"lightingLoad",
+        "hvacDevice",
+        "dhwDevice",
+		"evDevice",
+        "otherLoad"
+      ],
+      "required": true
+    },
+    "device_id": {
+      "type": "uuid",
+      "minlength": 36,
+      "maxlength": 36,
+      "required": true
+    },
+    "horizon": {
+      "type": "datetime",
+      "required": true
+    },
+    "isp": {
+      "type": "int",
+      "required": true
+    }
+  }
+}

@@ -1,0 +1,63 @@
+{
+	"item_title": "ldems",
+	"id_field": "ldem_id",
+	"item_lookup_field": "ldem_id",
+	"item_url": "regex(\"[a-zA-Z0-9-]+\")",
+	"cache_control": "max-age=10,must-revalidate",
+	"cache_expires": 10,
+	"resource_methods": [
+		"GET",
+		"DELETE",
+		"POST"
+	],
+	"item_methods": [
+		"GET",
+		"PATCH",
+		"PUT",		
+		"DELETE"
+	],
+	"schema": {
+		"ldem_id": {
+			"type": "uuid",
+			"minlength": 36,
+			"maxlength": 36,
+			"required": true,
+			"unique": true
+		},
+		"account_id": {
+			"type": "uuid",
+			"minlength": 36,
+			"maxlength": 36,
+			"required": true,
+			"unique": true
+		},
+		"aggregator_id": {
+			"type": "string",
+			  "minlength": 36,
+			  "maxlength": 36,
+			  "required": true
+		},
+		"creation_date": {
+			"type": "datetime",
+			"required": true
+		},	
+		"timestamp": {
+			"type": "datetime",
+		},
+		"ders": {
+			"type": "list",
+			"items":[{"type": "uuid"}]
+		},
+		"global_aggregated_flexibility": {
+			"type": "uuid"			//Tendré otra colección llamada por ejemplo "AggFlex" donde se irán guardando las Agg Flex y cada elemento con su uuid, que será este
+		}
+	}
+}
+
+
+
+
+
+
+
+
