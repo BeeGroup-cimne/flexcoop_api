@@ -104,7 +104,7 @@ def set_documentation():
 @flexcoop_blueprints.route('/notify/der_installed/<report>', methods=['GET'])
 @requires_auth('notify')
 def oadr_notification_new_devices(report):
-    if hasattr('account_id', request) and request.account_id == 'cimne_client':
+    if hasattr(request, 'account_id') and request.account_id == 'cimne_client':
         items = list(app.data.driver.db['devices'].find({"report": ObjectId(report)}))
         getattr(app, 'on_inserted_devices')(items)
     return jsonify({"notification": "OK"})

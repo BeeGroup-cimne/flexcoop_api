@@ -24,3 +24,4 @@ OAUTH_PROVIDERS = ast.literal_eval(os.environ['OAUTH_PROVIDERS'])
 AUTH_FIELD = "account"
 CLIENT = os.environ['CLIENT']
 SECRET = os.environ['SECRET']
+CLIENT_OAUTH = os.environ['CLIENT_OAUTH']

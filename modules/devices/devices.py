@@ -36,6 +36,9 @@ def on_update_devices_callback(updates, original):
 
 
 def on_insterted_devices_callback(items):
+    print(items)
+    return
+    #TODO: Correct this hook
     ldm_collection = current_app.data.driver.db['local_demand_manager']
     devices_collection = current_app.data.driver.db['devices']
     item = items[0] if len(items) > 0 else None
