@@ -3,14 +3,15 @@ import math
 import flask
 import pandas as pd
 from bson import ObjectId
+from eve.auth import requires_auth
 from eve_swagger import add_documentation
 from flask import Blueprint, current_app as app, jsonify, request
 
 from settings import NOTIFICATION_OPENADR, PRODUCTION
 
 flexcoop_blueprints = Blueprint('1', __name__)
-
 @flexcoop_blueprints.route('/aggregate/<collection>/<resolution>/<operation>', methods=['GET'])
+@requires_auth('aggregate')
 def aggregate_collection(collection, resolution, operation):
     max_results = app.config['PAGINATION_DEFAULT']
     if app.config['QUERY_MAX_RESULTS'] in request.args:
@@ -103,15 +104,11 @@ def set_documentation():
     )
 
 @flexcoop_blueprints.route('/notify/der_installed/<report>', methods=['GET'])
+@requires_auth('notify')
 def oadr_notification_new_devices(report):
-    if not PRODUCTION or not NOTIFICATION_OPENADR:
-        flask.abort(403)
-
-    if request.environ["HTTP_X_FORWARDED_FOR"] != NOTIFICATION_OPENADR:
-            flask.abort(403)
-
-    items = list(app.data.driver.db['devices'].find({"report": ObjectId(report)}))
-    getattr(app, 'on_inserted_devices')(items)
+    if hasattr('account_id', request) and request.account_id == 'cimne_client':
+        items = list(app.data.driver.db['devices'].find({"report": ObjectId(report)}))
+        getattr(app, 'on_inserted_devices')(items)
     return jsonify({"notification": "OK"})
 
     # def post_get_callback(resource_name, response):

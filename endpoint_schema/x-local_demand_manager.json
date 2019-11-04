@@ -42,7 +42,7 @@
 			"required": true
 		},	
 		"timestamp": {
-			"type": "datetime",
+			"type": "datetime"
 		},
 		"ders": {
 			"type": "list",
