@@ -7,8 +7,6 @@ from eve.auth import requires_auth
 from eve_swagger import add_documentation
 from flask import Blueprint, current_app as app, jsonify, request
 
-from settings import NOTIFICATION_OPENADR, PRODUCTION
-
 flexcoop_blueprints = Blueprint('1', __name__)
 @flexcoop_blueprints.route('/aggregate/<collection>/<resolution>/<operation>', methods=['GET'])
 @requires_auth('aggregate')

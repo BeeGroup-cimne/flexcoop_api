@@ -18,11 +18,9 @@ API_VERSION = "1"
 TRANSPARENT_SCHEMA_RULES = True
 DEBUG = False
 OAUTH_PROVIDERS = ast.literal_eval(os.environ['OAUTH_PROVIDERS'])
-NOTIFICATION_OPENADR = os.environ.get("NOTIFICATION_OPENADR")
 # Disabled 'User-Restricted Resource Access'
 # See middleware wiki: https://gitlab.fokus.fraunhofer.de/FlexCoop/Documentation/wikis/middleware_info
 #
 AUTH_FIELD = "account"
-PRODUCTION = os.environ.get("PRODUCTION", False)
 CLIENT = os.environ['CLIENT']
 SECRET = os.environ['SECRET']
