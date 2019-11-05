@@ -1,0 +1,59 @@
+{
+  "item_title": "dr_event",
+  "cache_control": "max-age=10,must-revalidate",
+  "cache_expires": 10,
+  "resource_methods": [
+    "POST",
+    "GET"
+  ],
+  "item_methods":[],
+  "schema": {
+    "device_id": {
+      "type": "uuid",
+      "minlength": 36,
+      "maxlength": 36,
+      "required": true
+    },
+    "account_id": {
+      "type": "uuid",
+      "minlength": 36,
+      "maxlength": 36,
+      "required": false
+    },
+    "aggregator_id": {
+      "type": "string",
+      "minlength": 36,
+      "maxlength": 36,
+      "required": false
+    },
+    "status": {
+      "type": "dict",
+      "schema":{
+        "setPoint" :{
+          "type": "float"
+        },
+        "x-fanspeed": {
+          "type": "float"
+        },
+        "mode": {
+          "type": "string",
+          "allowed": [
+                "1",
+                "2",
+                "3",
+                "4",
+                "5"
+              ]
+        },
+        "operationState": {
+          "type": "string",
+              "allowed": [
+                "0",
+                "1"
+              ]
+        }
+      },
+      "required": true
+    }
+  }
+}

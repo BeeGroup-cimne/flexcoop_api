@@ -49,4 +49,4 @@ if __name__ == '__main__':
         HOST_PORT = environ['HOST_PORT']
     except KeyError:
         HOST_PORT = 8080
-    app.run(port=int(HOST_PORT), host="0.0.0.0")
+    app.run(port=int(HOST_PORT), host="0.0.0.0", debug=True)
