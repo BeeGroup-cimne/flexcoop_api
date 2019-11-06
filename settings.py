@@ -22,6 +22,9 @@ OAUTH_PROVIDERS = ast.literal_eval(os.environ['OAUTH_PROVIDERS'])
 # See middleware wiki: https://gitlab.fokus.fraunhofer.de/FlexCoop/Documentation/wikis/middleware_info
 #
 AUTH_FIELD = "account"
+
+NOTIFICATION_OPENADR_URL = os.environ['NOTIFICATION_OPENADR_URL']
+NOTIFICATION_OPENADR_CERT = os.environ['NOTIFICATION_OPENADR_CERT']
 CLIENT = os.environ['CLIENT']
 SECRET = os.environ['SECRET']
 CLIENT_OAUTH = os.environ['CLIENT_OAUTH']
