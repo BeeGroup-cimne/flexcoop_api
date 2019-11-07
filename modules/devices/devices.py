@@ -7,8 +7,6 @@ from datetime import datetime
 
 from flexcoop_utils import get_middleware_token
 
-cert = False #"/path/to/cert"
-
 def pre_devices_access_control_callback(request, lookup):
     account_id = request.account_id
     role = request.role
@@ -43,20 +41,19 @@ def on_insterted_devices_callback(items):
         aggregator_id = item['aggregator_id']
     else:
         return
-		
-	#To get all the identifiers of existing devices for that user
+    # To get all the identifiers of existing devices for that user
     devices = [x['device_id'] for x in devices_collection.find({"account_id": account_id})]
 
     ldem = ldm_collection.find_one({"account_id": account_id})
     if not ldem:
-		ldm_collection.insert_one({
-			'ldem_id': str(uuid.uuid1()),
-			'account_id': account_id,
-			'aggregator_id': aggregator_id,
-			'creation_date': datetime.now(),
-			'timestamp': None,
-			'ders': devices
-		})        
+        ldm_collection.insert_one({
+            'ldem_id': str(uuid.uuid1()),
+            'account_id': account_id,
+            'aggregator_id': aggregator_id,
+            'creation_date': datetime.now(),
+            'timestamp': None,
+            'ders': devices
+        })
     else:
         ldem['ders'] = devices
         ldm_collection.update({'ldem_id': ldem['ldem_id']}, {"$set": ldem})
@@ -67,4 +64,4 @@ def set_hooks(app):
     app.on_pre_PATCH_devices += pre_devices_access_control_callback
     app.on_inserted_devices += on_insterted_devices_callback
     app.on_update_devices += on_update_devices_callback
-	
+
