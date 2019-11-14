@@ -1,0 +1,27 @@
+{
+  "item_title": "derClusterForecastingResponse",
+  "cache_control": "max-age=10,must-revalidate",
+  "cache_expires": 10,
+  "resource_methods": [
+    "GET",
+    "POST"
+  ],
+  "schema": {
+    "derClusterForecasting": {
+      "type": "list",
+      "schema": {
+        "type": "dict",
+        "schema": {
+          "value": {
+            "type": "string",
+            "required": "true"
+          },
+          "timestamp": {
+            "type": "string",
+            "required": "true"
+          }
+        }
+      }
+    }
+  }
+}

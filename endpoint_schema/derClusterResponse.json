@@ -1,0 +1,26 @@
+{
+  "item_title": "derClusterResponse",
+  "cache_control": "max-age=10,must-revalidate",
+  "cache_expires": 10,
+  "resource_methods": [
+    "GET",
+    "POST"
+  ],
+  "schema": {
+    "derCluster": {
+      "type": "list",
+      "schema": {
+        "type": "dict",
+        "schema": {
+          "venId": {
+            "type": "string",
+            "minlength": 1,
+            "maxlength": 100,
+            "required": true,
+            "unique": true
+          }
+        }
+      }
+    }
+  }
+}

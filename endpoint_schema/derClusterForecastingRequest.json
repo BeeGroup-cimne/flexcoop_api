@@ -1,0 +1,27 @@
+{
+  "item_title": "derClusterForecastingRequest",
+  "cache_control": "max-age=10,must-revalidate",
+  "cache_expires": 10,
+  "resource_methods": [
+    "GET",
+    "POST"
+  ],
+  "schema": {
+    "forecasting": {
+      "type": "float"
+    },
+    "horizon": {
+      "type": "integer"
+    },
+    "horizonType": {
+      "type": "list",
+      "allowed": [
+        "minutes",
+        "hours"
+      ]
+    },
+    "isp": {
+      "type" : "integer"
+    }
+  }
+}

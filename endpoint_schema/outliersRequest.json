@@ -1,0 +1,21 @@
+{
+    "item_title": "outliersRequest",
+  "cache_control": "max-age=10,must-revalidate",
+  "cache_expires": 10,
+  "resource_methods": [
+    "GET",
+    "POST"
+  ],
+  "schema": {
+    "outliers": {
+      "type" : "list",
+      "allowed" : ["Devices with no flexibility"]
+    },
+    "startDate": {
+      "type": "datetime"
+    },
+    "endDate": {
+      "type": "datetime"
+    }
+  }
+}

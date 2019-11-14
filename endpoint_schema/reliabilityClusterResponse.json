@@ -1,0 +1,31 @@
+{
+  "item_title": "reliabilityClusterResponse",
+  "cache_control": "max-age=10,must-revalidate",
+  "cache_expires": 10,
+  "resource_methods": [
+    "GET",
+    "POST"
+  ],
+  "schema": {
+    "reliabilityCluster": {
+      "type": "list",
+      "schema": {
+        "type": "dict",
+        "schema": {
+          "deviceId": {
+            "type": "uuid",
+            "minlength": 36,
+            "maxlength": 36,
+            "required": true
+          },
+          "reliability": {
+            "type": "integer",
+            "min": "0",
+            "max": "100",
+            "required": true
+          }
+        }
+      }
+    }
+  }
+}

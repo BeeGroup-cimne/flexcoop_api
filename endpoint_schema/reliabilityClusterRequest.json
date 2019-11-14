@@ -1,0 +1,23 @@
+{
+    "item_title": "reliabilityClusterRequest",
+  "cache_control": "max-age=10,must-revalidate",
+  "cache_expires": 10,
+  "resource_methods": [
+    "GET",
+    "POST"
+  ],
+  "schema": {
+    "reliability": {
+      "type": "integer",
+      "min": "0",
+      "max": "100",
+      "required": true
+    },
+    "startDate": {
+      "type": "datetime"
+    },
+    "endDate": {
+      "type": "datetime"
+    }
+  }
+}
