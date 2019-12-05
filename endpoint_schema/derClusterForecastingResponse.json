@@ -6,22 +6,24 @@
     "GET",
     "POST"
   ],
+  "item_methods": [
+    "GET",
+    "PATCH",
+    "PUT",
+    "DELETE"
+  ],
   "schema": {
-    "derClusterForecasting": {
-      "type": "list",
-      "schema": {
-        "type": "dict",
-        "schema": {
-          "value": {
-            "type": "string",
-            "required": "true"
-          },
-          "timestamp": {
-            "type": "string",
-            "required": "true"
-          }
-        }
-      }
+    "date": {
+      "type": "datetime",
+      "required": true
+    },
+    "upwards_flexibility": {
+      "type": "datetime",
+      "required": true
+    },
+    "downwards_flexibility": {
+      "type": "datetime",
+      "required": true
     }
   }
 }

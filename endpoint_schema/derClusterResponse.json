@@ -6,12 +6,42 @@
     "GET",
     "POST"
   ],
+  "item_methods": [
+    "GET",
+    "PATCH",
+    "PUT",
+    "DELETE"
+  ],
   "schema": {
+    "request_criteria": {
+      "type" : "list",
+      "required" : true,
+      "schema": {
+         "type": "string"
+       }
+    },
+    "cluster_id": {
+      "type": "uuid",
+      "minlength": 1,
+      "maxlength": 64,
+      "required": true
+    },
+    "timestamp": {
+      "type": "datetime",
+      "minlength": 1,
+      "maxlength": 64,
+      "required": true
+    },
     "derCluster": {
       "type": "list",
+      "required": "true",
       "schema": {
         "type": "dict",
         "schema": {
+          "cluster_name": {
+            "type": "string",
+            "required": "true"
+          },
           "venId": {
             "type": "string",
             "minlength": 1,

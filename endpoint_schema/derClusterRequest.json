@@ -29,6 +29,12 @@
         "cancelled",
         "on hold"
       ]
+    },
+    "aggregator_id": {
+      "type": "string",
+      "minlength": 36,
+      "maxlength": 36,
+      "required": true
     }
   }
 }

@@ -7,11 +7,24 @@
     "POST"
   ],
   "schema": {
-    "forecasting": {
-      "type": "float"
-    },
+    "type": "list",
+      "required": "true",
+      "schema": {
+        "type": "dict",
+        "schema": {
+          "venId": {
+            "type": "string",
+            "minlength": 1,
+            "maxlength": 100,
+            "required": true,
+            "unique": true
+          }
+        }
+      },
+
     "horizon": {
-      "type": "integer"
+      "type": "integer",
+      "required": true
     },
     "horizonType": {
       "type": "list",
@@ -21,7 +34,16 @@
       ]
     },
     "isp": {
-      "type" : "integer"
+      "type": "integer",
+      "required": "true"
+    },
+    "ispType": {
+      "type": "list",
+      "allowed": [
+        "minutes",
+        "hours"
+      ],
+      "required": true
     }
   }
 }
