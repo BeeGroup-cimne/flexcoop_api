@@ -1,0 +1,37 @@
+{
+	"item_title": "btp_bid_line",
+	"id_field": "bid_line_id",
+	"item_lookup_field": "bid_line_id",
+	"cache_control": "max-age=10,must-revalidate",
+	"cache_expires": 10,
+	"resource_methods": [
+		"POST",
+		"GET",
+		"DELETE"
+	],
+	"item_methods":[
+		"GET",
+		"PATCH",
+		"DELETE"
+	],
+	"schema": {
+		"bid_line_id": {
+			"type": "uuid",
+			"minlength": 36,
+			"maxlength": 36,
+			"required": true
+		},
+		"availability": {
+			"type": "integer",
+			"min": 1,
+			"max": 100,
+			"required": true
+		},
+		"bid_price": {
+			"type": "float",
+			"min": -100000.00,
+			"max": -100000.00,
+			"required": true
+		}
+	}
+}

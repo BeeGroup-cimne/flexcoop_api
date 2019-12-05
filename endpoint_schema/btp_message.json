@@ -1,0 +1,58 @@
+{
+	"item_title": "btp_message",
+	"id_field": "bid_id",
+	"item_lookup_field": "bid_id",
+	"cache_control": "max-age=10,must-revalidate",
+	"cache_expires": 10,
+	"resource_methods": [
+		"POST",
+		"GET",
+		"DELETE"
+	],
+	"item_methods":[
+		"GET",
+		"PATCH"
+	],
+	"schema": {
+		"bid_id": {
+			"type": "uuid",
+			"minlength": 36,
+			"maxlength": 36,
+			"required": true
+		},
+		"timestamp": {
+			"type": "datetime",
+			"required": true
+		},
+		"status": {
+			"type": "string",
+			"allowed": ["created", "placed"],
+			"required": true					
+        },
+		"btp_message": {
+			"bsp": {
+				"type": "uuid",
+				"minlength": 36,
+				"maxlength": 36,
+				"required": true				
+			},
+			"brp": {
+				"type": "uuid",
+				"minlength": 36,
+				"maxlength": 36,				
+			},
+			"request": {
+				"type": "integer",
+				"required": true
+			},
+			"date_of_delivery": {
+				"type": "datetime",
+				"required": true
+			},			
+			"btp_bid": {
+				"type": "list",
+				"items": [{"type": "uuid"}]
+			}
+		}
+	}
+}
