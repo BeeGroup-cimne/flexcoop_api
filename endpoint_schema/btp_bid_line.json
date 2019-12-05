@@ -1,0 +1,28 @@
+{
+	"item_title": "btp_bid_line",
+	"cache_control": "max-age=10,must-revalidate",
+	"cache_expires": 10,
+	"resource_methods": [
+		"POST",
+		"GET"
+	],
+	"item_methods":[
+		"GET",
+		"PATCH",
+		"DELETE"
+	],
+	"schema": {
+		"availability": {
+			"type": "integer",
+			"min": 1,
+			"max": 100,
+			"required": true
+		},
+		"bid_price": {
+			"type": "float",
+			"min": -100000.00,
+			"max": -100000.00,
+			"required": true
+		}
+	}
+}
