@@ -1,10 +1,13 @@
 {
 	"item_title": "btp_bid_line",
+	"id_field": "bid_line_id",
+	"item_lookup_field": "bid_line_id",
 	"cache_control": "max-age=10,must-revalidate",
 	"cache_expires": 10,
 	"resource_methods": [
 		"POST",
-		"GET"
+		"GET",
+		"DELETE"
 	],
 	"item_methods":[
 		"GET",
@@ -12,6 +15,12 @@
 		"DELETE"
 	],
 	"schema": {
+		"bid_line_id": {
+			"type": "uuid",
+			"minlength": 36,
+			"maxlength": 36,
+			"required": true
+		},
 		"availability": {
 			"type": "integer",
 			"min": 1,

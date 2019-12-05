@@ -1,10 +1,13 @@
 {
 	"item_title": "btp_message",
+	"id_field": "bid_id",
+	"item_lookup_field": "bid_id",
 	"cache_control": "max-age=10,must-revalidate",
 	"cache_expires": 10,
 	"resource_methods": [
 		"POST",
-		"GET"
+		"GET",
+		"DELETE"
 	],
 	"item_methods":[
 		"GET",
@@ -48,7 +51,7 @@
 			},			
 			"btp_bid": {
 				"type": "list",
-				"items": [{"type": "btp_bid"}]
+				"items": [{"type": "uuid"}]
 			}
 		}
 	}

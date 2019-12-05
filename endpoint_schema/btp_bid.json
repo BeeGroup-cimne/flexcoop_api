@@ -1,10 +1,13 @@
 {
 	"item_title": "btp_bid",
+	"id_field": "bid_id",
+	"item_lookup_field": "bid_id",
 	"cache_control": "max-age=10,must-revalidate",
 	"cache_expires": 10,
 	"resource_methods": [
 		"POST",
-		"GET"
+		"GET",
+		"DELETE"
 	],
 	"item_methods":[
 		"GET",
@@ -12,7 +15,7 @@
 		"DELETE"
 	],
 	"schema": {
-		"btp_bid_": {
+		"bid_id": {
 			"type": "uuid",
 			"minlength": 36,
 			"maxlength": 36,
@@ -60,7 +63,7 @@
 			"type": "list",
 			"minlength": 92,
 			"maxlength": 100,
-			"items": [{"type": "btp_bid_line"}]
+			"items": [{"type": "uuid"}]
 		}					
 	}
 
