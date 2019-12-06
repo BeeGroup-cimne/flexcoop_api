@@ -13,14 +13,14 @@
     "DELETE"
   ],
   "schema": {
-    "request_criteria": {
-      "type" : "list",
-      "required" : true,
+    "requestCriteria": {
+      "type": "list",
+      "required": true,
       "schema": {
-         "type": "string"
-       }
+        "type": "string"
+      }
     },
-    "cluster_id": {
+    "clusterId": {
       "type": "uuid",
       "minlength": 1,
       "maxlength": 64,
@@ -42,12 +42,14 @@
             "type": "string",
             "required": "true"
           },
-          "venId": {
-            "type": "string",
-            "minlength": 1,
-            "maxlength": 100,
-            "required": true,
-            "unique": true
+          "deviceId": {
+            "type": "list",
+            "items": [
+              {
+                "type": "uuid"
+              }
+            ],
+            "required": true
           }
         }
       }

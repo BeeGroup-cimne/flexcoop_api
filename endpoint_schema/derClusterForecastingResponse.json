@@ -17,11 +17,11 @@
       "type": "datetime",
       "required": true
     },
-    "upwards_flexibility": {
+    "upwardsFlexibility": {
       "type": "datetime",
       "required": true
     },
-    "downwards_flexibility": {
+    "downwardsFlexibility": {
       "type": "datetime",
       "required": true
     }

@@ -14,17 +14,17 @@
     "DELETE"
   ],
   "schema": {
-    "OSBid": {
+    "osbDid": {
       "type": "string",
       "minlength": 1,
       "maxlength": 100,
       "required": true,
       "unique": true
     },
-    "Value": {
+    "value": {
       "type": "number"
     },
-    "Timestamp": {
+    "timestamp": {
       "type": "datetime",
       "required": true
     }

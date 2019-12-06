@@ -1,0 +1,61 @@
+{
+  "item_title": "localFlexibilityProfile",
+  "cache_control": "max-age=10,must-revalidate",
+  "cache_expires": 10,
+  "resource_methods": [
+    "GET",
+    "POST"
+  ],
+  "schema": {
+    "localFlexibilityProfileList": {
+      "type": "list",
+      "schema": {
+        "type": "dict",
+        "schema": {
+          "device_id": {
+            "type": "string uuid",
+            "minlength": 36,
+            "maxlength": 36,
+            "required": true,
+            "unique": true
+          },
+          "derId": {
+            "type": "string",
+            "minlength": 1,
+            "maxlength": 100,
+            "required": true,
+            "unique": true
+          },
+          "derDevice": {
+            "type": "list",
+            "allowed": [
+              "Light",
+              "HVAC",
+              "DHW",
+              "EV"
+            ]
+          },
+          "flexibility": {
+            "type": "dict",
+            "schema": {
+              "baseline": {
+                "type": "float"
+              },
+              "upwards": {
+                "type": "float"
+              },
+              "flexibility": {
+                "type": "float"
+              },
+              "interval": {
+                "type": "integer"
+              }
+            }
+          }
+        },
+        "required": true
+      }
+    }
+  }
+}
+

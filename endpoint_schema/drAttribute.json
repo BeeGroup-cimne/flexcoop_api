@@ -7,21 +7,21 @@
     "POST"
   ],
   "schema": {
-    "OSBid": {
+    "osbId": {
       "type": "string",
       "minlength": 1,
       "maxlength": 100,
       "required": true,
       "unique": true
     },
-    "DERid": {
+    "derId": {
       "type": "string",
       "minlength": 1,
       "maxlength": 100,
       "required": true,
       "unique": true
     },
-    "Type": {
+    "type": {
       "type": "list",
       "allowed": [
         "Light",
@@ -29,13 +29,13 @@
         "DHW"
       ]
     },
-    "RampingUp": {
+    "rampingUp": {
       "type": "number"
     },
-    "DeliveryPeriod": {
+    "deliveryPeriod": {
       "type": "number"
     },
-    "DeactivationPeriod": {
+    "deactivationPeriod": {
       "type": "number"
     }
   }

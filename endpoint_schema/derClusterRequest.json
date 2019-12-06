@@ -30,7 +30,7 @@
         "on hold"
       ]
     },
-    "aggregator_id": {
+    "aggregatorId": {
       "type": "string",
       "minlength": 36,
       "maxlength": 36,
