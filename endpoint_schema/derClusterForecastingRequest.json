@@ -7,7 +7,8 @@
     "POST"
   ],
   "schema": {
-    "type": "list",
+    "venIds" : {
+      "type": "list",
       "required": "true",
       "schema": {
         "type": "dict",
@@ -16,12 +17,11 @@
             "type": "string",
             "minlength": 1,
             "maxlength": 100,
-            "required": true,
             "unique": true
           }
         }
-      },
-
+      }
+    },
     "horizon": {
       "type": "integer",
       "required": true
