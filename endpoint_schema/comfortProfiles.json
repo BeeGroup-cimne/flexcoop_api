@@ -1,5 +1,5 @@
 {
-  "item_title": "ComfortProfile",
+  "item_title": "comfortProfiles",
   "cache_control": "max-age=10,must-revalidate",
   "cache_expires": 10,
   "resource_methods": [
@@ -14,21 +14,21 @@
     "DELETE"
   ],
   "schema": {
-    "OSBid": {
+    "venId": {
       "type": "string",
       "minlength": 1,
       "maxlength": 100,
       "required": true,
       "unique": true
     },
-    "ComfortType": {
+    "comfortType": {
       "type": "list",
       "allowed": [
         "Visual",
         "Thermal"
       ]
     },
-    "VisualComfortProfile": {
+    "visualComfortProfile": {
       "type": "dict",
       "schema": {
         "attr1": {
@@ -42,7 +42,7 @@
         }
       }
     },
-    "ThermalComfortProfile": {
+    "thermalComfortProfile": {
       "type": "dict",
       "schema": {
         "attr1": {

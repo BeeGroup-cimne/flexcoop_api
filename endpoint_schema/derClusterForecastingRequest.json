@@ -7,7 +7,7 @@
     "POST"
   ],
   "schema": {
-    "venIds" : {
+    "venIds": {
       "type": "list",
       "required": "true",
       "schema": {

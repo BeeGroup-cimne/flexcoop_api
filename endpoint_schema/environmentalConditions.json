@@ -1,5 +1,5 @@
 {
-  "item_title": "EnvironmentalConditions",
+  "item_title": "environmentalConditions",
   "cache_control": "max-age=10,must-revalidate",
   "cache_expires": 10,
   "resource_methods": [
@@ -14,14 +14,14 @@
     "DELETE"
   ],
   "schema": {
-    "OSBid": {
+    "venId": {
       "type": "string",
       "minlength": 1,
       "maxlength": 100,
       "required": true,
       "unique": true
     },
-    "Type": {
+    "type": {
       "type": "list",
       "allowed": [
         "Temperature",
@@ -30,10 +30,10 @@
         "Illuminance"
       ]
     },
-    "Value": {
+    "value": {
       "type": "number"
     },
-    "Timestamp": {
+    "timestamp": {
       "type": "datetime",
       "required": true
     }

@@ -1,5 +1,5 @@
 {
-  "item_title": "UserConfigurationSettings",
+  "item_title": "userConfigurationSettings",
   "cache_control": "max-age=10,must-revalidate",
   "cache_expires": 10,
   "resource_methods": [
@@ -14,19 +14,18 @@
     "DELETE"
   ],
   "schema": {
-    "OSBid": {
+    "venId": {
       "type": "string",
       "minlength": 1,
       "maxlength": 100,
       "required": true,
       "unique": true
     },
-     "DERid": {
-      "type": "string",
-      "minlength": 1,
-      "maxlength": 100,
-      "required": true,
-      "unique": true
+    "deviceId": {
+      "type": "uuid",
+      "minlength": 36,
+      "maxlength": 36,
+      "required": true
     },
     "Type": {
       "type": "list",

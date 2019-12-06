@@ -19,13 +19,6 @@
             "required": true,
             "unique": true
           },
-          "derId": {
-            "type": "string",
-            "minlength": 1,
-            "maxlength": 100,
-            "required": true,
-            "unique": true
-          },
           "derDevice": {
             "type": "list",
             "allowed": [

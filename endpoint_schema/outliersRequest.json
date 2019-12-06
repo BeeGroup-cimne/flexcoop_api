@@ -1,5 +1,5 @@
 {
-    "item_title": "outliersRequest",
+  "item_title": "outliersRequest",
   "cache_control": "max-age=10,must-revalidate",
   "cache_expires": 10,
   "resource_methods": [
@@ -8,8 +8,10 @@
   ],
   "schema": {
     "outliers": {
-      "type" : "list",
-      "allowed" : ["Devices with no flexibility"]
+      "type": "list",
+      "allowed": [
+        "Devices with no flexibility"
+      ]
     },
     "startDate": {
       "type": "datetime"

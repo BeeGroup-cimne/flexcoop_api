@@ -38,7 +38,7 @@
       "schema": {
         "type": "dict",
         "schema": {
-          "cluster_name": {
+          "clusterName": {
             "type": "string",
             "required": "true"
           },
