@@ -14,7 +14,7 @@
     "DELETE"
   ],
   "schema": {
-    "osbId": {
+    "venId": {
       "type": "string",
       "minlength": 1,
       "maxlength": 100,
