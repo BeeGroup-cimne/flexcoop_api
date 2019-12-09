@@ -12,8 +12,8 @@
       "schema": {
         "type": "dict",
         "schema": {
-          "device_id": {
-            "type": "string uuid",
+          "deviceId": {
+            "type": "uuid",
             "minlength": 36,
             "maxlength": 36,
             "required": true,
