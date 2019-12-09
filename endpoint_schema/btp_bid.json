@@ -32,7 +32,7 @@
 		},
 		"object": {
 			"type": "string"
-		}
+		},
 		"preparation_period": {
 			"type": "integer",			
 			"min": 0,
@@ -57,7 +57,7 @@
 			"required": true			
 		},
 		"location": {
-			"type": "string",			
+			"type": "string"
 		},
 		"btp_bid_line": {
 			"type": "list",
