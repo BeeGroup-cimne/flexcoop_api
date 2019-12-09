@@ -1,0 +1,40 @@
+{
+  "item_title": "derClusterRequest",
+  "cache_control": "max-age=10,must-revalidate",
+  "cache_expires": 10,
+  "resource_methods": [
+    "GET",
+    "POST"
+  ],
+  "schema": {
+    "location": {
+      "type": "list",
+      "allowed": [
+        "Spain",
+        "Netherlands"
+      ]
+    },
+    "drServiceType": {
+      "type": "list",
+      "allowed": [
+        "aFRR",
+        "self-consumption",
+        "wholesale"
+      ]
+    },
+    "contract": {
+      "type": "list",
+      "allowed": [
+        "active",
+        "cancelled",
+        "on hold"
+      ]
+    },
+    "aggregatorId": {
+      "type": "string",
+      "minlength": 36,
+      "maxlength": 36,
+      "required": true
+    }
+  }
+}

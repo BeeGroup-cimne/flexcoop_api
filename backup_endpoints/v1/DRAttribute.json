@@ -1,4 +1,5 @@
 {
+  "item_title": "dr_attributes",
   "cache_control": "max-age=10,must-revalidate",
   "cache_expires": 10,
   "resource_methods": [
@@ -33,22 +34,14 @@
         "DHW"
       ]
     },
-    "flexibility": {
-      "type": "dict",
-      "schema": {
-        "baseline": {
-          "type": "float"
-        },
-        "upwards": {
-          "type": "float"
-        },
-        "flexibility": {
-          "type": "float"
-        },
-        "interval": {
-          "type": "integer"
-        }
-      }
+    "ramping_up": {
+      "type": "number"
+    },
+    "delivery_period": {
+      "type": "number"
+    },
+    "deactivation_eriod": {
+      "type": "number"
     }
   }
 }

@@ -1,0 +1,48 @@
+{
+  "item_title": "DERConsumption",
+  "cache_control": "max-age=10,must-revalidate",
+  "cache_expires": 10,
+  "resource_methods": [
+    "GET",
+    "POST",
+    "DELETE"
+  ],
+  "item_methods": [
+    "GET",
+    "PATCH",
+    "PUT",
+    "DELETE"
+  ],
+  "schema": {
+    "OSBid": {
+      "type": "string",
+      "minlength": 1,
+      "maxlength": 100,
+      "required": true,
+      "unique": true
+    },
+     "DERid": {
+      "type": "string",
+      "minlength": 1,
+      "maxlength": 100,
+      "required": true,
+      "unique": true
+    },
+    "Type": {
+      "type": "list",
+      "allowed": [
+        "HVAC",
+        "Light",
+        "DHW",
+        "EV"
+      ]
+    },
+    "Value": {
+      "type": "number"
+    },
+    "Timestamp": {
+      "type": "datetime",
+      "required": true
+    }
+  }
+}
