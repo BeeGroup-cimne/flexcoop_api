@@ -1,0 +1,60 @@
+{
+  "item_title": "ComfortProfile",
+  "cache_control": "max-age=10,must-revalidate",
+  "cache_expires": 10,
+  "resource_methods": [
+    "GET",
+    "POST",
+    "DELETE"
+  ],
+  "item_methods": [
+    "GET",
+    "PATCH",
+    "PUT",
+    "DELETE"
+  ],
+  "schema": {
+    "OSBid": {
+      "type": "string",
+      "minlength": 1,
+      "maxlength": 100,
+      "required": true,
+      "unique": true
+    },
+    "ComfortType": {
+      "type": "list",
+      "allowed": [
+        "Visual",
+        "Thermal"
+      ]
+    },
+    "VisualComfortProfile": {
+      "type": "dict",
+      "schema": {
+        "attr1": {
+          "type": "float"
+        },
+        "attr2": {
+          "type": "float"
+        },
+        "attr3": {
+          "type": "float"
+        }
+      }
+    },
+    "ThermalComfortProfile": {
+      "type": "dict",
+      "schema": {
+        "attr1": {
+          "type": "float"
+        },
+        "attr2": {
+          "type": "float"
+        },
+        "attr3": {
+          "type": "float"
+        }
+      }
+    }
+  }
+}

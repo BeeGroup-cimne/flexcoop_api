@@ -1,0 +1,58 @@
+{
+  "item_title": "derClusterResponse",
+  "cache_control": "max-age=10,must-revalidate",
+  "cache_expires": 10,
+  "resource_methods": [
+    "GET",
+    "POST"
+  ],
+  "item_methods": [
+    "GET",
+    "PATCH",
+    "PUT",
+    "DELETE"
+  ],
+  "schema": {
+    "requestCriteria": {
+      "type": "list",
+      "required": true,
+      "schema": {
+        "type": "string"
+      }
+    },
+    "clusterId": {
+      "type": "uuid",
+      "minlength": 1,
+      "maxlength": 64,
+      "required": true
+    },
+    "timestamp": {
+      "type": "datetime",
+      "minlength": 1,
+      "maxlength": 64,
+      "required": true
+    },
+    "derCluster": {
+      "type": "list",
+      "required": "true",
+      "schema": {
+        "type": "dict",
+        "schema": {
+          "clusterName": {
+            "type": "string",
+            "required": "true"
+          },
+          "deviceId": {
+            "type": "list",
+            "items": [
+              {
+                "type": "uuid"
+              }
+            ],
+            "required": true
+          }
+        }
+      }
+    }
+  }
+}

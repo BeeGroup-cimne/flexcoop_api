@@ -1,0 +1,32 @@
+{
+  "item_title": "OccupancySensorData",
+  "cache_control": "max-age=10,must-revalidate",
+  "cache_expires": 10,
+  "resource_methods": [
+    "GET",
+    "POST",
+    "DELETE"
+  ],
+  "item_methods": [
+    "GET",
+    "PATCH",
+    "PUT",
+    "DELETE"
+  ],
+  "schema": {
+    "OSBid": {
+      "type": "string",
+      "minlength": 1,
+      "maxlength": 100,
+      "required": true,
+      "unique": true
+    },
+    "Value": {
+      "type": "number"
+    },
+    "Timestamp": {
+      "type": "datetime",
+      "required": true
+    }
+  }
+}

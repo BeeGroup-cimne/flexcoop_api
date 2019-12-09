@@ -1,0 +1,73 @@
+{
+  "item_title": "DEROperationalStatus",
+  "cache_control": "max-age=10,must-revalidate",
+  "cache_expires": 10,
+  "resource_methods": [
+    "GET",
+    "POST",
+    "DELETE"
+  ],
+  "item_methods": [
+    "GET",
+    "PATCH",
+    "PUT",
+    "DELETE"
+  ],
+  "schema": {
+    "OSBid": {
+      "type": "string",
+      "minlength": 1,
+      "maxlength": 100,
+      "required": true,
+      "unique": true
+    },
+     "DERid": {
+      "type": "string",
+      "minlength": 1,
+      "maxlength": 100,
+      "required": true,
+      "unique": true
+    },
+    "Type": {
+      "type": "list",
+      "allowed": [
+        "HVAC",
+        "Light",
+        "DHW"
+      ]
+    },
+    "Setpoint": {
+      "type": "number"
+    },
+     "Status": {
+      "type": "list",
+      "allowed": [
+        "on",
+        "off"
+      ]
+    },
+    "Mode": {
+      "type": "list",
+      "allowed": [
+        "Heat",
+        "Cool",
+        "Fan",
+        "Dry"
+      ]
+    },
+    "Colour": {
+      "type": "dict",
+      "schema": {
+        "attr1": {
+          "type": "float"
+        },
+        "attr2": {
+          "type": "float"
+        },
+        "attr3": {
+          "type": "float"
+        }
+      }
+    }
+  }
+}
