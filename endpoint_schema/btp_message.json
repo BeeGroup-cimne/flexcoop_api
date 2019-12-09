@@ -39,7 +39,7 @@
 			"brp": {
 				"type": "uuid",
 				"minlength": 36,
-				"maxlength": 36,				
+				"maxlength": 36
 			},
 			"request": {
 				"type": "integer",
