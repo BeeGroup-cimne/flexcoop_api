@@ -8,14 +8,14 @@
   ],
   "schema": {
     "location": {
-      "type": "list",
+      "type": "string",
       "allowed": [
         "Spain",
         "Netherlands"
       ]
     },
     "drServiceType": {
-      "type": "list",
+      "type": "string",
       "allowed": [
         "aFRR",
         "self-consumption",
@@ -23,7 +23,7 @@
       ]
     },
     "contract": {
-      "type": "list",
+      "type": "string",
       "allowed": [
         "active",
         "cancelled",

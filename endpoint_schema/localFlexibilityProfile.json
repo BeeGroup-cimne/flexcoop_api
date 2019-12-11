@@ -20,7 +20,7 @@
             "unique": true
           },
           "derDevice": {
-            "type": "list",
+            "type": "string",
             "allowed": [
               "Light",
               "HVAC",

@@ -27,7 +27,7 @@
       "required": true
     },
     "horizonType": {
-      "type": "list",
+      "type": "string",
       "allowed": [
         "minutes",
         "hours"
@@ -38,12 +38,11 @@
       "required": "true"
     },
     "ispType": {
-      "type": "list",
+      "type": "string",
       "allowed": [
         "minutes",
         "hours"
-      ],
-      "required": true
+      ]
     }
   }
 }
