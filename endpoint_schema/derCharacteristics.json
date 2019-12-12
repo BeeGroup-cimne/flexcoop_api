@@ -27,8 +27,8 @@
       "maxlength": 36,
       "required": true
     },
-    "type": {
-      "type": "list",
+    "derDevice": {
+      "type": "string",
       "allowed": [
         "HVAC",
         "Light",

@@ -21,8 +21,8 @@
       "required": true,
       "unique": true
     },
-    "type": {
-      "type": "list",
+    "derDevice": {
+      "type": "string",
       "allowed": [
         "Light",
         "HVAC",
