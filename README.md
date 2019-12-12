@@ -216,13 +216,42 @@ pip install -r requirements.txt
    export MONGO_USERNAME='<mongo_username>'
    export MONGO_PASSWORD='<mongo_password>'
    export MONGO_DBNAME='<mongo_database>'
+   export OAUTH_PROVIDERS="<valid_oauth_providers" 
+   export CLIENT_OAUTH='service_provider_oauth_name'
+   export CLIENT='client_id_of_this_project_in_client_oauth'
+   export SECRET='secret_id_of_this_project_in_client_oauth'
+   export NOTIFICATION_OPENADR_URL="url_to_notify_openADR_of_actions"
+   export NOTIFICATION_OPENADR_CERT="cert_of_openadr_url"
+
    ```
-   (you may want to store this e.g. in a set_env.sh which you can source every time you need it)
+   *NOTES*: 
    
+   The notification variables "NOTIFICATION_OPENADR_URL" and "NOTIFICATION_OPENADR_URL" are used to notify the openADR component that an event has to be sent using OpenADR. (If not using this feature you can leave them blank)
+   
+   "OAUTH_PROVIDERS" is a dict containing all oauth providers that the middleware will accept their tokens:
+   ``` bash
+   "{
+        'provider_self_assigned_name': {
+            'url': 'url of provider', 
+            'cert': True = known cert | False = disable ssl validation | 'path_to_cert' = path to a self signed certificate
+            'client_id': 'client_id of the rest application in each provider'
+        },{...}
+   }
+   
+   #example:
+   "{
+    'cimne':{'url': 'https://oauth.middleware.platform.flexcoop.eu', 'cert':False, 'client_id': '688669'}
+   }"
+   ```
+   Look carefully the single and double quotes used in the variable value
+      
    To be able to run several components on a single computer, the host port can be specified by an optional environment variable: 
    ```bash
    export HOST_PORT=8081
    ```
+   (you may want to store this e.g. in a set_env.sh which you can source every time you need it)
+
+   
 4. run the server with `python run.py`
 
 ## ANNEX:
