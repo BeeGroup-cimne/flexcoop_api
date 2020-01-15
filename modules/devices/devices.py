@@ -28,8 +28,8 @@ def translate_device_output(response):
     for item in items:
         db_item = current_app.data.driver.db['devices'].find_one({"device_id": item['device_id']})
         item['device_class'] = db_item['rid']
-    #    for k, v in item['status'].items():
-    #        item['status'][k] = v['value']
+        for k, v in item['status'].items():
+            item['status'][k] = v['value']
 
 def on_update_devices_callback(updates, original):
     # Only allow the modification of non OSB fields
