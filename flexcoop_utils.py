@@ -45,8 +45,21 @@ def get_middleware_token():
     client = CLIENT
     secret = SECRET
     login = {'grant_type': 'client_credentials', 'client_id': client, 'client_secret': secret}
-    response = requests.post("{}/token".format(OAUTH_PROVIDERS[CLIENT_OAUTH]['url']), data=login, verify=OAUTH_PROVIDERS[CLIENT_OAUTH]['cert'])
+    response = requests.post(get_oauth_provider_token_url(CLIENT_OAUTH), data=login, verify=OAUTH_PROVIDERS[CLIENT_OAUTH]['cert'])
     if response.ok:
         return response.json()['access_token']
     else:
         raise Exception("Oauth client not found")
+
+
+def get_oauth_provider_token_url(client):
+    if 'token_url' in OAUTH_PROVIDERS[client]:
+        return OAUTH_PROVIDERS[client]['token_url']
+    else:
+        response = requests.get("{}/.well-known/openid-configuration/".format(OAUTH_PROVIDERS[client]['url']),
+                                verify=OAUTH_PROVIDERS[CLIENT_OAUTH]['cert'])
+        if response.ok:
+            OAUTH_PROVIDERS[client]['token_url'] = response.json()['token_endpoint']
+            return OAUTH_PROVIDERS[client]['token_url']
+        else:
+            raise Exception("Oauth client .well-known/openid-configuration not found")
