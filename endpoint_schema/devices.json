@@ -26,44 +26,36 @@
         "setPoint": {
           "type": "dict",
           "schema": {
-            "value": {
-              "type": "float"
-            }
+            "type": "float"
           }
         },
         "x-fanspeed": {
           "type": "dict",
           "schema": {
-            "value": {
-              "type": "float"
-            }
+            "type": "float"
           }
         },
         "mode": {
           "type": "dict",
           "schema": {
-            "value": {
-              "type": "string",
-              "allowed": [
-                "1",
-                "2",
-                "3",
-                "4",
-                "5"
-              ]
-            }
+            "type": "string",
+            "allowed": [
+              "1",
+              "2",
+              "3",
+              "4",
+              "5"
+            ]
           }
         },
         "operationState": {
           "type": "dict",
           "schema": {
-            "value": {
-              "type": "string",
-              "allowed": [
-                "0",
-                "1"
-              ]
-            }
+            "type": "string",
+            "allowed": [
+              "0",
+              "1"
+            ]
           }
         }
       }
@@ -80,7 +72,6 @@
       "maxlength": 36,
       "required": true
     },
-
     "device_class": {
       "type": "string",
       "allowed": [
@@ -91,7 +82,6 @@
       ],
       "required": true
     },
-
     "availability": {
       "type": "string",
       "allowed": [
