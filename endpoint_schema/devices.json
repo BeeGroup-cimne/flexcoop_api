@@ -80,7 +80,6 @@
       "maxlength": 36,
       "required": true
     },
-
     "device_class": {
       "type": "string",
       "allowed": [
@@ -91,7 +90,6 @@
       ],
       "required": true
     },
-
     "availability": {
       "type": "string",
       "allowed": [
