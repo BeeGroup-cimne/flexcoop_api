@@ -1,5 +1,6 @@
 from ast import literal_eval
 import math
+from datetime import datetime
 
 import flask
 import pandas as pd
@@ -32,6 +33,7 @@ def aggregate_collection(collection, resolution):
     except SyntaxError as e:
         flask.abort(500, 'error!incorrect where query: {}'.format(e))
     except Exception as e:
+        print(e)
         where_param = {}
 
     try:
@@ -42,14 +44,23 @@ def aggregate_collection(collection, resolution):
         sort_param = None
 
     pre_timeseries_get_callback(request, where_param)
-
+    schema = app.config['DOMAIN'][collection]
+    timestamp_field = schema['aggregation']['index_field']
+    for k, v in where_param.items():
+        if k == timestamp_field:
+            if isinstance(v, dict):
+                for k1, v1 in v.items():
+                    where_param[k][k1] = datetime.strptime(v1, app.config['DATE_FORMAT'])
+            else:
+                where_param[k] = datetime.strptime(v, app.config['DATE_FORMAT'])
     data = app.data.driver.db[collection].find(where_param)
+    print(data.count())
     if sort_param:
         data = data.sort(sort_param)
 
     df = pd.DataFrame.from_records(data)
 
-    schema = app.config['DOMAIN'][collection]
+
     if schema['aggregation']['groupby']:
         grouped = df.groupby(schema['aggregation']['groupby'])
         groups_df = []
