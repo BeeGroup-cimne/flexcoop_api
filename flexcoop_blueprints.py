@@ -1,3 +1,4 @@
+from ast import literal_eval
 import math
 
 import flask
@@ -7,49 +8,69 @@ from eve.auth import requires_auth
 from eve_swagger import add_documentation
 from flask import Blueprint, current_app as app, jsonify, request
 
+from modules.timeseries.timeseries import pre_timeseries_get_callback
+
 flexcoop_blueprints = Blueprint('1', __name__)
-@flexcoop_blueprints.route('/aggregate/<collection>/<resolution>/<operation>', methods=['GET'])
+@flexcoop_blueprints.route('/aggregate/<collection>/<resolution>', methods=['GET'])
 @requires_auth('aggregate')
-def aggregate_collection(collection, resolution, operation):
+def aggregate_collection(collection, resolution):
+    page_param = app.config['QUERY_PAGE']
+    try:
+        page = int(request.args[page_param])
+    except:
+        page = 1
+
     max_results = app.config['PAGINATION_DEFAULT']
     if app.config['QUERY_MAX_RESULTS'] in request.args:
-        max_results = min(request.args[app.config['QUERY_MAX_RESULTS']], app.config['PAGINATION_LIMIT'])
-
-    page = 1
-    if app.config['QUERY_PAGE'] in request.args:
-        page = int(request.args[app.config['QUERY_PAGE']])
+        max_results = min(int(request.args[app.config['QUERY_MAX_RESULTS']]), app.config['PAGINATION_LIMIT'])
 
     page_ini = (page - 1) * max_results
     page_end = page * max_results
 
+    try:
+        where_param = literal_eval(request.args['where'])
+    except SyntaxError as e:
+        flask.abort(500, 'error!incorrect where query: {}'.format(e))
+    except Exception as e:
+        where_param = {}
 
-    current_url = request.url
-    base_url = current_url.split("?")[0]
+    try:
+        sort_param = literal_eval(request.args['sort'])
+    except SyntaxError as e:
+        flask.abort(500, 'error!incorrect sort param: {}'.format(e))
+    except Exception as e:
+        sort_param = None
+
+    pre_timeseries_get_callback(request, where_param)
+
+    data = app.data.driver.db[collection].find(where_param)
+    if sort_param:
+        data = data.sort(sort_param)
+
+    df = pd.DataFrame.from_records(data)
 
     schema = app.config['DOMAIN'][collection]
-    data = app.data.driver.db[collection].find({})
-    df = pd.DataFrame.from_records(data)
-    df = df.set_index(schema['aggregation']['index_field'])
-    df.index = pd.to_datetime(df.index)
-    if operation == "AVG":
-        df = df.resample(resolution).mean()
-    if operation == "SUM":
-        df = df.resample(resolution).sum()
-    df['ts'] = df.index.strftime(app.config['DATE_FORMAT'])
+    if schema['aggregation']['groupby']:
+        grouped = df.groupby(schema['aggregation']['groupby'])
+        groups_df = []
+        for g, d in grouped:
+            groups_df.append(aggregate_timeseries(d, resolution, schema))
+        df = pd.concat(groups_df)
+    else:
+        df = aggregate_timeseries(df, resolution, schema)
 
     total_len = len(df)
     if total_len > max_results:
         items = df.iloc[page_ini:page_end]
-        next_url = "{}?page={}".format(base_url, page + 1)
+        next_url = "{}?{}={}".format(request.base_url, page_param, page + 1)
         max_page = math.ceil(total_len/max_results)
-        last_url = "{}?page={}".format(base_url, max_page)
+        last_url = "{}?{}={}".format(request.base_url,page_param, max_page)
     else:
         items = df
         next_url = None
         max_page = 1
         last_url = None
 
-    items = items.sort_index()
     hateoas = {
         "_meta": {
             app.config['QUERY_MAX_RESULTS']: max_results,
@@ -72,19 +93,43 @@ def aggregate_collection(collection, resolution, operation):
 
 
 
+def aggregate_timeseries(df, resolution, schema):
+    timestamp_field = schema['aggregation']['index_field']
+    df = df.set_index(timestamp_field)
+    df.index = pd.to_datetime(df.index)
+    df = df.sort_index()
+    aggregated_index = df.resample(resolution).mean().index
+    df_aggregated = None
+
+    for field, operation in schema['aggregation']['aggregate_fields'].items():
+        if field not in df.columns:
+            continue
+        if operation == "AVG":
+            series = df[field].resample(resolution).mean()
+        if operation == "SUM":
+            series = df[field].resample(resolution).sum()
+        if df_aggregated is None:
+            df_aggregated = pd.DataFrame(data={field: series}, index=aggregated_index)
+        else:
+            df_aggregated[field] = series
+
+    for field in schema['aggregation']['add_fields']:
+        df_aggregated[field] = [df[field][0]] * len(df_aggregated)
+
+    df_aggregated[timestamp_field] = df_aggregated.index.strftime(app.config['DATE_FORMAT'])
+    df_aggregated = df_aggregated.reset_index(drop=True)
+    return df_aggregated
 
 def set_documentation():
     add_documentation(
         {
             'paths': {
-                "/aggregate/{collection}/{resolution}/{operation}": {
+                "/aggregate/{collection}/{resolution}": {
                     "get": {
                         "parameters": [
                             {"name": "collection", "in": "path", "type": "string", "required": "true", "description": "a timeseries collection"},
                             {"name": "resolution", "in": "path", "type": "string", "required": "true",
                              "description": "the frequency to aggregate values"},
-                            {"name": "operation", "in": "path", "type": "string", "required": "true",
-                             "description": "operation when aggregating"},
                             {"name": "page", "in": "query", "type": "integer",
                              "description": "page of data"},
                         ],
