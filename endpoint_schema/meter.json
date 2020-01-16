@@ -2,6 +2,17 @@
   "item_title": "meter",
   "cache_control": "max-age=10,must-revalidate",
   "cache_expires": 10,
+  "aggregation":{
+    "index_field" : "timestamp",
+    "aggregate_fields" : {
+      "current": "AVG",
+      "kwh": "SUM",
+      "voltage": "AVG",
+      "watts": "AVG"
+    },
+    "groupby": "device_id",
+    "add_fields": ["account_id", "aggregator_id", "device_id"]
+  },
   "resource_methods": [
     "GET"
   ],

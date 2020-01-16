@@ -5,6 +5,17 @@
   "resource_methods": [
     "GET"
   ],
+  "aggregation":{
+    "index_field" : "timestamp",
+    "aggregate_fields" : {
+      "temperature": "AVG",
+      "lux": "AVG",
+      "relhumidity": "AVG",
+      "tvoc": "AVG"
+    },
+    "groupby": "device_id",
+    "add_fields": ["account_id", "aggregator_id", "device_id"]
+  },
   "item_methods": [],
   "schema": {
     "device_id": {
