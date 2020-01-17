@@ -100,12 +100,11 @@ def on_insert_dr_events_callback(items):
             headers = {"Authorization": get_middleware_token()}
             resp = requests.get("{}/{}/{}".format(NOTIFICATION_OPENADR_URL,"notify/events",ven_id), headers=headers, verify=NOTIFICATION_OPENADR_CERT)
             if not resp.ok:
-                flask.abort(500, "error sending the event")
-            else:
-                print(resp.json())
+                print("error sending the event")
+                flask.abort(flask.Response(json.dumps({"error": "error sending the event"})))
         except:
             print("Notification to openADR failed")
-            flask.abort(500, "error sending the event")
+            flask.abort(flask.Response(json.dumps({"error": "error sending the event"})))
     response = {'events_sent': len(items)}
     flask.abort(flask.Response(json.dumps(response)))
 
