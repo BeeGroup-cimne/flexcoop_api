@@ -36,6 +36,8 @@ def on_insert_dr_events_callback(items):
     for d_id in devices_id:
         device = current_app.data.driver.db['devices'].find_one({'device_id': d_id})
         ven = current_app.data.driver.db['virtual_end_node'].find_one({"account_id": device['account_id']})
+        if not ven:
+            flask.abort(flask.Response(json.dumps({"error": "The ven does not exist"})))
         try:
             vens[ven['ven_id']][d_id]['events'].extend(list(filter(lambda i: i['device_id'] == d_id, items)))
         except:
@@ -112,3 +114,5 @@ def on_insert_dr_events_callback(items):
 
 def set_hooks(app):
     app.on_insert_dr_events += on_insert_dr_events_callback
+
+

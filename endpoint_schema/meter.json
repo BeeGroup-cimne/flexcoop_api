@@ -11,7 +11,7 @@
       "watts": "AVG"
     },
     "groupby": "device_id",
-    "add_fields": ["account_id", "aggregator_id", "device_id"]
+    "add_fields": ["account_id", "aggregator_id", "device_id", "device_class"]
   },
   "resource_methods": [
     "GET"
@@ -35,6 +35,19 @@
       "type": "string",
       "minlength": 36,
       "maxlength": 36,
+      "required": true
+    },
+    "device_class": {
+      "type": "string",
+      "allowed": [
+        "sensingDevice",
+        "hvacDevice",
+        "dhwDevice",
+        "prosumerDeviceMetering",
+        "pvDevice",
+        "otherLoad",
+        "spaceTotalMetering"
+      ],
       "required": true
     },
     "timestamp": {

@@ -31,6 +31,19 @@
       "maxlength": 36,
       "required": true
     },
+    "device_class": {
+      "type": "string",
+      "allowed": [
+        "sensingDevice",
+        "hvacDevice",
+        "dhwDevice",
+        "prosumerDeviceMetering",
+        "pvDevice",
+        "otherLoad",
+        "spaceTotalMetering"
+      ],
+      "required": true
+    },
     "reporting_metrics":{
       "type": "list",
       "allowed": [
