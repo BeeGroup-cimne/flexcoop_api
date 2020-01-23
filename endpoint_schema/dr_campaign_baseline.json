@@ -27,7 +27,7 @@
 		"type": "datetime",
 		"required": true
 	},
-	"flexibility":
+	"flexibility": {
       "type": "float",
       "required": true
     },

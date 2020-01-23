@@ -17,7 +17,7 @@
     "dr_campaign_id": {
 		"type": "uuid",
 		"minlength": 36,
-		"maxlength": 36,
+		"maxlength": 36
     },
 	"aggregator_id": {
 		"type": "uuid",
