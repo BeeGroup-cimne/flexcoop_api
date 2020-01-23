@@ -25,6 +25,10 @@
 		"maxlength": 36,
 		"required": false
     },
+	"created": {
+		"type": "datetime",
+		"required": true
+	},
 	"start": {
 		"type": "datetime",
 		"required": true
@@ -37,6 +41,11 @@
 		"type": "string",
 		"allowed": ["test","afrr","self-consumption"],
 		"required": true
-    }			
+    },
+	"status": {
+		"type": "string",
+		"allowed": ["requested", "scheduled", "ongoing", "finished"],
+		"required": true
+	}				
   }
 }
