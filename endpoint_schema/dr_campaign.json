@@ -1,0 +1,51 @@
+{
+  "item_title": "dr_campaign",
+  "id_field": "dr_campaign_id",
+  "item_lookup_field": "dr_campaign_id",
+  "item_url": "regex(\"[a-zA-Z0-9-]+\")",
+  "cache_control": "max-age=10,must-revalidate",
+  "cache_expires": 10,
+  "resource_methods": [
+    "POST",
+    "GET"
+  ],
+  "item_methods": [    
+    "GET",
+	"DELETE"
+  ],
+  "schema": {
+    "dr_campaign_id": {
+		"type": "uuid",
+		"minlength": 36,
+		"maxlength": 36,
+    },
+	"aggregator_id": {
+		"type": "uuid",
+		"minlength": 36,
+		"maxlength": 36,
+		"required": false
+    },
+	"created": {
+		"type": "datetime",
+		"required": true
+	},
+	"start": {
+		"type": "datetime",
+		"required": true
+	},
+	"duration": {
+		"type": "datetime",
+		"required": true
+	},	
+	"origin": {
+		"type": "string",
+		"allowed": ["test","afrr","self-consumption"],
+		"required": true
+    },
+	"status": {
+		"type": "string",
+		"allowed": ["requested", "scheduled", "ongoing", "finished"],
+		"required": true
+	}				
+  }
+}
