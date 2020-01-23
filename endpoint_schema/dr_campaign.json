@@ -20,7 +20,7 @@
 		"maxlength": 36
     },
 	"aggregator_id": {
-		"type": "uuid",
+		"type": "string",
 		"minlength": 36,
 		"maxlength": 36,
 		"required": false
@@ -34,7 +34,7 @@
 		"required": true
 	},
 	"duration": {
-		"type": "datetime",
+		"type": "integer",
 		"required": true
 	},	
 	"origin": {
