@@ -21,9 +21,7 @@
     },
 	"aggregator_id": {
 		"type": "string",
-		"minlength": 36,
-		"maxlength": 36,
-		"required": false
+		"required": true
     },
 	"created": {
 		"type": "datetime",
