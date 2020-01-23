@@ -40,6 +40,6 @@
 	"flexibility": {
       "type": "float",
       "required": true
-    },	
+    }
   }
 }

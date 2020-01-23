@@ -19,7 +19,7 @@
 		"minlength": 36,
 		"maxlength": 36,
 		"required": true
-    }
+    },
 	"creation_date": {
 		"type": "datetime",
 		"required": true
