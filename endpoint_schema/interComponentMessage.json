@@ -35,8 +35,11 @@
       "maxlength": 36,
       "required": true
     },
-    "message_read": {
-      "type": "boolean",
+    "message_response": {
+      "type": "integer",
+      "min": 100,
+      "max": 511,
+      "default": 100,
       "required": true
     },
     "payload": {
