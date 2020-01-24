@@ -15,6 +15,7 @@
   ],
   "schema": {
     "dr_campaign_id": {
+		"required": true
 		"type": "uuid",
 		"minlength": 36,
 		"maxlength": 36
