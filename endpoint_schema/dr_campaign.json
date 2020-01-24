@@ -32,6 +32,10 @@
 		"type": "datetime",
 		"required": true
 	},
+	"end": {
+		"type": "datetime",
+		"required": true
+	},
 	"duration": {
 		"type": "integer",
 		"required": true
