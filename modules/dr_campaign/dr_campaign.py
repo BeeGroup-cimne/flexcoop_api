@@ -25,7 +25,7 @@ def pre_dr_campaign_access_control_callback(request, lookup):
         flask.abort(403, "Unknown user role")
 
 def on_deleted_dr_campaign_callback(item):
-    timeline_collection = current_app.data.driver.db['dr_campaign_timeline']	
+    timeline_collection = current_app.data.driver.db['dr_campaign_timeline']
     if item:
         dr_campaign_id = item['dr_campaign_id']
     else:
@@ -35,4 +35,5 @@ def on_deleted_dr_campaign_callback(item):
 def set_hooks(app):
     app.on_pre_GET_dr_campaign += pre_dr_campaign_access_control_callback    
     app.on_pre_DELETE_dr_campaign += pre_dr_campaign_access_control_callback
-    app.on_deleted_dr_campaign += on_deleted_dr_campaign_callback
+    app.on_pre_POST_dr_campaign += pre_dr_campaign_access_control_callback
+    app.on_delete_item_dr_campaign += on_deleted_dr_campaign_callback
