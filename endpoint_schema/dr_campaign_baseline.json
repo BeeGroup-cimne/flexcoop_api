@@ -33,8 +33,19 @@
     },
 	"ldems": {
 		"type": "list",
-		"items": [{"type": "uuid"}],
-		"required": false
+		"required": true
+		"schema": {
+			"type": "dict",
+			"schema": {
+				"id": {
+					"type": "uuid",
+				}
+				"flex": {
+					"type": "float",
+				}
+			}                        
+          }
+        }
 	},
 	"backup_ldems": {
 		"type": "list",
