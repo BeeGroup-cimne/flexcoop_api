@@ -33,17 +33,32 @@
     },
 	"ldems": {
 		"type": "list",
+		"required": true,
 		"schema": {
 			"type": "dict",
-			"schema":{
-				"ldems_id": {"type": "uuid"}
-			}
-		},
-		"required": false
+			"schema": {
+				"id": {
+					"type": "uuid"
+				},
+				"flex": {
+					"type": "float"
+				}
+			}                        
+		}
 	},
 	"backup_ldems": {
 		"type": "list",
-		"items": [{"type": "uuid"}],
+		"schema": {
+			"type": "dict",
+			"schema": {
+				"id": {
+					"type": "uuid"
+				},
+				"flex": {
+					"type": "float"
+				}
+			}
+		},
 		"required": false
 	}	
   }
