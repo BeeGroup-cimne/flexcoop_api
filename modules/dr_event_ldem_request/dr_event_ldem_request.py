@@ -8,7 +8,7 @@ from flexcoop_utils import get_middleware_token
 
 cert = False #"/path/to/cert"
 #TODO: Extract this on configuration file
-url = 'http://cloudtec.etra-id.com:6100/api/notify'
+url = 'http://cloudtec.etra-id.com:6100/api/drevent/notify'
 
 def pre_dr_event_ldem_request_access_control_callback(request, lookup=None):
     account_id = request.account_id
