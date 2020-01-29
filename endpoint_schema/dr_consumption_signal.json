@@ -13,34 +13,35 @@
 	"DELETE"
   ],
   "schema": {
-    "dr_campaign_id": {
-		"required": true,
-		"type": "uuid",
-		"minlength": 36,
-		"maxlength": 36
-    },
-	"aggregator_id": {
-		"type": "string",
-		"required": true
-    },
-	"account_id": {
-		"type": "uuid",
-		"minlength": 36,
-		"maxlength": 36,
-		"required": true
-	},
-	"device_id": {
-		"required": true,
-		"type": "uuid",
-		"minlength": 36,
-		"maxlength": 36
-    },
-	"timestamp": {
-		"type": "datetime",
-		"required": true
-	},
-	"consumption_modification": {
-		"type": "float",
-		"required": true
-	}
+	  "dr_campaign_id": {
+		  "required": true,
+		  "type": "uuid",
+		  "minlength": 36,
+		  "maxlength": 36
+	  },
+	  "aggregator_id": {
+		  "type": "string",
+		  "required": true
+	  },
+	  "account_id": {
+		  "type": "uuid",
+		  "minlength": 36,
+		  "maxlength": 36,
+		  "required": true
+	  },
+	  "device_id": {
+		  "required": true,
+		  "type": "uuid",
+		  "minlength": 36,
+		  "maxlength": 36
+	  },
+	  "timestamp": {
+		  "type": "datetime",
+		  "required": true
+	  },
+	  "consumption_modification": {
+		  "type": "float",
+		  "required": true
+	  }
+  }
 }
