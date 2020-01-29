@@ -7,7 +7,7 @@ from flask import current_app
 from datetime import datetime
 
 
-def pre_datapoints_access_control_callback(request, lookup):
+def pre_datapoints_access_control_callback(request, lookup=None):
     account_id = request.account_id
     role = request.role
     aggregator_id = request.aggregator_id

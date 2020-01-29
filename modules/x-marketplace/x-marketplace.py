@@ -1,6 +1,6 @@
 import flask
 
-def pre_contract_GET_callback(request, lookup):
+def pre_contract_GET_callback(request, lookup=None):
     #print('A GET request on a Marketplace Contract endpoint has just been received!')
     #print(request)
 

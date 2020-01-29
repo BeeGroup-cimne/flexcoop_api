@@ -7,7 +7,7 @@ from datetime import datetime
 
 from flexcoop_utils import get_middleware_token
 
-def pre_local_access_control_callback(request, lookup):
+def pre_local_access_control_callback(request, lookup=None):
     account_id = request.account_id
     role = request.role
     aggregator_id = request.aggregator_id

@@ -10,7 +10,7 @@ from flexcoop_utils import get_middleware_token
 from settings import NOTIFICATION_OPENADR_URL, NOTIFICATION_OPENADR_CERT
 
 
-def pre_timeseries_get_callback(request, lookup):
+def pre_timeseries_get_callback(request, lookup=None):
     account_id = request.account_id
     role = request.role
     aggregator_id = request.aggregator_id
