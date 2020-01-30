@@ -42,5 +42,5 @@ def on_insterted_dr_event_ldem_request_callback(items):
 def set_hooks(app):
     app.on_pre_GET_dr_event_ldem_request += pre_dr_event_ldem_request_access_control_callback    
     app.on_pre_DELETE_dr_event_ldem_request += pre_dr_event_ldem_request_access_control_callback
-    app.on_inserted_dr_event_ldem_request += on_insterted_dr_event_ldem_request_callback
+    #app.on_inserted_dr_event_ldem_request += on_insterted_dr_event_ldem_request_callback
 
