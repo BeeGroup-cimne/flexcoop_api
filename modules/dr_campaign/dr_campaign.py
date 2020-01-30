@@ -19,7 +19,7 @@ def pre_dr_campaign_access_control_callback(request, lookup=None):
         lookup["aggregator_id"] = aggregator_id
 
     elif role == 'service':
-        if account_id not in ['GDEM', 'DRSR']:
+        if account_id not in ['GDEM', 'DRSR', 'LDEM']:
             flask.abort(403, "The component {} can't have access to DR Campaign".format(account_id))
     else:
         flask.abort(403, "Unknown user role")
