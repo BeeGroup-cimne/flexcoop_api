@@ -30,6 +30,7 @@ def on_deleted_dr_campaign_callback(item):
     baseline_collection = current_app.data.driver.db['dr_campaign_baseline']
     ldem_dr_event_collection = current_app.data.driver.db['dr_event_ldem_request']
     ldem_baseline_collection = current_app.data.driver.db['dr_event_ldem_baseline']
+	control_signal_collection = current_app.data.driver.db['control_signal']
     #strategy_collection = current_app.data.driver.db['dr_campaign_strategy']
     if item:
         dr_campaign_id = item['dr_campaign_id']
@@ -39,6 +40,7 @@ def on_deleted_dr_campaign_callback(item):
     baseline_collection.delete_many({"dr_campaign_id" :  dr_campaign_id})
     ldem_dr_event_collection.delete_many({"dr_campaign_id" :  dr_campaign_id})
     ldem_baseline_collection.delete_many({"dr_campaign_id" :  dr_campaign_id})
+	control_signal_collection.delete_many({"dr_campaign_id" :  dr_campaign_id})
     #strategy_collection.delete_many({"dr_campaign_id" :  dr_campaign_id})
 
 
