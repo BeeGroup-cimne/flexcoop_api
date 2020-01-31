@@ -15,7 +15,7 @@
 	"schema": {
 		"timestamp": {
 			"required": true,
-			"type": "datetime",			
+			"type": "datetime"
 		},		
 		"dr_campaign_id": {
 			"type": "uuid",
