@@ -54,7 +54,6 @@ def aggregate_collection(collection, resolution):
             else:
                 where_param[k] = datetime.strptime(v, app.config['DATE_FORMAT'])
     data = app.data.driver.db[collection].find(where_param)
-    print(data.count())
     if sort_param:
         data = data.sort(sort_param)
 
