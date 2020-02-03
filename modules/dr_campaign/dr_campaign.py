@@ -26,8 +26,8 @@ def pre_dr_campaign_access_control_callback(request, lookup=None):
 
 
 def on_deleted_dr_campaign_callback(item):
-    timeline_collection = current_app.data.driver.db['dr_campaign_timeline']
-    baseline_collection = current_app.data.driver.db['dr_campaign_baseline']
+    timeline_collection = current_app.data.driver.db['dr_campaign_timeline_step']
+    baseline_collection = current_app.data.driver.db['dr_campaign_baseline_step']
     ldem_dr_event_collection = current_app.data.driver.db['dr_event_ldem_request']
     ldem_baseline_collection = current_app.data.driver.db['dr_event_ldem_baseline']
     control_signal_collection = current_app.data.driver.db['control_signal']
