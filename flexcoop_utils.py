@@ -23,7 +23,6 @@ def filter_item_schema(resource_name, response):
         if k not in schema:
             response[k] = response[k]
 
-    print(response)
 
 def filter_internal_schema(resource_name, response):
     filtered_items = []

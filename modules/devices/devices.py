@@ -24,12 +24,16 @@ def pre_devices_access_control_callback(request, lookup=None):
 
 
 def translate_device_output(response):
-    items = response['_items']
+    if '_items' in response:
+        items = response['_items']
+    else:
+        items = [response]
+        return
     for item in items:
         db_item = current_app.data.driver.db['devices'].find_one({"device_id": item['device_id']})
         item['device_class'] = db_item['rid']
         for k, v in item['status'].items():
-            item['status'][k] = v['value']
+            item['status'][k] = v['value'] if v['value'] else 0
 
 def on_update_devices_callback(updates, original):
     # Only allow the modification of non OSB fields
@@ -73,4 +77,5 @@ def set_hooks(app):
     app.on_pre_PATCH_devices += pre_devices_access_control_callback
     app.on_inserted_devices += on_insterted_devices_callback
     app.on_update_devices += on_update_devices_callback
+    app.on_fetched_item_devices += translate_device_output
 
