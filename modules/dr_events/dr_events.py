@@ -6,7 +6,7 @@ import requests
 from flask import current_app, request
 from datetime import datetime
 
-from flexcoop_utils import get_middleware_token
+from flexcoop_utils import ServiceToken
 from settings import NOTIFICATION_OPENADR_URL, NOTIFICATION_OPENADR_CERT
 
 
@@ -99,7 +99,7 @@ def on_insert_dr_events_callback(items):
                     }
                     current_app.data.driver.db['event_signal_intervals'].insert_one(interval_dict)
         try:
-            headers = {"Authorization": get_middleware_token()}
+            headers = {"Authorization": ServiceToken.get_token()}
             resp = requests.get("{}/{}/{}".format(NOTIFICATION_OPENADR_URL,"notify/events",ven_id), headers=headers, verify=NOTIFICATION_OPENADR_CERT)
             if not resp.ok:
                 print("error sending the event")
