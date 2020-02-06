@@ -1,6 +1,9 @@
 import requests
 from eve.utils import config
 from settings import OAUTH_PROVIDERS, CLIENT, SECRET, CLIENT_OAUTH
+from jwt import JWT
+from auth.authentication import KeyCache
+from datetime import datetime, timedelta
 
 def filter_field(data, schema):
     fitem = {}
@@ -61,3 +64,64 @@ def get_oauth_provider_token_url(client):
             return OAUTH_PROVIDERS[client]['token_url']
         else:
             raise Exception("Oauth client .well-known/openid-configuration not found")
+
+
+class ServiceToken(object):
+    class _ServiceToken(object):
+        def __init__(self):
+            self.token = None
+            self.exp = None
+            self.token_url = None
+            self.client = CLIENT
+            self.secret = SECRET
+            self.oauth = OAUTH_PROVIDERS[CLIENT_OAUTH]['url']
+            self.cert = OAUTH_PROVIDERS[CLIENT_OAUTH]['cert']
+
+        def __str__(self):
+            return repr(self)
+
+        def get_token(self):
+            def get_exp(token):
+                jwt = JWT()
+                keys_cache = KeyCache(OAUTH_PROVIDERS, timedelta(minutes=10))
+                keys = keys_cache.get_keys()
+                for key in keys:
+                    try:
+                        user_info = jwt.decode(token, key['key'])
+                        return datetime.utcfromtimestamp(user_info['exp'])
+
+                    except Exception as e:  # todo catch only corresponding exceptions here
+                        pass
+                return None
+
+            if self.token and self.exp:
+                in_five_minutes = datetime.utcnow() + timedelta(minutes=5)
+                if self.exp > in_five_minutes:
+                    return self.token
+            self.token = None
+            self.exp = None
+
+            if self.token_url is None:
+                response = requests.get("{}/.well-known/openid-configuration/".format(self.oauth), verify=self.cert)
+                if response.ok:
+                    self.token_url = response.json()['token_endpoint']
+                else:
+                    raise Exception("Oauth client .well-known/openid-configuration not found")
+
+            login = {'grant_type': 'client_credentials', 'client_id': self.client, 'client_secret': self.secret}
+            response = requests.post(self.token_url, data=login, verify=self.cert)
+            if response.ok:
+                self.token = response.json()['access_token']
+                self.exp = get_exp(self.token)
+                return self.token
+            else:
+                raise Exception("Oauth client not found")
+
+    instance = None
+
+    def __init__(self):
+        if not ServiceToken.instance:
+            ServiceToken.instance = ServiceToken._ServiceToken()
+
+    def __getattr__(self, name):
+        return getattr(self.instance, name)
