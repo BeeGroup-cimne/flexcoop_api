@@ -39,7 +39,7 @@
     },
     "delivery_attempt_time": {
       "type": "datetime",
-      "required": false,
+      "required": false
     },
     "payload": {
       "type": "dict"
