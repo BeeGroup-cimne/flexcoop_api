@@ -7,22 +7,18 @@
    "item_url": "regex(\"[a-f0-9]{8}-?[a-f0-9]{4}-?4[a-f0-9]{3}-?[89ab][a-f0-9]{3}-?[a-f0-9]{12}\")",
   "resource_methods": [
     "GET",
-    "POST",
-    "DELETE"
+    "POST"
   ],
   "item_methods": [],
   "schema": {
     "sender_id": {
-      "type": "uuid",
-      "minlength": 36,
-      "maxlength": 36,
-      "required": true,
-      "unique": true
+      "type": "string",
+      "minlength": 3,
+      "required": true
     },
     "recipient_id": {
-      "type": "uuid",
-      "minlength": 36,
-      "maxlength": 36,
+      "type": "string",
+      "minlength": 3,
       "required": true
     },
     "creation_time": {
@@ -30,9 +26,8 @@
       "required": true
     },
     "message_type": {
-      "type": "uuid",
-      "minlength": 36,
-      "maxlength": 36,
+      "type": "string",
+      "minlength": 3,
       "required": true
     },
     "message_response": {
@@ -45,11 +40,9 @@
     "delivery_attempt_time": {
       "type": "datetime",
       "required": false,
-      "default": "1970-01-01T00:00:00.000Z"
     },
     "payload": {
-      "dict": {
-        }
+      "type": "dict"
     }
   }
 }
