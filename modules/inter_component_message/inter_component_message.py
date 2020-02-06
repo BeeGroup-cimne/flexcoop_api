@@ -24,6 +24,24 @@ def inter_component_message_worker_thread(app):
         else:
             raise TypeError("Type %s not serializable" % type(obj))
 
+    def dump_initial_messages():
+        max_age = datetime.datetime.utcnow() - datetime.timedelta(days=7)
+        query = {"message_response": {"$eq": 100}, "delivery_attempt_time": {"$gte": max_age}}
+        outstanding = flask.current_app.data.driver.db['interComponentMessage'].find(query)
+        if outstanding.count() > 0:
+            print('There are ', outstanding.count(), ' interComponentMessage(s) still to be delivered')
+            for msg_raw in outstanding:
+                msg = cleanup_message(msg_raw)
+                print('  ', json.dumps(msg, default=datetime_serializer))
+
+        errors = flask.current_app.data.driver.db['interComponentMessage'].find({"message_response": {"$ne": 100}})
+        if errors.count() > 0:
+            print('There are ', errors.count(), ' undeliverable interComponentMessage(s) ')
+            for msg_raw in errors:
+                msg = cleanup_message(msg_raw)
+                print('  ', json.dumps(msg, default=datetime_serializer))
+                # flask.current_app.data.driver.db['interComponentMessage'].delete_one({'_id': msg_raw['_id']})
+
     def message_delivery_attempt(msg_raw):
         msg = cleanup_message(msg_raw)
         date_now = datetime.datetime.utcnow().replace(microsecond=0)
@@ -62,6 +80,7 @@ def inter_component_message_worker_thread(app):
             flask.current_app.data.driver.db['interComponentMessage'].update_one({'_id': msg_raw['_id']}, update)
 
     with app.app_context():
+        dump_initial_messages()
         while True:
             inter_component_message_event.clear()
 
