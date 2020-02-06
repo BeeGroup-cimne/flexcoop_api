@@ -1,7 +1,6 @@
 import requests
 from eve.utils import config
 from settings import OAUTH_PROVIDERS, CLIENT, SECRET, CLIENT_OAUTH
-from flask import current_app
 
 def filter_field(data, schema):
     fitem = {}
