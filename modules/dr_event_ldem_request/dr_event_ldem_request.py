@@ -4,7 +4,7 @@ import flask
 import requests
 from flask import current_app
 
-from flexcoop_utils import get_middleware_token
+from flexcoop_utils import ServiceToken
 
 cert = False #"/path/to/cert"
 #TODO: Extract this on configuration file

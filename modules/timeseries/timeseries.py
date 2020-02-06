@@ -6,7 +6,7 @@ import requests
 from flask import current_app, request
 from datetime import datetime
 
-from flexcoop_utils import get_middleware_token
+from flexcoop_utils import ServiceToken
 from settings import NOTIFICATION_OPENADR_URL, NOTIFICATION_OPENADR_CERT
 
 

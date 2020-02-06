@@ -5,7 +5,7 @@ import requests
 from flask import current_app
 from datetime import datetime
 
-from flexcoop_utils import get_middleware_token
+from flexcoop_utils import ServiceToken
 
 def pre_local_access_control_callback(request, lookup=None):
     account_id = request.account_id
