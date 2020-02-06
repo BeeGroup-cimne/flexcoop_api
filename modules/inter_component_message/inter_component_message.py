@@ -105,8 +105,9 @@ def inter_component_message_worker_thread(app):
 
 def pre_inter_component_message_GET_callback(request, lookup):
     if request.role == 'service':
+        lookup["recipient_id"] = request.account_id
         pass
-    elif request.role == 'aggregator':
+    elif request.role == 'admin':
         pass
     else:
         print('error: GET interComponentMessage not allowed for ', request.role)
@@ -121,6 +122,14 @@ def pre_inter_component_message_POST_callback(request):
         flask.abort(403)
 
 
+def pre_inter_component_message_DELETE_callback(request):
+    if request.role == 'admin':
+        pass
+    else:
+        print('error: DELETE interComponentMessage not allowed for ', request.role)
+        flask.abort(403)
+
+
 def post_inter_component_message_INSERTED_callback(items):
     inter_component_message_event.set()
 
@@ -128,6 +137,7 @@ def post_inter_component_message_INSERTED_callback(items):
 def set_hooks(app):
     app.on_pre_GET_interComponentMessage += pre_inter_component_message_GET_callback
     app.on_pre_POST_interComponentMessage += pre_inter_component_message_POST_callback
+    app.on_pre_DELETE_interComponentMessage += pre_inter_component_message_DELETE_callback
     app.on_inserted_interComponentMessage += post_inter_component_message_INSERTED_callback
 
     print("Starting worker thread: interComponentMessage")
