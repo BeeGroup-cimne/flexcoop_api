@@ -216,12 +216,13 @@ pip install -r requirements.txt
    export MONGO_USERNAME='<mongo_username>'
    export MONGO_PASSWORD='<mongo_password>'
    export MONGO_DBNAME='<mongo_database>'
-   export OAUTH_PROVIDERS="<valid_oauth_providers" 
+   export OAUTH_PROVIDERS="<valid_oauth_providers>" 
    export CLIENT_OAUTH='service_provider_oauth_name'
    export CLIENT='client_id_of_this_project_in_client_oauth'
    export SECRET='secret_id_of_this_project_in_client_oauth'
    export NOTIFICATION_OPENADR_URL="url_to_notify_openADR_of_actions"
    export NOTIFICATION_OPENADR_CERT="cert_of_openadr_url"
+   export INTERCOMPONENT_SETTINGS="<inter_component_settings>" 
 
    ```
    *NOTES*: 
@@ -236,14 +237,31 @@ pip install -r requirements.txt
             'cert': True = known cert | False = disable ssl validation | 'path_to_cert' = path to a self signed certificate
             'client_id': 'client_id of the rest application in each provider'
         },{...}
-   }
+   }"
    
    #example:
    "{
     'cimne':{'url': 'https://oauth.middleware.platform.flexcoop.eu', 'cert':False, 'client_id': '688669'}
    }"
    ```
-   Look carefully the single and double quotes used in the variable value
+
+   "INTERCOMPONENT_SETTINGS" is a dict containing the settings for sending intercomponent messages from the middleware: 
+   ``` bash
+   "{
+        'component shortname': {
+            'message_url': 'url where component receives messages', 
+            'payload_only': True = only send the payload | False = send full intercomponent message
+        },{...}
+   }"
+   
+   #example:
+   "{
+    'OMP':{'message_url': 'https://marketplace.flexcoop.eu/1/interComponentMessage', 'payload_only': False},
+    'LDEM':{'message_url': 'http://cloudtec.etra-id.com:6100/api/drevent/notify', 'payload_only': True}, 
+   }"
+   ```
+   Look carefully the single and double quotes used in the variable value for "OAUTH_PROVIDERS" and "INTERCOMPONENT_SETTINGS"
+
       
    To be able to run several components on a single computer, the host port can be specified by an optional environment variable: 
    ```bash
