@@ -1,9 +1,9 @@
 import requests
+import datetime
 from eve.utils import config
 from settings import OAUTH_PROVIDERS, CLIENT, SECRET, CLIENT_OAUTH
 from jwt import JWT
 from auth.authentication import KeyCache
-from datetime import datetime, timedelta
 
 def filter_field(data, schema):
     fitem = {}
@@ -59,19 +59,19 @@ class ServiceToken(object):
         def get_token(self):
             def get_exp(token):
                 jwt = JWT()
-                keys_cache = KeyCache(OAUTH_PROVIDERS, timedelta(minutes=10))
+                keys_cache = KeyCache(OAUTH_PROVIDERS, datetime.timedelta(minutes=10))
                 keys = keys_cache.get_keys()
                 for key in keys:
                     try:
                         user_info = jwt.decode(token, key['key'])
-                        return datetime.utcfromtimestamp(user_info['exp'])
+                        return datetime.datetime.utcfromtimestamp(user_info['exp'])
 
                     except Exception as e:  # todo catch only corresponding exceptions here
                         pass
                 return None
 
             if self.token and self.exp:
-                in_five_minutes = datetime.utcnow() + timedelta(minutes=5)
+                in_five_minutes = datetime.datetime.utcnow() + datetime.timedelta(minutes=5)
                 if self.exp > in_five_minutes:
                     return self.token
             self.token = None
