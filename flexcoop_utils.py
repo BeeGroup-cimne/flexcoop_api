@@ -45,9 +45,10 @@ def filter_internal_schema(resource_name, response):
 
 def send_inter_component_message(recipient=None, message_type=None, payload=''):
     if recipient not in INTERCOMPONENT_SETTINGS:
-        error = "send_inter_component_message(): recipient '%s' not configured in INTERCOMPONENT_SETTINGS" % recipient
+        error = "send_inter_component_message(): ERROR recipient '%s' not configured in INTERCOMPONENT_SETTINGS" % recipient
         print(error)
-        raise Exception(error)
+        #    Should we through an exception ?  This would fail the incoming request that triggered the message sending
+        # raise Exception(error)
     else:
         msg = {
             'sender_id': 'MIDDLEWARE',
