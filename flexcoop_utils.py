@@ -1,9 +1,10 @@
 import requests
 import datetime
 from eve.utils import config
-from settings import OAUTH_PROVIDERS, CLIENT, SECRET, CLIENT_OAUTH
+from settings import OAUTH_PROVIDERS, CLIENT, SECRET, CLIENT_OAUTH, INTERCOMPONENT_SETTINGS
 from jwt import JWT
 from auth.authentication import KeyCache
+from eve.methods.post import post_internal
 
 def filter_field(data, schema):
     fitem = {}
@@ -40,6 +41,26 @@ def filter_internal_schema(resource_name, response):
 
         filtered_items.append(f_item)
     response["_items"] = filtered_items
+
+
+def send_inter_component_message(recipient=None, message_type=None, payload=''):
+    if recipient not in INTERCOMPONENT_SETTINGS:
+        error = "send_inter_component_message(): recipient '%s' not configured in INTERCOMPONENT_SETTINGS" % recipient
+        print(error)
+        raise Exception(error)
+    else:
+        msg = {
+            'sender_id': 'MIDDLEWARE',
+            'recipient_id': recipient,
+            'message_type': message_type,
+            'creation_time': datetime.datetime.utcnow().replace(microsecond=0),
+            'payload': payload
+        }
+
+        internal_response = post_internal('interComponentMessage', msg)
+        if internal_response[0]['_status'] != 'OK':
+            print('send_inter_component_message(): ERROR ', internal_response)
+            print('                on internal_post ', msg)
 
 
 class ServiceToken(object):
