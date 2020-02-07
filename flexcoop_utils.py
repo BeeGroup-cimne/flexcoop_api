@@ -43,7 +43,22 @@ def filter_internal_schema(resource_name, response):
     response["_items"] = filtered_items
 
 
-def send_inter_component_message(recipient=None, message_type=None, payload=''):
+def send_inter_component_message(recipient: str = '', msg_type: str = '', json_payload: object = None):
+    """
+        Sends a message from the middleware to another component using the interComponentMessage service.
+        This ensures the message is retransmit on connection failures.
+
+        @param recipient: The recipient string must be one of the component short names configured in the
+        INTERCOMPONENT_SETTINGS environment variable.
+
+        @param msg_type: The msg_type string is important if there are different messages to the same recipient url.
+        Even if not applicable, the string must be set to something at least 3 characters long.
+
+        @param json_payload: The payload needs to be of type json
+
+        It depends on the recipients settings in  INTERCOMPONENT_SETTINGS if a full interComponentMessage or
+        just the payload is send to the recipient.
+    """
     if recipient not in INTERCOMPONENT_SETTINGS:
         error = "send_inter_component_message(): ERROR recipient '%s' not configured in INTERCOMPONENT_SETTINGS" % recipient
         print(error)
@@ -53,9 +68,9 @@ def send_inter_component_message(recipient=None, message_type=None, payload=''):
         msg = {
             'sender_id': 'MIDDLEWARE',
             'recipient_id': recipient,
-            'message_type': message_type,
+            'message_type': msg_type,
             'creation_time': datetime.datetime.utcnow().replace(microsecond=0),
-            'payload': payload
+            'payload': json_payload
         }
 
         internal_response = post_internal('interComponentMessage', msg)
