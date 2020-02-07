@@ -10,6 +10,24 @@ inter_component_message_event = threading.Event()
 
 
 def inter_component_message_worker_thread(app):
+    """
+        A worker thread that processes the list of interComponentMessage database entries.
+
+        At startup the not-yet delivered or delivered-with-failure entries will be listed
+        and then the daemonic thread enters an loop:
+            - Newly added messages will be tried to deliver first
+            - Then undelivered messages, not older than a day and not tried for more than 5 minutes
+              are tried to deliver
+            - After this, the thread sleeps for two minutes or until woken up by adding a new message
+
+        In each delivery attempt, either the full interComponentMessage or only the payload is posted
+        to the recipient and then acted upon the result:
+         - with http status 201-203, the message was transmitted succesfully and therefore deleted from the db
+         - with http status 502,503,504 there was a network problem. The error is logged and the message will be retried
+         - with another http status, there was a problem with the message itself - an error is logged, and the message
+             status updated to the received error. The message wil not be re-transmitted.
+         - with connection error, the error is logged and the message will be retried
+    """
 
     def cleanup_message(msg_raw):
         msg = msg_raw.copy()
@@ -48,33 +66,40 @@ def inter_component_message_worker_thread(app):
         receiver = msg['recipient_id']
         status_code = 100
         if receiver in INTERCOMPONENT_SETTINGS:
+            payload_only = INTERCOMPONENT_SETTINGS[receiver]['payload_only']
+            url = INTERCOMPONENT_SETTINGS[receiver]['message_url']
+
             token = ServiceToken().get_token()
             headers = {'accept': 'application/xml', 'Authorization': token, "Content-Type": "application/json"}
             try:
-                if INTERCOMPONENT_SETTINGS[receiver]['payload_only']:
+                if payload_only:
                     json_string = json.dumps(msg['payload'], default=datetime_serializer)
                 else:
                     json_string = json.dumps(msg, default=datetime_serializer)
 
-                response = requests.post(INTERCOMPONENT_SETTINGS[receiver]['message_url'], headers=headers, data=json_string)
+                response = requests.post(url, headers=headers, data=json_string)
                 status_code = response.status_code
                 if status_code < 200 or status_code > 203:
                     print(date_now.strftime("%d.%b %Y %H:%M:%S"),
                           ' ICM Worker:  Got ', response.status_code,
-                          ' from ', receiver, '@', INTERCOMPONENT_SETTINGS[receiver]['message_url'],
+                          ' from ', receiver, '@', url,
                           ' for ', msg['message_type'], '/', event['_id'],' ERROR:',response.content)
+
             except Exception as e:  # todo catch only corresponding exceptions here
                 print(date_now.strftime("%d.%b %Y %H:%M:%S"),
-                      ' ICM Worker:  Connection error to ', receiver, '@', INTERCOMPONENT_SETTINGS[receiver]['message_url'],
+                      ' ICM Worker:  Connection error to ', receiver, '@', url,
                       ' for ', msg['message_type'], '/', event['_id'], ' ERROR:', e)
         else:
             print(date_now.strftime("%d.%b %Y %H:%M:%S"),
-                  ' ICM Worker: Unknown receiver ', receiver, '@', INTERCOMPONENT_SETTINGS[receiver]['message_url'],
+                  ' ICM Worker: Unknown receiver ', receiver,
                   'for ', msg['message_type'], '/', msg_raw['_id'])
             status_code = 421
 
         if 200 <= status_code <= 202:
             flask.current_app.data.driver.db['interComponentMessage'].delete_one({'_id': msg_raw['_id']})
+        elif 502 <= status_code <= 504:
+            update = {'$set': {'delivery_attempt_time': date_now}}
+            flask.current_app.data.driver.db['interComponentMessage'].update_one({'_id': msg_raw['_id']}, update)
         else:
             update = {'$set': {'delivery_attempt_time': date_now, 'message_response': status_code}}
             flask.current_app.data.driver.db['interComponentMessage'].update_one({'_id': msg_raw['_id']}, update)
