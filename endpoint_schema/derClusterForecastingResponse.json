@@ -18,11 +18,11 @@
       "required": true
     },
     "upwardsFlexibility": {
-      "type": "datetime",
+      "type": "float",
       "required": true
     },
     "downwardsFlexibility": {
-      "type": "datetime",
+      "type": "float",
       "required": true
     }
   }
