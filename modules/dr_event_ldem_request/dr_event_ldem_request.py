@@ -37,7 +37,7 @@ def on_insterted_dr_event_ldem_request_callback(items):
         #dr_campaign_id = item['dr_campaign_id']
         #data = {'drCampaignId': dr_campaign_id}
         #send_inter_component_message(recipient='LDEM', msg_type='MESSAGE', json_payload=data)
-
+        #
         try:
             #TODO: This will use the queue message sending still to be implemented.
             dr_campaign_id = item['dr_campaign_id']
