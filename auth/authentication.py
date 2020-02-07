@@ -102,8 +102,12 @@ class JWTokenAuth(TokenAuth):
             else:
                 issuer = user_info['iss']
                 expiration = datetime.utcfromtimestamp(user_info['exp'])
-                role = user_info['role']
-                sub = user_info['sub']
+                if 'role' in user_info:
+                    role = user_info['role']
+                if 'sub' in user_info:
+                    sub = user_info['sub']
+                    if role == 'service' and 'clientId' in user_info:
+                        sub = user_info['clientId']
                 now_time = datetime.utcnow()
                 if expiration < now_time:
                     return False
