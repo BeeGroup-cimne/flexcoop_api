@@ -80,6 +80,13 @@ def send_inter_component_message(recipient: str = '', msg_type: str = '', json_p
 
 
 class ServiceToken(object):
+    """
+        A singleton instance object providing access to a middleware service token
+        via
+          token =  ServiceToken():get_token()
+
+        The class caches the retrieved access token until 5 minutes before expiration to minimise network traffic
+    """
     class _ServiceToken(object):
         def __init__(self):
             self.token = None
