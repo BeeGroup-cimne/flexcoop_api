@@ -4,7 +4,7 @@ import flask
 import requests
 from flask import current_app
 
-from flexcoop_utils import get_middleware_token
+from flexcoop_utils import ServiceToken, send_inter_component_message
 
 cert = False #"/path/to/cert"
 #TODO: Extract this on configuration file
@@ -29,6 +29,15 @@ def pre_dr_event_ldem_request_access_control_callback(request, lookup=None):
 def on_insterted_dr_event_ldem_request_callback(items):
     item = items[0] if len(items) > 0 else None
     if item:
+        #TODO here an example on how to use the new interComponentMessage support:
+        #   I'm not shure if the LDEM is the recipient. Nevertheless, the receiveer needs to be
+        #   configured in the INTERCOMPONENT_SETTINGS environment variable with the flag payload_only
+        #   set to True
+        #
+        #dr_campaign_id = item['dr_campaign_id']
+        #data = {'drCampaignId': dr_campaign_id}
+        #send_inter_component_message(recipient='LDEM', msg_type='MESSAGE', json_payload=data)
+        #
         try:
             #TODO: This will use the queue message sending still to be implemented.
             dr_campaign_id = item['dr_campaign_id']

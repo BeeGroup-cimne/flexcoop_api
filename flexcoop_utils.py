@@ -1,7 +1,10 @@
 import requests
+import datetime
 from eve.utils import config
-from settings import OAUTH_PROVIDERS, CLIENT, SECRET, CLIENT_OAUTH
-from flask import current_app
+from settings import OAUTH_PROVIDERS, CLIENT, SECRET, CLIENT_OAUTH, INTERCOMPONENT_SETTINGS
+from jwt import JWT
+from auth.authentication import KeyCache
+from eve.methods.post import post_internal
 
 def filter_field(data, schema):
     fitem = {}
@@ -40,25 +43,105 @@ def filter_internal_schema(resource_name, response):
     response["_items"] = filtered_items
 
 
-def get_middleware_token():
-    client = CLIENT
-    secret = SECRET
-    login = {'grant_type': 'client_credentials', 'client_id': client, 'client_secret': secret}
-    response = requests.post(get_oauth_provider_token_url(CLIENT_OAUTH), data=login, verify=OAUTH_PROVIDERS[CLIENT_OAUTH]['cert'])
-    if response.ok:
-        return response.json()['access_token']
+def send_inter_component_message(recipient: str = '', msg_type: str = '', json_payload: object = None):
+    """
+        Sends a message from the middleware to another component using the interComponentMessage service.
+        This ensures the message is retransmit on connection failures.
+
+        @param recipient: The recipient string must be one of the component short names configured in the
+        INTERCOMPONENT_SETTINGS environment variable.
+
+        @param msg_type: The msg_type string is important if there are different messages to the same recipient url.
+        Even if not applicable, the string must be set to something at least 3 characters long.
+
+        @param json_payload: The payload needs to be of type json
+
+        It depends on the recipients settings in  INTERCOMPONENT_SETTINGS if a full interComponentMessage or
+        just the payload is send to the recipient.
+    """
+    if recipient not in INTERCOMPONENT_SETTINGS:
+        error = "send_inter_component_message(): ERROR recipient '%s' not configured in INTERCOMPONENT_SETTINGS" % recipient
+        print(error)
+        #    Should we through an exception ?  This would fail the incoming request that triggered the message sending
+        # raise Exception(error)
     else:
-        raise Exception("Oauth client not found")
+        msg = {
+            'sender_id': 'MIDDLEWARE',
+            'recipient_id': recipient,
+            'message_type': msg_type,
+            'creation_time': datetime.datetime.utcnow().replace(microsecond=0),
+            'payload': json_payload
+        }
+
+        internal_response = post_internal('interComponentMessage', msg)
+        if internal_response[0]['_status'] != 'OK':
+            print('send_inter_component_message(): ERROR ', internal_response)
+            print('                on internal_post ', msg)
 
 
-def get_oauth_provider_token_url(client):
-    if 'token_url' in OAUTH_PROVIDERS[client]:
-        return OAUTH_PROVIDERS[client]['token_url']
-    else:
-        response = requests.get("{}/.well-known/openid-configuration/".format(OAUTH_PROVIDERS[client]['url']),
-                                verify=OAUTH_PROVIDERS[CLIENT_OAUTH]['cert'])
-        if response.ok:
-            OAUTH_PROVIDERS[client]['token_url'] = response.json()['token_endpoint']
-            return OAUTH_PROVIDERS[client]['token_url']
-        else:
-            raise Exception("Oauth client .well-known/openid-configuration not found")
+class ServiceToken(object):
+    """
+        A singleton instance object providing access to a middleware service token
+        via
+          token =  ServiceToken():get_token()
+
+        The class caches the retrieved access token until 5 minutes before expiration to minimise network traffic
+    """
+    class _ServiceToken(object):
+        def __init__(self):
+            self.token = None
+            self.exp = None
+            self.token_url = None
+            self.client = CLIENT
+            self.secret = SECRET
+            self.oauth = OAUTH_PROVIDERS[CLIENT_OAUTH]['url']
+            self.cert = OAUTH_PROVIDERS[CLIENT_OAUTH]['cert']
+
+        def __str__(self):
+            return repr(self)
+
+        def get_token(self):
+            def get_exp(token):
+                jwt = JWT()
+                keys_cache = KeyCache(OAUTH_PROVIDERS, datetime.timedelta(minutes=10))
+                keys = keys_cache.get_keys()
+                for key in keys:
+                    try:
+                        user_info = jwt.decode(token, key['key'])
+                        return datetime.datetime.utcfromtimestamp(user_info['exp'])
+
+                    except Exception as e:  # todo catch only corresponding exceptions here
+                        pass
+                return None
+
+            if self.token and self.exp:
+                in_five_minutes = datetime.datetime.utcnow() + datetime.timedelta(minutes=5)
+                if self.exp > in_five_minutes:
+                    return self.token
+            self.token = None
+            self.exp = None
+
+            if self.token_url is None:
+                response = requests.get("{}/.well-known/openid-configuration/".format(self.oauth), verify=self.cert)
+                if response.ok:
+                    self.token_url = response.json()['token_endpoint']
+                else:
+                    raise Exception("Oauth client .well-known/openid-configuration not found")
+
+            login = {'grant_type': 'client_credentials', 'client_id': self.client, 'client_secret': self.secret}
+            response = requests.post(self.token_url, data=login, verify=self.cert)
+            if response.ok:
+                self.token = response.json()['access_token']
+                self.exp = get_exp(self.token)
+                return self.token
+            else:
+                raise Exception("Oauth client not found")
+
+    instance = None
+
+    def __init__(self):
+        if not ServiceToken.instance:
+            ServiceToken.instance = ServiceToken._ServiceToken()
+
+    def __getattr__(self, name):
+        return getattr(self.instance, name)
