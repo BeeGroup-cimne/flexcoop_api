@@ -56,9 +56,11 @@ def pre_patch__contracts(request, lookup):
         flask.abort(403, {'error': 'Modification of ' + error_str + ' not allowed'})
 
     if role == 'prosumer':
+        request.json['validated'] = False
         lookup["account_id"] = sub
 
     elif role == 'aggregator':
+        request.json['validated'] = False
         lookup["agr_id"] = sub
 
     elif role == 'service':
@@ -82,8 +84,14 @@ def post_patch__contracts(request,payload):
             else:
                 print('PATCH contract rejected, inform aggregator')
 
-        # if aggregator changed stuff, the contract is then active and valid
-        pass
+        elif request.role == 'aggregator':
+            send_inter_component_message(recipient='OMP', msg_type='AGGREGATOR_PATCH',
+                                        json_payload={'contract_id': request.view_args['contract_id'],
+                                                      'patch' : request.json})
+        elif request.role == 'prosumer':
+            send_inter_component_message(recipient='OMP', msg_type='PROSUMER_PATCH',
+                                        json_payload={'contract_id': request.view_args['contract_id'],
+                                                      'patch' : request.json})
 
 
 def pre_post__contracts(request):
