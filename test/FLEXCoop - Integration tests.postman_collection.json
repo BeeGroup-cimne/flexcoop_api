@@ -1,0 +1,629 @@
+{
+	"info": {
+		"_postman_id": "df0323c1-2ef3-4602-a1aa-9e1fe4b5dc9c",
+		"name": "FLEXCoop - Integration tests",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Scenario 1 - Measures registration",
+			"item": [
+				{
+					"name": "Step 0 - Get OAuth token",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "4652ac6a-6fd8-4498-be97-96d75552a6e1",
+								"exec": [
+									"pm.test(\"Token obtained\", function () { \r",
+									"    console.log(\"step 0 - Get the OAuth token\");\r",
+									"    pm.globals.set(\"token\", pm.response.json().access_token);\r",
+									"    pm.response.to.be.ok; // equivalente a decir que valide que sea 200\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "grant_type",
+									"value": "client_credentials",
+									"type": "text"
+								},
+								{
+									"key": "client_id",
+									"value": "336042",
+									"type": "text"
+								},
+								{
+									"key": "client_secret",
+									"value": "bfd2ca81a835ceec07710295b9801757e6c3b787a9459972cce8f22b",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{oauth_url}}",
+							"host": [
+								"{{oauth_url}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Step 1 - Indoor sensing last 20' data",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "3871c1df-2bc2-40cd-a6b5-d3099a1d3645",
+								"exec": [
+									"const now = new Date();",
+									"const before20 = new Date(now.getTime() - 20*60000).toISOString();",
+									"pm.request.headers.add({",
+									"    key: \"Authorization\",",
+									"    value: \"Bearer \" + pm.globals.get(\"token\").access_token,",
+									"    system: \"true\",",
+									"})"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"id": "1a7f9f1f-89ef-4161-b6f6-ace20be7e224",
+								"exec": [
+									"pm.test(\"Indoor sensing data\", function () {\r",
+									"    console.log(\"Step 1 - Get indoor sensing data\");\r",
+									"    const response = pm.response.json();\r",
+									"    pm.response.to.have.status(200);\r",
+									"    pm.expect(response._items.length).to.be.above(-1)\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{middleware_url}}/indoor_sensing?where={\"timestamp\": {\"$gt\":\"{{date}}\"}}",
+							"host": [
+								"{{middleware_url}}"
+							],
+							"path": [
+								"indoor_sensing"
+							],
+							"query": [
+								{
+									"key": "where",
+									"value": "{\"timestamp\": {\"$gt\":\"{{date}}\"}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Step 2 - Occupancy last 20' data",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "3871c1df-2bc2-40cd-a6b5-d3099a1d3645",
+								"exec": [
+									"const now = new Date();",
+									"const before20 = new Date(now.getTime() - 20*60000).toISOString();",
+									"pm.request.headers.add({",
+									"    key: \"Authorization\",",
+									"    value: \"Bearer \" + pm.globals.get(\"token\").access_token,",
+									"    system: \"true\",",
+									"})"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"id": "1a7f9f1f-89ef-4161-b6f6-ace20be7e224",
+								"exec": [
+									"pm.test(\"Occupancy data\", function () {\r",
+									"    console.log(\"Step 2 - Get occupancy data\");\r",
+									"    const response = pm.response.json();\r",
+									"    pm.response.to.have.status(200);\r",
+									"    pm.expect(response._items.length).to.be.above(-1)\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{middleware_url}}/occupancy?where={\"timestamp\": {\"$gt\":\"{{date}}\"}}",
+							"host": [
+								"{{middleware_url}}"
+							],
+							"path": [
+								"occupancy"
+							],
+							"query": [
+								{
+									"key": "where",
+									"value": "{\"timestamp\": {\"$gt\":\"{{date}}\"}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Step 3 - Meter last 20' data",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "3871c1df-2bc2-40cd-a6b5-d3099a1d3645",
+								"exec": [
+									"const now = new Date();",
+									"const before20 = new Date(now.getTime() - 20*60000).toISOString();",
+									"pm.request.headers.add({",
+									"    key: \"Authorization\",",
+									"    value: \"Bearer \" + pm.globals.get(\"token\").access_token,",
+									"    system: \"true\",",
+									"})"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"id": "1a7f9f1f-89ef-4161-b6f6-ace20be7e224",
+								"exec": [
+									"pm.test(\"Meter data\", function () {\r",
+									"    console.log(\"Step 3 - Get meter data\");\r",
+									"    const response = pm.response.json();\r",
+									"    pm.response.to.have.status(200);\r",
+									"    pm.expect(response._items.length).to.be.above(-1)\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{middleware_url}}/meter?where={\"timestamp\": {\"$gt\":\"{{date}}\"}}",
+							"host": [
+								"{{middleware_url}}"
+							],
+							"path": [
+								"meter"
+							],
+							"query": [
+								{
+									"key": "where",
+									"value": "{\"timestamp\": {\"$gt\":\"{{date}}\"}}"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "Scenario 2 - Preparation of a DR Campaign (global level)",
+			"item": [
+				{
+					"name": "Step 0 - Get OAuth token",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "4652ac6a-6fd8-4498-be97-96d75552a6e1",
+								"exec": [
+									"pm.test(\"Token obtained\", function () { \r",
+									"     console.log(\"step 0 - Get the OAuth token\");\r",
+									"     pm.globals.set(\"token\", pm.response.json().access_token);\r",
+									"     pm.response.to.be.ok; // equivalente a decir que valide que sea 200\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "grant_type",
+									"value": "client_credentials",
+									"type": "text"
+								},
+								{
+									"key": "client_id",
+									"value": "336042",
+									"type": "text"
+								},
+								{
+									"key": "client_secret",
+									"value": "bfd2ca81a835ceec07710295b9801757e6c3b787a9459972cce8f22b",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{oauth_url}}",
+							"host": [
+								"{{oauth_url}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Step 1 - Generate DR Campaign",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "a79610e8-0fec-421b-ac88-97ac318a5a18",
+								"exec": [
+									"pm.test(\"DR Campaign generated\", function () {\r",
+									"    console.log(\"step 1\");\r",
+									"    const response = pm.response.json();\r",
+									"    const steps = response.duration / 15;\r",
+									"    pm.globals.set(\"dr_campaign_id\", response.dr_campaign_id);\r",
+									"    pm.globals.set(\"steps\", steps);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "f208f0a5-455d-4f68-8ba4-a5200fcfdd13",
+								"exec": [
+									"const now = new Date();",
+									"console.log(now);",
+									"const then = new Date(now.getTime() + 10*60000).toISOString();",
+									"console.log(then);",
+									"pm.globals.set(\"date\", then);",
+									"pm.globals.set(\"durationH\", \"1\");",
+									"pm.request.headers.add({",
+									"    key: \"Authorization\",",
+									"    value: \"Bearer \" + pm.globals.get(\"token\").access_token,",
+									"    system: \"true\",",
+									"})"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{etra_url}}/drcampaign/generate/{{date}}/{{durationH}}/{{minFlex}}/{{maxFlex}}",
+							"host": [
+								"{{etra_url}}"
+							],
+							"path": [
+								"drcampaign",
+								"generate",
+								"{{date}}",
+								"{{durationH}}",
+								"{{minFlex}}",
+								"{{maxFlex}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Step 2 - Get timeline",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "058a1bf4-cf6e-40e8-b037-b5af5a76506c",
+								"exec": [
+									"pm.request.headers.add({",
+									"    key: \"Authorization\",",
+									"    value: \"Bearer \" + pm.globals.get(\"token\").access_token,",
+									"    system: \"true\",",
+									"})",
+									"//pm.environment.set(\"token\", pm.globals.get(\"token\"));",
+									"//pm.globals.get(\"dr_campaign_id\");"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"id": "bd2a3486-2a9b-4445-b840-70e262cf5b2b",
+								"exec": [
+									"pm.test(\"DR obtained\", function () {\r",
+									"    console.log(\"Step 2\");\r",
+									"    const response = pm.response.json();\r",
+									"    const steps = pm.globals.get(\"steps\");\r",
+									"    console.log(response);\r",
+									"    console.log(response._items.length);\r",
+									"    // pm.response.to.have.status(200);\r",
+									"    pm.expect(response._items.length).to.equal(steps)\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://rest.middleware.platform.flexcoop.eu/1/dr_campaign_timeline_step?where={\"dr_campaign_id\": \"{{dr_campaign_id}}\"}",
+							"protocol": "https",
+							"host": [
+								"rest",
+								"middleware",
+								"platform",
+								"flexcoop",
+								"eu"
+							],
+							"path": [
+								"1",
+								"dr_campaign_timeline_step"
+							],
+							"query": [
+								{
+									"key": "where",
+									"value": "{\"dr_campaign_id\": \"{{dr_campaign_id}}\"}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Step n-1",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "058a1bf4-cf6e-40e8-b037-b5af5a76506c",
+								"exec": [
+									"pm.environment.set(\"token\", pm.globals.get(\"token\"));",
+									"pm.globals.get(\"dr_campaign_id\");"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"id": "bd2a3486-2a9b-4445-b840-70e262cf5b2b",
+								"exec": [
+									"pm.test(\"DR obtained\", function () {\r",
+									"    console.log(\"Step n-1\");\r",
+									"    const response = pm.response.json();\r",
+									"    console.log(response);\r",
+									"    pm.globals.set(\"_etag\", response._etag);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://rest.middleware.platform.flexcoop.eu/1/dr_campaign/{{dr_campaign_id}}",
+							"protocol": "https",
+							"host": [
+								"rest",
+								"middleware",
+								"platform",
+								"flexcoop",
+								"eu"
+							],
+							"path": [
+								"1",
+								"dr_campaign",
+								"{{dr_campaign_id}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Step n",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "96a2978e-8161-4385-a384-34151572eebb",
+								"exec": [
+									"pm.test(\"DR removed\", function () {\r",
+									"    console.log(pm.response);\r",
+									"    pm.response.to.have.status(204);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "If-Match",
+								"value": "{{_etag}}",
+								"type": "text"
+							},
+							{
+								"key": "",
+								"value": "",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"url": {
+							"raw": "https://rest.middleware.platform.flexcoop.eu/1/dr_campaign/{{dr_campaign_id}}",
+							"protocol": "https",
+							"host": [
+								"rest",
+								"middleware",
+								"platform",
+								"flexcoop",
+								"eu"
+							],
+							"path": [
+								"1",
+								"dr_campaign",
+								"{{dr_campaign_id}}"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
+		}
+	],
+	"protocolProfileBehavior": {}
+}
