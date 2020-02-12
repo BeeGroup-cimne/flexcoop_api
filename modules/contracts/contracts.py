@@ -37,10 +37,24 @@ def pre_patch__contracts(request, lookup):
     sub = request.account_id
     role = request.role
 
-    print('JSON of request: ', request.json)
+    print('PATCH contract  request: ', request.json)
 
-    # Most of the fields of the contract are not allowed to be changed, so they are not allowed in the patch json
-    # There are fields, that are only allowed to be changed by OMP, like validation field
+    has_error = False
+    error_str = ""
+    for entry in ['contract_id', 'start_date', 'end_date', 'agr_id', 'account_id',
+                  'template_id', 'assets', 'contract_type']:
+        if entry in  request.json:
+            error_str = error_str + ' ' + entry
+            print('error: PATCH contract modification of ',entry,' not allowed')
+            has_error = True
+
+    if 'validated' in request.json and (role != 'service' or sub != 'OMP'):
+        print('error: PATCH contract modification of "validated"  not allowed for ', role, '  ', sub)
+        has_error = True
+
+    if has_error:
+        flask.abort(403, {'error': 'Modification of ' + error_str + ' not allowed'})
+
     if role == 'prosumer':
         lookup["account_id"] = sub
 
