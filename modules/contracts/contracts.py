@@ -20,17 +20,14 @@ def pre_get__contracts_callback(request, lookup):
     elif role == 'admin':
         pass
 
-    elif role == 'service':
-        if sub is "DSAR":
-            pass
-        elif sub == 'OMP':
-            pass
-        else:
-            print('error: GET contract not allowed for ', role, '  ', sub)
-            flask.abort(403)
+    elif role == 'service' and sub is "DSAR":
+        pass
+
+    elif role == 'service' and sub is "OMP":
+        pass
+
     else:
-        print('error: GET contract unknown role ', role)
-        flask.abort(403)
+        flask.abort(403, description='GET contract nor allowed for '+role+' '+sub)
 
 
 def pre_patch__contracts(request, lookup):
@@ -44,34 +41,30 @@ def pre_patch__contracts(request, lookup):
     for entry in ['contract_id', 'start_date', 'end_date', 'agr_id', 'account_id',
                   'template_id', 'assets', 'contract_type']:
         if entry in  request.json:
-            error_str = error_str + ' ' + entry
-            print('error: PATCH contract modification of ',entry,' not allowed')
+            error_str = error_str + entry+','
             has_error = True
 
     if 'validated' in request.json and (role != 'service' or sub != 'OMP'):
-        print('error: PATCH contract modification of "validated"  not allowed for ', role, '  ', sub)
+        error_str = error_str + 'validated'
         has_error = True
 
     if has_error:
-        flask.abort(403, {'error': 'Modification of ' + error_str + ' not allowed'})
+        flask.abort(403, description='PATCH contract of ' + error_str + ' field(s) not allowed')
 
-    if role == 'prosumer':
-        request.json['validated'] = False
-        lookup["account_id"] = sub
-
-    elif role == 'aggregator':
-        request.json['validated'] = False
-        lookup["agr_id"] = sub
-
-    elif role == 'service':
-        if sub == 'OMP':
-            pass
-        else:
-            print('error: PATCH contract not allowed for ', role, '  ', sub)
-            flask.abort(403)
     else:
-        print('error: PATCH contract not allowed for ', role, '  ', sub)
-        flask.abort(403)
+        if role == 'prosumer':
+            request.json['validated'] = False
+            lookup["account_id"] = sub
+
+        elif role == 'aggregator':
+            request.json['validated'] = False
+            lookup["agr_id"] = sub
+
+        elif role == 'service' and sub == 'OMP':
+            pass
+
+        else:
+            flask.abort(403, description='PATCH contract not allowed for ' + role + ' ' + sub)
 
 
 def post_patch__contracts(request,payload):
@@ -98,8 +91,7 @@ def pre_post__contracts(request):
     if request.role == 'aggregator':
         pass
     else:
-        print('error: POST contract not allowed for ', request.role)
-        flask.abort(403)
+        flask.abort(403, description='POST contract not allowed for ' + request.role)
 
 
 def post_post__contracts(request,payload):
@@ -114,8 +106,8 @@ def pre_delete__contracts(request, lookup):
     if request.role == 'admin':
         pass
     else:
-        print('error: DELETE contract not allowed for ', request.role)
-        flask.abort(403)
+        flask.abort(403, description='DELETE contract not allowed for ' + request.role)
+
 
 def set_hooks(app):
     app.on_pre_GET_contracts += pre_get__contracts_callback
