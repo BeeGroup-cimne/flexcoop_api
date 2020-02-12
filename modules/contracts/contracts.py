@@ -59,10 +59,14 @@ def pre_patch__contracts(request, lookup):
 
 
 def post_patch__contracts(request,payload):
-    if payload.status_code == 201:
-        # if 'validated' was set to true, interComponentMessage to prosumer to inform of of new contract
+    if payload.status_code == 200:
+        if request.role == 'service' and request.account_id != 'OMP':
+            #Todo The message send depends on the acknowledgement state of the contract
 
-        # if negociation changed, interComponentMessage to aggregator to inform of acceptance
+            if request.json['validated']:
+                print('PATCH contract validated, inform prosumer')
+            else:
+                print('PATCH contract rejected, inform aggregator')
 
         # if aggregator changed stuff, the contract is then active and valid
         pass
