@@ -94,7 +94,7 @@ def pre_delete__contracts(request, lookup):
 def set_hooks(app):
     app.on_pre_GET_contracts += pre_get__contracts_callback
     app.on_pre_PATCH_contracts += pre_patch__contracts
-    app.on_post_PATCH_contracts += pre_patch__contracts
+    app.on_post_PATCH_contracts += post_patch__contracts
     app.on_pre_POST_contracts += pre_post__contracts
     app.on_post_POST_contracts += post_post__contracts
     app.on_pre_DELETE_contracts += pre_delete__contracts
