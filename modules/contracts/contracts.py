@@ -75,11 +75,11 @@ def post_patch__contracts(request,payload):
         elif request.role == 'aggregator':
             send_inter_component_message(recipient='OMP', msg_type='AGGREGATOR_PATCH',
                                         json_payload={'contract_id': request.view_args['contract_id'],
-                                                      'patch' : request.json})
+                                                      'patch': request.json})
         elif request.role == 'prosumer':
             send_inter_component_message(recipient='OMP', msg_type='PROSUMER_PATCH',
                                         json_payload={'contract_id': request.view_args['contract_id'],
-                                                      'patch' : request.json})
+                                                      'patch': request.json})
 
 
 def pre_post__contracts(request):
