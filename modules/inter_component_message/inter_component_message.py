@@ -115,17 +115,17 @@ def inter_component_message_worker_thread(app):
             for event in events:
                 message_delivery_attempt(event)
 
-            five_minutes_ago = datetime.datetime.utcnow() - datetime.timedelta(minutes=2)
+            five_minutes_ago = datetime.datetime.utcnow() - datetime.timedelta(minutes=5)
             one_day_ago = datetime.datetime.utcnow() - datetime.timedelta(days=1)
 
             # Find undelivered messages
             where = {"message_response": {"$eq": 100},
-                      "delivery_attempt_time": {"$lte": five_minutes_ago, "$gte": one_day_ago}}
+                      "delivery_attempt_time": {"$exists": True, "$lte": five_minutes_ago, "$gte": one_day_ago}}
             events = app.data.driver.db['interComponentMessage'].find(where)
             for event in events:
                 message_delivery_attempt(event)
 
-            inter_component_message_event.wait(120)
+            inter_component_message_event.wait(60)
 
 
 def pre_inter_component_message_GET_callback(request, lookup):
