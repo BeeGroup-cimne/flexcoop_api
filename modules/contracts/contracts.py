@@ -20,14 +20,14 @@ def pre_get__contracts_callback(request, lookup):
     elif role == 'admin':
         pass
 
-    elif role == 'service' and sub is "DSAR":
+    elif role == 'service' and sub == "DSAR":
         pass
 
-    elif role == 'service' and sub is "OMP":
+    elif role == 'service' and sub == "OMP":
         pass
 
     else:
-        flask.abort(403, description='GET contract nor allowed for '+role+' '+sub)
+        flask.abort(403, description='GET contract not allowed for '+role+' '+sub)
 
 
 def pre_patch__contracts(request, lookup):
