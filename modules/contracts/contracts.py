@@ -70,12 +70,7 @@ def pre_patch__contracts(request, lookup):
 def post_patch__contracts(request,payload):
     if payload.status_code == 200:
         if request.role == 'service' and request.account_id != 'OMP':
-            #Todo The message send depends on the acknowledgement state of the contract
-
-            if request.json['validated']:
-                print('PATCH contract validated, inform prosumer')
-            else:
-                print('PATCH contract rejected, inform aggregator')
+            pass
 
         elif request.role == 'aggregator':
             send_inter_component_message(recipient='OMP', msg_type='AGGREGATOR_PATCH',
