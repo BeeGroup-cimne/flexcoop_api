@@ -5,6 +5,7 @@ from settings import OAUTH_PROVIDERS, CLIENT, SECRET, CLIENT_OAUTH, INTERCOMPONE
 from jwt import JWT
 from auth.authentication import KeyCache
 from eve.methods.post import post_internal
+import uuid
 
 def filter_field(data, schema):
     fitem = {}
@@ -66,6 +67,7 @@ def send_inter_component_message(recipient: str = '', msg_type: str = '', json_p
         # raise Exception(error)
     else:
         msg = {
+            'notification_id': str(uuid.uuid4()),
             'sender_id': 'MIDDLEWARE',
             'recipient_id': recipient,
             'message_type': msg_type,
