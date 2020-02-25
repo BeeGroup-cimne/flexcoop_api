@@ -7,11 +7,16 @@
    "item_url": "regex(\"[a-f0-9]{8}-?[a-f0-9]{4}-?4[a-f0-9]{3}-?[89ab][a-f0-9]{3}-?[a-f0-9]{12}\")",
   "resource_methods": [
     "GET",
-    "POST",
-    "DELETE"
+    "POST"
   ],
-  "item_methods": [],
+  "item_methods": ["GET","DELETE"],
   "schema": {
+    "notification_id": {
+      "type": "uuid",
+      "minlength": 36,
+      "maxlength": 36,
+      "required": true
+    },
     "sender_id": {
       "type": "string",
       "minlength": 3,
