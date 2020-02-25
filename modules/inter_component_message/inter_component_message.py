@@ -147,7 +147,7 @@ def pre_inter_component_message_POST_callback(request):
         flask.abort(403)
 
 
-def pre_inter_component_message_DELETE_callback(request):
+def pre_inter_component_message_DELETE_callback(request, lookup):
     if request.role == 'admin':
         pass
     else:
