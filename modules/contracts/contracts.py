@@ -84,7 +84,11 @@ def post_patch__contracts(request,payload):
 
 def pre_post__contracts(request):
     if request.role == 'aggregator':
-        pass
+
+        if 'agr_id' in request.json and request.json['agr_id'] != request.account_id:
+            flask.abort(403, description='POST contract agr_id mismatch')
+        else:
+            pass
     else:
         flask.abort(403, description='POST contract not allowed for ' + request.role)
 
