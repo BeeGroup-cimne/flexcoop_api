@@ -66,17 +66,12 @@ def inter_component_message_worker_thread(app):
         receiver = msg['recipient_id']
         status_code = 100
         if receiver in INTERCOMPONENT_SETTINGS:
-            payload_only = INTERCOMPONENT_SETTINGS[receiver]['payload_only']
             url = INTERCOMPONENT_SETTINGS[receiver]['message_url']
 
             token = ServiceToken().get_token()
             headers = {'accept': 'application/xml', 'Authorization': token, "Content-Type": "application/json"}
             try:
-                if payload_only:
-                    json_string = json.dumps(msg['payload'], default=datetime_serializer)
-                else:
-                    json_string = json.dumps(msg, default=datetime_serializer)
-
+                json_string = json.dumps(msg, default=datetime_serializer)
                 response = requests.post(url, headers=headers, data=json_string)
                 status_code = response.status_code
                 if status_code < 200 or status_code > 203:
