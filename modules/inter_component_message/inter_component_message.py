@@ -126,7 +126,6 @@ def inter_component_message_worker_thread(app):
 def pre_inter_component_message_GET_callback(request, lookup):
     if request.role == 'service':
         lookup["recipient_id"] = request.account_id
-        pass
     elif request.role == 'admin':
         pass
     else:
@@ -143,7 +142,9 @@ def pre_inter_component_message_POST_callback(request):
 
 
 def pre_inter_component_message_DELETE_callback(request, lookup):
-    if request.role == 'admin':
+    if request.role == 'service':
+        lookup["recipient_id"] = request.account_id
+    elif request.role == 'admin':
         pass
     else:
         print('error: DELETE interComponentMessage not allowed for ', request.role)
