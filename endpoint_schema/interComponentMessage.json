@@ -36,16 +36,23 @@
       "minlength": 3,
       "required": true
     },
-    "message_response": {
+    "delivery_attempt_time": {
+      "type": "datetime",
+      "required": false,
+      "readonly": true
+    },
+    "delivery_failure_response": {
       "type": "integer",
       "min": 100,
       "max": 511,
       "default": 100,
-      "required": true
+      "required": false,
+      "readonly": true
     },
-    "delivery_attempt_time": {
-      "type": "datetime",
-      "required": false
+    "delivery_failure_message": {
+      "type": "string",
+      "required": false,
+      "readonly": true
     },
     "payload": {
       "type": "dict"
