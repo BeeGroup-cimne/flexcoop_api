@@ -50,18 +50,18 @@ def inter_component_message_worker_thread(app):
         query1 = {"delivery_failure_response": {"$exists": True, "$eq": 100}, "delivery_attempt_time": {"$gte": max_age}}
         outstanding = flask.current_app.data.driver.db['interComponentMessage'].find(query1)
         if outstanding.count() > 0:
-            print('There are ', outstanding.count(), ' interComponentMessage(s) still to be delivered')
+            print('| There are ', outstanding.count(), ' interComponentMessage(s) still to be delivered')
             for msg_raw in outstanding:
                 msg = cleanup_message(msg_raw, False)
-                print('  ', json.dumps(msg, default=datetime_serializer))
+                print('|  ', json.dumps(msg, default=datetime_serializer))
 
         query2 = {"delivery_failure_response": {"$exists": True, "$ne": 100}}
         errors = flask.current_app.data.driver.db['interComponentMessage'].find(query2)
         if errors.count() > 0:
-            print('There are ', errors.count(), ' rejected interComponentMessage(s) ')
+            print('| There are ', errors.count(), ' rejected interComponentMessage(s) ')
             for msg_raw in errors:
                 msg = cleanup_message(msg_raw, False)
-                print('  ', json.dumps(msg, default=datetime_serializer))
+                print('|  ', json.dumps(msg, default=datetime_serializer))
                 # flask.current_app.data.driver.db['interComponentMessage'].delete_one({'_id': msg_raw['_id']})
 
     def message_delivery_attempt(msg_raw):
