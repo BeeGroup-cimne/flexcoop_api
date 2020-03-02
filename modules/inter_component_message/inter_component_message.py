@@ -5,6 +5,7 @@ import json
 import datetime
 from flexcoop_utils import ServiceToken
 from settings import INTERCOMPONENT_SETTINGS
+from requests.exceptions import ConnectionError
 
 inter_component_message_event = threading.Event()
 
@@ -66,10 +67,18 @@ def inter_component_message_worker_thread(app):
     def message_delivery_attempt(msg_raw):
         msg = cleanup_message(msg_raw, True)
         date_now = datetime.datetime.utcnow().replace(microsecond=0)
-        receiver = msg['recipient_id']
-        status_code = 100
-        if receiver in INTERCOMPONENT_SETTINGS:
-            url = INTERCOMPONENT_SETTINGS[receiver]['message_url']
+        recipient = msg['recipient_id']
+
+        failure = True
+        failure_response = 500
+        failure_message = 'undefined internal error'
+
+        if recipient not in INTERCOMPONENT_SETTINGS:
+            failure = True
+            failure_response = 421
+            failure_message = 'Unknown receiver ' + recipient
+        else:
+            url = INTERCOMPONENT_SETTINGS[recipient]['message_url']
 
             token = ServiceToken().get_token()
             headers = {'accept': 'application/xml', 'Authorization': token, "Content-Type": "application/json"}
@@ -78,29 +87,31 @@ def inter_component_message_worker_thread(app):
                 response = requests.post(url, headers=headers, data=json_string)
                 status_code = response.status_code
                 if status_code < 200 or status_code > 203:
-                    print(date_now.strftime("%d.%b %Y %H:%M:%S"),
-                          ' ICM Worker:  Got ', response.status_code,
-                          ' from ', receiver, '@', url,
-                          ' for ', msg['message_type'], '/', event['_id'],' ERROR:',response.content)
+                    failure = True
+                    failure_response = status_code
+                    failure_message = 'POST ICM to ' + recipient + ' for ' \
+                                      + msg['notification_id'] + ' / ' + msg['message_type'] + ' failed. ' \
+                                      + '  http_status=' + str(response.status_code) \
+                                      + '  http_response='+ str(response.text)[:1024]
 
-            except Exception as e:  # todo catch only corresponding exceptions here
+            except ConnectionError as e:
+                failure_response = 100
+                failure_message = 'Connection error contacting ' + recipient + ' for ' \
+                                  + msg['notification_id'] + ' / ' + msg['message_type']
+                # Keep the message active
+
                 print(date_now.strftime("%d.%b %Y %H:%M:%S"),
-                      ' ICM Worker:  Connection error to ', receiver, '@', url,
+                      ' ICM Worker:  Connection error to ', recipient, '@', url,
                       ' for ', msg['message_type'], '/', event['_id'], ' ERROR:', e)
-        else:
-            print(date_now.strftime("%d.%b %Y %H:%M:%S"),
-                  ' ICM Worker: Unknown receiver ', receiver,
-                  'for ', msg['message_type'], '/', msg_raw['_id'])
-            status_code = 421
 
-        if 200 <= status_code <= 202:
-            flask.current_app.data.driver.db['interComponentMessage'].delete_one({'_id': msg_raw['_id']})
-        elif 502 <= status_code <= 504:
-            update = {'$set': {'delivery_attempt_time': date_now}}
-            flask.current_app.data.driver.db['interComponentMessage'].update_one({'_id': msg_raw['_id']}, update)
+        if failure:
+            print(date_now.strftime("%d.%b %Y %H:%M:%S"), ' ICM Worker: ', failure_message)
+            update = {'$set': {'delivery_attempt_time': date_now,
+                               'delivery_failure_response': failure_response,
+                               'delivery_failure_message': failure_message}}
+            flask.current_app.data.driver.db['interComponentMessage'].update_one({'_id': event['_id']}, update)
         else:
-            update = {'$set': {'delivery_attempt_time': date_now, 'message_response': status_code}}
-            flask.current_app.data.driver.db['interComponentMessage'].update_one({'_id': msg_raw['_id']}, update)
+            flask.current_app.data.driver.db['interComponentMessage'].delete_one({'_id': event['_id']})
 
     with app.app_context():
         dump_initial_messages()
