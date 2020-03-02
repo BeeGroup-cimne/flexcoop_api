@@ -1,0 +1,137 @@
+{
+  "item_title": "contracts",
+  "id_field": "contract_id",
+  "item_lookup_field": "contract_id",
+  "cache_control": "max-age=10,must-revalidate",
+  "cache_expires": 10,
+  "item_url": "regex(\"[a-f0-9]{8}-?[a-f0-9]{4}-?4[a-f0-9]{3}-?[89ab][a-f0-9]{3}-?[a-f0-9]{12}\")",
+  "resource_methods": [
+    "GET",
+    "POST"
+  ],
+  "item_methods": [
+    "GET",
+    "PATCH",
+    "DELETE"
+  ],
+  "schema": {
+    "contract_id": {
+      "type": "uuid",
+      "minlength": 36,
+      "maxlength": 36,
+      "required": true
+    },
+    "start_date": {
+      "type": "datetime",
+      "required": true
+    },
+    "end_date": {
+      "type": "datetime",
+      "required": true
+    },
+    "agr_id": {
+      "type": "uuid",
+      "minlength": 36,
+      "maxlength": 36,
+      "required": true
+    },
+    "account_id": {
+      "type": "uuid",
+      "minlength": 36,
+      "maxlength": 36,
+      "required": true
+    },
+    "template_id": {
+      "type": "uuid",
+      "minlength": 36,
+      "maxlength": 36
+    },
+    "details": {
+      "type": "dict",
+      "schema": {
+        "description": {
+          "type": "string"
+        },
+        "flexibility_id": {
+          "type": "uuid"
+        },
+        "existing_pv": {
+          "type": "boolean"
+        },
+        "existing_retail_contract": {
+          "type": "boolean"
+        },
+        "notification" : {
+          "type": "string",
+          "regex": "^(every_DR_event|daily_report|weekly_report|monthly_report|never)$"
+        },
+        "date_of_signage": {
+          "type": "datetime"
+        },
+        "ct_down": {
+          "type": "float"
+        },
+        "ct_downND": {
+          "type": "float"
+        },
+        "ct_downNAD": {
+          "type": "float"
+        },
+        "ct_up": {
+          "type": "float"
+        },
+        "ct_upND": {
+          "type": "float"
+        },
+        "ct_upNAD": {
+          "type": "float"
+        },
+        "maximum_power": {
+          "type": "float"
+        },
+           "maximum_number": {
+          "type": "float"
+        },
+       "fix_cost": {
+          "type": "float"
+        },
+        "service_cost": {
+          "type": "float"
+        }
+      }
+    },
+    "status": {
+      "type": "string",
+      "regex": "^(active|canceled|on_hold|ended)$",
+      "required": true
+    },
+    "validated": {
+      "type": "boolean"
+    },
+    "assets": {
+      "type": "list",
+      "schema": {
+        "type": "uuid"
+      }
+    },
+    "contract_type": {
+      "type": "string",
+      "regex": "^(money_for_flex|savings_for_flex|more_sun_energy_at_home|more_energy_efficiency_at_home)$"
+    },
+    "acknowledgement": {
+      "type": "string",
+      "regex": "^(undefined|review|accepted|rejected|signed)$",
+      "required": true
+    },
+    "timestamp": {
+      "type": "datetime",
+      "required": true
+    },
+    "options": {
+      "type": "list",
+      "schema": {
+        "type": "string"
+      }
+    }
+  }
+}

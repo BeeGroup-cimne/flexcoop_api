@@ -66,17 +66,12 @@ def inter_component_message_worker_thread(app):
         receiver = msg['recipient_id']
         status_code = 100
         if receiver in INTERCOMPONENT_SETTINGS:
-            payload_only = INTERCOMPONENT_SETTINGS[receiver]['payload_only']
             url = INTERCOMPONENT_SETTINGS[receiver]['message_url']
 
             token = ServiceToken().get_token()
             headers = {'accept': 'application/xml', 'Authorization': token, "Content-Type": "application/json"}
             try:
-                if payload_only:
-                    json_string = json.dumps(msg['payload'], default=datetime_serializer)
-                else:
-                    json_string = json.dumps(msg, default=datetime_serializer)
-
+                json_string = json.dumps(msg, default=datetime_serializer)
                 response = requests.post(url, headers=headers, data=json_string)
                 status_code = response.status_code
                 if status_code < 200 or status_code > 203:
@@ -115,17 +110,17 @@ def inter_component_message_worker_thread(app):
             for event in events:
                 message_delivery_attempt(event)
 
-            five_minutes_ago = datetime.datetime.utcnow() - datetime.timedelta(minutes=2)
+            five_minutes_ago = datetime.datetime.utcnow() - datetime.timedelta(minutes=5)
             one_day_ago = datetime.datetime.utcnow() - datetime.timedelta(days=1)
 
             # Find undelivered messages
             where = {"message_response": {"$eq": 100},
-                      "delivery_attempt_time": {"$lte": five_minutes_ago, "$gte": one_day_ago}}
+                      "delivery_attempt_time": {"$exists": True, "$lte": five_minutes_ago, "$gte": one_day_ago}}
             events = app.data.driver.db['interComponentMessage'].find(where)
             for event in events:
                 message_delivery_attempt(event)
 
-            inter_component_message_event.wait(120)
+            inter_component_message_event.wait(60)
 
 
 def pre_inter_component_message_GET_callback(request, lookup):
@@ -147,7 +142,7 @@ def pre_inter_component_message_POST_callback(request):
         flask.abort(403)
 
 
-def pre_inter_component_message_DELETE_callback(request):
+def pre_inter_component_message_DELETE_callback(request, lookup):
     if request.role == 'admin':
         pass
     else:

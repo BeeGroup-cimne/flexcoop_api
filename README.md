@@ -249,15 +249,14 @@ pip install -r requirements.txt
    ``` bash
    "{
         'component shortname': {
-            'message_url': 'url where component receives messages', 
-            'payload_only': True = only send the payload | False = send full intercomponent message
+            'message_url': 'url where component receives messages' 
         },{...}
    }"
    
    #example:
    "{
-    'OMP':{'message_url': 'https://marketplace.flexcoop.eu/1/interComponentMessage', 'payload_only': False},
-    'LDEM':{'message_url': 'http://cloudtec.etra-id.com:6100/api/drevent/notify', 'payload_only': True}, 
+    'OMP':{'message_url': 'https://marketplace.flexcoop.eu/1/interComponentMessage'},
+    'LDEM':{'message_url': 'http://cloudtec.etra-id.com:6100/api/drevent/notify'}, 
    }"
    ```
    Look carefully the single and double quotes used in the variable value for "OAUTH_PROVIDERS" and "INTERCOMPONENT_SETTINGS"
