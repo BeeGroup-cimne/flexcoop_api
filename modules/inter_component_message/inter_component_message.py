@@ -152,7 +152,7 @@ def pre_inter_component_message_GET_callback(request, lookup):
 
 def pre_inter_component_message_POST_callback(request):
     if request.role != 'service':
-        print('error: POST interComponentMessage not allowed for ', request.role)
+        log_inter_component_message_error(' ICM pre POST : not allowed for '+request.role)
         flask.abort(403)
 
     if 'recipient_id' in request.json and request.json['recipient_id'] not in INTERCOMPONENT_SETTINGS:
