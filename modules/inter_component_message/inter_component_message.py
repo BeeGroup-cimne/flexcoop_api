@@ -29,10 +29,12 @@ def inter_component_message_worker_thread(app):
          - with connection error, the error is logged and the message will be retried
     """
 
-    def cleanup_message(msg_raw):
+    def cleanup_message(msg_raw, clean_internal):
         msg = msg_raw.copy()
         for key in msg_raw.keys():
-            if key[0] == '_' or key == 'message_response' or key == 'delivery_attempt_time':
+            if key[0] == '_':
+                del msg[key]
+            if clean_internal and 'delivery_' in key:
                 del msg[key]
         return msg
 
@@ -49,19 +51,19 @@ def inter_component_message_worker_thread(app):
         if outstanding.count() > 0:
             print('There are ', outstanding.count(), ' interComponentMessage(s) still to be delivered')
             for msg_raw in outstanding:
-                msg = cleanup_message(msg_raw)
+                msg = cleanup_message(msg_raw, False)
                 print('  ', json.dumps(msg, default=datetime_serializer))
 
         errors = flask.current_app.data.driver.db['interComponentMessage'].find({"message_response": {"$ne": 100}})
         if errors.count() > 0:
-            print('There are ', errors.count(), ' undeliverable interComponentMessage(s) ')
+            print('There are ', errors.count(), ' rejected interComponentMessage(s) ')
             for msg_raw in errors:
-                msg = cleanup_message(msg_raw)
+                msg = cleanup_message(msg_raw, False)
                 print('  ', json.dumps(msg, default=datetime_serializer))
                 # flask.current_app.data.driver.db['interComponentMessage'].delete_one({'_id': msg_raw['_id']})
 
     def message_delivery_attempt(msg_raw):
-        msg = cleanup_message(msg_raw)
+        msg = cleanup_message(msg_raw, True)
         date_now = datetime.datetime.utcnow().replace(microsecond=0)
         receiver = msg['recipient_id']
         status_code = 100
