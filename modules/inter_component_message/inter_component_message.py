@@ -46,15 +46,16 @@ def inter_component_message_worker_thread(app):
 
     def dump_initial_messages():
         max_age = datetime.datetime.utcnow() - datetime.timedelta(days=7)
-        query = {"message_response": {"$eq": 100}, "delivery_attempt_time": {"$gte": max_age}}
-        outstanding = flask.current_app.data.driver.db['interComponentMessage'].find(query)
+        query1 = {"delivery_failure_response": {"$exists": True, "$eq": 100}, "delivery_attempt_time": {"$gte": max_age}}
+        outstanding = flask.current_app.data.driver.db['interComponentMessage'].find(query1)
         if outstanding.count() > 0:
             print('There are ', outstanding.count(), ' interComponentMessage(s) still to be delivered')
             for msg_raw in outstanding:
                 msg = cleanup_message(msg_raw, False)
                 print('  ', json.dumps(msg, default=datetime_serializer))
 
-        errors = flask.current_app.data.driver.db['interComponentMessage'].find({"message_response": {"$ne": 100}})
+        query2 = {"delivery_failure_response": {"$exists": True, "$ne": 100}}
+        errors = flask.current_app.data.driver.db['interComponentMessage'].find(query2)
         if errors.count() > 0:
             print('There are ', errors.count(), ' rejected interComponentMessage(s) ')
             for msg_raw in errors:
@@ -107,7 +108,7 @@ def inter_component_message_worker_thread(app):
             inter_component_message_event.clear()
 
             # Find new messages
-            where = {"message_response": {"$eq": 100}, "delivery_attempt_time": {"$exists": False}}
+            where = {"delivery_attempt_time": {"$exists": False}}
             events = app.data.driver.db['interComponentMessage'].find(where)
             for event in events:
                 message_delivery_attempt(event)
@@ -116,8 +117,8 @@ def inter_component_message_worker_thread(app):
             one_day_ago = datetime.datetime.utcnow() - datetime.timedelta(days=1)
 
             # Find undelivered messages
-            where = {"message_response": {"$eq": 100},
-                      "delivery_attempt_time": {"$exists": True, "$lte": five_minutes_ago, "$gte": one_day_ago}}
+            where = {"delivery_failure_response": {"$exists": True, "$eq": 100},
+                     "delivery_attempt_time": {"$exists": True, "$lte": five_minutes_ago, "$gte": one_day_ago}}
             events = app.data.driver.db['interComponentMessage'].find(where)
             for event in events:
                 message_delivery_attempt(event)
