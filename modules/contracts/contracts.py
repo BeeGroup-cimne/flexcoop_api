@@ -95,6 +95,9 @@ def pre_post__contracts(request):
         if cursor.count() > 0:
             flask.abort(409, 'contract_id already exists')
 
+    if 'validated' in request.json:
+        flask.abort(406, 'POST contains unauthorised validated field')
+
 
 def post_post__contracts(request,payload):
     if payload.status_code == 201:
