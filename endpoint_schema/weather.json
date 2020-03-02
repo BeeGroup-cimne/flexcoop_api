@@ -1,0 +1,3952 @@
+{
+  "item_title": "weather",
+  "cache_control": "max-age=10,must-revalidate",
+  "cache_expires": 10,
+  "aggregation":{
+    "index_field" : "time",
+    "aggregate_fields" : {
+      "apparentTemperature_0": "AVG",
+      "apparentTemperature_1": "AVG",
+      "apparentTemperature_2": "AVG",
+      "apparentTemperature_3": "AVG",
+      "apparentTemperature_4": "AVG",
+      "apparentTemperature_5": "AVG",
+      "apparentTemperature_6": "AVG",
+      "apparentTemperature_7": "AVG",
+      "apparentTemperature_8": "AVG",
+      "apparentTemperature_9": "AVG",
+      "apparentTemperature_10": "AVG",
+      "apparentTemperature_11": "AVG",
+      "apparentTemperature_12": "AVG",
+      "apparentTemperature_13": "AVG",
+      "apparentTemperature_14": "AVG",
+      "apparentTemperature_15": "AVG",
+      "apparentTemperature_16": "AVG",
+      "apparentTemperature_17": "AVG",
+      "apparentTemperature_18": "AVG",
+      "apparentTemperature_19": "AVG",
+      "apparentTemperature_20": "AVG",
+      "apparentTemperature_21": "AVG",
+      "apparentTemperature_22": "AVG",
+      "apparentTemperature_23": "AVG",
+      "apparentTemperature_24": "AVG",
+      "apparentTemperature_25": "AVG",
+      "apparentTemperature_26": "AVG",
+      "apparentTemperature_27": "AVG",
+      "apparentTemperature_28": "AVG",
+      "apparentTemperature_29": "AVG",
+      "apparentTemperature_30": "AVG",
+      "apparentTemperature_31": "AVG",
+      "apparentTemperature_32": "AVG",
+      "apparentTemperature_33": "AVG",
+      "apparentTemperature_34": "AVG",
+      "apparentTemperature_35": "AVG",
+      "apparentTemperature_36": "AVG",
+      "apparentTemperature_37": "AVG",
+      "apparentTemperature_38": "AVG",
+      "apparentTemperature_39": "AVG",
+      "apparentTemperature_40": "AVG",
+      "apparentTemperature_41": "AVG",
+      "apparentTemperature_42": "AVG",
+      "apparentTemperature_43": "AVG",
+      "apparentTemperature_44": "AVG",
+      "apparentTemperature_45": "AVG",
+      "apparentTemperature_46": "AVG",
+      "apparentTemperature_47": "AVG",
+      "apparentTemperature_48": "AVG",
+      "cloudCover_0": "AVG",
+      "cloudCover_1": "AVG",
+      "cloudCover_2": "AVG",
+      "cloudCover_3": "AVG",
+      "cloudCover_4": "AVG",
+      "cloudCover_5": "AVG",
+      "cloudCover_6": "AVG",
+      "cloudCover_7": "AVG",
+      "cloudCover_8": "AVG",
+      "cloudCover_9": "AVG",
+      "cloudCover_10": "AVG",
+      "cloudCover_11": "AVG",
+      "cloudCover_12": "AVG",
+      "cloudCover_13": "AVG",
+      "cloudCover_14": "AVG",
+      "cloudCover_15": "AVG",
+      "cloudCover_16": "AVG",
+      "cloudCover_17": "AVG",
+      "cloudCover_18": "AVG",
+      "cloudCover_19": "AVG",
+      "cloudCover_20": "AVG",
+      "cloudCover_21": "AVG",
+      "cloudCover_22": "AVG",
+      "cloudCover_23": "AVG",
+      "cloudCover_24": "AVG",
+      "cloudCover_25": "AVG",
+      "cloudCover_26": "AVG",
+      "cloudCover_27": "AVG",
+      "cloudCover_28": "AVG",
+      "cloudCover_29": "AVG",
+      "cloudCover_30": "AVG",
+      "cloudCover_31": "AVG",
+      "cloudCover_32": "AVG",
+      "cloudCover_33": "AVG",
+      "cloudCover_34": "AVG",
+      "cloudCover_35": "AVG",
+      "cloudCover_36": "AVG",
+      "cloudCover_37": "AVG",
+      "cloudCover_38": "AVG",
+      "cloudCover_39": "AVG",
+      "cloudCover_40": "AVG",
+      "cloudCover_41": "AVG",
+      "cloudCover_42": "AVG",
+      "cloudCover_43": "AVG",
+      "cloudCover_44": "AVG",
+      "cloudCover_45": "AVG",
+      "cloudCover_46": "AVG",
+      "cloudCover_47": "AVG",
+      "cloudCover_48": "AVG",
+      "dewPoint_0": "AVG",
+      "dewPoint_1": "AVG",
+      "dewPoint_2": "AVG",
+      "dewPoint_3": "AVG",
+      "dewPoint_4": "AVG",
+      "dewPoint_5": "AVG",
+      "dewPoint_6": "AVG",
+      "dewPoint_7": "AVG",
+      "dewPoint_8": "AVG",
+      "dewPoint_9": "AVG",
+      "dewPoint_10": "AVG",
+      "dewPoint_11": "AVG",
+      "dewPoint_12": "AVG",
+      "dewPoint_13": "AVG",
+      "dewPoint_14": "AVG",
+      "dewPoint_15": "AVG",
+      "dewPoint_16": "AVG",
+      "dewPoint_17": "AVG",
+      "dewPoint_18": "AVG",
+      "dewPoint_19": "AVG",
+      "dewPoint_20": "AVG",
+      "dewPoint_21": "AVG",
+      "dewPoint_22": "AVG",
+      "dewPoint_23": "AVG",
+      "dewPoint_24": "AVG",
+      "dewPoint_25": "AVG",
+      "dewPoint_26": "AVG",
+      "dewPoint_27": "AVG",
+      "dewPoint_28": "AVG",
+      "dewPoint_29": "AVG",
+      "dewPoint_30": "AVG",
+      "dewPoint_31": "AVG",
+      "dewPoint_32": "AVG",
+      "dewPoint_33": "AVG",
+      "dewPoint_34": "AVG",
+      "dewPoint_35": "AVG",
+      "dewPoint_36": "AVG",
+      "dewPoint_37": "AVG",
+      "dewPoint_38": "AVG",
+      "dewPoint_39": "AVG",
+      "dewPoint_40": "AVG",
+      "dewPoint_41": "AVG",
+      "dewPoint_42": "AVG",
+      "dewPoint_43": "AVG",
+      "dewPoint_44": "AVG",
+      "dewPoint_45": "AVG",
+      "dewPoint_46": "AVG",
+      "dewPoint_47": "AVG",
+      "dewPoint_48": "AVG",
+      "humidity_0": "AVG",
+      "humidity_1": "AVG",
+      "humidity_2": "AVG",
+      "humidity_3": "AVG",
+      "humidity_4": "AVG",
+      "humidity_5": "AVG",
+      "humidity_6": "AVG",
+      "humidity_7": "AVG",
+      "humidity_8": "AVG",
+      "humidity_9": "AVG",
+      "humidity_10": "AVG",
+      "humidity_11": "AVG",
+      "humidity_12": "AVG",
+      "humidity_13": "AVG",
+      "humidity_14": "AVG",
+      "humidity_15": "AVG",
+      "humidity_16": "AVG",
+      "humidity_17": "AVG",
+      "humidity_18": "AVG",
+      "humidity_19": "AVG",
+      "humidity_20": "AVG",
+      "humidity_21": "AVG",
+      "humidity_22": "AVG",
+      "humidity_23": "AVG",
+      "humidity_24": "AVG",
+      "humidity_25": "AVG",
+      "humidity_26": "AVG",
+      "humidity_27": "AVG",
+      "humidity_28": "AVG",
+      "humidity_29": "AVG",
+      "humidity_30": "AVG",
+      "humidity_31": "AVG",
+      "humidity_32": "AVG",
+      "humidity_33": "AVG",
+      "humidity_34": "AVG",
+      "humidity_35": "AVG",
+      "humidity_36": "AVG",
+      "humidity_37": "AVG",
+      "humidity_38": "AVG",
+      "humidity_39": "AVG",
+      "humidity_40": "AVG",
+      "humidity_41": "AVG",
+      "humidity_42": "AVG",
+      "humidity_43": "AVG",
+      "humidity_44": "AVG",
+      "humidity_45": "AVG",
+      "humidity_46": "AVG",
+      "humidity_47": "AVG",
+      "humidity_48": "AVG",
+      "icon_0": "AVG",
+      "icon_1": "AVG",
+      "icon_2": "AVG",
+      "icon_3": "AVG",
+      "icon_4": "AVG",
+      "icon_5": "AVG",
+      "icon_6": "AVG",
+      "icon_7": "AVG",
+      "icon_8": "AVG",
+      "icon_9": "AVG",
+      "icon_10": "AVG",
+      "icon_11": "AVG",
+      "icon_12": "AVG",
+      "icon_13": "AVG",
+      "icon_14": "AVG",
+      "icon_15": "AVG",
+      "icon_16": "AVG",
+      "icon_17": "AVG",
+      "icon_18": "AVG",
+      "icon_19": "AVG",
+      "icon_20": "AVG",
+      "icon_21": "AVG",
+      "icon_22": "AVG",
+      "icon_23": "AVG",
+      "icon_24": "AVG",
+      "icon_25": "AVG",
+      "icon_26": "AVG",
+      "icon_27": "AVG",
+      "icon_28": "AVG",
+      "icon_29": "AVG",
+      "icon_30": "AVG",
+      "icon_31": "AVG",
+      "icon_32": "AVG",
+      "icon_33": "AVG",
+      "icon_34": "AVG",
+      "icon_35": "AVG",
+      "icon_36": "AVG",
+      "icon_37": "AVG",
+      "icon_38": "AVG",
+      "icon_39": "AVG",
+      "icon_40": "AVG",
+      "icon_41": "AVG",
+      "icon_42": "AVG",
+      "icon_43": "AVG",
+      "icon_44": "AVG",
+      "icon_45": "AVG",
+      "icon_46": "AVG",
+      "icon_47": "AVG",
+      "icon_48": "AVG",
+      "ozone_0": "AVG",
+      "ozone_1": "AVG",
+      "ozone_2": "AVG",
+      "ozone_3": "AVG",
+      "ozone_4": "AVG",
+      "ozone_5": "AVG",
+      "ozone_6": "AVG",
+      "ozone_7": "AVG",
+      "ozone_8": "AVG",
+      "ozone_9": "AVG",
+      "ozone_10": "AVG",
+      "ozone_11": "AVG",
+      "ozone_12": "AVG",
+      "ozone_13": "AVG",
+      "ozone_14": "AVG",
+      "ozone_15": "AVG",
+      "ozone_16": "AVG",
+      "ozone_17": "AVG",
+      "ozone_18": "AVG",
+      "ozone_19": "AVG",
+      "ozone_20": "AVG",
+      "ozone_21": "AVG",
+      "ozone_22": "AVG",
+      "ozone_23": "AVG",
+      "ozone_24": "AVG",
+      "ozone_25": "AVG",
+      "ozone_26": "AVG",
+      "ozone_27": "AVG",
+      "ozone_28": "AVG",
+      "ozone_29": "AVG",
+      "ozone_30": "AVG",
+      "ozone_31": "AVG",
+      "ozone_32": "AVG",
+      "ozone_33": "AVG",
+      "ozone_34": "AVG",
+      "ozone_35": "AVG",
+      "ozone_36": "AVG",
+      "ozone_37": "AVG",
+      "ozone_38": "AVG",
+      "ozone_39": "AVG",
+      "ozone_40": "AVG",
+      "ozone_41": "AVG",
+      "ozone_42": "AVG",
+      "ozone_43": "AVG",
+      "ozone_44": "AVG",
+      "ozone_45": "AVG",
+      "ozone_46": "AVG",
+      "ozone_47": "AVG",
+      "ozone_48": "AVG",
+      "precipAccumulation_0": "SUM",
+      "precipAccumulation_1": "SUM",
+      "precipAccumulation_2": "SUM",
+      "precipAccumulation_3": "SUM",
+      "precipAccumulation_4": "SUM",
+      "precipAccumulation_5": "SUM",
+      "precipAccumulation_6": "SUM",
+      "precipAccumulation_7": "SUM",
+      "precipAccumulation_8": "SUM",
+      "precipAccumulation_9": "SUM",
+      "precipAccumulation_10": "SUM",
+      "precipAccumulation_11": "SUM",
+      "precipAccumulation_12": "SUM",
+      "precipAccumulation_13": "SUM",
+      "precipAccumulation_14": "SUM",
+      "precipAccumulation_15": "SUM",
+      "precipAccumulation_16": "SUM",
+      "precipAccumulation_17": "SUM",
+      "precipAccumulation_18": "SUM",
+      "precipAccumulation_19": "SUM",
+      "precipAccumulation_20": "SUM",
+      "precipAccumulation_21": "SUM",
+      "precipAccumulation_22": "SUM",
+      "precipAccumulation_23": "SUM",
+      "precipAccumulation_24": "SUM",
+      "precipAccumulation_25": "SUM",
+      "precipAccumulation_26": "SUM",
+      "precipAccumulation_27": "SUM",
+      "precipAccumulation_28": "SUM",
+      "precipAccumulation_29": "SUM",
+      "precipAccumulation_30": "SUM",
+      "precipAccumulation_31": "SUM",
+      "precipAccumulation_32": "SUM",
+      "precipAccumulation_33": "SUM",
+      "precipAccumulation_34": "SUM",
+      "precipAccumulation_35": "SUM",
+      "precipAccumulation_36": "SUM",
+      "precipAccumulation_37": "SUM",
+      "precipAccumulation_38": "SUM",
+      "precipAccumulation_39": "SUM",
+      "precipAccumulation_40": "SUM",
+      "precipAccumulation_41": "SUM",
+      "precipAccumulation_42": "SUM",
+      "precipAccumulation_43": "SUM",
+      "precipAccumulation_44": "SUM",
+      "precipAccumulation_45": "SUM",
+      "precipAccumulation_46": "SUM",
+      "precipAccumulation_47": "SUM",
+      "precipAccumulation_48": "SUM",
+      "precipIntensity_0": "AVG",
+      "precipIntensity_1": "AVG",
+      "precipIntensity_2": "AVG",
+      "precipIntensity_3": "AVG",
+      "precipIntensity_4": "AVG",
+      "precipIntensity_5": "AVG",
+      "precipIntensity_6": "AVG",
+      "precipIntensity_7": "AVG",
+      "precipIntensity_8": "AVG",
+      "precipIntensity_9": "AVG",
+      "precipIntensity_10": "AVG",
+      "precipIntensity_11": "AVG",
+      "precipIntensity_12": "AVG",
+      "precipIntensity_13": "AVG",
+      "precipIntensity_14": "AVG",
+      "precipIntensity_15": "AVG",
+      "precipIntensity_16": "AVG",
+      "precipIntensity_17": "AVG",
+      "precipIntensity_18": "AVG",
+      "precipIntensity_19": "AVG",
+      "precipIntensity_20": "AVG",
+      "precipIntensity_21": "AVG",
+      "precipIntensity_22": "AVG",
+      "precipIntensity_23": "AVG",
+      "precipIntensity_24": "AVG",
+      "precipIntensity_25": "AVG",
+      "precipIntensity_26": "AVG",
+      "precipIntensity_27": "AVG",
+      "precipIntensity_28": "AVG",
+      "precipIntensity_29": "AVG",
+      "precipIntensity_30": "AVG",
+      "precipIntensity_31": "AVG",
+      "precipIntensity_32": "AVG",
+      "precipIntensity_33": "AVG",
+      "precipIntensity_34": "AVG",
+      "precipIntensity_35": "AVG",
+      "precipIntensity_36": "AVG",
+      "precipIntensity_37": "AVG",
+      "precipIntensity_38": "AVG",
+      "precipIntensity_39": "AVG",
+      "precipIntensity_40": "AVG",
+      "precipIntensity_41": "AVG",
+      "precipIntensity_42": "AVG",
+      "precipIntensity_43": "AVG",
+      "precipIntensity_44": "AVG",
+      "precipIntensity_45": "AVG",
+      "precipIntensity_46": "AVG",
+      "precipIntensity_47": "AVG",
+      "precipIntensity_48": "AVG",
+      "precipIntensityError_0": "AVG",
+      "precipIntensityError_1": "AVG",
+      "precipIntensityError_2": "AVG",
+      "precipIntensityError_3": "AVG",
+      "precipIntensityError_4": "AVG",
+      "precipIntensityError_5": "AVG",
+      "precipIntensityError_6": "AVG",
+      "precipIntensityError_7": "AVG",
+      "precipIntensityError_8": "AVG",
+      "precipIntensityError_9": "AVG",
+      "precipIntensityError_10": "AVG",
+      "precipIntensityError_11": "AVG",
+      "precipIntensityError_12": "AVG",
+      "precipIntensityError_13": "AVG",
+      "precipIntensityError_14": "AVG",
+      "precipIntensityError_15": "AVG",
+      "precipIntensityError_16": "AVG",
+      "precipIntensityError_17": "AVG",
+      "precipIntensityError_18": "AVG",
+      "precipIntensityError_19": "AVG",
+      "precipIntensityError_20": "AVG",
+      "precipIntensityError_21": "AVG",
+      "precipIntensityError_22": "AVG",
+      "precipIntensityError_23": "AVG",
+      "precipIntensityError_24": "AVG",
+      "precipIntensityError_25": "AVG",
+      "precipIntensityError_26": "AVG",
+      "precipIntensityError_27": "AVG",
+      "precipIntensityError_28": "AVG",
+      "precipIntensityError_29": "AVG",
+      "precipIntensityError_30": "AVG",
+      "precipIntensityError_31": "AVG",
+      "precipIntensityError_32": "AVG",
+      "precipIntensityError_33": "AVG",
+      "precipIntensityError_34": "AVG",
+      "precipIntensityError_35": "AVG",
+      "precipIntensityError_36": "AVG",
+      "precipIntensityError_37": "AVG",
+      "precipIntensityError_38": "AVG",
+      "precipIntensityError_39": "AVG",
+      "precipIntensityError_40": "AVG",
+      "precipIntensityError_41": "AVG",
+      "precipIntensityError_42": "AVG",
+      "precipIntensityError_43": "AVG",
+      "precipIntensityError_44": "AVG",
+      "precipIntensityError_45": "AVG",
+      "precipIntensityError_46": "AVG",
+      "precipIntensityError_47": "AVG",
+      "precipIntensityError_48": "AVG",
+      "precipProbability_0": "AVG",
+      "precipProbability_1": "AVG",
+      "precipProbability_2": "AVG",
+      "precipProbability_3": "AVG",
+      "precipProbability_4": "AVG",
+      "precipProbability_5": "AVG",
+      "precipProbability_6": "AVG",
+      "precipProbability_7": "AVG",
+      "precipProbability_8": "AVG",
+      "precipProbability_9": "AVG",
+      "precipProbability_10": "AVG",
+      "precipProbability_11": "AVG",
+      "precipProbability_12": "AVG",
+      "precipProbability_13": "AVG",
+      "precipProbability_14": "AVG",
+      "precipProbability_15": "AVG",
+      "precipProbability_16": "AVG",
+      "precipProbability_17": "AVG",
+      "precipProbability_18": "AVG",
+      "precipProbability_19": "AVG",
+      "precipProbability_20": "AVG",
+      "precipProbability_21": "AVG",
+      "precipProbability_22": "AVG",
+      "precipProbability_23": "AVG",
+      "precipProbability_24": "AVG",
+      "precipProbability_25": "AVG",
+      "precipProbability_26": "AVG",
+      "precipProbability_27": "AVG",
+      "precipProbability_28": "AVG",
+      "precipProbability_29": "AVG",
+      "precipProbability_30": "AVG",
+      "precipProbability_31": "AVG",
+      "precipProbability_32": "AVG",
+      "precipProbability_33": "AVG",
+      "precipProbability_34": "AVG",
+      "precipProbability_35": "AVG",
+      "precipProbability_36": "AVG",
+      "precipProbability_37": "AVG",
+      "precipProbability_38": "AVG",
+      "precipProbability_39": "AVG",
+      "precipProbability_40": "AVG",
+      "precipProbability_41": "AVG",
+      "precipProbability_42": "AVG",
+      "precipProbability_43": "AVG",
+      "precipProbability_44": "AVG",
+      "precipProbability_45": "AVG",
+      "precipProbability_46": "AVG",
+      "precipProbability_47": "AVG",
+      "precipProbability_48": "AVG",
+      "precipType_0": "AVG",
+      "precipType_1": "AVG",
+      "precipType_2": "AVG",
+      "precipType_3": "AVG",
+      "precipType_4": "AVG",
+      "precipType_5": "AVG",
+      "precipType_6": "AVG",
+      "precipType_7": "AVG",
+      "precipType_8": "AVG",
+      "precipType_9": "AVG",
+      "precipType_10": "AVG",
+      "precipType_11": "AVG",
+      "precipType_12": "AVG",
+      "precipType_13": "AVG",
+      "precipType_14": "AVG",
+      "precipType_15": "AVG",
+      "precipType_16": "AVG",
+      "precipType_17": "AVG",
+      "precipType_18": "AVG",
+      "precipType_19": "AVG",
+      "precipType_20": "AVG",
+      "precipType_21": "AVG",
+      "precipType_22": "AVG",
+      "precipType_23": "AVG",
+      "precipType_24": "AVG",
+      "precipType_25": "AVG",
+      "precipType_26": "AVG",
+      "precipType_27": "AVG",
+      "precipType_28": "AVG",
+      "precipType_29": "AVG",
+      "precipType_30": "AVG",
+      "precipType_31": "AVG",
+      "precipType_32": "AVG",
+      "precipType_33": "AVG",
+      "precipType_34": "AVG",
+      "precipType_35": "AVG",
+      "precipType_36": "AVG",
+      "precipType_37": "AVG",
+      "precipType_38": "AVG",
+      "precipType_39": "AVG",
+      "precipType_40": "AVG",
+      "precipType_41": "AVG",
+      "precipType_42": "AVG",
+      "precipType_43": "AVG",
+      "precipType_44": "AVG",
+      "precipType_45": "AVG",
+      "precipType_46": "AVG",
+      "precipType_47": "AVG",
+      "precipType_48": "AVG",
+      "pressure_0": "AVG",
+      "pressure_1": "AVG",
+      "pressure_2": "AVG",
+      "pressure_3": "AVG",
+      "pressure_4": "AVG",
+      "pressure_5": "AVG",
+      "pressure_6": "AVG",
+      "pressure_7": "AVG",
+      "pressure_8": "AVG",
+      "pressure_9": "AVG",
+      "pressure_10": "AVG",
+      "pressure_11": "AVG",
+      "pressure_12": "AVG",
+      "pressure_13": "AVG",
+      "pressure_14": "AVG",
+      "pressure_15": "AVG",
+      "pressure_16": "AVG",
+      "pressure_17": "AVG",
+      "pressure_18": "AVG",
+      "pressure_19": "AVG",
+      "pressure_20": "AVG",
+      "pressure_21": "AVG",
+      "pressure_22": "AVG",
+      "pressure_23": "AVG",
+      "pressure_24": "AVG",
+      "pressure_25": "AVG",
+      "pressure_26": "AVG",
+      "pressure_27": "AVG",
+      "pressure_28": "AVG",
+      "pressure_29": "AVG",
+      "pressure_30": "AVG",
+      "pressure_31": "AVG",
+      "pressure_32": "AVG",
+      "pressure_33": "AVG",
+      "pressure_34": "AVG",
+      "pressure_35": "AVG",
+      "pressure_36": "AVG",
+      "pressure_37": "AVG",
+      "pressure_38": "AVG",
+      "pressure_39": "AVG",
+      "pressure_40": "AVG",
+      "pressure_41": "AVG",
+      "pressure_42": "AVG",
+      "pressure_43": "AVG",
+      "pressure_44": "AVG",
+      "pressure_45": "AVG",
+      "pressure_46": "AVG",
+      "pressure_47": "AVG",
+      "pressure_48": "AVG",
+      "summary_0": "AVG",
+      "summary_1": "AVG",
+      "summary_2": "AVG",
+      "summary_3": "AVG",
+      "summary_4": "AVG",
+      "summary_5": "AVG",
+      "summary_6": "AVG",
+      "summary_7": "AVG",
+      "summary_8": "AVG",
+      "summary_9": "AVG",
+      "summary_10": "AVG",
+      "summary_11": "AVG",
+      "summary_12": "AVG",
+      "summary_13": "AVG",
+      "summary_14": "AVG",
+      "summary_15": "AVG",
+      "summary_16": "AVG",
+      "summary_17": "AVG",
+      "summary_18": "AVG",
+      "summary_19": "AVG",
+      "summary_20": "AVG",
+      "summary_21": "AVG",
+      "summary_22": "AVG",
+      "summary_23": "AVG",
+      "summary_24": "AVG",
+      "summary_25": "AVG",
+      "summary_26": "AVG",
+      "summary_27": "AVG",
+      "summary_28": "AVG",
+      "summary_29": "AVG",
+      "summary_30": "AVG",
+      "summary_31": "AVG",
+      "summary_32": "AVG",
+      "summary_33": "AVG",
+      "summary_34": "AVG",
+      "summary_35": "AVG",
+      "summary_36": "AVG",
+      "summary_37": "AVG",
+      "summary_38": "AVG",
+      "summary_39": "AVG",
+      "summary_40": "AVG",
+      "summary_41": "AVG",
+      "summary_42": "AVG",
+      "summary_43": "AVG",
+      "summary_44": "AVG",
+      "summary_45": "AVG",
+      "summary_46": "AVG",
+      "summary_47": "AVG",
+      "summary_48": "AVG",
+      "temperature_0": "AVG",
+      "temperature_1": "AVG",
+      "temperature_2": "AVG",
+      "temperature_3": "AVG",
+      "temperature_4": "AVG",
+      "temperature_5": "AVG",
+      "temperature_6": "AVG",
+      "temperature_7": "AVG",
+      "temperature_8": "AVG",
+      "temperature_9": "AVG",
+      "temperature_10": "AVG",
+      "temperature_11": "AVG",
+      "temperature_12": "AVG",
+      "temperature_13": "AVG",
+      "temperature_14": "AVG",
+      "temperature_15": "AVG",
+      "temperature_16": "AVG",
+      "temperature_17": "AVG",
+      "temperature_18": "AVG",
+      "temperature_19": "AVG",
+      "temperature_20": "AVG",
+      "temperature_21": "AVG",
+      "temperature_22": "AVG",
+      "temperature_23": "AVG",
+      "temperature_24": "AVG",
+      "temperature_25": "AVG",
+      "temperature_26": "AVG",
+      "temperature_27": "AVG",
+      "temperature_28": "AVG",
+      "temperature_29": "AVG",
+      "temperature_30": "AVG",
+      "temperature_31": "AVG",
+      "temperature_32": "AVG",
+      "temperature_33": "AVG",
+      "temperature_34": "AVG",
+      "temperature_35": "AVG",
+      "temperature_36": "AVG",
+      "temperature_37": "AVG",
+      "temperature_38": "AVG",
+      "temperature_39": "AVG",
+      "temperature_40": "AVG",
+      "temperature_41": "AVG",
+      "temperature_42": "AVG",
+      "temperature_43": "AVG",
+      "temperature_44": "AVG",
+      "temperature_45": "AVG",
+      "temperature_46": "AVG",
+      "temperature_47": "AVG",
+      "temperature_48": "AVG",
+      "uvIndex_0": "AVG",
+      "uvIndex_1": "AVG",
+      "uvIndex_2": "AVG",
+      "uvIndex_3": "AVG",
+      "uvIndex_4": "AVG",
+      "uvIndex_5": "AVG",
+      "uvIndex_6": "AVG",
+      "uvIndex_7": "AVG",
+      "uvIndex_8": "AVG",
+      "uvIndex_9": "AVG",
+      "uvIndex_10": "AVG",
+      "uvIndex_11": "AVG",
+      "uvIndex_12": "AVG",
+      "uvIndex_13": "AVG",
+      "uvIndex_14": "AVG",
+      "uvIndex_15": "AVG",
+      "uvIndex_16": "AVG",
+      "uvIndex_17": "AVG",
+      "uvIndex_18": "AVG",
+      "uvIndex_19": "AVG",
+      "uvIndex_20": "AVG",
+      "uvIndex_21": "AVG",
+      "uvIndex_22": "AVG",
+      "uvIndex_23": "AVG",
+      "uvIndex_24": "AVG",
+      "uvIndex_25": "AVG",
+      "uvIndex_26": "AVG",
+      "uvIndex_27": "AVG",
+      "uvIndex_28": "AVG",
+      "uvIndex_29": "AVG",
+      "uvIndex_30": "AVG",
+      "uvIndex_31": "AVG",
+      "uvIndex_32": "AVG",
+      "uvIndex_33": "AVG",
+      "uvIndex_34": "AVG",
+      "uvIndex_35": "AVG",
+      "uvIndex_36": "AVG",
+      "uvIndex_37": "AVG",
+      "uvIndex_38": "AVG",
+      "uvIndex_39": "AVG",
+      "uvIndex_40": "AVG",
+      "uvIndex_41": "AVG",
+      "uvIndex_42": "AVG",
+      "uvIndex_43": "AVG",
+      "uvIndex_44": "AVG",
+      "uvIndex_45": "AVG",
+      "uvIndex_46": "AVG",
+      "uvIndex_47": "AVG",
+      "uvIndex_48": "AVG",
+      "visibility_0": "AVG",
+      "visibility_1": "AVG",
+      "visibility_2": "AVG",
+      "visibility_3": "AVG",
+      "visibility_4": "AVG",
+      "visibility_5": "AVG",
+      "visibility_6": "AVG",
+      "visibility_7": "AVG",
+      "visibility_8": "AVG",
+      "visibility_9": "AVG",
+      "visibility_10": "AVG",
+      "visibility_11": "AVG",
+      "visibility_12": "AVG",
+      "visibility_13": "AVG",
+      "visibility_14": "AVG",
+      "visibility_15": "AVG",
+      "visibility_16": "AVG",
+      "visibility_17": "AVG",
+      "visibility_18": "AVG",
+      "visibility_19": "AVG",
+      "visibility_20": "AVG",
+      "visibility_21": "AVG",
+      "visibility_22": "AVG",
+      "visibility_23": "AVG",
+      "visibility_24": "AVG",
+      "visibility_25": "AVG",
+      "visibility_26": "AVG",
+      "visibility_27": "AVG",
+      "visibility_28": "AVG",
+      "visibility_29": "AVG",
+      "visibility_30": "AVG",
+      "visibility_31": "AVG",
+      "visibility_32": "AVG",
+      "visibility_33": "AVG",
+      "visibility_34": "AVG",
+      "visibility_35": "AVG",
+      "visibility_36": "AVG",
+      "visibility_37": "AVG",
+      "visibility_38": "AVG",
+      "visibility_39": "AVG",
+      "visibility_40": "AVG",
+      "visibility_41": "AVG",
+      "visibility_42": "AVG",
+      "visibility_43": "AVG",
+      "visibility_44": "AVG",
+      "visibility_45": "AVG",
+      "visibility_46": "AVG",
+      "visibility_47": "AVG",
+      "visibility_48": "AVG",
+      "windBearing_0": "AVG",
+      "windBearing_1": "AVG",
+      "windBearing_2": "AVG",
+      "windBearing_3": "AVG",
+      "windBearing_4": "AVG",
+      "windBearing_5": "AVG",
+      "windBearing_6": "AVG",
+      "windBearing_7": "AVG",
+      "windBearing_8": "AVG",
+      "windBearing_9": "AVG",
+      "windBearing_10": "AVG",
+      "windBearing_11": "AVG",
+      "windBearing_12": "AVG",
+      "windBearing_13": "AVG",
+      "windBearing_14": "AVG",
+      "windBearing_15": "AVG",
+      "windBearing_16": "AVG",
+      "windBearing_17": "AVG",
+      "windBearing_18": "AVG",
+      "windBearing_19": "AVG",
+      "windBearing_20": "AVG",
+      "windBearing_21": "AVG",
+      "windBearing_22": "AVG",
+      "windBearing_23": "AVG",
+      "windBearing_24": "AVG",
+      "windBearing_25": "AVG",
+      "windBearing_26": "AVG",
+      "windBearing_27": "AVG",
+      "windBearing_28": "AVG",
+      "windBearing_29": "AVG",
+      "windBearing_30": "AVG",
+      "windBearing_31": "AVG",
+      "windBearing_32": "AVG",
+      "windBearing_33": "AVG",
+      "windBearing_34": "AVG",
+      "windBearing_35": "AVG",
+      "windBearing_36": "AVG",
+      "windBearing_37": "AVG",
+      "windBearing_38": "AVG",
+      "windBearing_39": "AVG",
+      "windBearing_40": "AVG",
+      "windBearing_41": "AVG",
+      "windBearing_42": "AVG",
+      "windBearing_43": "AVG",
+      "windBearing_44": "AVG",
+      "windBearing_45": "AVG",
+      "windBearing_46": "AVG",
+      "windBearing_47": "AVG",
+      "windBearing_48": "AVG",
+      "windGust_0": "AVG",
+      "windGust_1": "AVG",
+      "windGust_2": "AVG",
+      "windGust_3": "AVG",
+      "windGust_4": "AVG",
+      "windGust_5": "AVG",
+      "windGust_6": "AVG",
+      "windGust_7": "AVG",
+      "windGust_8": "AVG",
+      "windGust_9": "AVG",
+      "windGust_10": "AVG",
+      "windGust_11": "AVG",
+      "windGust_12": "AVG",
+      "windGust_13": "AVG",
+      "windGust_14": "AVG",
+      "windGust_15": "AVG",
+      "windGust_16": "AVG",
+      "windGust_17": "AVG",
+      "windGust_18": "AVG",
+      "windGust_19": "AVG",
+      "windGust_20": "AVG",
+      "windGust_21": "AVG",
+      "windGust_22": "AVG",
+      "windGust_23": "AVG",
+      "windGust_24": "AVG",
+      "windGust_25": "AVG",
+      "windGust_26": "AVG",
+      "windGust_27": "AVG",
+      "windGust_28": "AVG",
+      "windGust_29": "AVG",
+      "windGust_30": "AVG",
+      "windGust_31": "AVG",
+      "windGust_32": "AVG",
+      "windGust_33": "AVG",
+      "windGust_34": "AVG",
+      "windGust_35": "AVG",
+      "windGust_36": "AVG",
+      "windGust_37": "AVG",
+      "windGust_38": "AVG",
+      "windGust_39": "AVG",
+      "windGust_40": "AVG",
+      "windGust_41": "AVG",
+      "windGust_42": "AVG",
+      "windGust_43": "AVG",
+      "windGust_44": "AVG",
+      "windGust_45": "AVG",
+      "windGust_46": "AVG",
+      "windGust_47": "AVG",
+      "windGust_48": "AVG",
+      "windSpeed_0": "AVG",
+      "windSpeed_1": "AVG",
+      "windSpeed_2": "AVG",
+      "windSpeed_3": "AVG",
+      "windSpeed_4": "AVG",
+      "windSpeed_5": "AVG",
+      "windSpeed_6": "AVG",
+      "windSpeed_7": "AVG",
+      "windSpeed_8": "AVG",
+      "windSpeed_9": "AVG",
+      "windSpeed_10": "AVG",
+      "windSpeed_11": "AVG",
+      "windSpeed_12": "AVG",
+      "windSpeed_13": "AVG",
+      "windSpeed_14": "AVG",
+      "windSpeed_15": "AVG",
+      "windSpeed_16": "AVG",
+      "windSpeed_17": "AVG",
+      "windSpeed_18": "AVG",
+      "windSpeed_19": "AVG",
+      "windSpeed_20": "AVG",
+      "windSpeed_21": "AVG",
+      "windSpeed_22": "AVG",
+      "windSpeed_23": "AVG",
+      "windSpeed_24": "AVG",
+      "windSpeed_25": "AVG",
+      "windSpeed_26": "AVG",
+      "windSpeed_27": "AVG",
+      "windSpeed_28": "AVG",
+      "windSpeed_29": "AVG",
+      "windSpeed_30": "AVG",
+      "windSpeed_31": "AVG",
+      "windSpeed_32": "AVG",
+      "windSpeed_33": "AVG",
+      "windSpeed_34": "AVG",
+      "windSpeed_35": "AVG",
+      "windSpeed_36": "AVG",
+      "windSpeed_37": "AVG",
+      "windSpeed_38": "AVG",
+      "windSpeed_39": "AVG",
+      "windSpeed_40": "AVG",
+      "windSpeed_41": "AVG",
+      "windSpeed_42": "AVG",
+      "windSpeed_43": "AVG",
+      "windSpeed_44": "AVG",
+      "windSpeed_45": "AVG",
+      "windSpeed_46": "AVG",
+      "windSpeed_47": "AVG",
+      "windSpeed_48": "AVG",
+      "GHI_0": "AVG",
+      "GHI_1": "AVG",
+      "GHI_2": "AVG",
+      "GHI_3": "AVG",
+      "GHI_4": "AVG",
+      "GHI_5": "AVG",
+      "GHI_6": "AVG",
+      "GHI_7": "AVG",
+      "GHI_8": "AVG",
+      "GHI_9": "AVG",
+      "GHI_10": "AVG",
+      "GHI_11": "AVG",
+      "GHI_12": "AVG",
+      "GHI_13": "AVG",
+      "GHI_14": "AVG",
+      "GHI_15": "AVG",
+      "GHI_16": "AVG",
+      "GHI_17": "AVG",
+      "GHI_18": "AVG",
+      "GHI_19": "AVG",
+      "GHI_20": "AVG",
+      "GHI_21": "AVG",
+      "GHI_22": "AVG",
+      "GHI_23": "AVG",
+      "GHI_24": "AVG",
+      "GHI_25": "AVG",
+      "GHI_26": "AVG",
+      "GHI_27": "AVG",
+      "GHI_28": "AVG",
+      "GHI_29": "AVG",
+      "GHI_30": "AVG",
+      "GHI_31": "AVG",
+      "GHI_32": "AVG",
+      "GHI_33": "AVG",
+      "GHI_34": "AVG",
+      "GHI_35": "AVG",
+      "GHI_36": "AVG",
+      "GHI_37": "AVG",
+      "GHI_38": "AVG",
+      "GHI_39": "AVG",
+      "GHI_40": "AVG",
+      "GHI_41": "AVG",
+      "GHI_42": "AVG",
+      "GHI_43": "AVG",
+      "GHI_44": "AVG",
+      "GHI_45": "AVG",
+      "GHI_46": "AVG",
+      "GHI_47": "AVG",
+      "GHI_48": "AVG"
+
+    },
+    "groupby": "stationId",
+    "add_fields": ["stationId", "lat", "lon"]
+  },
+  "resource_methods": [
+    "GET"
+  ],
+  "item_methods": [],
+  "schema": {
+    "stationId": {
+      "type": "string"
+    },
+    "lat" :{
+      "type": "float"
+    },
+    "lon" :{
+      "type": "float"
+    },
+    "time": {
+      "type": "datetime",
+      "required": true
+    },
+    "apparentTemperature_0" : {
+      "type": "float"
+    },
+    "apparentTemperature_1" : {
+      "type": "float"
+    },
+    "apparentTemperature_2" : {
+      "type": "float"
+    },
+    "apparentTemperature_3" : {
+      "type": "float"
+    },
+    "apparentTemperature_4" : {
+      "type": "float"
+    },
+    "apparentTemperature_5" : {
+      "type": "float"
+    },
+    "apparentTemperature_6" : {
+      "type": "float"
+    },
+    "apparentTemperature_7" : {
+      "type": "float"
+    },
+    "apparentTemperature_8" : {
+      "type": "float"
+    },
+    "apparentTemperature_9" : {
+      "type": "float"
+    },
+    "apparentTemperature_10" : {
+      "type": "float"
+    },
+    "apparentTemperature_11" : {
+      "type": "float"
+    },
+    "apparentTemperature_12" : {
+      "type": "float"
+    },
+    "apparentTemperature_13" : {
+      "type": "float"
+    },
+    "apparentTemperature_14" : {
+      "type": "float"
+    },
+    "apparentTemperature_15" : {
+      "type": "float"
+    },
+    "apparentTemperature_16" : {
+      "type": "float"
+    },
+    "apparentTemperature_17" : {
+      "type": "float"
+    },
+    "apparentTemperature_18" : {
+      "type": "float"
+    },
+    "apparentTemperature_19" : {
+      "type": "float"
+    },
+    "apparentTemperature_20" : {
+      "type": "float"
+    },
+    "apparentTemperature_21" : {
+      "type": "float"
+    },
+    "apparentTemperature_22" : {
+      "type": "float"
+    },
+    "apparentTemperature_23" : {
+      "type": "float"
+    },
+    "apparentTemperature_24" : {
+      "type": "float"
+    },
+    "apparentTemperature_25" : {
+      "type": "float"
+    },
+    "apparentTemperature_26" : {
+      "type": "float"
+    },
+    "apparentTemperature_27" : {
+      "type": "float"
+    },
+    "apparentTemperature_28" : {
+      "type": "float"
+    },
+    "apparentTemperature_29" : {
+      "type": "float"
+    },
+    "apparentTemperature_30" : {
+      "type": "float"
+    },
+    "apparentTemperature_31" : {
+      "type": "float"
+    },
+    "apparentTemperature_32" : {
+      "type": "float"
+    },
+    "apparentTemperature_33" : {
+      "type": "float"
+    },
+    "apparentTemperature_34" : {
+      "type": "float"
+    },
+    "apparentTemperature_35" : {
+      "type": "float"
+    },
+    "apparentTemperature_36" : {
+      "type": "float"
+    },
+    "apparentTemperature_37" : {
+      "type": "float"
+    },
+    "apparentTemperature_38" : {
+      "type": "float"
+    },
+    "apparentTemperature_39" : {
+      "type": "float"
+    },
+    "apparentTemperature_40" : {
+      "type": "float"
+    },
+    "apparentTemperature_41" : {
+      "type": "float"
+    },
+    "apparentTemperature_42" : {
+      "type": "float"
+    },
+    "apparentTemperature_43" : {
+      "type": "float"
+    },
+    "apparentTemperature_44" : {
+      "type": "float"
+    },
+    "apparentTemperature_45" : {
+      "type": "float"
+    },
+    "apparentTemperature_46" : {
+      "type": "float"
+    },
+    "apparentTemperature_47" : {
+      "type": "float"
+    },
+    "apparentTemperature_48" : {
+      "type": "float"
+    },
+    "cloudCover_0" : {
+      "type": "float"
+    },
+    "cloudCover_1" : {
+      "type": "float"
+    },
+    "cloudCover_2" : {
+      "type": "float"
+    },
+    "cloudCover_3" : {
+      "type": "float"
+    },
+    "cloudCover_4" : {
+      "type": "float"
+    },
+    "cloudCover_5" : {
+      "type": "float"
+    },
+    "cloudCover_6" : {
+      "type": "float"
+    },
+    "cloudCover_7" : {
+      "type": "float"
+    },
+    "cloudCover_8" : {
+      "type": "float"
+    },
+    "cloudCover_9" : {
+      "type": "float"
+    },
+    "cloudCover_10" : {
+      "type": "float"
+    },
+    "cloudCover_11" : {
+      "type": "float"
+    },
+    "cloudCover_12" : {
+      "type": "float"
+    },
+    "cloudCover_13" : {
+      "type": "float"
+    },
+    "cloudCover_14" : {
+      "type": "float"
+    },
+    "cloudCover_15" : {
+      "type": "float"
+    },
+    "cloudCover_16" : {
+      "type": "float"
+    },
+    "cloudCover_17" : {
+      "type": "float"
+    },
+    "cloudCover_18" : {
+      "type": "float"
+    },
+    "cloudCover_19" : {
+      "type": "float"
+    },
+    "cloudCover_20" : {
+      "type": "float"
+    },
+    "cloudCover_21" : {
+      "type": "float"
+    },
+    "cloudCover_22" : {
+      "type": "float"
+    },
+    "cloudCover_23" : {
+      "type": "float"
+    },
+    "cloudCover_24" : {
+      "type": "float"
+    },
+    "cloudCover_25" : {
+      "type": "float"
+    },
+    "cloudCover_26" : {
+      "type": "float"
+    },
+    "cloudCover_27" : {
+      "type": "float"
+    },
+    "cloudCover_28" : {
+      "type": "float"
+    },
+    "cloudCover_29" : {
+      "type": "float"
+    },
+    "cloudCover_30" : {
+      "type": "float"
+    },
+    "cloudCover_31" : {
+      "type": "float"
+    },
+    "cloudCover_32" : {
+      "type": "float"
+    },
+    "cloudCover_33" : {
+      "type": "float"
+    },
+    "cloudCover_34" : {
+      "type": "float"
+    },
+    "cloudCover_35" : {
+      "type": "float"
+    },
+    "cloudCover_36" : {
+      "type": "float"
+    },
+    "cloudCover_37" : {
+      "type": "float"
+    },
+    "cloudCover_38" : {
+      "type": "float"
+    },
+    "cloudCover_39" : {
+      "type": "float"
+    },
+    "cloudCover_40" : {
+      "type": "float"
+    },
+    "cloudCover_41" : {
+      "type": "float"
+    },
+    "cloudCover_42" : {
+      "type": "float"
+    },
+    "cloudCover_43" : {
+      "type": "float"
+    },
+    "cloudCover_44" : {
+      "type": "float"
+    },
+    "cloudCover_45" : {
+      "type": "float"
+    },
+    "cloudCover_46" : {
+      "type": "float"
+    },
+    "cloudCover_47" : {
+      "type": "float"
+    },
+    "cloudCover_48" : {
+      "type": "float"
+    },
+    "dewPoint_0" : {
+      "type": "float"
+    },
+    "dewPoint_1" : {
+      "type": "float"
+    },
+    "dewPoint_2" : {
+      "type": "float"
+    },
+    "dewPoint_3" : {
+      "type": "float"
+    },
+    "dewPoint_4" : {
+      "type": "float"
+    },
+    "dewPoint_5" : {
+      "type": "float"
+    },
+    "dewPoint_6" : {
+      "type": "float"
+    },
+    "dewPoint_7" : {
+      "type": "float"
+    },
+    "dewPoint_8" : {
+      "type": "float"
+    },
+    "dewPoint_9" : {
+      "type": "float"
+    },
+    "dewPoint_10" : {
+      "type": "float"
+    },
+    "dewPoint_11" : {
+      "type": "float"
+    },
+    "dewPoint_12" : {
+      "type": "float"
+    },
+    "dewPoint_13" : {
+      "type": "float"
+    },
+    "dewPoint_14" : {
+      "type": "float"
+    },
+    "dewPoint_15" : {
+      "type": "float"
+    },
+    "dewPoint_16" : {
+      "type": "float"
+    },
+    "dewPoint_17" : {
+      "type": "float"
+    },
+    "dewPoint_18" : {
+      "type": "float"
+    },
+    "dewPoint_19" : {
+      "type": "float"
+    },
+    "dewPoint_20" : {
+      "type": "float"
+    },
+    "dewPoint_21" : {
+      "type": "float"
+    },
+    "dewPoint_22" : {
+      "type": "float"
+    },
+    "dewPoint_23" : {
+      "type": "float"
+    },
+    "dewPoint_24" : {
+      "type": "float"
+    },
+    "dewPoint_25" : {
+      "type": "float"
+    },
+    "dewPoint_26" : {
+      "type": "float"
+    },
+    "dewPoint_27" : {
+      "type": "float"
+    },
+    "dewPoint_28" : {
+      "type": "float"
+    },
+    "dewPoint_29" : {
+      "type": "float"
+    },
+    "dewPoint_30" : {
+      "type": "float"
+    },
+    "dewPoint_31" : {
+      "type": "float"
+    },
+    "dewPoint_32" : {
+      "type": "float"
+    },
+    "dewPoint_33" : {
+      "type": "float"
+    },
+    "dewPoint_34" : {
+      "type": "float"
+    },
+    "dewPoint_35" : {
+      "type": "float"
+    },
+    "dewPoint_36" : {
+      "type": "float"
+    },
+    "dewPoint_37" : {
+      "type": "float"
+    },
+    "dewPoint_38" : {
+      "type": "float"
+    },
+    "dewPoint_39" : {
+      "type": "float"
+    },
+    "dewPoint_40" : {
+      "type": "float"
+    },
+    "dewPoint_41" : {
+      "type": "float"
+    },
+    "dewPoint_42" : {
+      "type": "float"
+    },
+    "dewPoint_43" : {
+      "type": "float"
+    },
+    "dewPoint_44" : {
+      "type": "float"
+    },
+    "dewPoint_45" : {
+      "type": "float"
+    },
+    "dewPoint_46" : {
+      "type": "float"
+    },
+    "dewPoint_47" : {
+      "type": "float"
+    },
+    "dewPoint_48" : {
+      "type": "float"
+    },
+    "humidity_0" : {
+      "type": "float"
+    },
+    "humidity_1" : {
+      "type": "float"
+    },
+    "humidity_2" : {
+      "type": "float"
+    },
+    "humidity_3" : {
+      "type": "float"
+    },
+    "humidity_4" : {
+      "type": "float"
+    },
+    "humidity_5" : {
+      "type": "float"
+    },
+    "humidity_6" : {
+      "type": "float"
+    },
+    "humidity_7" : {
+      "type": "float"
+    },
+    "humidity_8" : {
+      "type": "float"
+    },
+    "humidity_9" : {
+      "type": "float"
+    },
+    "humidity_10" : {
+      "type": "float"
+    },
+    "humidity_11" : {
+      "type": "float"
+    },
+    "humidity_12" : {
+      "type": "float"
+    },
+    "humidity_13" : {
+      "type": "float"
+    },
+    "humidity_14" : {
+      "type": "float"
+    },
+    "humidity_15" : {
+      "type": "float"
+    },
+    "humidity_16" : {
+      "type": "float"
+    },
+    "humidity_17" : {
+      "type": "float"
+    },
+    "humidity_18" : {
+      "type": "float"
+    },
+    "humidity_19" : {
+      "type": "float"
+    },
+    "humidity_20" : {
+      "type": "float"
+    },
+    "humidity_21" : {
+      "type": "float"
+    },
+    "humidity_22" : {
+      "type": "float"
+    },
+    "humidity_23" : {
+      "type": "float"
+    },
+    "humidity_24" : {
+      "type": "float"
+    },
+    "humidity_25" : {
+      "type": "float"
+    },
+    "humidity_26" : {
+      "type": "float"
+    },
+    "humidity_27" : {
+      "type": "float"
+    },
+    "humidity_28" : {
+      "type": "float"
+    },
+    "humidity_29" : {
+      "type": "float"
+    },
+    "humidity_30" : {
+      "type": "float"
+    },
+    "humidity_31" : {
+      "type": "float"
+    },
+    "humidity_32" : {
+      "type": "float"
+    },
+    "humidity_33" : {
+      "type": "float"
+    },
+    "humidity_34" : {
+      "type": "float"
+    },
+    "humidity_35" : {
+      "type": "float"
+    },
+    "humidity_36" : {
+      "type": "float"
+    },
+    "humidity_37" : {
+      "type": "float"
+    },
+    "humidity_38" : {
+      "type": "float"
+    },
+    "humidity_39" : {
+      "type": "float"
+    },
+    "humidity_40" : {
+      "type": "float"
+    },
+    "humidity_41" : {
+      "type": "float"
+    },
+    "humidity_42" : {
+      "type": "float"
+    },
+    "humidity_43" : {
+      "type": "float"
+    },
+    "humidity_44" : {
+      "type": "float"
+    },
+    "humidity_45" : {
+      "type": "float"
+    },
+    "humidity_46" : {
+      "type": "float"
+    },
+    "humidity_47" : {
+      "type": "float"
+    },
+    "humidity_48" : {
+      "type": "float"
+    },
+    "icon_0" : {
+      "type": "float"
+    },
+    "icon_1" : {
+      "type": "float"
+    },
+    "icon_2" : {
+      "type": "float"
+    },
+    "icon_3" : {
+      "type": "float"
+    },
+    "icon_4" : {
+      "type": "float"
+    },
+    "icon_5" : {
+      "type": "float"
+    },
+    "icon_6" : {
+      "type": "float"
+    },
+    "icon_7" : {
+      "type": "float"
+    },
+    "icon_8" : {
+      "type": "float"
+    },
+    "icon_9" : {
+      "type": "float"
+    },
+    "icon_10" : {
+      "type": "float"
+    },
+    "icon_11" : {
+      "type": "float"
+    },
+    "icon_12" : {
+      "type": "float"
+    },
+    "icon_13" : {
+      "type": "float"
+    },
+    "icon_14" : {
+      "type": "float"
+    },
+    "icon_15" : {
+      "type": "float"
+    },
+    "icon_16" : {
+      "type": "float"
+    },
+    "icon_17" : {
+      "type": "float"
+    },
+    "icon_18" : {
+      "type": "float"
+    },
+    "icon_19" : {
+      "type": "float"
+    },
+    "icon_20" : {
+      "type": "float"
+    },
+    "icon_21" : {
+      "type": "float"
+    },
+    "icon_22" : {
+      "type": "float"
+    },
+    "icon_23" : {
+      "type": "float"
+    },
+    "icon_24" : {
+      "type": "float"
+    },
+    "icon_25" : {
+      "type": "float"
+    },
+    "icon_26" : {
+      "type": "float"
+    },
+    "icon_27" : {
+      "type": "float"
+    },
+    "icon_28" : {
+      "type": "float"
+    },
+    "icon_29" : {
+      "type": "float"
+    },
+    "icon_30" : {
+      "type": "float"
+    },
+    "icon_31" : {
+      "type": "float"
+    },
+    "icon_32" : {
+      "type": "float"
+    },
+    "icon_33" : {
+      "type": "float"
+    },
+    "icon_34" : {
+      "type": "float"
+    },
+    "icon_35" : {
+      "type": "float"
+    },
+    "icon_36" : {
+      "type": "float"
+    },
+    "icon_37" : {
+      "type": "float"
+    },
+    "icon_38" : {
+      "type": "float"
+    },
+    "icon_39" : {
+      "type": "float"
+    },
+    "icon_40" : {
+      "type": "float"
+    },
+    "icon_41" : {
+      "type": "float"
+    },
+    "icon_42" : {
+      "type": "float"
+    },
+    "icon_43" : {
+      "type": "float"
+    },
+    "icon_44" : {
+      "type": "float"
+    },
+    "icon_45" : {
+      "type": "float"
+    },
+    "icon_46" : {
+      "type": "float"
+    },
+    "icon_47" : {
+      "type": "float"
+    },
+    "icon_48" : {
+      "type": "float"
+    },
+    "ozone_0" : {
+      "type": "float"
+    },
+    "ozone_1" : {
+      "type": "float"
+    },
+    "ozone_2" : {
+      "type": "float"
+    },
+    "ozone_3" : {
+      "type": "float"
+    },
+    "ozone_4" : {
+      "type": "float"
+    },
+    "ozone_5" : {
+      "type": "float"
+    },
+    "ozone_6" : {
+      "type": "float"
+    },
+    "ozone_7" : {
+      "type": "float"
+    },
+    "ozone_8" : {
+      "type": "float"
+    },
+    "ozone_9" : {
+      "type": "float"
+    },
+    "ozone_10" : {
+      "type": "float"
+    },
+    "ozone_11" : {
+      "type": "float"
+    },
+    "ozone_12" : {
+      "type": "float"
+    },
+    "ozone_13" : {
+      "type": "float"
+    },
+    "ozone_14" : {
+      "type": "float"
+    },
+    "ozone_15" : {
+      "type": "float"
+    },
+    "ozone_16" : {
+      "type": "float"
+    },
+    "ozone_17" : {
+      "type": "float"
+    },
+    "ozone_18" : {
+      "type": "float"
+    },
+    "ozone_19" : {
+      "type": "float"
+    },
+    "ozone_20" : {
+      "type": "float"
+    },
+    "ozone_21" : {
+      "type": "float"
+    },
+    "ozone_22" : {
+      "type": "float"
+    },
+    "ozone_23" : {
+      "type": "float"
+    },
+    "ozone_24" : {
+      "type": "float"
+    },
+    "ozone_25" : {
+      "type": "float"
+    },
+    "ozone_26" : {
+      "type": "float"
+    },
+    "ozone_27" : {
+      "type": "float"
+    },
+    "ozone_28" : {
+      "type": "float"
+    },
+    "ozone_29" : {
+      "type": "float"
+    },
+    "ozone_30" : {
+      "type": "float"
+    },
+    "ozone_31" : {
+      "type": "float"
+    },
+    "ozone_32" : {
+      "type": "float"
+    },
+    "ozone_33" : {
+      "type": "float"
+    },
+    "ozone_34" : {
+      "type": "float"
+    },
+    "ozone_35" : {
+      "type": "float"
+    },
+    "ozone_36" : {
+      "type": "float"
+    },
+    "ozone_37" : {
+      "type": "float"
+    },
+    "ozone_38" : {
+      "type": "float"
+    },
+    "ozone_39" : {
+      "type": "float"
+    },
+    "ozone_40" : {
+      "type": "float"
+    },
+    "ozone_41" : {
+      "type": "float"
+    },
+    "ozone_42" : {
+      "type": "float"
+    },
+    "ozone_43" : {
+      "type": "float"
+    },
+    "ozone_44" : {
+      "type": "float"
+    },
+    "ozone_45" : {
+      "type": "float"
+    },
+    "ozone_46" : {
+      "type": "float"
+    },
+    "ozone_47" : {
+      "type": "float"
+    },
+    "ozone_48" : {
+      "type": "float"
+    },
+    "precipAccumulation_0" : {
+      "type": "float"
+    },
+    "precipAccumulation_1" : {
+      "type": "float"
+    },
+    "precipAccumulation_2" : {
+      "type": "float"
+    },
+    "precipAccumulation_3" : {
+      "type": "float"
+    },
+    "precipAccumulation_4" : {
+      "type": "float"
+    },
+    "precipAccumulation_5" : {
+      "type": "float"
+    },
+    "precipAccumulation_6" : {
+      "type": "float"
+    },
+    "precipAccumulation_7" : {
+      "type": "float"
+    },
+    "precipAccumulation_8" : {
+      "type": "float"
+    },
+    "precipAccumulation_9" : {
+      "type": "float"
+    },
+    "precipAccumulation_10" : {
+      "type": "float"
+    },
+    "precipAccumulation_11" : {
+      "type": "float"
+    },
+    "precipAccumulation_12" : {
+      "type": "float"
+    },
+    "precipAccumulation_13" : {
+      "type": "float"
+    },
+    "precipAccumulation_14" : {
+      "type": "float"
+    },
+    "precipAccumulation_15" : {
+      "type": "float"
+    },
+    "precipAccumulation_16" : {
+      "type": "float"
+    },
+    "precipAccumulation_17" : {
+      "type": "float"
+    },
+    "precipAccumulation_18" : {
+      "type": "float"
+    },
+    "precipAccumulation_19" : {
+      "type": "float"
+    },
+    "precipAccumulation_20" : {
+      "type": "float"
+    },
+    "precipAccumulation_21" : {
+      "type": "float"
+    },
+    "precipAccumulation_22" : {
+      "type": "float"
+    },
+    "precipAccumulation_23" : {
+      "type": "float"
+    },
+    "precipAccumulation_24" : {
+      "type": "float"
+    },
+    "precipAccumulation_25" : {
+      "type": "float"
+    },
+    "precipAccumulation_26" : {
+      "type": "float"
+    },
+    "precipAccumulation_27" : {
+      "type": "float"
+    },
+    "precipAccumulation_28" : {
+      "type": "float"
+    },
+    "precipAccumulation_29" : {
+      "type": "float"
+    },
+    "precipAccumulation_30" : {
+      "type": "float"
+    },
+    "precipAccumulation_31" : {
+      "type": "float"
+    },
+    "precipAccumulation_32" : {
+      "type": "float"
+    },
+    "precipAccumulation_33" : {
+      "type": "float"
+    },
+    "precipAccumulation_34" : {
+      "type": "float"
+    },
+    "precipAccumulation_35" : {
+      "type": "float"
+    },
+    "precipAccumulation_36" : {
+      "type": "float"
+    },
+    "precipAccumulation_37" : {
+      "type": "float"
+    },
+    "precipAccumulation_38" : {
+      "type": "float"
+    },
+    "precipAccumulation_39" : {
+      "type": "float"
+    },
+    "precipAccumulation_40" : {
+      "type": "float"
+    },
+    "precipAccumulation_41" : {
+      "type": "float"
+    },
+    "precipAccumulation_42" : {
+      "type": "float"
+    },
+    "precipAccumulation_43" : {
+      "type": "float"
+    },
+    "precipAccumulation_44" : {
+      "type": "float"
+    },
+    "precipAccumulation_45" : {
+      "type": "float"
+    },
+    "precipAccumulation_46" : {
+      "type": "float"
+    },
+    "precipAccumulation_47" : {
+      "type": "float"
+    },
+    "precipAccumulation_48" : {
+      "type": "float"
+    },
+    "precipIntensity_0" : {
+      "type": "float"
+    },
+    "precipIntensity_1" : {
+      "type": "float"
+    },
+    "precipIntensity_2" : {
+      "type": "float"
+    },
+    "precipIntensity_3" : {
+      "type": "float"
+    },
+    "precipIntensity_4" : {
+      "type": "float"
+    },
+    "precipIntensity_5" : {
+      "type": "float"
+    },
+    "precipIntensity_6" : {
+      "type": "float"
+    },
+    "precipIntensity_7" : {
+      "type": "float"
+    },
+    "precipIntensity_8" : {
+      "type": "float"
+    },
+    "precipIntensity_9" : {
+      "type": "float"
+    },
+    "precipIntensity_10" : {
+      "type": "float"
+    },
+    "precipIntensity_11" : {
+      "type": "float"
+    },
+    "precipIntensity_12" : {
+      "type": "float"
+    },
+    "precipIntensity_13" : {
+      "type": "float"
+    },
+    "precipIntensity_14" : {
+      "type": "float"
+    },
+    "precipIntensity_15" : {
+      "type": "float"
+    },
+    "precipIntensity_16" : {
+      "type": "float"
+    },
+    "precipIntensity_17" : {
+      "type": "float"
+    },
+    "precipIntensity_18" : {
+      "type": "float"
+    },
+    "precipIntensity_19" : {
+      "type": "float"
+    },
+    "precipIntensity_20" : {
+      "type": "float"
+    },
+    "precipIntensity_21" : {
+      "type": "float"
+    },
+    "precipIntensity_22" : {
+      "type": "float"
+    },
+    "precipIntensity_23" : {
+      "type": "float"
+    },
+    "precipIntensity_24" : {
+      "type": "float"
+    },
+    "precipIntensity_25" : {
+      "type": "float"
+    },
+    "precipIntensity_26" : {
+      "type": "float"
+    },
+    "precipIntensity_27" : {
+      "type": "float"
+    },
+    "precipIntensity_28" : {
+      "type": "float"
+    },
+    "precipIntensity_29" : {
+      "type": "float"
+    },
+    "precipIntensity_30" : {
+      "type": "float"
+    },
+    "precipIntensity_31" : {
+      "type": "float"
+    },
+    "precipIntensity_32" : {
+      "type": "float"
+    },
+    "precipIntensity_33" : {
+      "type": "float"
+    },
+    "precipIntensity_34" : {
+      "type": "float"
+    },
+    "precipIntensity_35" : {
+      "type": "float"
+    },
+    "precipIntensity_36" : {
+      "type": "float"
+    },
+    "precipIntensity_37" : {
+      "type": "float"
+    },
+    "precipIntensity_38" : {
+      "type": "float"
+    },
+    "precipIntensity_39" : {
+      "type": "float"
+    },
+    "precipIntensity_40" : {
+      "type": "float"
+    },
+    "precipIntensity_41" : {
+      "type": "float"
+    },
+    "precipIntensity_42" : {
+      "type": "float"
+    },
+    "precipIntensity_43" : {
+      "type": "float"
+    },
+    "precipIntensity_44" : {
+      "type": "float"
+    },
+    "precipIntensity_45" : {
+      "type": "float"
+    },
+    "precipIntensity_46" : {
+      "type": "float"
+    },
+    "precipIntensity_47" : {
+      "type": "float"
+    },
+    "precipIntensity_48" : {
+      "type": "float"
+    },
+    "precipIntensityError_0" : {
+      "type": "float"
+    },
+    "precipIntensityError_1" : {
+      "type": "float"
+    },
+    "precipIntensityError_2" : {
+      "type": "float"
+    },
+    "precipIntensityError_3" : {
+      "type": "float"
+    },
+    "precipIntensityError_4" : {
+      "type": "float"
+    },
+    "precipIntensityError_5" : {
+      "type": "float"
+    },
+    "precipIntensityError_6" : {
+      "type": "float"
+    },
+    "precipIntensityError_7" : {
+      "type": "float"
+    },
+    "precipIntensityError_8" : {
+      "type": "float"
+    },
+    "precipIntensityError_9" : {
+      "type": "float"
+    },
+    "precipIntensityError_10" : {
+      "type": "float"
+    },
+    "precipIntensityError_11" : {
+      "type": "float"
+    },
+    "precipIntensityError_12" : {
+      "type": "float"
+    },
+    "precipIntensityError_13" : {
+      "type": "float"
+    },
+    "precipIntensityError_14" : {
+      "type": "float"
+    },
+    "precipIntensityError_15" : {
+      "type": "float"
+    },
+    "precipIntensityError_16" : {
+      "type": "float"
+    },
+    "precipIntensityError_17" : {
+      "type": "float"
+    },
+    "precipIntensityError_18" : {
+      "type": "float"
+    },
+    "precipIntensityError_19" : {
+      "type": "float"
+    },
+    "precipIntensityError_20" : {
+      "type": "float"
+    },
+    "precipIntensityError_21" : {
+      "type": "float"
+    },
+    "precipIntensityError_22" : {
+      "type": "float"
+    },
+    "precipIntensityError_23" : {
+      "type": "float"
+    },
+    "precipIntensityError_24" : {
+      "type": "float"
+    },
+    "precipIntensityError_25" : {
+      "type": "float"
+    },
+    "precipIntensityError_26" : {
+      "type": "float"
+    },
+    "precipIntensityError_27" : {
+      "type": "float"
+    },
+    "precipIntensityError_28" : {
+      "type": "float"
+    },
+    "precipIntensityError_29" : {
+      "type": "float"
+    },
+    "precipIntensityError_30" : {
+      "type": "float"
+    },
+    "precipIntensityError_31" : {
+      "type": "float"
+    },
+    "precipIntensityError_32" : {
+      "type": "float"
+    },
+    "precipIntensityError_33" : {
+      "type": "float"
+    },
+    "precipIntensityError_34" : {
+      "type": "float"
+    },
+    "precipIntensityError_35" : {
+      "type": "float"
+    },
+    "precipIntensityError_36" : {
+      "type": "float"
+    },
+    "precipIntensityError_37" : {
+      "type": "float"
+    },
+    "precipIntensityError_38" : {
+      "type": "float"
+    },
+    "precipIntensityError_39" : {
+      "type": "float"
+    },
+    "precipIntensityError_40" : {
+      "type": "float"
+    },
+    "precipIntensityError_41" : {
+      "type": "float"
+    },
+    "precipIntensityError_42" : {
+      "type": "float"
+    },
+    "precipIntensityError_43" : {
+      "type": "float"
+    },
+    "precipIntensityError_44" : {
+      "type": "float"
+    },
+    "precipIntensityError_45" : {
+      "type": "float"
+    },
+    "precipIntensityError_46" : {
+      "type": "float"
+    },
+    "precipIntensityError_47" : {
+      "type": "float"
+    },
+    "precipIntensityError_48" : {
+      "type": "float"
+    },
+    "precipProbability_0" : {
+      "type": "float"
+    },
+    "precipProbability_1" : {
+      "type": "float"
+    },
+    "precipProbability_2" : {
+      "type": "float"
+    },
+    "precipProbability_3" : {
+      "type": "float"
+    },
+    "precipProbability_4" : {
+      "type": "float"
+    },
+    "precipProbability_5" : {
+      "type": "float"
+    },
+    "precipProbability_6" : {
+      "type": "float"
+    },
+    "precipProbability_7" : {
+      "type": "float"
+    },
+    "precipProbability_8" : {
+      "type": "float"
+    },
+    "precipProbability_9" : {
+      "type": "float"
+    },
+    "precipProbability_10" : {
+      "type": "float"
+    },
+    "precipProbability_11" : {
+      "type": "float"
+    },
+    "precipProbability_12" : {
+      "type": "float"
+    },
+    "precipProbability_13" : {
+      "type": "float"
+    },
+    "precipProbability_14" : {
+      "type": "float"
+    },
+    "precipProbability_15" : {
+      "type": "float"
+    },
+    "precipProbability_16" : {
+      "type": "float"
+    },
+    "precipProbability_17" : {
+      "type": "float"
+    },
+    "precipProbability_18" : {
+      "type": "float"
+    },
+    "precipProbability_19" : {
+      "type": "float"
+    },
+    "precipProbability_20" : {
+      "type": "float"
+    },
+    "precipProbability_21" : {
+      "type": "float"
+    },
+    "precipProbability_22" : {
+      "type": "float"
+    },
+    "precipProbability_23" : {
+      "type": "float"
+    },
+    "precipProbability_24" : {
+      "type": "float"
+    },
+    "precipProbability_25" : {
+      "type": "float"
+    },
+    "precipProbability_26" : {
+      "type": "float"
+    },
+    "precipProbability_27" : {
+      "type": "float"
+    },
+    "precipProbability_28" : {
+      "type": "float"
+    },
+    "precipProbability_29" : {
+      "type": "float"
+    },
+    "precipProbability_30" : {
+      "type": "float"
+    },
+    "precipProbability_31" : {
+      "type": "float"
+    },
+    "precipProbability_32" : {
+      "type": "float"
+    },
+    "precipProbability_33" : {
+      "type": "float"
+    },
+    "precipProbability_34" : {
+      "type": "float"
+    },
+    "precipProbability_35" : {
+      "type": "float"
+    },
+    "precipProbability_36" : {
+      "type": "float"
+    },
+    "precipProbability_37" : {
+      "type": "float"
+    },
+    "precipProbability_38" : {
+      "type": "float"
+    },
+    "precipProbability_39" : {
+      "type": "float"
+    },
+    "precipProbability_40" : {
+      "type": "float"
+    },
+    "precipProbability_41" : {
+      "type": "float"
+    },
+    "precipProbability_42" : {
+      "type": "float"
+    },
+    "precipProbability_43" : {
+      "type": "float"
+    },
+    "precipProbability_44" : {
+      "type": "float"
+    },
+    "precipProbability_45" : {
+      "type": "float"
+    },
+    "precipProbability_46" : {
+      "type": "float"
+    },
+    "precipProbability_47" : {
+      "type": "float"
+    },
+    "precipProbability_48" : {
+      "type": "float"
+    },
+    "precipType_0" : {
+      "type": "float"
+    },
+    "precipType_1" : {
+      "type": "float"
+    },
+    "precipType_2" : {
+      "type": "float"
+    },
+    "precipType_3" : {
+      "type": "float"
+    },
+    "precipType_4" : {
+      "type": "float"
+    },
+    "precipType_5" : {
+      "type": "float"
+    },
+    "precipType_6" : {
+      "type": "float"
+    },
+    "precipType_7" : {
+      "type": "float"
+    },
+    "precipType_8" : {
+      "type": "float"
+    },
+    "precipType_9" : {
+      "type": "float"
+    },
+    "precipType_10" : {
+      "type": "float"
+    },
+    "precipType_11" : {
+      "type": "float"
+    },
+    "precipType_12" : {
+      "type": "float"
+    },
+    "precipType_13" : {
+      "type": "float"
+    },
+    "precipType_14" : {
+      "type": "float"
+    },
+    "precipType_15" : {
+      "type": "float"
+    },
+    "precipType_16" : {
+      "type": "float"
+    },
+    "precipType_17" : {
+      "type": "float"
+    },
+    "precipType_18" : {
+      "type": "float"
+    },
+    "precipType_19" : {
+      "type": "float"
+    },
+    "precipType_20" : {
+      "type": "float"
+    },
+    "precipType_21" : {
+      "type": "float"
+    },
+    "precipType_22" : {
+      "type": "float"
+    },
+    "precipType_23" : {
+      "type": "float"
+    },
+    "precipType_24" : {
+      "type": "float"
+    },
+    "precipType_25" : {
+      "type": "float"
+    },
+    "precipType_26" : {
+      "type": "float"
+    },
+    "precipType_27" : {
+      "type": "float"
+    },
+    "precipType_28" : {
+      "type": "float"
+    },
+    "precipType_29" : {
+      "type": "float"
+    },
+    "precipType_30" : {
+      "type": "float"
+    },
+    "precipType_31" : {
+      "type": "float"
+    },
+    "precipType_32" : {
+      "type": "float"
+    },
+    "precipType_33" : {
+      "type": "float"
+    },
+    "precipType_34" : {
+      "type": "float"
+    },
+    "precipType_35" : {
+      "type": "float"
+    },
+    "precipType_36" : {
+      "type": "float"
+    },
+    "precipType_37" : {
+      "type": "float"
+    },
+    "precipType_38" : {
+      "type": "float"
+    },
+    "precipType_39" : {
+      "type": "float"
+    },
+    "precipType_40" : {
+      "type": "float"
+    },
+    "precipType_41" : {
+      "type": "float"
+    },
+    "precipType_42" : {
+      "type": "float"
+    },
+    "precipType_43" : {
+      "type": "float"
+    },
+    "precipType_44" : {
+      "type": "float"
+    },
+    "precipType_45" : {
+      "type": "float"
+    },
+    "precipType_46" : {
+      "type": "float"
+    },
+    "precipType_47" : {
+      "type": "float"
+    },
+    "precipType_48" : {
+      "type": "float"
+    },
+    "pressure_0" : {
+      "type": "float"
+    },
+    "pressure_1" : {
+      "type": "float"
+    },
+    "pressure_2" : {
+      "type": "float"
+    },
+    "pressure_3" : {
+      "type": "float"
+    },
+    "pressure_4" : {
+      "type": "float"
+    },
+    "pressure_5" : {
+      "type": "float"
+    },
+    "pressure_6" : {
+      "type": "float"
+    },
+    "pressure_7" : {
+      "type": "float"
+    },
+    "pressure_8" : {
+      "type": "float"
+    },
+    "pressure_9" : {
+      "type": "float"
+    },
+    "pressure_10" : {
+      "type": "float"
+    },
+    "pressure_11" : {
+      "type": "float"
+    },
+    "pressure_12" : {
+      "type": "float"
+    },
+    "pressure_13" : {
+      "type": "float"
+    },
+    "pressure_14" : {
+      "type": "float"
+    },
+    "pressure_15" : {
+      "type": "float"
+    },
+    "pressure_16" : {
+      "type": "float"
+    },
+    "pressure_17" : {
+      "type": "float"
+    },
+    "pressure_18" : {
+      "type": "float"
+    },
+    "pressure_19" : {
+      "type": "float"
+    },
+    "pressure_20" : {
+      "type": "float"
+    },
+    "pressure_21" : {
+      "type": "float"
+    },
+    "pressure_22" : {
+      "type": "float"
+    },
+    "pressure_23" : {
+      "type": "float"
+    },
+    "pressure_24" : {
+      "type": "float"
+    },
+    "pressure_25" : {
+      "type": "float"
+    },
+    "pressure_26" : {
+      "type": "float"
+    },
+    "pressure_27" : {
+      "type": "float"
+    },
+    "pressure_28" : {
+      "type": "float"
+    },
+    "pressure_29" : {
+      "type": "float"
+    },
+    "pressure_30" : {
+      "type": "float"
+    },
+    "pressure_31" : {
+      "type": "float"
+    },
+    "pressure_32" : {
+      "type": "float"
+    },
+    "pressure_33" : {
+      "type": "float"
+    },
+    "pressure_34" : {
+      "type": "float"
+    },
+    "pressure_35" : {
+      "type": "float"
+    },
+    "pressure_36" : {
+      "type": "float"
+    },
+    "pressure_37" : {
+      "type": "float"
+    },
+    "pressure_38" : {
+      "type": "float"
+    },
+    "pressure_39" : {
+      "type": "float"
+    },
+    "pressure_40" : {
+      "type": "float"
+    },
+    "pressure_41" : {
+      "type": "float"
+    },
+    "pressure_42" : {
+      "type": "float"
+    },
+    "pressure_43" : {
+      "type": "float"
+    },
+    "pressure_44" : {
+      "type": "float"
+    },
+    "pressure_45" : {
+      "type": "float"
+    },
+    "pressure_46" : {
+      "type": "float"
+    },
+    "pressure_47" : {
+      "type": "float"
+    },
+    "pressure_48" : {
+      "type": "float"
+    },
+    "summary_0" : {
+      "type": "float"
+    },
+    "summary_1" : {
+      "type": "float"
+    },
+    "summary_2" : {
+      "type": "float"
+    },
+    "summary_3" : {
+      "type": "float"
+    },
+    "summary_4" : {
+      "type": "float"
+    },
+    "summary_5" : {
+      "type": "float"
+    },
+    "summary_6" : {
+      "type": "float"
+    },
+    "summary_7" : {
+      "type": "float"
+    },
+    "summary_8" : {
+      "type": "float"
+    },
+    "summary_9" : {
+      "type": "float"
+    },
+    "summary_10" : {
+      "type": "float"
+    },
+    "summary_11" : {
+      "type": "float"
+    },
+    "summary_12" : {
+      "type": "float"
+    },
+    "summary_13" : {
+      "type": "float"
+    },
+    "summary_14" : {
+      "type": "float"
+    },
+    "summary_15" : {
+      "type": "float"
+    },
+    "summary_16" : {
+      "type": "float"
+    },
+    "summary_17" : {
+      "type": "float"
+    },
+    "summary_18" : {
+      "type": "float"
+    },
+    "summary_19" : {
+      "type": "float"
+    },
+    "summary_20" : {
+      "type": "float"
+    },
+    "summary_21" : {
+      "type": "float"
+    },
+    "summary_22" : {
+      "type": "float"
+    },
+    "summary_23" : {
+      "type": "float"
+    },
+    "summary_24" : {
+      "type": "float"
+    },
+    "summary_25" : {
+      "type": "float"
+    },
+    "summary_26" : {
+      "type": "float"
+    },
+    "summary_27" : {
+      "type": "float"
+    },
+    "summary_28" : {
+      "type": "float"
+    },
+    "summary_29" : {
+      "type": "float"
+    },
+    "summary_30" : {
+      "type": "float"
+    },
+    "summary_31" : {
+      "type": "float"
+    },
+    "summary_32" : {
+      "type": "float"
+    },
+    "summary_33" : {
+      "type": "float"
+    },
+    "summary_34" : {
+      "type": "float"
+    },
+    "summary_35" : {
+      "type": "float"
+    },
+    "summary_36" : {
+      "type": "float"
+    },
+    "summary_37" : {
+      "type": "float"
+    },
+    "summary_38" : {
+      "type": "float"
+    },
+    "summary_39" : {
+      "type": "float"
+    },
+    "summary_40" : {
+      "type": "float"
+    },
+    "summary_41" : {
+      "type": "float"
+    },
+    "summary_42" : {
+      "type": "float"
+    },
+    "summary_43" : {
+      "type": "float"
+    },
+    "summary_44" : {
+      "type": "float"
+    },
+    "summary_45" : {
+      "type": "float"
+    },
+    "summary_46" : {
+      "type": "float"
+    },
+    "summary_47" : {
+      "type": "float"
+    },
+    "summary_48" : {
+      "type": "float"
+    },
+    "temperature_0" : {
+      "type": "float"
+    },
+    "temperature_1" : {
+      "type": "float"
+    },
+    "temperature_2" : {
+      "type": "float"
+    },
+    "temperature_3" : {
+      "type": "float"
+    },
+    "temperature_4" : {
+      "type": "float"
+    },
+    "temperature_5" : {
+      "type": "float"
+    },
+    "temperature_6" : {
+      "type": "float"
+    },
+    "temperature_7" : {
+      "type": "float"
+    },
+    "temperature_8" : {
+      "type": "float"
+    },
+    "temperature_9" : {
+      "type": "float"
+    },
+    "temperature_10" : {
+      "type": "float"
+    },
+    "temperature_11" : {
+      "type": "float"
+    },
+    "temperature_12" : {
+      "type": "float"
+    },
+    "temperature_13" : {
+      "type": "float"
+    },
+    "temperature_14" : {
+      "type": "float"
+    },
+    "temperature_15" : {
+      "type": "float"
+    },
+    "temperature_16" : {
+      "type": "float"
+    },
+    "temperature_17" : {
+      "type": "float"
+    },
+    "temperature_18" : {
+      "type": "float"
+    },
+    "temperature_19" : {
+      "type": "float"
+    },
+    "temperature_20" : {
+      "type": "float"
+    },
+    "temperature_21" : {
+      "type": "float"
+    },
+    "temperature_22" : {
+      "type": "float"
+    },
+    "temperature_23" : {
+      "type": "float"
+    },
+    "temperature_24" : {
+      "type": "float"
+    },
+    "temperature_25" : {
+      "type": "float"
+    },
+    "temperature_26" : {
+      "type": "float"
+    },
+    "temperature_27" : {
+      "type": "float"
+    },
+    "temperature_28" : {
+      "type": "float"
+    },
+    "temperature_29" : {
+      "type": "float"
+    },
+    "temperature_30" : {
+      "type": "float"
+    },
+    "temperature_31" : {
+      "type": "float"
+    },
+    "temperature_32" : {
+      "type": "float"
+    },
+    "temperature_33" : {
+      "type": "float"
+    },
+    "temperature_34" : {
+      "type": "float"
+    },
+    "temperature_35" : {
+      "type": "float"
+    },
+    "temperature_36" : {
+      "type": "float"
+    },
+    "temperature_37" : {
+      "type": "float"
+    },
+    "temperature_38" : {
+      "type": "float"
+    },
+    "temperature_39" : {
+      "type": "float"
+    },
+    "temperature_40" : {
+      "type": "float"
+    },
+    "temperature_41" : {
+      "type": "float"
+    },
+    "temperature_42" : {
+      "type": "float"
+    },
+    "temperature_43" : {
+      "type": "float"
+    },
+    "temperature_44" : {
+      "type": "float"
+    },
+    "temperature_45" : {
+      "type": "float"
+    },
+    "temperature_46" : {
+      "type": "float"
+    },
+    "temperature_47" : {
+      "type": "float"
+    },
+    "temperature_48" : {
+      "type": "float"
+    },
+    "uvIndex_0" : {
+      "type": "float"
+    },
+    "uvIndex_1" : {
+      "type": "float"
+    },
+    "uvIndex_2" : {
+      "type": "float"
+    },
+    "uvIndex_3" : {
+      "type": "float"
+    },
+    "uvIndex_4" : {
+      "type": "float"
+    },
+    "uvIndex_5" : {
+      "type": "float"
+    },
+    "uvIndex_6" : {
+      "type": "float"
+    },
+    "uvIndex_7" : {
+      "type": "float"
+    },
+    "uvIndex_8" : {
+      "type": "float"
+    },
+    "uvIndex_9" : {
+      "type": "float"
+    },
+    "uvIndex_10" : {
+      "type": "float"
+    },
+    "uvIndex_11" : {
+      "type": "float"
+    },
+    "uvIndex_12" : {
+      "type": "float"
+    },
+    "uvIndex_13" : {
+      "type": "float"
+    },
+    "uvIndex_14" : {
+      "type": "float"
+    },
+    "uvIndex_15" : {
+      "type": "float"
+    },
+    "uvIndex_16" : {
+      "type": "float"
+    },
+    "uvIndex_17" : {
+      "type": "float"
+    },
+    "uvIndex_18" : {
+      "type": "float"
+    },
+    "uvIndex_19" : {
+      "type": "float"
+    },
+    "uvIndex_20" : {
+      "type": "float"
+    },
+    "uvIndex_21" : {
+      "type": "float"
+    },
+    "uvIndex_22" : {
+      "type": "float"
+    },
+    "uvIndex_23" : {
+      "type": "float"
+    },
+    "uvIndex_24" : {
+      "type": "float"
+    },
+    "uvIndex_25" : {
+      "type": "float"
+    },
+    "uvIndex_26" : {
+      "type": "float"
+    },
+    "uvIndex_27" : {
+      "type": "float"
+    },
+    "uvIndex_28" : {
+      "type": "float"
+    },
+    "uvIndex_29" : {
+      "type": "float"
+    },
+    "uvIndex_30" : {
+      "type": "float"
+    },
+    "uvIndex_31" : {
+      "type": "float"
+    },
+    "uvIndex_32" : {
+      "type": "float"
+    },
+    "uvIndex_33" : {
+      "type": "float"
+    },
+    "uvIndex_34" : {
+      "type": "float"
+    },
+    "uvIndex_35" : {
+      "type": "float"
+    },
+    "uvIndex_36" : {
+      "type": "float"
+    },
+    "uvIndex_37" : {
+      "type": "float"
+    },
+    "uvIndex_38" : {
+      "type": "float"
+    },
+    "uvIndex_39" : {
+      "type": "float"
+    },
+    "uvIndex_40" : {
+      "type": "float"
+    },
+    "uvIndex_41" : {
+      "type": "float"
+    },
+    "uvIndex_42" : {
+      "type": "float"
+    },
+    "uvIndex_43" : {
+      "type": "float"
+    },
+    "uvIndex_44" : {
+      "type": "float"
+    },
+    "uvIndex_45" : {
+      "type": "float"
+    },
+    "uvIndex_46" : {
+      "type": "float"
+    },
+    "uvIndex_47" : {
+      "type": "float"
+    },
+    "uvIndex_48" : {
+      "type": "float"
+    },
+    "visibility_0" : {
+      "type": "float"
+    },
+    "visibility_1" : {
+      "type": "float"
+    },
+    "visibility_2" : {
+      "type": "float"
+    },
+    "visibility_3" : {
+      "type": "float"
+    },
+    "visibility_4" : {
+      "type": "float"
+    },
+    "visibility_5" : {
+      "type": "float"
+    },
+    "visibility_6" : {
+      "type": "float"
+    },
+    "visibility_7" : {
+      "type": "float"
+    },
+    "visibility_8" : {
+      "type": "float"
+    },
+    "visibility_9" : {
+      "type": "float"
+    },
+    "visibility_10" : {
+      "type": "float"
+    },
+    "visibility_11" : {
+      "type": "float"
+    },
+    "visibility_12" : {
+      "type": "float"
+    },
+    "visibility_13" : {
+      "type": "float"
+    },
+    "visibility_14" : {
+      "type": "float"
+    },
+    "visibility_15" : {
+      "type": "float"
+    },
+    "visibility_16" : {
+      "type": "float"
+    },
+    "visibility_17" : {
+      "type": "float"
+    },
+    "visibility_18" : {
+      "type": "float"
+    },
+    "visibility_19" : {
+      "type": "float"
+    },
+    "visibility_20" : {
+      "type": "float"
+    },
+    "visibility_21" : {
+      "type": "float"
+    },
+    "visibility_22" : {
+      "type": "float"
+    },
+    "visibility_23" : {
+      "type": "float"
+    },
+    "visibility_24" : {
+      "type": "float"
+    },
+    "visibility_25" : {
+      "type": "float"
+    },
+    "visibility_26" : {
+      "type": "float"
+    },
+    "visibility_27" : {
+      "type": "float"
+    },
+    "visibility_28" : {
+      "type": "float"
+    },
+    "visibility_29" : {
+      "type": "float"
+    },
+    "visibility_30" : {
+      "type": "float"
+    },
+    "visibility_31" : {
+      "type": "float"
+    },
+    "visibility_32" : {
+      "type": "float"
+    },
+    "visibility_33" : {
+      "type": "float"
+    },
+    "visibility_34" : {
+      "type": "float"
+    },
+    "visibility_35" : {
+      "type": "float"
+    },
+    "visibility_36" : {
+      "type": "float"
+    },
+    "visibility_37" : {
+      "type": "float"
+    },
+    "visibility_38" : {
+      "type": "float"
+    },
+    "visibility_39" : {
+      "type": "float"
+    },
+    "visibility_40" : {
+      "type": "float"
+    },
+    "visibility_41" : {
+      "type": "float"
+    },
+    "visibility_42" : {
+      "type": "float"
+    },
+    "visibility_43" : {
+      "type": "float"
+    },
+    "visibility_44" : {
+      "type": "float"
+    },
+    "visibility_45" : {
+      "type": "float"
+    },
+    "visibility_46" : {
+      "type": "float"
+    },
+    "visibility_47" : {
+      "type": "float"
+    },
+    "visibility_48" : {
+      "type": "float"
+    },
+    "windBearing_0" : {
+      "type": "float"
+    },
+    "windBearing_1" : {
+      "type": "float"
+    },
+    "windBearing_2" : {
+      "type": "float"
+    },
+    "windBearing_3" : {
+      "type": "float"
+    },
+    "windBearing_4" : {
+      "type": "float"
+    },
+    "windBearing_5" : {
+      "type": "float"
+    },
+    "windBearing_6" : {
+      "type": "float"
+    },
+    "windBearing_7" : {
+      "type": "float"
+    },
+    "windBearing_8" : {
+      "type": "float"
+    },
+    "windBearing_9" : {
+      "type": "float"
+    },
+    "windBearing_10" : {
+      "type": "float"
+    },
+    "windBearing_11" : {
+      "type": "float"
+    },
+    "windBearing_12" : {
+      "type": "float"
+    },
+    "windBearing_13" : {
+      "type": "float"
+    },
+    "windBearing_14" : {
+      "type": "float"
+    },
+    "windBearing_15" : {
+      "type": "float"
+    },
+    "windBearing_16" : {
+      "type": "float"
+    },
+    "windBearing_17" : {
+      "type": "float"
+    },
+    "windBearing_18" : {
+      "type": "float"
+    },
+    "windBearing_19" : {
+      "type": "float"
+    },
+    "windBearing_20" : {
+      "type": "float"
+    },
+    "windBearing_21" : {
+      "type": "float"
+    },
+    "windBearing_22" : {
+      "type": "float"
+    },
+    "windBearing_23" : {
+      "type": "float"
+    },
+    "windBearing_24" : {
+      "type": "float"
+    },
+    "windBearing_25" : {
+      "type": "float"
+    },
+    "windBearing_26" : {
+      "type": "float"
+    },
+    "windBearing_27" : {
+      "type": "float"
+    },
+    "windBearing_28" : {
+      "type": "float"
+    },
+    "windBearing_29" : {
+      "type": "float"
+    },
+    "windBearing_30" : {
+      "type": "float"
+    },
+    "windBearing_31" : {
+      "type": "float"
+    },
+    "windBearing_32" : {
+      "type": "float"
+    },
+    "windBearing_33" : {
+      "type": "float"
+    },
+    "windBearing_34" : {
+      "type": "float"
+    },
+    "windBearing_35" : {
+      "type": "float"
+    },
+    "windBearing_36" : {
+      "type": "float"
+    },
+    "windBearing_37" : {
+      "type": "float"
+    },
+    "windBearing_38" : {
+      "type": "float"
+    },
+    "windBearing_39" : {
+      "type": "float"
+    },
+    "windBearing_40" : {
+      "type": "float"
+    },
+    "windBearing_41" : {
+      "type": "float"
+    },
+    "windBearing_42" : {
+      "type": "float"
+    },
+    "windBearing_43" : {
+      "type": "float"
+    },
+    "windBearing_44" : {
+      "type": "float"
+    },
+    "windBearing_45" : {
+      "type": "float"
+    },
+    "windBearing_46" : {
+      "type": "float"
+    },
+    "windBearing_47" : {
+      "type": "float"
+    },
+    "windBearing_48" : {
+      "type": "float"
+    },
+    "windGust_0" : {
+      "type": "float"
+    },
+    "windGust_1" : {
+      "type": "float"
+    },
+    "windGust_2" : {
+      "type": "float"
+    },
+    "windGust_3" : {
+      "type": "float"
+    },
+    "windGust_4" : {
+      "type": "float"
+    },
+    "windGust_5" : {
+      "type": "float"
+    },
+    "windGust_6" : {
+      "type": "float"
+    },
+    "windGust_7" : {
+      "type": "float"
+    },
+    "windGust_8" : {
+      "type": "float"
+    },
+    "windGust_9" : {
+      "type": "float"
+    },
+    "windGust_10" : {
+      "type": "float"
+    },
+    "windGust_11" : {
+      "type": "float"
+    },
+    "windGust_12" : {
+      "type": "float"
+    },
+    "windGust_13" : {
+      "type": "float"
+    },
+    "windGust_14" : {
+      "type": "float"
+    },
+    "windGust_15" : {
+      "type": "float"
+    },
+    "windGust_16" : {
+      "type": "float"
+    },
+    "windGust_17" : {
+      "type": "float"
+    },
+    "windGust_18" : {
+      "type": "float"
+    },
+    "windGust_19" : {
+      "type": "float"
+    },
+    "windGust_20" : {
+      "type": "float"
+    },
+    "windGust_21" : {
+      "type": "float"
+    },
+    "windGust_22" : {
+      "type": "float"
+    },
+    "windGust_23" : {
+      "type": "float"
+    },
+    "windGust_24" : {
+      "type": "float"
+    },
+    "windGust_25" : {
+      "type": "float"
+    },
+    "windGust_26" : {
+      "type": "float"
+    },
+    "windGust_27" : {
+      "type": "float"
+    },
+    "windGust_28" : {
+      "type": "float"
+    },
+    "windGust_29" : {
+      "type": "float"
+    },
+    "windGust_30" : {
+      "type": "float"
+    },
+    "windGust_31" : {
+      "type": "float"
+    },
+    "windGust_32" : {
+      "type": "float"
+    },
+    "windGust_33" : {
+      "type": "float"
+    },
+    "windGust_34" : {
+      "type": "float"
+    },
+    "windGust_35" : {
+      "type": "float"
+    },
+    "windGust_36" : {
+      "type": "float"
+    },
+    "windGust_37" : {
+      "type": "float"
+    },
+    "windGust_38" : {
+      "type": "float"
+    },
+    "windGust_39" : {
+      "type": "float"
+    },
+    "windGust_40" : {
+      "type": "float"
+    },
+    "windGust_41" : {
+      "type": "float"
+    },
+    "windGust_42" : {
+      "type": "float"
+    },
+    "windGust_43" : {
+      "type": "float"
+    },
+    "windGust_44" : {
+      "type": "float"
+    },
+    "windGust_45" : {
+      "type": "float"
+    },
+    "windGust_46" : {
+      "type": "float"
+    },
+    "windGust_47" : {
+      "type": "float"
+    },
+    "windGust_48" : {
+      "type": "float"
+    },
+    "windSpeed_0" : {
+      "type": "float"
+    },
+    "windSpeed_1" : {
+      "type": "float"
+    },
+    "windSpeed_2" : {
+      "type": "float"
+    },
+    "windSpeed_3" : {
+      "type": "float"
+    },
+    "windSpeed_4" : {
+      "type": "float"
+    },
+    "windSpeed_5" : {
+      "type": "float"
+    },
+    "windSpeed_6" : {
+      "type": "float"
+    },
+    "windSpeed_7" : {
+      "type": "float"
+    },
+    "windSpeed_8" : {
+      "type": "float"
+    },
+    "windSpeed_9" : {
+      "type": "float"
+    },
+    "windSpeed_10" : {
+      "type": "float"
+    },
+    "windSpeed_11" : {
+      "type": "float"
+    },
+    "windSpeed_12" : {
+      "type": "float"
+    },
+    "windSpeed_13" : {
+      "type": "float"
+    },
+    "windSpeed_14" : {
+      "type": "float"
+    },
+    "windSpeed_15" : {
+      "type": "float"
+    },
+    "windSpeed_16" : {
+      "type": "float"
+    },
+    "windSpeed_17" : {
+      "type": "float"
+    },
+    "windSpeed_18" : {
+      "type": "float"
+    },
+    "windSpeed_19" : {
+      "type": "float"
+    },
+    "windSpeed_20" : {
+      "type": "float"
+    },
+    "windSpeed_21" : {
+      "type": "float"
+    },
+    "windSpeed_22" : {
+      "type": "float"
+    },
+    "windSpeed_23" : {
+      "type": "float"
+    },
+    "windSpeed_24" : {
+      "type": "float"
+    },
+    "windSpeed_25" : {
+      "type": "float"
+    },
+    "windSpeed_26" : {
+      "type": "float"
+    },
+    "windSpeed_27" : {
+      "type": "float"
+    },
+    "windSpeed_28" : {
+      "type": "float"
+    },
+    "windSpeed_29" : {
+      "type": "float"
+    },
+    "windSpeed_30" : {
+      "type": "float"
+    },
+    "windSpeed_31" : {
+      "type": "float"
+    },
+    "windSpeed_32" : {
+      "type": "float"
+    },
+    "windSpeed_33" : {
+      "type": "float"
+    },
+    "windSpeed_34" : {
+      "type": "float"
+    },
+    "windSpeed_35" : {
+      "type": "float"
+    },
+    "windSpeed_36" : {
+      "type": "float"
+    },
+    "windSpeed_37" : {
+      "type": "float"
+    },
+    "windSpeed_38" : {
+      "type": "float"
+    },
+    "windSpeed_39" : {
+      "type": "float"
+    },
+    "windSpeed_40" : {
+      "type": "float"
+    },
+    "windSpeed_41" : {
+      "type": "float"
+    },
+    "windSpeed_42" : {
+      "type": "float"
+    },
+    "windSpeed_43" : {
+      "type": "float"
+    },
+    "windSpeed_44" : {
+      "type": "float"
+    },
+    "windSpeed_45" : {
+      "type": "float"
+    },
+    "windSpeed_46" : {
+      "type": "float"
+    },
+    "windSpeed_47" : {
+      "type": "float"
+    },
+    "windSpeed_48" : {
+      "type": "float"
+    },
+    "GHI_0" : {
+      "type": "float"
+    },
+    "GHI_1" : {
+      "type": "float"
+    },
+    "GHI_2" : {
+      "type": "float"
+    },
+    "GHI_3" : {
+      "type": "float"
+    },
+    "GHI_4" : {
+      "type": "float"
+    },
+    "GHI_5" : {
+      "type": "float"
+    },
+    "GHI_6" : {
+      "type": "float"
+    },
+    "GHI_7" : {
+      "type": "float"
+    },
+    "GHI_8" : {
+      "type": "float"
+    },
+    "GHI_9" : {
+      "type": "float"
+    },
+    "GHI_10" : {
+      "type": "float"
+    },
+    "GHI_11" : {
+      "type": "float"
+    },
+    "GHI_12" : {
+      "type": "float"
+    },
+    "GHI_13" : {
+      "type": "float"
+    },
+    "GHI_14" : {
+      "type": "float"
+    },
+    "GHI_15" : {
+      "type": "float"
+    },
+    "GHI_16" : {
+      "type": "float"
+    },
+    "GHI_17" : {
+      "type": "float"
+    },
+    "GHI_18" : {
+      "type": "float"
+    },
+    "GHI_19" : {
+      "type": "float"
+    },
+    "GHI_20" : {
+      "type": "float"
+    },
+    "GHI_21" : {
+      "type": "float"
+    },
+    "GHI_22" : {
+      "type": "float"
+    },
+    "GHI_23" : {
+      "type": "float"
+    },
+    "GHI_24" : {
+      "type": "float"
+    },
+    "GHI_25" : {
+      "type": "float"
+    },
+    "GHI_26" : {
+      "type": "float"
+    },
+    "GHI_27" : {
+      "type": "float"
+    },
+    "GHI_28" : {
+      "type": "float"
+    },
+    "GHI_29" : {
+      "type": "float"
+    },
+    "GHI_30" : {
+      "type": "float"
+    },
+    "GHI_31" : {
+      "type": "float"
+    },
+    "GHI_32" : {
+      "type": "float"
+    },
+    "GHI_33" : {
+      "type": "float"
+    },
+    "GHI_34" : {
+      "type": "float"
+    },
+    "GHI_35" : {
+      "type": "float"
+    },
+    "GHI_36" : {
+      "type": "float"
+    },
+    "GHI_37" : {
+      "type": "float"
+    },
+    "GHI_38" : {
+      "type": "float"
+    },
+    "GHI_39" : {
+      "type": "float"
+    },
+    "GHI_40" : {
+      "type": "float"
+    },
+    "GHI_41" : {
+      "type": "float"
+    },
+    "GHI_42" : {
+      "type": "float"
+    },
+    "GHI_43" : {
+      "type": "float"
+    },
+    "GHI_44" : {
+      "type": "float"
+    },
+    "GHI_45" : {
+      "type": "float"
+    },
+    "GHI_46" : {
+      "type": "float"
+    },
+    "GHI_47" : {
+      "type": "float"
+    },
+    "GHI_48" : {
+      "type": "float"
+    }
+  }
+}
