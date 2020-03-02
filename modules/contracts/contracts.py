@@ -83,14 +83,17 @@ def post_patch__contracts(request,payload):
 
 
 def pre_post__contracts(request):
-    if request.role == 'aggregator':
-
-        if 'agr_id' in request.json and request.json['agr_id'] != request.account_id:
-            flask.abort(403, description='POST contract agr_id mismatch')
-        else:
-            pass
-    else:
+    if request.role != 'aggregator':
         flask.abort(403, description='POST contract not allowed for ' + request.role)
+
+    if 'agr_id' in request.json and request.json['agr_id'] != request.account_id:
+        flask.abort(403, description='POST contract agr_id mismatch')
+
+    if 'contract_id' in request.json:
+        id_check = {"contract_id": {"$eq": request.json['contract_id']}}
+        cursor = flask.current_app.data.driver.db['contracts'].find(id_check)
+        if cursor.count() > 0:
+            flask.abort(409, 'contract_id already exists')
 
 
 def post_post__contracts(request,payload):
