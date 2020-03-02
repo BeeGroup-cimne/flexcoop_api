@@ -93,6 +93,8 @@ def inter_component_message_worker_thread(app):
                                       + msg['notification_id'] + ' / ' + msg['message_type'] + ' failed. ' \
                                       + '  http_status=' + str(response.status_code) \
                                       + '  http_response='+ str(response.text)[:1024]
+                else:
+                    failure = False
 
             except ConnectionError as e:
                 failure_response = 100
