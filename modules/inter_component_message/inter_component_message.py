@@ -147,13 +147,13 @@ def pre_inter_component_message_GET_callback(request, lookup):
         pass
     else:
         log_inter_component_message_error(' ICM pre GET : not allowed for '+request.role)
-        flask.abort(403)
+        flask.abort(403, 'wrong role')
 
 
 def pre_inter_component_message_POST_callback(request):
     if request.role != 'service':
         log_inter_component_message_error(' ICM pre POST : not allowed for '+request.role)
-        flask.abort(403)
+        flask.abort(403, 'wrong role')
 
     if 'recipient_id' in request.json and request.json['recipient_id'] not in INTERCOMPONENT_SETTINGS:
         log_inter_component_message_error(' ICM pre POST : unknown recipient '+request.json['recipient_id'])
