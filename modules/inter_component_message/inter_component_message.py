@@ -100,12 +100,8 @@ def inter_component_message_worker_thread(app):
                                   + msg['notification_id'] + ' / ' + msg['message_type']
                 # Keep the message active
 
-                print(date_now.strftime("%d.%b %Y %H:%M:%S"),
-                      ' ICM Worker:  Connection error to ', recipient, '@', url,
-                      ' for ', msg['message_type'], '/', event['_id'], ' ERROR:', e)
-
         if failure:
-            print(date_now.strftime("%d.%b %Y %H:%M:%S"), ' ICM Worker: ', failure_message)
+            log_inter_component_message_error('ICM Worker: ' + failure_message)
             update = {'$set': {'delivery_attempt_time': date_now,
                                'delivery_failure_response': failure_response,
                                'delivery_failure_message': failure_message}}
@@ -137,13 +133,18 @@ def inter_component_message_worker_thread(app):
             inter_component_message_event.wait(60)
 
 
+def log_inter_component_message_error(info):
+    date_now = datetime.datetime.utcnow().replace(microsecond=0)
+    print(date_now.strftime("%d.%b %Y %H:%M:%S") + '  ' + info);
+
+
 def pre_inter_component_message_GET_callback(request, lookup):
     if request.role == 'service':
         lookup["recipient_id"] = request.account_id
     elif request.role == 'admin':
         pass
     else:
-        print('error: GET interComponentMessage not allowed for ', request.role)
+        log_inter_component_message_error(' ICM pre GET : not allowed for '+request.role)
         flask.abort(403)
 
 
@@ -153,13 +154,14 @@ def pre_inter_component_message_POST_callback(request):
         flask.abort(403)
 
     if 'recipient_id' in request.json and request.json['recipient_id'] not in INTERCOMPONENT_SETTINGS:
-        print('error: POST interComponentMessage to wrong recipient')
+        log_inter_component_message_error(' ICM pre POST : unknown recipient '+request.json['recipient_id'])
         flask.abort(406, 'unknown recipient')
 
     if 'notification_id' in request.json:
         id_check = {"notification_id": {"$eq": request.json['notification_id']}}
         cursor = flask.current_app.data.driver.db['interComponentMessage'].find(id_check)
         if cursor.count() > 0:
+            log_inter_component_message_error(' ICM pre POST : notification_id already exists')
             flask.abort(409, 'notification_id already exists')
 
 
@@ -169,7 +171,7 @@ def pre_inter_component_message_DELETE_callback(request, lookup):
     elif request.role == 'admin':
         pass
     else:
-        print('error: DELETE interComponentMessage not allowed for ', request.role)
+        log_inter_component_message_error(' ICM pre DELETE : not allowed for '+request.role)
         flask.abort(403)
 
 
@@ -183,6 +185,6 @@ def set_hooks(app):
     app.on_pre_DELETE_interComponentMessage += pre_inter_component_message_DELETE_callback
     app.on_inserted_interComponentMessage += post_inter_component_message_INSERTED_callback
 
-    print("Starting worker thread: interComponentMessage")
+    log_inter_component_message_error('Starting worker thread: interComponentMessage')
     tp_thread = threading.Thread(target= inter_component_message_worker_thread, args=(app,), daemon=True)
     tp_thread.start()
