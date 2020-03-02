@@ -137,11 +137,19 @@ def pre_inter_component_message_GET_callback(request, lookup):
 
 
 def pre_inter_component_message_POST_callback(request):
-    if request.role == 'service':
-        pass
-    else:
+    if request.role != 'service':
         print('error: POST interComponentMessage not allowed for ', request.role)
         flask.abort(403)
+
+    if 'recipient_id' in request.json and request.json['recipient_id'] not in INTERCOMPONENT_SETTINGS:
+        print('error: POST interComponentMessage to wrong recipient')
+        flask.abort(406, 'unknown recipient')
+
+    if 'notification_id' in request.json:
+        id_check = {"notification_id": {"$eq": request.json['notification_id']}}
+        cursor = flask.current_app.data.driver.db['interComponentMessage'].find(id_check)
+        if cursor.count() > 0:
+            flask.abort(409, 'notification_id already exists')
 
 
 def pre_inter_component_message_DELETE_callback(request, lookup):
