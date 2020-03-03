@@ -82,6 +82,23 @@
       ],
       "required": true
     },
+     "marketplace_availability": {
+      "type": "string",
+      "allowed": [
+        "yes",
+        "no"
+      ],
+      "required": true
+    },
+ "dr_availability": {
+      "type": "string",
+      "allowed": [
+        "yes",
+        "no"
+      ],
+      "required": true
+    },
+
     "location": {
       "type": "point",
       "minlength": 1,
