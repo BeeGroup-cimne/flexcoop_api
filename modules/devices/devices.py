@@ -37,7 +37,7 @@ def translate_device_output(response):
 
 def on_update_devices_callback(updates, original):
     # Only allow the modification of non OSB fields
-    allowed_fields = ['availability', 'location', 'device_type', 'max_capacity', 'available_capacity', 'cluster_id', 'cluster_type', 'vpp_id']
+    allowed_fields = ['availability', 'location', 'device_type', 'max_capacity', 'available_capacity', 'cluster_id', 'cluster_type', 'vpp_id', 'marketplace_availability', 'dr_availability']
     for field in updates:
         if field not in allowed_fields:
             if updates[field] != original[field]:

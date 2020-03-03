@@ -117,6 +117,21 @@
       "minlength": 36,
       "maxlength": 36,
       "required": false
+    },
+    "marketplace_availability": {
+      "type": "string",
+      "allowed": [
+        "yes",
+        "no"
+      ],
+      "required": false
+    },
+    "dr_availability": {
+      "type": "string",
+      "allowed": [
+        "yes",
+        "no"      ],
+      "required": false
     }
   }
 }
