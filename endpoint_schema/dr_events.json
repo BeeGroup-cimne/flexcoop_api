@@ -26,6 +26,23 @@
       "maxlength": 36,
       "required": false
     },
+     "marketplace_availability": {
+      "type": "string",
+      "allowed": [
+        "yes",
+        "no"
+      ],
+      "required": true
+    },
+     "dr_availability": {
+      "type": "string",
+      "allowed": [
+        "yes",
+        "no"
+      ],
+      "required": true
+    },
+
     "status": {
       "type": "dict",
       "schema":{
