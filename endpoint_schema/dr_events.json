@@ -45,8 +45,8 @@
 
     "status": {
       "type": "dict",
-      "schema":{
-        "setPoint" :{
+      "schema": {
+        "setPoint": {
           "type": "float"
         },
         "x-fanspeed": {
@@ -55,36 +55,21 @@
         "mode": {
           "type": "string",
           "allowed": [
-                "1",
-                "2",
-                "3",
-                "4",
-                "5"
-              ]
+            "1",
+            "2",
+            "3",
+            "4",
+            "5"
+          ]
         },
         "operationState": {
           "type": "string",
-              "allowed": [
-                "0",
-                "1"
-              ]
+          "allowed": [
+            "0",
+            "1"
+          ]
         }
       },
-      "required": true
-    },
-    "marketplace_availability": {
-      "type": "string",
-      "allowed": [
-        "yes",
-        "no"
-      ],
-      "required": true
-    },
-    "dr_availability": {
-      "type": "string",
-      "allowed": [
-        "yes",
-        "no"      ],
       "required": true
     }
   }

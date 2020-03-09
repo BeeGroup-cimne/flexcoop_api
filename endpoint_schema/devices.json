@@ -82,7 +82,7 @@
       ],
       "required": true
     },
-     "marketplace_availability": {
+    "marketplace_availability": {
       "type": "string",
       "allowed": [
         "yes",
@@ -90,7 +90,7 @@
       ],
       "required": true
     },
- "dr_availability": {
+    "dr_availability": {
       "type": "string",
       "allowed": [
         "yes",
@@ -133,21 +133,6 @@
       "type": "uuid",
       "minlength": 36,
       "maxlength": 36,
-      "required": false
-    },
-    "marketplace_availability": {
-      "type": "string",
-      "allowed": [
-        "yes",
-        "no"
-      ],
-      "required": false
-    },
-    "dr_availability": {
-      "type": "string",
-      "allowed": [
-        "yes",
-        "no"      ],
       "required": false
     }
   }
