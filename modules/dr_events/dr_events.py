@@ -100,12 +100,14 @@ def on_insert_dr_events_callback(items):
                     current_app.data.driver.db['event_signal_intervals'].insert_one(interval_dict)
         try:
             headers = {"Authorization": service_token_provider.get_token()}
+            print("{}/{}/{}".format(NOTIFICATION_OPENADR_URL,"notify/events",ven_id))
             resp = requests.get("{}/{}/{}".format(NOTIFICATION_OPENADR_URL,"notify/events",ven_id), headers=headers, verify=NOTIFICATION_OPENADR_CERT)
             if not resp.ok:
                 print("error sending the event")
                 flask.abort(flask.Response(json.dumps({"error": "error sending the event"})))
-        except:
+        except Exception as e:
             print("Notification to openADR failed")
+            print(e)
             flask.abort(flask.Response(json.dumps({"error": "error sending the event"})))
     response = {'events_sent': len(items)}
     flask.abort(flask.Response(json.dumps(response)))
