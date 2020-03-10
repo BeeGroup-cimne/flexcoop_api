@@ -9,7 +9,6 @@ from datetime import datetime
 from flexcoop_utils import ServiceToken
 from settings import NOTIFICATION_OPENADR_URL, NOTIFICATION_OPENADR_CERT
 
-
 def on_insert_dr_events_callback(items):
     print("inserting event")
     account_id = request.account_id
@@ -30,6 +29,7 @@ def on_insert_dr_events_callback(items):
     else:
         flask.abort(403, "Unknown user role")
 
+    service_token_provider = ServiceToken()
     devices_id = list(set([x1["device_id"] for x1 in items]))
     vens = {}
 
@@ -99,7 +99,7 @@ def on_insert_dr_events_callback(items):
                     }
                     current_app.data.driver.db['event_signal_intervals'].insert_one(interval_dict)
         try:
-            headers = {"Authorization": ServiceToken.get_token()}
+            headers = {"Authorization": service_token_provider.get_token()}
             resp = requests.get("{}/{}/{}".format(NOTIFICATION_OPENADR_URL,"notify/events",ven_id), headers=headers, verify=NOTIFICATION_OPENADR_CERT)
             if not resp.ok:
                 print("error sending the event")
