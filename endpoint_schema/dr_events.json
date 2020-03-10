@@ -32,7 +32,7 @@
         "yes",
         "no"
       ],
-      "required": true
+      "required": false
     },
      "dr_availability": {
       "type": "string",
@@ -40,7 +40,7 @@
         "yes",
         "no"
       ],
-      "required": true
+      "required": false
     },
 
     "status": {
