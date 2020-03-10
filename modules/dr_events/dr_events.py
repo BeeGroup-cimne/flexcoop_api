@@ -104,6 +104,7 @@ def on_insert_dr_events_callback(items):
             resp = requests.get("{}/{}/{}".format(NOTIFICATION_OPENADR_URL,"notify/events",ven_id), headers=headers, verify=NOTIFICATION_OPENADR_CERT)
             if not resp.ok:
                 print("error sending the event")
+                print(resp.text)
                 flask.abort(flask.Response(json.dumps({"error": "error sending the event"})))
         except Exception as e:
             print("Notification to openADR failed")
