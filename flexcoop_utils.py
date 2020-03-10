@@ -137,7 +137,7 @@ class ServiceToken(object):
                 self.exp = get_exp(self.token)
                 return self.token
             else:
-                raise Exception("Oauth client not found")
+                raise Exception("Bad Oauth response during ServiceToken().get_token() : "+response.text)
 
     instance = None
 
