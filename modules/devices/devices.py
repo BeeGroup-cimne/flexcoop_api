@@ -19,6 +19,8 @@ def pre_devices_access_control_callback(request, lookup=None):
 
     elif role == 'service':
         pass
+    elif role == 'admin':
+        pass
     else:
         flask.abort(403, "Unknown user role")
 
