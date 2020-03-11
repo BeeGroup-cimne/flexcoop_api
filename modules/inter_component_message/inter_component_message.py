@@ -4,7 +4,7 @@ import requests
 import json
 import datetime
 from flexcoop_utils import ServiceToken
-from settings import INTERCOMPONENT_SETTINGS
+from settings import INTERCOMPONENT_SETTINGS, CLIENT_OAUTH
 from requests.exceptions import ConnectionError
 
 inter_component_message_event = threading.Event()
@@ -107,6 +107,12 @@ def inter_component_message_worker_thread(app):
             update = {'$set': {'delivery_attempt_time': date_now,
                                'delivery_failure_response': failure_response,
                                'delivery_failure_message': failure_message}}
+            flask.current_app.data.driver.db['interComponentMessage'].update_one({'_id': event['_id']}, update)
+        # Todo: Remove temporary Sprint4 check to keep the message in the DB
+        elif CLIENT_OAUTH == 'fokus':
+            update = {'$set': {'delivery_attempt_time': date_now,
+                               'delivery_failure_response': 200,
+                               'delivery_failure_message': 'OKAY'}}
             flask.current_app.data.driver.db['interComponentMessage'].update_one({'_id': event['_id']}, update)
         else:
             flask.current_app.data.driver.db['interComponentMessage'].delete_one({'_id': event['_id']})
