@@ -101,8 +101,7 @@ def on_insert_dr_events_callback(items):
         try:
             headers = {"Authorization": service_token_provider.get_token()}
             print("{}/{}/{}".format(NOTIFICATION_OPENADR_URL,"notify/events",ven_id))
-            if NOTIFICATION_OPENADR_CERT == "False":
-                NOTIFICATION_OPENADR_CERT = False
+
             resp = requests.get("{}/{}/{}".format(NOTIFICATION_OPENADR_URL,"notify/events",ven_id), headers=headers, verify=NOTIFICATION_OPENADR_CERT)
             if not resp.ok:
                 print("error sending the event")
