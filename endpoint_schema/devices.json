@@ -6,11 +6,13 @@
   "cache_control": "max-age=10,must-revalidate",
   "cache_expires": 10,
   "resource_methods": [
-    "GET"
+    "GET",
+    "POST"
   ],
   "item_methods": [
     "GET",
-    "PATCH"
+    "PATCH",
+    "DELETE"
   ],
   "schema": {
     "device_id": {
