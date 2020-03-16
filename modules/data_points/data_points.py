@@ -28,6 +28,7 @@ def translate_device_output(response):
     for item in items:
         db_item = current_app.data.driver.db['data_points'].find_one({"device_id": item['device_id']})
         item['device_class'] = db_item['rid']
+        item['ven_id'] = current_app.data.driver.db['virtual_end_node'].find_one({"account_id": item["account_id"]})['ven_id']
         item['reporting_metrics'] = []
         print(item.keys())
         for k, v in db_item['reporting_items'].items():
