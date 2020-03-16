@@ -157,7 +157,11 @@ def pre_inter_component_message_GET_callback(request, lookup):
 
 
 def pre_inter_component_message_POST_callback(request):
-    if request.role != 'service':
+    # Todo: Remove temporary Sprint4 check to allow admin POST
+    if request.role == 'admin' and CLIENT_OAUTH == 'fokus':
+        pass
+
+    elif request.role != 'service':
         log_inter_component_message_error(' ICM pre POST : not allowed for '+request.role)
         flask.abort(403, 'wrong role')
 
