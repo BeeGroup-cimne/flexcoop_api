@@ -25,8 +25,7 @@ def pre_get__contracts_callback(request, lookup):
 
     elif role == 'service' and sub == "OMP":
         pass
-		
-	elif role == 'service' and sub == "LDEM":
+    elif role == 'service' and sub == "LDEM":
         pass
 
     else:
