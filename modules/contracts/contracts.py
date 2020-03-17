@@ -1,6 +1,7 @@
 import flask
 from flexcoop_utils import send_inter_component_message
 from eve.utils import parse_request
+from settings import CLIENT_OAUTH
 
 
 def pre_get__contracts_callback(request, lookup):
@@ -82,6 +83,10 @@ def pre_patch__contracts(request, lookup):
         elif role == 'service' and sub == 'OMP':
             pass
 
+        # Todo: Remove temporary Sprint4 'admin' allowance to PATCH contracts
+        elif role == 'admin' and CLIENT_OAUTH == 'fokus':
+            store_pre_patch_contract_state(request)
+
         else:
             flask.abort(403, description='PATCH contract not allowed for ' + role + ' ' + sub)
 
@@ -89,16 +94,17 @@ def pre_patch__contracts(request, lookup):
 def post_patch__contracts(request,payload):
     if payload.status_code == 200:
         prev_state = flask.g.prev_patch_state
-        if request.role == 'service' and request.account_id != 'OMP':
-            pass
-
-        elif request.role == 'aggregator':
-            send_inter_component_message(recipient='OMP', msg_type='AGGREGATOR_PATCH',
-                                        json_payload={'contract_id': request.view_args['contract_id'],
-                                                      'patch': request.json,
-                                                      'prev_state': prev_state})
+        msg_type = None
+        if request.role == 'aggregator':
+            msg_type = 'AGGREGATOR_PATCH'
         elif request.role == 'prosumer':
-            send_inter_component_message(recipient='OMP', msg_type='PROSUMER_PATCH',
+            msg_type = 'PROSUMER_PATCH'
+        # Todo: Remove temporary Sprint4 'admin' ICM to Marketplace
+        elif request.role == 'admin':
+            msg_type = 'ADMIN_PATCH'
+
+        if msg_type is not None:
+            send_inter_component_message(recipient='OMP', msg_type=msg_type,
                                         json_payload={'contract_id': request.view_args['contract_id'],
                                                       'patch': request.json,
                                                       'prev_state': prev_state})
