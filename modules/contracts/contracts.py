@@ -1,5 +1,6 @@
 import flask
 from flexcoop_utils import send_inter_component_message
+from eve.utils import parse_request
 
 
 def pre_get__contracts_callback(request, lookup):
@@ -32,6 +33,20 @@ def pre_get__contracts_callback(request, lookup):
         flask.abort(403, description='GET contract not allowed for '+role+' '+sub)
 
 
+def store_contract_state_before_patch(request):
+    # 1) Fetch contract in current state
+    doc = flask.current_app.data.find_one('contracts', parse_request('contracts'))
+    if doc is not None:
+        # 2) For all modified fields, fetch the previous state in the DB
+        prev_state = {}
+        for key in request.json:
+            prev_state[key] = request.json[key]
+            # 3) Store the previous state in current context to be retrieved in post_patch__contracts()
+        flask.g.prev_patch_state = prev_state
+    else:
+        flask.g.prev_patch_state = {}
+
+
 def pre_patch__contracts(request, lookup):
     sub = request.account_id
     role = request.role
@@ -57,10 +72,12 @@ def pre_patch__contracts(request, lookup):
         if role == 'prosumer':
             request.json['validated'] = False
             lookup["account_id"] = sub
+            store_contract_state_before_patch(request)
 
         elif role == 'aggregator':
             request.json['validated'] = False
             lookup["agr_id"] = sub
+            store_contract_state_before_patch(request)
 
         elif role == 'service' and sub == 'OMP':
             pass
@@ -71,17 +88,20 @@ def pre_patch__contracts(request, lookup):
 
 def post_patch__contracts(request,payload):
     if payload.status_code == 200:
+        prev_state = flask.g.prev_patch_state
         if request.role == 'service' and request.account_id != 'OMP':
             pass
 
         elif request.role == 'aggregator':
             send_inter_component_message(recipient='OMP', msg_type='AGGREGATOR_PATCH',
                                         json_payload={'contract_id': request.view_args['contract_id'],
-                                                      'patch': request.json})
+                                                      'patch': request.json,
+                                                      'prev_state': prev_state})
         elif request.role == 'prosumer':
             send_inter_component_message(recipient='OMP', msg_type='PROSUMER_PATCH',
                                         json_payload={'contract_id': request.view_args['contract_id'],
-                                                      'patch': request.json})
+                                                      'patch': request.json,
+                                                      'prev_state': prev_state})
 
 
 def pre_post__contracts(request):
