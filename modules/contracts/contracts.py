@@ -33,7 +33,7 @@ def pre_get__contracts_callback(request, lookup):
         flask.abort(403, description='GET contract not allowed for '+role+' '+sub)
 
 
-def store_contract_state_before_patch(request):
+def store_pre_patch_contract_state(request):
     # 1) Fetch contract in current state
     doc = flask.current_app.data.find_one('contracts', parse_request('contracts'))
     if doc is not None:
@@ -72,12 +72,12 @@ def pre_patch__contracts(request, lookup):
         if role == 'prosumer':
             request.json['validated'] = False
             lookup["account_id"] = sub
-            store_contract_state_before_patch(request)
+            store_pre_patch_contract_state(request)
 
         elif role == 'aggregator':
             request.json['validated'] = False
             lookup["agr_id"] = sub
-            store_contract_state_before_patch(request)
+            store_pre_patch_contract_state(request)
 
         elif role == 'service' and sub == 'OMP':
             pass
