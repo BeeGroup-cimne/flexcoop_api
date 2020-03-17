@@ -105,9 +105,9 @@ def post_patch__contracts(request,payload):
 
         if msg_type is not None:
             send_inter_component_message(recipient='OMP', msg_type=msg_type,
-                                        json_payload={'contract_id': request.view_args['contract_id'],
-                                                      'patch': request.json,
-                                                      'prev_state': prev_state})
+                                         json_payload={'contract_id': request.view_args['contract_id'],
+                                                       'patch': request.json,
+                                                       'prev_state': prev_state})
 
 
 def pre_post__contracts(request):
