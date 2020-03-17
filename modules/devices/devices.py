@@ -52,6 +52,7 @@ def on_insterted_devices_callback(items):
     if item:
         account_id = item['account_id']
         aggregator_id = item['aggregator_id']
+        ven_id = item['ven_id']
     else:
         return
     # To get all the identifiers of existing devices for that user
@@ -62,6 +63,7 @@ def on_insterted_devices_callback(items):
         ldm_collection.insert_one({
             'ldem_id': str(uuid.uuid1()),
             'account_id': account_id,
+			'ven_id': ven_id,
             'aggregator_id': aggregator_id,
             'creation_date': datetime.now(),
             'timestamp': None,
