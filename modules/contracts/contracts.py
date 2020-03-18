@@ -92,22 +92,13 @@ def pre_patch__contracts(request, lookup):
 
 
 def post_patch__contracts(request,payload):
-    if payload.status_code == 200:
-        prev_state = flask.g.prev_patch_state
-        msg_type = None
-        if request.role == 'aggregator':
-            msg_type = 'AGGREGATOR_PATCH'
-        elif request.role == 'prosumer':
-            msg_type = 'PROSUMER_PATCH'
-        # Todo: Remove temporary Sprint4 'admin' ICM to Marketplace
-        elif request.role == 'admin':
-            msg_type = 'ADMIN_PATCH'
-
-        if msg_type is not None:
-            send_inter_component_message(recipient='OMP', msg_type=msg_type,
-                                         json_payload={'contract_id': request.view_args['contract_id'],
-                                                       'patch': request.json,
-                                                       'prev_state': prev_state})
+    if payload.status_code == 200 and (request.role != 'service' or request.account_id != 'OMP'):
+        send_inter_component_message(recipient='OMP', msg_type='PATCH_CONTRACT',
+                                     json_payload={'contract_id': request.view_args['contract_id'],
+                                                   'initiator_sub': request.account_id,
+                                                   'initiator_role': request.role,
+                                                   'prev_state': flask.g.prev_patch_state,
+                                                   'patch': request.json})
 
 
 def pre_post__contracts(request):
