@@ -102,7 +102,7 @@
     },
     "status": {
       "type": "string",
-      "regex": "^(active|canceled|on_hold|ended)$",
+      "regex": "^(published|edited_by_prosumer|edited_by_aggregator|on_hold|active|canceled|ended)$",
       "required": true
     },
     "validated": {
