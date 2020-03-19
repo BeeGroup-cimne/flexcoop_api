@@ -41,7 +41,7 @@ def store_pre_patch_contract_state(request):
         # 2) For all modified fields, fetch the previous state in the DB
         prev_state = {}
         for key in request.json:
-            prev_state[key] = request.json[key]
+            prev_state[key] = doc[key]
             # 3) Store the previous state in current context to be retrieved in post_patch__contracts()
         flask.g.prev_patch_state = prev_state
     else:
