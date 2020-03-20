@@ -71,10 +71,17 @@ def aggregate_collection(collection, resolution):
 
     total_len = len(df)
     if total_len > max_results:
+        parameter_character = '?'
+        query_url = request.base_url
+        for key, value in request.args.items():
+            if key != page_param:
+                query_url += "{}{}={}".format(parameter_character,key,value)
+                parameter_character = '&'
+
         items = df.iloc[page_ini:page_end]
-        next_url = "{}?{}={}".format(request.base_url, page_param, page + 1)
+        next_url = "{}{}{}={}".format(query_url,parameter_character, page_param, page + 1)
         max_page = math.ceil(total_len/max_results)
-        last_url = "{}?{}={}".format(request.base_url,page_param, max_page)
+        last_url = "{}{}{}={}".format(query_url,parameter_character,page_param, max_page)
     else:
         items = df
         next_url = None
