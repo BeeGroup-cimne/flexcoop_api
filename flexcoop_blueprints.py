@@ -81,8 +81,11 @@ def aggregate_collection(collection, resolution):
                     parameter_character = '&'
 
             items = df.iloc[page_ini:page_end]
-            next_url = "{}{}{}={}".format(query_url,parameter_character, page_param, page + 1)
-            max_page = math.ceil(total_len/max_results)
+            max_page = math.ceil(total_len / max_results)
+            if page + 1 < max_page:
+                next_url = "{}{}{}={}".format(query_url,parameter_character, page_param, page + 1)
+            else:
+                next_url = None
             last_url = "{}{}{}={}".format(query_url,parameter_character,page_param, max_page)
         else:
             items = df
