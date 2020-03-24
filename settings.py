@@ -16,6 +16,7 @@ RENDERERS = [
 DATE_FORMAT = "%Y-%m-%dT%H:%M:%S.%fZ"
 API_VERSION = "1"
 TRANSPARENT_SCHEMA_RULES = True
+PAGINATION_LIMIT = 300
 DEBUG = False
 OAUTH_PROVIDERS = ast.literal_eval(os.environ['OAUTH_PROVIDERS'])
 # Disabled 'User-Restricted Resource Access'
