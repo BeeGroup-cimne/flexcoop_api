@@ -34,39 +34,17 @@ def pre_get__contracts_callback(request, lookup):
         flask.abort(403, description='GET contract not allowed for '+role+' '+sub)
 
 
-def store_pre_patch_contract_state(request):
-    # 1) Fetch contract in current state
-    doc = flask.current_app.data.find_one('contracts', parse_request('contracts'))
-    if doc is not None:
-        # 2) For all modified fields, fetch the previous state in the DB
-        prev_state = {}
-        for key in request.json:
-            if key == 'details':
-                prev_state[key] = {}
-                for d_key in request.json['details']:
-                    prev_state['details'][d_key] = doc['details'][d_key]
-            else:
-                prev_state[key] = doc[key]
-            # 3) Store the previous state in current context to be retrieved in post_patch__contracts()
-        if 'validated' not in request.json:
-            prev_state['validated'] = doc['validated']
-
-        flask.g.prev_patch_state = prev_state
-    else:
-        flask.g.prev_patch_state = {}
-
-
 def pre_patch__contracts(request, lookup):
     sub = request.account_id
     role = request.role
 
-    print('PATCH contract  request: ', request.json)
+    print('PATCH contract  request: ', request.json, 'by', role)
 
     has_error = False
     error_str = ""
     for entry in ['contract_id', 'start_date', 'end_date', 'agr_id', 'account_id',
                   'template_id', 'assets', 'contract_type']:
-        if entry in  request.json:
+        if entry in request.json:
             error_str = error_str + entry+','
             has_error = True
 
@@ -81,19 +59,17 @@ def pre_patch__contracts(request, lookup):
         if role == 'prosumer':
             request.json['validated'] = False
             lookup["account_id"] = sub
-            store_pre_patch_contract_state(request)
 
         elif role == 'aggregator':
             request.json['validated'] = False
             lookup["agr_id"] = sub
-            store_pre_patch_contract_state(request)
 
         elif role == 'service' and sub == 'OMP':
             pass
 
         # Todo: Remove temporary Sprint4 'admin' allowance to PATCH contracts
         elif role == 'admin' and CLIENT_OAUTH == 'fokus':
-            store_pre_patch_contract_state(request)
+            pass
 
         else:
             flask.abort(403, description='PATCH contract not allowed for ' + role + ' ' + sub)
@@ -141,6 +117,26 @@ def pre_delete__contracts(request, lookup):
         flask.abort(403, description='DELETE contract not allowed for ' + request.role)
 
 
+def update__contracts(updates, original):
+    #print('update__contracts  upd=', updates)
+    #print('update__contracts  org=', original)
+
+    # 1) For all modified fields, copy the previous state from DB
+    prev_state = {}
+    for key in updates:
+        if key == 'details':
+            prev_state[key] = {}
+            for d_key in updates['details']:
+                prev_state['details'][d_key] = original['details'][d_key]
+        elif key[0] != '_':
+            prev_state[key] = original[key]
+    if 'validated' not in updates:
+        prev_state['validated'] = original['validated']
+
+    # 2) Store the previous state in current context to be retrieved in post_patch__contracts()
+    flask.g.prev_patch_state = prev_state
+
+
 def set_hooks(app):
     app.on_pre_GET_contracts += pre_get__contracts_callback
     app.on_pre_PATCH_contracts += pre_patch__contracts
@@ -148,3 +144,4 @@ def set_hooks(app):
     app.on_pre_POST_contracts += pre_post__contracts
     app.on_post_POST_contracts += post_post__contracts
     app.on_pre_DELETE_contracts += pre_delete__contracts
+    app.on_update_contracts += update__contracts
