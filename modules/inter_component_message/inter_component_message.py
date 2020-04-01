@@ -146,9 +146,16 @@ def log_inter_component_message_error(info):
     print(date_now.strftime("%d.%b %Y %H:%M:%S") + '  ' + info);
 
 
+def find_service_for_recipient(account_id):
+    for key in INTERCOMPONENT_SETTINGS:
+        if 'account_id' in INTERCOMPONENT_SETTINGS[key] and account_id == INTERCOMPONENT_SETTINGS[key]['account_id']:
+            return key
+    return 'unknown'
+
+
 def pre_inter_component_message_GET_callback(request, lookup):
     if request.role == 'service':
-        lookup["recipient_id"] = request.account_id
+        lookup["recipient_id"] = find_service_for_recipient(request.account_id)
     elif request.role == 'admin':
         pass
     else:
@@ -179,7 +186,7 @@ def pre_inter_component_message_POST_callback(request):
 
 def pre_inter_component_message_DELETE_callback(request, lookup):
     if request.role == 'service':
-        lookup["recipient_id"] = request.account_id
+        lookup["recipient_id"] = find_service_for_recipient(request.account_id)
     elif request.role == 'admin':
         pass
     else:

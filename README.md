@@ -249,14 +249,15 @@ pip install -r requirements.txt
    ``` bash
    "{
         'component shortname': {
-            'message_url': 'url where component receives messages' 
+            'message_url': 'url where component receives messages',
+            'account_id': 'the account id supplied in a servicetoken' 
         },{...}
    }"
    
    #example:
    "{
-    'OMP':{'message_url': 'https://marketplace.flexcoop.eu/1/interComponentMessage'},
-    'LDEM':{'message_url': 'http://cloudtec.etra-id.com:6100/api/drevent/notify'}, 
+    'OMP':{'message_url': 'https://marketplace.flexcoop.eu/1/interComponentMessage','account_id': 'marketplace'},
+    'LDEM':{'message_url': 'http://cloudtec.etra-id.com:6100/api/drevent/notify','account_id': 'LDEM'}, 
    }"
    ```
    Look carefully the single and double quotes used in the variable value for "OAUTH_PROVIDERS" and "INTERCOMPONENT_SETTINGS"
