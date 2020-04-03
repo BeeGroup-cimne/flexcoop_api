@@ -10,12 +10,11 @@ from datetime import datetime
 def pre_devices_access_control_callback(request, lookup=None):
     account_id = request.account_id
     role = request.role
-    aggregator_id = request.aggregator_id
     if role == 'prosumer':
         lookup["account_id"] = account_id
 
     elif role == 'aggregator':
-        lookup["aggregator_id"] = aggregator_id
+        lookup["aggregator_id"] = account_id
 
     elif role == 'service':
         pass
