@@ -128,9 +128,9 @@ def update__contracts(updates, original):
             prev_state[key] = {}
             for d_key in updates['details']:
                 prev_state['details'][d_key] = original['details'][d_key]
-        elif key[0] != '_':
+        elif key[0] != '_' and key in original:
             prev_state[key] = original[key]
-    if 'validated' not in updates:
+    if 'validated' not in updates and 'validated' in original:
         prev_state['validated'] = original['validated']
 
     # 2) Store the previous state in current context to be retrieved in post_patch__contracts()
