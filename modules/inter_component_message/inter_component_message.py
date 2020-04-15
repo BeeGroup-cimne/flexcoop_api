@@ -81,7 +81,7 @@ def inter_component_message_worker_thread(app):
             url = INTERCOMPONENT_SETTINGS[recipient]['message_url']
 
             token = ServiceToken().get_token()
-            headers = {'accept': 'application/xml', 'Authorization': token, "Content-Type": "application/json"}
+            headers = {'accept': 'application/json', 'Authorization': token, "Content-Type": "application/json"}
             try:
                 json_string = json.dumps(msg, default=datetime_serializer)
                 response = requests.post(url, headers=headers, data=json_string)
