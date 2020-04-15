@@ -34,6 +34,7 @@ def translate_device_output(response):
         db_item = current_app.data.driver.db['devices'].find_one({"device_id": item['device_id']})
         if 'rid' in db_item:
             item['device_class'] = db_item['rid']
+            item['ven_id'] = current_app.data.driver.db['virtual_end_node'].find_one({"account_id": item["account_id"]})['ven_id']
             for k, v in item['status'].items():
                 item['status'][k] = v['value'] if v['value'] else 0
 
