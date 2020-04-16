@@ -154,9 +154,7 @@ def find_service_for_recipient(account_id):
 
 
 def pre_inter_component_message_GET_callback(request, lookup):
-    if request.role == 'service':
-        lookup["recipient_id"] = find_service_for_recipient(request.account_id)
-    elif request.role == 'admin':
+    if request.role == 'admin':
         pass
     else:
         log_inter_component_message_error(' ICM pre GET : not allowed for '+request.role)
@@ -185,9 +183,7 @@ def pre_inter_component_message_POST_callback(request):
 
 
 def pre_inter_component_message_DELETE_callback(request, lookup):
-    if request.role == 'service':
-        lookup["recipient_id"] = find_service_for_recipient(request.account_id)
-    elif request.role == 'admin':
+    if request.role == 'admin':
         pass
     else:
         log_inter_component_message_error(' ICM pre DELETE : not allowed for '+request.role)
