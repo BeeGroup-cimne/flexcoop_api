@@ -4,7 +4,7 @@
   "item_lookup_field": "contract_id",
   "cache_control": "max-age=10,must-revalidate",
   "cache_expires": 10,
-  "item_url": "regex(\"[a-f0-9]{8}-?[a-f0-9]{4}-?4[a-f0-9]{3}-?[89ab][a-f0-9]{3}-?[a-f0-9]{12}\")",
+  "item_url": "regex(\"[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}\")",
   "resource_methods": [
     "GET",
     "POST"
