@@ -109,20 +109,20 @@
       "type": "point",
       "minlength": 1,
       "maxlength": 36,
-      "required": true
+      "required": false
     },
     "device_type": {
       "type": "string",
       "allowed": ["Demand","Generation","Storage"],
-      "required": true
+      "required": false
     },
     "max_capacity": {
       "type": "float",
-      "required": true
+      "required": false
     },
     "available_capacity": {
       "type": "float",
-      "required": true
+      "required": false
     }
   }
 }
