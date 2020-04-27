@@ -12,12 +12,13 @@ def pre_get__contracts_callback(request, lookup):
     """
     sub = request.account_id
     role = request.role
+    aggregator_id = request.aggregator_id
 
     if role == 'prosumer':
         lookup["account_id"] = sub
 
     elif role == 'aggregator':
-        lookup["agr_id"] = sub
+        lookup["aggregator_id"] = aggregator_id
 
     elif role == 'admin':
         pass
@@ -37,12 +38,13 @@ def pre_get__contracts_callback(request, lookup):
 def pre_patch__contracts(request, lookup):
     sub = request.account_id
     role = request.role
+    aggregator_id = request.aggregator_id
 
     print('PATCH contract  request: ', request.json, 'by', role)
 
     has_error = False
     error_str = ""
-    for entry in ['contract_id', 'start_date', 'end_date', 'agr_id', 'account_id',
+    for entry in ['contract_id', 'start_date', 'end_date', 'aggregator_id', 'account_id',
                   'template_id', 'assets', 'contract_type']:
         if entry in request.json:
             error_str = error_str + entry+','
@@ -62,7 +64,7 @@ def pre_patch__contracts(request, lookup):
 
         elif role == 'aggregator':
             request.json['validated'] = False
-            lookup["agr_id"] = sub
+            lookup["aggregator_id"] = aggregator_id
 
         elif role == 'service' and sub == 'OMP':
             pass
@@ -89,8 +91,15 @@ def pre_post__contracts(request):
     if request.role != 'aggregator':
         flask.abort(403, description='POST contract not allowed for ' + request.role)
 
-    if 'agr_id' in request.json and request.json['agr_id'] != request.account_id:
-        flask.abort(403, description='POST contract agr_id mismatch')
+    aggregator_id = request.aggregator_id
+
+    if 'aggregator_id' in request.json:
+        if request.json['aggregator_id'] != aggregator_id:
+            flask.abort(403, description='POST contract aggregator_id mismatch')
+        else:
+            pass
+    else:
+        request.json['aggregator_id'] = aggregator_id
 
     if 'contract_id' in request.json:
         id_check = {"contract_id": {"$eq": request.json['contract_id']}}
