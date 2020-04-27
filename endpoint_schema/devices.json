@@ -123,23 +123,6 @@
     "available_capacity": {
       "type": "float",
       "required": true
-    },
-    "cluster_id": {
-      "type": "uuid",
-      "minlength": 36,
-      "maxlength": 36,
-      "required": false
-    },
-    "cluster_type": {
-      "type": "string",
-      "allowed": ["Cluster","TBD"],
-      "required": false
-    },
-    "vpp_id": {
-      "type": "uuid",
-      "minlength": 36,
-      "maxlength": 36,
-      "required": false
     }
   }
 }
