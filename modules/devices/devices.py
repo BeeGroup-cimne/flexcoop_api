@@ -56,7 +56,11 @@ def on_insterted_devices_callback(items):
     if item:
         account_id = item['account_id']
         aggregator_id = item['aggregator_id']
-        ven_id = current_app.data.driver.db['virtual_end_node'].find_one({"account_id": item["account_id"]})['ven_id']
+        endnode = current_app.data.driver.db['virtual_end_node'].find_one({"account_id": item["account_id"]})
+        ven_id = ""
+        if endnode:
+            ven_id = endnode['ven_id']
+
     else:
         return
     # To get all the identifiers of existing devices for that user
