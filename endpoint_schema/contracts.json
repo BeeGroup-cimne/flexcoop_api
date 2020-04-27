@@ -41,24 +41,13 @@
       "maxlength": 36,
       "required": true
     },
-    "template_id": {
-      "type": "uuid",
-      "minlength": 36,
-      "maxlength": 36
-    },
     "details": {
       "type": "dict",
       "schema": {
         "description": {
           "type": "string"
         },
-        "flexibility_id": {
-          "type": "uuid"
-        },
         "existing_pv": {
-          "type": "boolean"
-        },
-        "existing_retail_contract": {
           "type": "boolean"
         },
         "notification" : {
@@ -118,20 +107,9 @@
       "type": "string",
       "regex": "^(money_for_flex|savings_for_flex|more_sun_energy_at_home|more_energy_efficiency_at_home)$"
     },
-    "acknowledgement": {
-      "type": "string",
-      "regex": "^(undefined|review|accepted|rejected|signed)$",
-      "required": true
-    },
     "timestamp": {
       "type": "datetime",
       "required": true
-    },
-    "options": {
-      "type": "list",
-      "schema": {
-        "type": "string"
-      }
     }
   }
 }
