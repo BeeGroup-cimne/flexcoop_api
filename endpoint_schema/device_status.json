@@ -1,18 +1,10 @@
 {
-  "item_title": "occupancy",
+  "item_title": "device_status",
   "cache_control": "max-age=10,must-revalidate",
   "cache_expires": 10,
   "resource_methods": [
     "GET"
   ],
-  "aggregation":{
-    "index_field" : "timestamp",
-    "aggregate_fields" : {
-      "occupancy": "AVG"
-    },
-    "groupby": "device_id",
-    "add_fields": ["account_id", "aggregator_id", "device_id", "device_class"]
-  },
   "item_methods": [],
   "schema": {
     "device_id": {
@@ -51,7 +43,17 @@
       "type": "datetime",
       "required": true
     },
-    "occupancy" : {
+    "operation_state" : {
+      "type": "string",
+      "allowed": ["0.0", "1.0"]
+    },
+    "fanspeed":  {
+      "type": "float"
+    },
+    "mode": {
+      "type": "float"
+    },
+    "set_point": {
       "type": "float"
     }
   }

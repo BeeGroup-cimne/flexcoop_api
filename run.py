@@ -1,6 +1,6 @@
 from os import environ
 
-from eve import Eve
+from eve_customization import Eve
 from eve_swagger import swagger
 from flask_swagger_ui import get_swaggerui_blueprint
 

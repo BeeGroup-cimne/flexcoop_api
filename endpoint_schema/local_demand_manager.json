@@ -31,10 +31,16 @@
 			"required": true,
 			"unique": true
 		},
+		"ven_id": {
+			"type": "uuid",
+			"minlength": 36,
+			"maxlength": 36,
+		  	"required": true
+		},
 		"aggregator_id": {
 			"type": "string",
-			  "minlength": 36,
-			  "maxlength": 36,
+			  "minlength": 3,
+			  "maxlength": 256,
 			  "required": true
 		},
 		"creation_date": {
