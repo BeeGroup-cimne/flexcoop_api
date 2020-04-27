@@ -40,7 +40,6 @@
             ]
         },
         "operationState": {
-
           "type": "string",
           "allowed": [
             "0",
