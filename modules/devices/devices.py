@@ -10,11 +10,12 @@ from datetime import datetime
 def pre_devices_access_control_callback(request, lookup=None):
     account_id = request.account_id
     role = request.role
+    aggregator_id = request.aggregator_id
     if role == 'prosumer':
         lookup["account_id"] = account_id
 
     elif role == 'aggregator':
-        lookup["aggregator_id"] = account_id
+        lookup["aggregator_id"] = aggregator_id
 
     elif role == 'service':
         pass
@@ -55,6 +56,7 @@ def on_insterted_devices_callback(items):
     if item:
         account_id = item['account_id']
         aggregator_id = item['aggregator_id']
+        ven_id = current_app.data.driver.db['virtual_end_node'].find_one({"account_id": item["account_id"]})['ven_id']
     else:
         return
     # To get all the identifiers of existing devices for that user
@@ -65,6 +67,7 @@ def on_insterted_devices_callback(items):
         ldm_collection.insert_one({
             'ldem_id': str(uuid.uuid1()),
             'account_id': account_id,
+			'ven_id': ven_id,
             'aggregator_id': aggregator_id,
             'creation_date': datetime.now(),
             'timestamp': None,
