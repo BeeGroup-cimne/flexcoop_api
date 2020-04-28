@@ -21,6 +21,8 @@
 	  },
 	  "aggregator_id": {
 		  "type": "string",
+		  "minlength": 3,
+          "maxlength": 256,
 		  "required": true
 	  },
 	  "account_id": {

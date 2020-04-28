@@ -40,7 +40,6 @@
             ]
         },
         "operationState": {
-
           "type": "string",
           "allowed": [
             "0",
@@ -63,8 +62,8 @@
     },
     "aggregator_id": {
       "type": "string",
-      "minlength": 36,
-      "maxlength": 36,
+      "minlength": 3,
+      "maxlength": 256,
       "required": true
     },
 
@@ -84,7 +83,7 @@
       "allowed": [
         "yes",
         "no",
-        "unknown"
+        ""
       ],
       "required": true
     },
@@ -104,41 +103,23 @@
       ],
       "required": false
     },
-
     "location": {
       "type": "point",
       "minlength": 1,
       "maxlength": 36,
-      "required": true
+      "required": false
     },
     "device_type": {
       "type": "string",
       "allowed": ["Demand","Generation","Storage"],
-      "required": true
+      "required": false
     },
     "max_capacity": {
       "type": "float",
-      "required": true
+      "required": false
     },
     "available_capacity": {
       "type": "float",
-      "required": true
-    },
-    "cluster_id": {
-      "type": "uuid",
-      "minlength": 36,
-      "maxlength": 36,
-      "required": false
-    },
-    "cluster_type": {
-      "type": "string",
-      "allowed": ["Cluster","TBD"],
-      "required": false
-    },
-    "vpp_id": {
-      "type": "uuid",
-      "minlength": 36,
-      "maxlength": 36,
       "required": false
     }
   }
