@@ -107,9 +107,6 @@ def pre_post__contracts(request):
         if cursor.count() > 0:
             flask.abort(409, 'contract_id already exists')
 
-    if 'assets' not in request.json or len(request.json['assets']) < 1:
-        flask.abort(403, description='POST contract missing assets')
-
     if 'validated' in request.json:
         flask.abort(406, 'POST contains unauthorised validated field')
 
