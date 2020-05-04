@@ -50,9 +50,44 @@ def pre_patch__contracts(request, lookup):
             error_str = error_str + entry+','
             has_error = True
 
-    if 'validated' in request.json and (role != 'service' or sub != 'OMP'):
-        error_str = error_str + 'validated'
-        has_error = True
+    if role == 'service' and sub == 'OMP':
+        # Open Marketplace can patch only 'validated', 'status' and 'details.date_of_signage'
+        for key in request.json.keys():
+            if key == 'validated':
+                pass
+            elif key == 'status' and request.json['status'] == 'canceled':
+                pass
+            elif key == 'details':
+                for sub_key in request.json['details'].keys():
+                    if sub_key != 'date_of_signage':
+                        error_str = error_str + 'details.' + sub_key + ','
+                        has_error = True
+            else:
+                error_str = error_str + key + ','
+                has_error = True
+
+    else:
+        # Others can't patch 'validated'
+        if 'validated' in request.json:
+            error_str = error_str + 'validated'
+            has_error = True
+
+        if 'details' in request.json:
+            # Details patches of 'description','notification' and 'date_of_signage' are restricted
+            if 'description' in request.json['details'] and role != 'aggregator':
+                error_str = error_str + 'details.description,'
+                has_error = True
+            if 'notification' in request.json['details'] and role != 'prosumer':
+                error_str = error_str + 'details.notification,'
+                has_error = True
+            if 'date_of_signage' in request.json['details']:
+                error_str = error_str + 'details.date_of_signage,'
+                has_error = True
+
+        # All patches from aggregator or prosumer require a 'timestamp' field
+        if 'timestamp' not in request.json:
+            error_str = error_str + ' missing timestamp'
+            has_error = True
 
     if has_error:
         flask.abort(403, description='PATCH contract of ' + error_str + ' field(s) not allowed')
