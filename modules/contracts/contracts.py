@@ -118,6 +118,7 @@ def post_patch__contracts(request,payload):
                                      json_payload={'contract_id': request.view_args['contract_id'],
                                                    'initiator_sub': request.account_id,
                                                    'initiator_role': request.role,
+                                                   'initiator_issuer': request.aggregator_id,
                                                    'prev_state': flask.g.prev_patch_state,
                                                    'patch': request.json})
 
