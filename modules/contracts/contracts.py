@@ -45,7 +45,7 @@ def pre_patch__contracts(request, lookup):
     has_error = False
     error_str = ""
     for entry in ['contract_id', 'start_date', 'end_date', 'aggregator_id', 'account_id',
-                  'template_id', 'assets', 'contract_type']:
+                  'assets', 'contract_type']:
         if entry in request.json:
             error_str = error_str + entry+','
             has_error = True
