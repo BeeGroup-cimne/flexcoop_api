@@ -93,6 +93,20 @@
               "type": "float",
               "min" : 0,
               "required" : true
+            },
+            "service_cost": {
+              "type": "float",
+              "min" : 0
+            },
+            "maximum_power": {
+              "type": "float",
+              "min" : 0,
+              "required" : true
+            },
+            "maximum_number": {
+              "type": "integer",
+              "min" : 1,
+              "required" : true
             }
           }
         },
