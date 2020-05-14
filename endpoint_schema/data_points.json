@@ -41,12 +41,11 @@
       "type": "string",
       "allowed": [
         "sensingDevice",
-        "hvacDevice",
-        "dhwDevice",
         "prosumerDeviceMetering",
         "pvDevice",
-        "otherLoad",
-        "spaceTotalMetering"
+        "dhwDevice",
+        "hvacDevice",
+        "otherLoad"
       ],
       "required": true
     },
