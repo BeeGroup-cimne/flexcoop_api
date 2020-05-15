@@ -20,6 +20,10 @@
 			"maxlength": 36,
 			"required": true
 		},
+		"aggregator_id": {
+			"type": "string",
+			"required": true
+		},
 		"timestamp": {
 			"type": "datetime",
 			"required": true
