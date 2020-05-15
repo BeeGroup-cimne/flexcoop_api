@@ -16,11 +16,15 @@
 		"timestamp": {
 			"required": true,
 			"type": "datetime"
-		},		
+		},
 		"dr_campaign_id": {
 			"type": "uuid",
 			"minlength": 36,
 			"maxlength": 36,
+			"required": true
+		},
+		"aggregator_id": {
+			"type": "string",
 			"required": true
 		},
 		"account_id": {
