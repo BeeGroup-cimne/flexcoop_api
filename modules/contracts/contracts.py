@@ -172,7 +172,8 @@ def update__contracts(updates, original):
         if key == 'details':
             prev_state[key] = {}
             for d_key in updates['details']:
-                prev_state['details'][d_key] = original['details'][d_key]
+                if d_key in original['details']:
+                    prev_state['details'][d_key] = original['details'][d_key]
         elif key[0] != '_' and key in original:
             prev_state[key] = original[key]
     if 'validated' not in updates and 'validated' in original:
