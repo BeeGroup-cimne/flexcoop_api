@@ -106,8 +106,11 @@ def pre_patch__contracts(request, lookup):
 
         # Todo: Remove temporary Sprint4 'admin' allowance to PATCH contracts
         elif role == 'admin' and CLIENT_OAUTH == 'fokus':
-            pass
-
+            if 'status' in request.json and request.json['status'] == 'published':
+                # Remove 'date_of_signage' when Admin reset contract back to 'published'
+                query = {'contract_id': request.view_args['contract_id']}
+                update = {'$unset': {'details.date_of_signage': ""}}
+                flask.current_app.data.driver.db['contracts'].update_one(query, update)
         else:
             flask.abort(403, description='PATCH contract not allowed for ' + role + ' ' + sub)
 
