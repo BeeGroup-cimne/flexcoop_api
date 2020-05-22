@@ -1,5 +1,3 @@
-lista de devices?
-
 {
 	"item_title": "ldem_flex_step",
 	"item_lookup_field": "ldem_id",
@@ -15,52 +13,53 @@ lista de devices?
 	  "DELETE"
 	],
 	"schema": {
-	  "ldem_id": {
-		  "type": "uuid",
-		  "minlength": 36,
-		  "maxlength": 36,
-		  "required": true
-	  },
-	  "account_id": {
-		  "type": "uuid",
-		  "minlength": 36,
-		  "maxlength": 36,
-		  "required": true
-	  },
-	  "aggregator_id": {
-		  "type": "string",
-		  "required": true
-	  },
-	  "start": {
-		  "type": "datetime",
-		  "required": true
-	  },
-	  "end": {
-		  "type": "datetime",
-		  "required": true
-	  },
-	  "upwards_flex": {
-		  "type": "float",
+		"ldem_id": {
+			"type": "uuid",
+			"minlength": 36,
+			"maxlength": 36,
 			"required": true
-	  },
-	  "downwards_flex": {
-		  "type": "float",
-		  "required": true
-	  },
-	  "baseline": {
-		  "type": "float",
-		  "required": true
-	  },
-	  "devices": {
-		"type": "list",
-		"required": true,
-		"schema": {
-			"type": "dict",
+		},
+		"account_id": {
+			"type": "uuid",
+			"minlength": 36,
+			"maxlength": 36,
+			"required": true
+		},
+		"aggregator_id": {
+			"type": "string",
+			"required": true
+		},
+		"start": {
+			"type": "datetime",
+			"required": true
+		},
+		"end": {
+			"type": "datetime",
+			"required": true
+		},
+		"upwards_flex": {
+			"type": "float",
+			"required": true
+		},
+		"downwards_flex": {
+			"type": "float",
+			"required": true
+		},
+		"baseline": {
+			"type": "float",
+			"required": true
+		},
+		"devices": {
+			"type": "list",
+			"required": true,
 			"schema": {
-				"devices": {
-					"type": "uuid"
-				},				
-			}                        
+				"type": "dict",
+				"schema": {
+					"devices": {
+						"type": "uuid"
+					}
+				}
+			}
 		}
-	},
-  }
+	}
+}

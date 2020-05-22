@@ -13,46 +13,47 @@
 	"DELETE"
   ],
   "schema": {
-    "device_id": {
-		"type": "uuid",
-		"minlength": 36,
-		"maxlength": 36,
-		"required": true
-	},
-	"ven_id": {
-		"type": "uuid",
-		"minlength": 36,
-		"maxlength": 36,
-		"required": true
-	},
-	"account_id": {
-		"type": "uuid",
-		"minlength": 36,
-		"maxlength": 36,
-		"required": true
-	},
-	"aggregator_id": {
-		"type": "string",
-		"required": true
-	},
-	"start": {
-		"type": "datetime",
-		"required": true
-	},
-	"end": {
-		"type": "datetime",
-		"required": true
-	},
-	"upwards_flex": {
-		"type": "float",
-      	"required": true
-	},
-	"downwards_flex": {
-		"type": "float",
-		"required": true
-	},
-	"baseline": {
-		"type": "float",
-		"required": true
-	},
+	  "device_id": {
+		  "type": "uuid",
+		  "minlength": 36,
+		  "maxlength": 36,
+		  "required": true
+	  },
+	  "ven_id": {
+		  "type": "uuid",
+		  "minlength": 36,
+		  "maxlength": 36,
+		  "required": true
+	  },
+	  "account_id": {
+		  "type": "uuid",
+		  "minlength": 36,
+		  "maxlength": 36,
+		  "required": true
+	  },
+	  "aggregator_id": {
+		  "type": "string",
+		  "required": true
+	  },
+	  "start": {
+		  "type": "datetime",
+		  "required": true
+	  },
+	  "end": {
+		  "type": "datetime",
+		  "required": true
+	  },
+	  "upwards_flex": {
+		  "type": "float",
+		  "required": true
+	  },
+	  "downwards_flex": {
+		  "type": "float",
+		  "required": true
+	  },
+	  "baseline": {
+		  "type": "float",
+		  "required": true
+	  }
+  }
 }
