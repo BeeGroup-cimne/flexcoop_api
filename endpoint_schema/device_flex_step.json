@@ -19,7 +19,7 @@
 		"maxlength": 36,
 		"required": true
 	},
-	"ldem_id": {
+	"ven_id": {
 		"type": "uuid",
 		"minlength": 36,
 		"maxlength": 36,
