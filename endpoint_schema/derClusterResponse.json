@@ -28,12 +28,6 @@
       "maxlength": 64,
       "required": true
     },
-    "timestamp": {
-      "type": "datetime",
-      "minlength": 1,
-      "maxlength": 64,
-      "required": true
-    },
     "derCluster": {
       "type": "list",
       "schema": {

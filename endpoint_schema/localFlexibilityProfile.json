@@ -28,6 +28,10 @@
               "EV"
             ]
           },
+          "startDate": {
+            "type" : "datetime",
+            "required" : true
+          },
           "flexibility": {
             "type": "dict",
             "schema": {

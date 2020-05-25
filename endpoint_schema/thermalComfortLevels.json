@@ -1,0 +1,42 @@
+{
+  "item_title": "thermalComfortLevels",
+  "cache_control": "max-age=10,must-revalidate",
+  "cache_expires": 10,
+  "resource_methods": [
+    "GET",
+    "POST"
+  ],
+  "schema": {
+    "venId": {
+      "type": "string",
+      "minlength": 1,
+      "maxlength": 100,
+      "required": true,
+      "unique": true
+    },
+    "thermalComfort": {
+      "schema": {
+        "buildingParameters": {
+            "type": "dict",
+            "schema": {
+              "interval": {
+                "type": "integer",
+                "required": true
+              },
+              "tMin": {
+                "type": "float",
+                "required": true
+              },
+              "tMax": {
+                "type": "float",
+                "required": true
+              }
+            },
+          "required" : true
+        }
+      }
+    }
+  }
+}
+
+
