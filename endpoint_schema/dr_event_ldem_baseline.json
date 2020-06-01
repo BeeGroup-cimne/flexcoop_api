@@ -23,6 +23,12 @@
 			"type": "string",
 			"required": true
 		},
+		"account_id": {
+			"type": "uuid",
+			"minlength": 36,
+			"maxlength": 36,
+			"required": true
+		},
 		"ldem_id": {
 			"type": "uuid",
 			"minlength": 36,
@@ -40,7 +46,13 @@
 		"flexibility": {
 			"type": "float",
 			"required": true
-		},	
+		},
+		"forecast_cons": {
+			"type": "float"
+		},
+		"real_cons": {
+			"type": "float"
+		},
 		"devices": {
 			"type": "list",
 			"schema": {

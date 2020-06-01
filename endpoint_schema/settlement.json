@@ -1,0 +1,125 @@
+{
+    "item_title": "settlement",
+    "id_field": "",
+    "item_lookup_field": "settlement_id",
+    "cache_control": "max-age=10,must-revalidate",
+    "cache_expires": 10,
+    "item_url": "regex(\"[a-f0-9]{8}-?[a-f0-9]{4}-?4[a-f0-9]{3}-?[89ab][a-f0-9]{3}-?[a-f0-9]{12}\")",
+    "resource_methods": [
+        "GET",
+        "POST",
+        "DELETE"
+    ],
+    "item_methods": [
+        "GET",
+        "PATCH",
+        "DELETE"
+    ],
+    "schema": {
+        "settlement_id": {
+            "type": "uuid",
+            "minlength": 36,
+            "maxlength": 36,
+            "required": true
+        },
+        "contract_id": {
+            "type": "uuid",
+            "minlength": 36,
+            "maxlength": 36,
+            "required": true
+        },
+        "agreggator_id": {
+            "type": "uuid",
+            "minlength": 36,
+            "maxlength": 36,
+            "required": true
+        },
+        "account_id": {
+            "type": "uuid",
+            "minlength": 36,
+            "maxlength": 36
+        },
+        "renumeration_DR": {
+            "type": "dict",
+            "schema": {
+                "notifications_number": {
+                    "type": "float"
+                },
+                "activation_period": {
+                    "type": "float"
+                },
+                "max_bid_size": {
+                    "type": "float"
+                },
+                "total_bid_size": {
+                    "type": "float"
+                },
+                "penalty": {
+                    "type": "float"
+                },
+                "prosumer_profit": {
+                    "type": "float"
+                }
+            }
+        },
+        "renumeration_SCA": {
+            "type": "dict",
+            "schema": {
+                "energy_saving": {
+                    "type": "float"
+                },
+                "cost_saving": {
+                    "type": "float"
+                },
+                "CO2_saving": {
+                    "type": "float"
+                },
+                "service_fee": {
+                    "type": "float"
+                },
+                "max_number": {
+                    "type": "float"
+                },
+                "prosumer_profit": {
+                    "type": "float"
+                }
+            }
+        },
+        "renumeration_SCB": {
+            "type": "dict",
+            "schema": {
+                "energy_saving": {
+                    "type": "float"
+                },
+                "cost_saving": {
+                    "type": "float"
+                },
+                "CO2_saving": {
+                    "type": "float"
+                },
+                "service_fee": {
+                    "type": "float"
+                },
+                "self_cons": {
+                    "type": "float"
+                },
+                "prosumer_profit": {
+                    "type": "float"
+                }
+            }
+        },
+        "contract_type": {
+            "type": "string",
+            "regex": "^(money_for_flex|savings_for_flex|more_sun_energy_at_home|more_energy_efficiency_at_home)$"
+        },
+        "acknowledgement": {
+            "type": "string",
+            "regex": "^(undefined|review|accepted|rejected|signed)$",
+            "required": true
+        },
+        "timestamp": {
+            "type": "datetime",
+            "required": true
+        }
+    }
+}
