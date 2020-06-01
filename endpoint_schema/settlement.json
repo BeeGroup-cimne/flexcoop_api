@@ -29,9 +29,7 @@
             "required": true
         },
         "agreggator_id": {
-            "type": "uuid",
-            "minlength": 36,
-            "maxlength": 36,
+            "type": "string",
             "required": true
         },
         "account_id": {
