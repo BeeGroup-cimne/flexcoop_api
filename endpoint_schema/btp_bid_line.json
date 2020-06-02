@@ -21,6 +21,10 @@
 			"maxlength": 36,
 			"required": true
 		},
+		"aggregator_id": {
+			"type": "string",
+			"required": true
+		},
 		"availability": {
 			"type": "integer",
 			"min": 1,

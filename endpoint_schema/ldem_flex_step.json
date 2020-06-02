@@ -1,19 +1,25 @@
 {
-	"item_title": "dr_campaign_baseline_step",
-	"item_lookup_field": "dr_campaign_id",
+	"item_title": "ldem_flex_step",
+	"item_lookup_field": "ldem_id",
 	"item_url": "regex(\"[a-zA-Z0-9-]+\")",
 	"cache_control": "max-age=10,must-revalidate",
 	"cache_expires": 10,
 	"resource_methods": [
-		"POST",
-		"GET"
+	  "POST",
+	  "GET"
 	],
-	"item_methods": [
-		"GET",
-		"DELETE"
+	"item_methods": [    
+	  "GET",
+	  "DELETE"
 	],
 	"schema": {
-		"dr_campaign_id": {
+		"ldem_id": {
+			"type": "uuid",
+			"minlength": 36,
+			"maxlength": 36,
+			"required": true
+		},
+		"account_id": {
 			"type": "uuid",
 			"minlength": 36,
 			"maxlength": 36,
@@ -31,39 +37,29 @@
 			"type": "datetime",
 			"required": true
 		},
-		"flexibility": {
+		"upwards_flex": {
 			"type": "float",
 			"required": true
 		},
-		"ldems": {
+		"downwards_flex": {
+			"type": "float",
+			"required": true
+		},
+		"baseline": {
+			"type": "float",
+			"required": true
+		},
+		"devices": {
 			"type": "list",
 			"required": true,
 			"schema": {
 				"type": "dict",
 				"schema": {
-					"id": {
+					"devices": {
 						"type": "uuid"
-					},
-					"flex": {
-						"type": "float"
 					}
 				}
 			}
-		},
-		"backup_ldems": {
-			"type": "list",
-			"schema": {
-				"type": "dict",
-				"schema": {
-					"id": {
-						"type": "uuid"
-					},
-					"flex": {
-						"type": "float"
-					}
-				}
-			},
-			"required": false
 		}
 	}
 }
