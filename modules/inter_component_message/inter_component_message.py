@@ -108,14 +108,14 @@ def inter_component_message_worker_thread(app):
                                'delivery_failure_response': failure_response,
                                'delivery_failure_message': failure_message}}
             flask.current_app.data.driver.db['interComponentMessage'].update_one({'_id': event['_id']}, update)
-        # Todo: Remove temporary Sprint4 check to keep the message in the DB
-        elif CLIENT_OAUTH == 'fokus':
+        # Todo: Remove temporary Sprint4 variant that keeps the ICM message in the DB
+        else:
             update = {'$set': {'delivery_attempt_time': date_now,
                                'delivery_failure_response': 200,
                                'delivery_failure_message': 'OKAY'}}
             flask.current_app.data.driver.db['interComponentMessage'].update_one({'_id': event['_id']}, update)
-        else:
-            flask.current_app.data.driver.db['interComponentMessage'].delete_one({'_id': event['_id']})
+        # else:
+        #    flask.current_app.data.driver.db['interComponentMessage'].delete_one({'_id': event['_id']})
 
     with app.app_context():
         dump_initial_messages()
@@ -163,7 +163,7 @@ def pre_inter_component_message_GET_callback(request, lookup):
 
 def pre_inter_component_message_POST_callback(request):
     # Todo: Remove temporary Sprint4 check to allow admin POST
-    if request.role == 'admin' and CLIENT_OAUTH == 'fokus':
+    if request.role == 'admin':
         pass
 
     elif request.role != 'service':

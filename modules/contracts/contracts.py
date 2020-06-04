@@ -105,7 +105,7 @@ def pre_patch__contracts(request, lookup):
             pass
 
         # Todo: Remove temporary Sprint4 'admin' allowance to PATCH contracts
-        elif role == 'admin' and CLIENT_OAUTH == 'fokus':
+        elif role == 'admin':
             if 'status' in request.json and request.json['status'] == 'published':
                 # Remove 'date_of_signage' when Admin reset contract back to 'published'
                 query = {'contract_id': request.view_args['contract_id']}
