@@ -249,8 +249,8 @@ pip install -r requirements.txt
    ``` bash
    "{
         'component shortname': {
-            'message_url': 'url where component receives messages',
-            'account_id': 'the account id supplied in a servicetoken' 
+            'message_url': 'endpoint where component receives ICM messages',
+            'account_id': 'the account id supplied in the servicetoken in an ICM from that component' 
         },{...}
    }"
    
