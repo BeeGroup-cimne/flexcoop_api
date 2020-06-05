@@ -55,7 +55,7 @@ def inter_component_message_worker_thread(app):
                 msg = cleanup_message(msg_raw, False)
                 print('|  ', json.dumps(msg, default=datetime_serializer))
 
-        query2 = {"delivery_failure_response": {"$exists": True, "$ne": 100}}
+        query2 = {"delivery_failure_response": {"$exists": True, "$ne": 100, "$ne": 200}}
         errors = flask.current_app.data.driver.db['interComponentMessage'].find(query2)
         if errors.count() > 0:
             print('| There are ', errors.count(), ' rejected interComponentMessage(s) ')
