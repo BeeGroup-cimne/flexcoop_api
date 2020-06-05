@@ -82,20 +82,6 @@ def on_insterted_devices_callback(items):
         ldm_collection.update({'ldem_id': ldem['ldem_id']}, {"$set": ldem})
 
 
-def pre_post_devices_callback(request):
-    if request.role == 'admin':
-        pass
-    else:
-        flask.abort(403, "Access not allowed")
-
-
-def pre_delete_devices_callback(request, lookup):
-    if request.role == 'admin':
-        pass
-    else:
-        flask.abort(403, "Access not allowed")
-
-
 def set_hooks(app):
     app.on_pre_GET_devices += pre_devices_access_control_callback
     app.on_fetched_resource_devices += translate_device_output
@@ -103,6 +89,4 @@ def set_hooks(app):
     app.on_inserted_devices += on_insterted_devices_callback
     app.on_update_devices += on_update_devices_callback
     app.on_fetched_item_devices += translate_device_output
-    app.on_pre_POST_devices += pre_post_devices_callback
-    app.on_pre_DELETE_devices += pre_delete_devices_callback
 
