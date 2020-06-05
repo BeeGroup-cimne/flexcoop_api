@@ -6,13 +6,11 @@
   "cache_control": "max-age=10,must-revalidate",
   "cache_expires": 10,
   "resource_methods": [
-    "GET",
-    "POST"
+    "GET"
   ],
   "item_methods": [
     "GET",
-    "PATCH",
-    "DELETE"
+    "PATCH"
   ],
   "schema": {
     "device_id": {
@@ -126,11 +124,3 @@
     }
   }
 }
-
-
-
-
-
-
-
-
