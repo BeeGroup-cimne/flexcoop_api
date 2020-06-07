@@ -1,5 +1,6 @@
 {
 	"item_title": "ldem_flex_step",
+	"id_field": "ldem_flex_stepId",
 	"item_lookup_field": "ldem_id",
 	"item_url": "regex(\"[a-zA-Z0-9-]+\")",
 	"cache_control": "max-age=10,must-revalidate",
@@ -13,6 +14,12 @@
 	  "DELETE"
 	],
 	"schema": {
+		"ldem_flex_stepId": {
+		  "type": "uuid",
+		  "minlength": 36,
+		  "maxlength": 36,
+		  "required": true
+	  },
 		"ldem_id": {
 			"type": "uuid",
 			"minlength": 36,
