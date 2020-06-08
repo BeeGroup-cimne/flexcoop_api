@@ -1,7 +1,7 @@
 {
 	"item_title": "ldem_flex_step",
 	"id_field": "ldem_flex_stepId",
-	"item_lookup_field": "ldem_id",
+	"item_lookup_field": "device_flex_stepId",
 	"item_url": "regex(\"[a-zA-Z0-9-]+\")",
 	"cache_control": "max-age=10,must-revalidate",
 	"cache_expires": 10,
