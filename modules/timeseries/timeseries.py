@@ -26,6 +26,12 @@ def pre_timeseries_get_callback(request, lookup=None):
         flask.abort(403, "Unknown user role")
 
 
+def pre_raw_data_get_callback(request, lookup=None):
+    role = request.role
+    if role == 'service':
+        pass
+    else:
+        flask.abort(403, "Unknown user role")
 
 
 
@@ -34,3 +40,7 @@ def set_hooks(app):
     app.on_pre_GET_meter += pre_timeseries_get_callback
     app.on_pre_GET_occupancy += pre_timeseries_get_callback
     app.on_pre_GET_device_status += pre_timeseries_get_callback
+    app.on_pre_GET_meter_current += pre_raw_data_get_callback
+    app.on_pre_GET_meter_kwh += pre_raw_data_get_callback
+    app.on_pre_GET_meter_voltage += pre_raw_data_get_callback
+    app.on_pre_GET_meter_watts += pre_raw_data_get_callback
