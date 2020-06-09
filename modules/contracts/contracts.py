@@ -1,5 +1,7 @@
 import flask
 from flexcoop_utils import send_inter_component_message
+from eve.utils import parse_request
+from settings import CLIENT_OAUTH
 
 
 def pre_get__contracts_callback(request, lookup):
@@ -10,12 +12,13 @@ def pre_get__contracts_callback(request, lookup):
     """
     sub = request.account_id
     role = request.role
+    aggregator_id = request.aggregator_id
 
     if role == 'prosumer':
         lookup["account_id"] = sub
 
     elif role == 'aggregator':
-        lookup["agr_id"] = sub
+        lookup["aggregator_id"] = aggregator_id
 
     elif role == 'admin':
         pass
@@ -35,20 +38,56 @@ def pre_get__contracts_callback(request, lookup):
 def pre_patch__contracts(request, lookup):
     sub = request.account_id
     role = request.role
+    aggregator_id = request.aggregator_id
 
-    print('PATCH contract  request: ', request.json)
+    print('PATCH contract  request: ', request.json, 'by', role)
 
     has_error = False
     error_str = ""
-    for entry in ['contract_id', 'start_date', 'end_date', 'agr_id', 'account_id',
-                  'template_id', 'assets', 'contract_type']:
-        if entry in  request.json:
+    for entry in ['contract_id', 'start_date', 'end_date', 'aggregator_id', 'account_id',
+                  'assets', 'contract_type']:
+        if entry in request.json:
             error_str = error_str + entry+','
             has_error = True
 
-    if 'validated' in request.json and (role != 'service' or sub != 'OMP'):
-        error_str = error_str + 'validated'
-        has_error = True
+    if role == 'service' and sub == 'OMP':
+        # Open Marketplace can patch only 'validated', 'status' and 'details.date_of_signage'
+        for key in request.json.keys():
+            if key == 'validated':
+                pass
+            elif key == 'status' and request.json['status'] == 'canceled':
+                pass
+            elif key == 'details':
+                for sub_key in request.json['details'].keys():
+                    if sub_key != 'date_of_signage':
+                        error_str = error_str + 'details.' + sub_key + ','
+                        has_error = True
+            else:
+                error_str = error_str + key + ','
+                has_error = True
+
+    else:
+        # Others can't patch 'validated'
+        if 'validated' in request.json:
+            error_str = error_str + 'validated'
+            has_error = True
+
+        if 'details' in request.json:
+            # Details patches of 'description','notification' and 'date_of_signage' are restricted
+            if 'description' in request.json['details'] and role != 'aggregator':
+                error_str = error_str + 'details.description,'
+                has_error = True
+            if 'notification' in request.json['details'] and role != 'prosumer':
+                error_str = error_str + 'details.notification,'
+                has_error = True
+            if 'date_of_signage' in request.json['details']:
+                error_str = error_str + 'details.date_of_signage,'
+                has_error = True
+
+        # All patches from aggregator or prosumer require a 'timestamp' field
+        if 'timestamp' not in request.json:
+            error_str = error_str + ' missing timestamp'
+            has_error = True
 
     if has_error:
         flask.abort(403, description='PATCH contract of ' + error_str + ' field(s) not allowed')
@@ -60,36 +99,46 @@ def pre_patch__contracts(request, lookup):
 
         elif role == 'aggregator':
             request.json['validated'] = False
-            lookup["agr_id"] = sub
+            lookup["aggregator_id"] = aggregator_id
 
         elif role == 'service' and sub == 'OMP':
             pass
 
+        # Todo: Remove temporary Sprint4 'admin' allowance to PATCH contracts
+        elif role == 'admin':
+            if 'status' in request.json and request.json['status'] == 'published':
+                # Remove 'date_of_signage' when Admin reset contract back to 'published'
+                query = {'contract_id': request.view_args['contract_id']}
+                update = {'$unset': {'details.date_of_signage': ""}}
+                flask.current_app.data.driver.db['contracts'].update_one(query, update)
         else:
             flask.abort(403, description='PATCH contract not allowed for ' + role + ' ' + sub)
 
 
 def post_patch__contracts(request,payload):
-    if payload.status_code == 200:
-        if request.role == 'service' and request.account_id != 'OMP':
-            pass
-
-        elif request.role == 'aggregator':
-            send_inter_component_message(recipient='OMP', msg_type='AGGREGATOR_PATCH',
-                                        json_payload={'contract_id': request.view_args['contract_id'],
-                                                      'patch': request.json})
-        elif request.role == 'prosumer':
-            send_inter_component_message(recipient='OMP', msg_type='PROSUMER_PATCH',
-                                        json_payload={'contract_id': request.view_args['contract_id'],
-                                                      'patch': request.json})
+    if payload.status_code == 200 and (request.role != 'service' or request.account_id != 'OMP'):
+        send_inter_component_message(recipient='OMP', msg_type='PATCH_CONTRACT',
+                                     json_payload={'contract_id': request.view_args['contract_id'],
+                                                   'initiator_sub': request.account_id,
+                                                   'initiator_role': request.role,
+                                                   'initiator_issuer': request.aggregator_id,
+                                                   'prev_state': flask.g.prev_patch_state,
+                                                   'patch': request.json})
 
 
 def pre_post__contracts(request):
     if request.role != 'aggregator':
         flask.abort(403, description='POST contract not allowed for ' + request.role)
 
-    if 'agr_id' in request.json and request.json['agr_id'] != request.account_id:
-        flask.abort(403, description='POST contract agr_id mismatch')
+    aggregator_id = request.aggregator_id
+
+    if 'aggregator_id' in request.json:
+        if request.json['aggregator_id'] != aggregator_id:
+            flask.abort(403, description='POST contract aggregator_id mismatch')
+        else:
+            pass
+    else:
+        request.json['aggregator_id'] = aggregator_id
 
     if 'contract_id' in request.json:
         id_check = {"contract_id": {"$eq": request.json['contract_id']}}
@@ -116,6 +165,27 @@ def pre_delete__contracts(request, lookup):
         flask.abort(403, description='DELETE contract not allowed for ' + request.role)
 
 
+def update__contracts(updates, original):
+    #print('update__contracts  upd=', updates)
+    #print('update__contracts  org=', original)
+
+    # 1) For all modified fields, copy the previous state from DB
+    prev_state = {}
+    for key in updates:
+        if key == 'details':
+            prev_state[key] = {}
+            for d_key in updates['details']:
+                if d_key in original['details']:
+                    prev_state['details'][d_key] = original['details'][d_key]
+        elif key[0] != '_' and key in original:
+            prev_state[key] = original[key]
+    if 'validated' not in updates and 'validated' in original:
+        prev_state['validated'] = original['validated']
+
+    # 2) Store the previous state in current context to be retrieved in post_patch__contracts()
+    flask.g.prev_patch_state = prev_state
+
+
 def set_hooks(app):
     app.on_pre_GET_contracts += pre_get__contracts_callback
     app.on_pre_PATCH_contracts += pre_patch__contracts
@@ -123,3 +193,4 @@ def set_hooks(app):
     app.on_pre_POST_contracts += pre_post__contracts
     app.on_post_POST_contracts += post_post__contracts
     app.on_pre_DELETE_contracts += pre_delete__contracts
+    app.on_update_contracts += update__contracts

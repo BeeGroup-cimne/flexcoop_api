@@ -10,7 +10,7 @@ from eve.auth import TokenAuth
 from flask import request
 from requests import RequestException
 
-from settings import OAUTH_PROVIDERS
+from settings import OAUTH_PROVIDERS, CLIENT_OAUTH
 
 
 class KeyCache(object):
@@ -85,6 +85,7 @@ class JWTokenAuth(TokenAuth):
             issuer = ""
         # TODO:____________KONAMI CODE END______________________
         if sub is None:
+            mw_oauth = OAUTH_PROVIDERS[CLIENT_OAUTH]['url']
             jwt = JWT()
             keys_cache = KeyCache(OAUTH_PROVIDERS, timedelta(minutes=10))
             keys = keys_cache.get_keys()
@@ -113,8 +114,13 @@ class JWTokenAuth(TokenAuth):
                     return False
                 if issuer != key['iss']:
                     return False
+                # Roles different to prosumer or aggregator (like 'service' or 'admin') are only accepted
+                # if issued by the middleware's oAuth server
+                if role != 'prosumer' and role != 'aggregator' and issuer != mw_oauth:
+                    return False
+
         if sub is None:
-            raise AuthenticationException("No role was detected, this should not happen")
+            raise AuthenticationException("No sub was detected, this should not happen")
 
         if issuer is None:  # make sure the code above has catched all conditions
             raise AuthenticationException("No issuer was detected, this should not happen")

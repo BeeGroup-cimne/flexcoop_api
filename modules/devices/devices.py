@@ -19,6 +19,8 @@ def pre_devices_access_control_callback(request, lookup=None):
 
     elif role == 'service':
         pass
+    elif role == 'admin':
+        pass
     else:
         flask.abort(403, "Unknown user role")
 
@@ -31,10 +33,12 @@ def translate_device_output(response):
         return
     for item in items:
         db_item = current_app.data.driver.db['devices'].find_one({"device_id": item['device_id']})
-        item['device_class'] = db_item['rid']
-        item['ven_id'] = current_app.data.driver.db['virtual_end_node'].find_one({"account_id": item["account_id"]})['ven_id']
-        for k, v in item['status'].items():
-            item['status'][k] = v['value'] if v['value'] else 0
+        if 'rid' in db_item:
+            item['device_class'] = db_item['rid']
+            item['ven_id'] = current_app.data.driver.db['virtual_end_node'].find_one({"account_id": item["account_id"]})['ven_id']
+            for k, v in item['status'].items():
+                item['status'][k] = v['value'] if v['value'] else 0
+
 
 def on_update_devices_callback(updates, original):
     # Only allow the modification of non OSB fields
@@ -52,7 +56,11 @@ def on_insterted_devices_callback(items):
     if item:
         account_id = item['account_id']
         aggregator_id = item['aggregator_id']
-        ven_id = current_app.data.driver.db['virtual_end_node'].find_one({"account_id": item["account_id"]})['ven_id']
+        endnode = current_app.data.driver.db['virtual_end_node'].find_one({"account_id": item["account_id"]})
+        ven_id = ""
+        if endnode:
+            ven_id = endnode['ven_id']
+
     else:
         return
     # To get all the identifiers of existing devices for that user

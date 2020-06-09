@@ -4,7 +4,7 @@ import requests
 import json
 import datetime
 from flexcoop_utils import ServiceToken
-from settings import INTERCOMPONENT_SETTINGS
+from settings import INTERCOMPONENT_SETTINGS, CLIENT_OAUTH
 from requests.exceptions import ConnectionError
 
 inter_component_message_event = threading.Event()
@@ -55,7 +55,7 @@ def inter_component_message_worker_thread(app):
                 msg = cleanup_message(msg_raw, False)
                 print('|  ', json.dumps(msg, default=datetime_serializer))
 
-        query2 = {"delivery_failure_response": {"$exists": True, "$ne": 100}}
+        query2 = {"delivery_failure_response": {"$exists": True, "$ne": 100, "$ne": 200}}
         errors = flask.current_app.data.driver.db['interComponentMessage'].find(query2)
         if errors.count() > 0:
             print('| There are ', errors.count(), ' rejected interComponentMessage(s) ')
@@ -81,7 +81,7 @@ def inter_component_message_worker_thread(app):
             url = INTERCOMPONENT_SETTINGS[recipient]['message_url']
 
             token = ServiceToken().get_token()
-            headers = {'accept': 'application/xml', 'Authorization': token, "Content-Type": "application/json"}
+            headers = {'accept': 'application/json', 'Authorization': token, "Content-Type": "application/json"}
             try:
                 json_string = json.dumps(msg, default=datetime_serializer)
                 response = requests.post(url, headers=headers, data=json_string)
@@ -108,8 +108,14 @@ def inter_component_message_worker_thread(app):
                                'delivery_failure_response': failure_response,
                                'delivery_failure_message': failure_message}}
             flask.current_app.data.driver.db['interComponentMessage'].update_one({'_id': event['_id']}, update)
+        # Todo: Remove temporary Sprint4 variant that keeps the ICM message in the DB
         else:
-            flask.current_app.data.driver.db['interComponentMessage'].delete_one({'_id': event['_id']})
+            update = {'$set': {'delivery_attempt_time': date_now,
+                               'delivery_failure_response': 200,
+                               'delivery_failure_message': 'OKAY'}}
+            flask.current_app.data.driver.db['interComponentMessage'].update_one({'_id': event['_id']}, update)
+        # else:
+        #    flask.current_app.data.driver.db['interComponentMessage'].delete_one({'_id': event['_id']})
 
     with app.app_context():
         dump_initial_messages()
@@ -140,10 +146,15 @@ def log_inter_component_message_error(info):
     print(date_now.strftime("%d.%b %Y %H:%M:%S") + '  ' + info);
 
 
+def find_service_for_recipient(account_id):
+    for key in INTERCOMPONENT_SETTINGS:
+        if 'account_id' in INTERCOMPONENT_SETTINGS[key] and account_id == INTERCOMPONENT_SETTINGS[key]['account_id']:
+            return key
+    return 'unknown'
+
+
 def pre_inter_component_message_GET_callback(request, lookup):
-    if request.role == 'service':
-        lookup["recipient_id"] = request.account_id
-    elif request.role == 'admin':
+    if request.role == 'admin':
         pass
     else:
         log_inter_component_message_error(' ICM pre GET : not allowed for '+request.role)
@@ -151,7 +162,11 @@ def pre_inter_component_message_GET_callback(request, lookup):
 
 
 def pre_inter_component_message_POST_callback(request):
-    if request.role != 'service':
+    # Todo: Remove temporary Sprint4 check to allow admin POST
+    if request.role == 'admin':
+        pass
+
+    elif request.role != 'service':
         log_inter_component_message_error(' ICM pre POST : not allowed for '+request.role)
         flask.abort(403, 'wrong role')
 
@@ -168,9 +183,7 @@ def pre_inter_component_message_POST_callback(request):
 
 
 def pre_inter_component_message_DELETE_callback(request, lookup):
-    if request.role == 'service':
-        lookup["recipient_id"] = request.account_id
-    elif request.role == 'admin':
+    if request.role == 'admin':
         pass
     else:
         log_inter_component_message_error(' ICM pre DELETE : not allowed for '+request.role)
