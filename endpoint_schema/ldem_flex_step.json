@@ -5,15 +5,22 @@
 	"item_url": "regex(\"[a-zA-Z0-9-]+\")",
 	"cache_control": "max-age=10,must-revalidate",
 	"cache_expires": 10,
-	"aggregation":{
-    "index_field" : "start",
-    "aggregate_fields" : {
+	"aggregation": {
+		"index_field": "start",
+		"aggregate_fields": {
 			"baseline": "SUM",
 			"downwards_flex": "SUM",
-			"upwards_flex": "SUM"		
+			"upwards_flex": "SUM"
 		},
-		"groupBy": "device_id",
-		"add_fields": ["ldem_flex_stepId", "ldem_id", "account_id", "aggregator_id", "devices"],
+		"groupby": "device_id",
+		"add_fields": [
+			"ldem_flex_stepId",
+			"ldem_id",
+			"account_id",
+			"aggregator_id",
+			"devices"
+		]
+	},
 	"resource_methods": [
 	  "POST",
 	  "GET"
@@ -24,11 +31,11 @@
 	],
 	"schema": {
 		"ldem_flex_stepId": {
-		  "type": "uuid",
-		  "minlength": 36,
-		  "maxlength": 36,
-		  "required": true
-	  },
+			"type": "uuid",
+			"minlength": 36,
+			"maxlength": 36,
+			"required": true
+		},
 		"ldem_id": {
 			"type": "uuid",
 			"minlength": 36,
