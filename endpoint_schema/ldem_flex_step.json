@@ -18,7 +18,8 @@
 			"ldem_id",
 			"account_id",
 			"aggregator_id",
-			"devices"
+			"devices",
+			"end"
 		]
 	},
 	"resource_methods": [

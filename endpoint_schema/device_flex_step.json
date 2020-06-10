@@ -22,7 +22,8 @@
 			"aggregator_id",
 			"rampingUp",
 			"deliveryPeriod",
-			"deactivationPeriod"
+			"deactivationPeriod",
+			"end"
 		]
 	},
 	"resource_methods": [
@@ -44,6 +45,16 @@
 			"type": "uuid",
 			"minlength": 36,
 			"maxlength": 36,
+			"required": true
+		},
+		"device_class": {
+			"type": "string",
+			"allowed": [
+				"hvacDevice",
+				"lightingLoad",
+				"dhwDevice",
+				"otherLoad"
+			],
 			"required": true
 		},
 		"ven_id": {
