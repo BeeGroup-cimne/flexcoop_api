@@ -41,7 +41,7 @@ def inter_component_message_worker_thread(app):
 
     def datetime_serializer(obj):
         if isinstance(obj, (datetime.date, datetime.datetime)):
-            return obj.replace(tzinfo=None).isoformat(timespec='milliseconds')+'Z'
+            return obj.replace(tzinfo=None).strftime("%Y-%m-%dT%H:%M:%S.%fZ")
         else:
             raise TypeError("Type %s not serializable" % type(obj))
 

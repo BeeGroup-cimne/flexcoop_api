@@ -94,11 +94,9 @@ def pre_patch__contracts(request, lookup):
 
     else:
         if role == 'prosumer':
-            request.json['validated'] = False
             lookup["account_id"] = sub
 
         elif role == 'aggregator':
-            request.json['validated'] = False
             lookup["aggregator_id"] = aggregator_id
 
         elif role == 'service' and sub == 'OMP':
@@ -181,6 +179,7 @@ def update__contracts(updates, original):
             prev_state[key] = original[key]
     if 'validated' not in updates and 'validated' in original:
         prev_state['validated'] = original['validated']
+        updates['validated'] = False
 
     # 2) Store the previous state in current context to be retrieved in post_patch__contracts()
     flask.g.prev_patch_state = prev_state
