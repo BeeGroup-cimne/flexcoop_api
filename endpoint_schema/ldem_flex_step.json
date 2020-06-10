@@ -5,6 +5,15 @@
 	"item_url": "regex(\"[a-zA-Z0-9-]+\")",
 	"cache_control": "max-age=10,must-revalidate",
 	"cache_expires": 10,
+	"aggregation":{
+    "index_field" : "start",
+    "aggregate_fields" : {
+			"baseline": "SUM",
+			"downwards_flex": "SUM",
+			"upwards_flex": "SUM"		
+		},
+		"groupBy": "device_id",
+		"add_fields": ["ldem_flex_stepId", "ldem_id", "account_id", "aggregator_id", "devices"],
 	"resource_methods": [
 	  "POST",
 	  "GET"

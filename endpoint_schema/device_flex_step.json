@@ -4,7 +4,16 @@
   "item_lookup_field": "device_flex_stepId",
   "item_url": "regex(\"[a-zA-Z0-9-]+\")",
   "cache_control": "max-age=10,must-revalidate",
-  "cache_expires": 10,
+	"cache_expires": 10,
+	"aggregation":{
+    "index_field" : "start",
+    "aggregate_fields" : {
+			"baseline": "SUM",
+			"downwards_flex": "SUM",
+			"upwards_flex": "SUM"		
+		},
+		"groupBy": "device_id",
+		"add_fields": ["device_flex_stepId", "device_id", "ven_id", "ldem_id", "account_id", "aggregator_id", "rampingUp", "deliveryPeriod", "deactivationPeriod"],
   "resource_methods": [
     "POST",
     "GET"
