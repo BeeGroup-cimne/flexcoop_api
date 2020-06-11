@@ -16,14 +16,14 @@
 		"add_fields": [
 			"device_flex_stepId",
 			"device_id",
+			"device_class",
 			"ven_id",
 			"ldem_id",
 			"account_id",
 			"aggregator_id",
 			"rampingUp",
 			"deliveryPeriod",
-			"deactivationPeriod",
-			"end"
+			"deactivationPeriod"
 		]
 	},
 	"resource_methods": [
@@ -92,10 +92,6 @@
 			"required": true
 		},
 		"start": {
-			"type": "datetime",
-			"required": true
-		},
-		"end": {
 			"type": "datetime",
 			"required": true
 		},

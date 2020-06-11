@@ -18,8 +18,7 @@
 			"ldem_id",
 			"account_id",
 			"aggregator_id",
-			"devices",
-			"end"
+			"devices"
 		]
 	},
 	"resource_methods": [
@@ -54,10 +53,6 @@
 			"required": true
 		},
 		"start": {
-			"type": "datetime",
-			"required": true
-		},
-		"end": {
 			"type": "datetime",
 			"required": true
 		},
