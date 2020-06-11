@@ -25,6 +25,16 @@
       "maxlength": 256,
       "required": true
     },
+    "ven_id": {
+      "type": "uuid",
+      "minlength": 36,
+      "maxlength": 36,
+      "required": true
+    },
+    "weather_station": {
+      "type": "string",
+      "required": true
+    },
     "has_pv": {
       "type": "string",
       "allowed": [
@@ -35,20 +45,29 @@
       "default": "no"
     },
     "hvac_max_power": {
-      "type": "float",
-      "required": false
+      "type": "list",
+      "required": true,
+      "schema": {
+        "type": "dict",
+        "schema": {
+          "device_id": {
+            "type": "uuid"
+          },
+          "max_power": {
+            "type": "float"
+          }
+        }
+      }
     },
     "tariff": {
       "type": "string",
+      "allowed": [
+        "2.0DHA",
+        "2.1DHA",
+        "2.0A",
+        "other"
+      ],
       "required": false
     }
   }
 }
-
-
-
-
-
-
-
-
