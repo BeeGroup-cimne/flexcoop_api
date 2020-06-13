@@ -56,10 +56,6 @@
 			"type": "datetime",
 			"required": true
 		},
-		"end": {
-			"type": "datetime",
-			"required": true
-		},
 		"upwards_flex": {
 			"type": "float",
 			"required": true
