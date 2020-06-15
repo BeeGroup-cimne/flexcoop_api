@@ -93,6 +93,12 @@ def pre_patch__contracts(request, lookup):
         flask.abort(403, description='PATCH contract of ' + error_str + ' field(s) not allowed')
 
     else:
+        if role == 'prosumer' or role == 'aggregator':
+            query = {"contract_id": request.view_args['contract_id']}
+            contract = flask.current_app.data.driver.db['contracts'].find_one(query)
+            if contract and 'validated' in contract and not contract['validated']:
+                flask.abort(409, description='PATCH of contract in state validated=False not allowed')
+
         if role == 'prosumer':
             lookup["account_id"] = sub
 

@@ -262,7 +262,12 @@ pip install -r requirements.txt
    ```
    Look carefully the single and double quotes used in the variable value for "OAUTH_PROVIDERS" and "INTERCOMPONENT_SETTINGS"
 
-      
+   
+   The optional boolean environment variable ICM_WORKER_THREAD controls, if the interComponentMessage worker thread 
+   is started. If not specified, ICM_WORKER_THREAD defaults to 'True'. Set it to 'False' on local instances will 
+   prevent delivery attempts from that instance when the DB changed (for the 'real' instance). 
+   
+    
    To be able to run several components on a single computer, the host port can be specified by an optional environment variable: 
    ```bash
    export HOST_PORT=8081
