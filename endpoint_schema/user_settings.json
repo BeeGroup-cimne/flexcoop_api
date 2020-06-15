@@ -6,6 +6,7 @@
   "cache_control": "max-age=10,must-revalidate",
   "cache_expires": 10,
   "resource_methods": [
+    "POST",
     "GET"
   ],
   "item_methods": [

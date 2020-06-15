@@ -12,7 +12,7 @@
 			"downwards_flex": "SUM",
 			"upwards_flex": "SUM"
 		},
-		"groupby": "device_id",
+		"groupby": "ldem_id",
 		"add_fields": [
 			"ldem_flex_stepId",
 			"ldem_id",
