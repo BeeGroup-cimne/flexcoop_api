@@ -4,7 +4,7 @@ import requests
 import json
 import datetime
 from flexcoop_utils import ServiceToken
-from settings import INTERCOMPONENT_SETTINGS, CLIENT_OAUTH
+from settings import INTERCOMPONENT_SETTINGS, ICM_WORKER_THREAD
 from requests.exceptions import ConnectionError
 
 inter_component_message_event = threading.Event()
@@ -191,7 +191,8 @@ def pre_inter_component_message_DELETE_callback(request, lookup):
 
 
 def post_inter_component_message_INSERTED_callback(items):
-    inter_component_message_event.set()
+    if ICM_WORKER_THREAD:
+        inter_component_message_event.set()
 
 
 def set_hooks(app):
@@ -200,6 +201,9 @@ def set_hooks(app):
     app.on_pre_DELETE_interComponentMessage += pre_inter_component_message_DELETE_callback
     app.on_inserted_interComponentMessage += post_inter_component_message_INSERTED_callback
 
-    log_inter_component_message_error('Starting worker thread: interComponentMessage')
-    tp_thread = threading.Thread(target= inter_component_message_worker_thread, args=(app,), daemon=True)
-    tp_thread.start()
+    if ICM_WORKER_THREAD:
+        log_inter_component_message_error('Starting worker thread: interComponentMessage')
+        tp_thread = threading.Thread(target= inter_component_message_worker_thread, args=(app,), daemon=True)
+        tp_thread.start()
+    else:
+        log_inter_component_message_error('Configured to NOT start the interComponentMessage worker thread')

@@ -33,3 +33,7 @@ CLIENT_OAUTH = os.environ['CLIENT_OAUTH']
 STANDARD_ERRORS = [400, 401, 403, 404, 405, 406, 409, 410, 412, 422, 428, 429]
 
 INTERCOMPONENT_SETTINGS = ast.literal_eval(os.environ['INTERCOMPONENT_SETTINGS'])
+
+ICM_WORKER_THREAD = True
+if 'ICM_WORKER_THREAD' in os.environ:
+    ICM_WORKER_THREAD = ast.literal_eval(os.environ['ICM_WORKER_THREAD'])
