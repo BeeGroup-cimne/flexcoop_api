@@ -29,6 +29,9 @@
 			"type": "datetime",
 			"required": true
 		},
+		"last_update": {
+			"type": "datetime"
+		},
 		"status": {
 			"type": "string",
 			"allowed": ["created", "placed"],

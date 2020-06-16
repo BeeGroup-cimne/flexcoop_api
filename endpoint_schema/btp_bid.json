@@ -8,7 +8,8 @@
 		"GET"
 	],
 	"item_methods":[
-		"GET"
+		"GET",
+		"PATCH"
 	],
 	"schema": {
 		"btp_messageId": {
@@ -47,6 +48,9 @@
 		"power": {
 			"type": "integer",
 			"required": true
+		},
+		"last_update": {
+			"type": "datetime"
 		},
 		"ramping_rate": {
 			"type": "float",
