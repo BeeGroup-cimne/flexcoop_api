@@ -1,24 +1,25 @@
 {
 	"item_title": "btp_message",
-	"id_field": "bid_id",
-	"item_lookup_field": "bid_id",
+	"id_field": "btp_messageId",
+	"item_lookup_field": "btp_messageId",
 	"cache_control": "max-age=10,must-revalidate",
 	"cache_expires": 10,
 	"resource_methods": [
 		"POST",
-		"GET",
-		"DELETE"
+		"GET"
 	],
 	"item_methods":[
 		"GET",
-		"PATCH"
+		"PATCH",
+		"DELETE"
 	],
 	"schema": {
-		"bid_id": {
+		"btp_messageId": {
 			"type": "uuid",
 			"minlength": 36,
 			"maxlength": 36,
-			"required": true
+			"required": true,
+			"unique": true
 		},
 		"aggregator_id": {
 			"type": "string",
@@ -46,16 +47,11 @@
 				"maxlength": 36
 			},
 			"request": {
-				"type": "integer",
-				"required": true
+				"type": "integer"
 			},
 			"date_of_delivery": {
 				"type": "datetime",
 				"required": true
-			},			
-			"btp_bid": {
-				"type": "list",
-				"items": [{"type": "uuid"}]
 			}
 		}
 	}
