@@ -8,7 +8,7 @@
 		"POST",
 		"GET"
 	],
-	"item_methods":[
+	"item_methods": [
 		"GET",
 		"PATCH",
 		"DELETE"
@@ -34,15 +34,18 @@
 		},
 		"status": {
 			"type": "string",
-			"allowed": ["created", "placed"],
-			"required": true					
-        },
+			"allowed": [
+				"created",
+				"placed"
+			],
+			"required": true
+		},
 		"btp_message": {
 			"bsp": {
 				"type": "uuid",
 				"minlength": 36,
 				"maxlength": 36,
-				"required": true				
+				"required": true
 			},
 			"brp": {
 				"type": "uuid",

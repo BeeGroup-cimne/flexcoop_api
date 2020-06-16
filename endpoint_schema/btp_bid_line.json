@@ -34,7 +34,15 @@
 			"max": 100,
 			"required": true
 		},
+		"start": {
+			"type": "datetime",
+			"required": true
+		},
 		"bid_price": {
+			"type": "float",
+			"required": true
+		},
+		"bid_flexibility": {
 			"type": "float",
 			"required": true
 		},

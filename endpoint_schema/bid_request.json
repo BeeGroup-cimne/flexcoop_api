@@ -28,6 +28,10 @@
       "type": "datetime",
       "required": true
     },
+    "aggregator_id": {
+			"type": "string",
+			"required": true
+		},
     "bid_source": {
       "type": "string",
       "allowed": [
