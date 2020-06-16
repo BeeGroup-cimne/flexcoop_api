@@ -84,8 +84,7 @@
 			"required": true
 		},
 		"deliveryPeriod": {
-			"type": "float",
-			"required": true
+			"type": "float"
 		},
 		"deactivationPeriod": {
 			"type": "float",
