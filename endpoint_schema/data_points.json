@@ -19,6 +19,11 @@
       "required": true,
       "unique": true
     },
+    "device_name": {
+      "type": "string",
+      "required": true,
+      "default": "NO NAME"
+    },
     "account_id": {
       "type": "uuid",
       "minlength": 36,
