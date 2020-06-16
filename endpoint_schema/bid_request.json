@@ -24,6 +24,10 @@
       "type": "datetime",
       "required": true
     },
+    "date_of_delivery": {
+      "type": "datetime",
+      "required": true
+    },
     "bid_source": {
       "type": "string",
       "allowed": [
