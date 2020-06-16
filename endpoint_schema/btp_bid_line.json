@@ -17,6 +17,12 @@
 			"maxlength": 36,
 			"required": true
 		},
+		"reference": {
+			"type": "uuid",
+			"minlength": 36,
+			"maxlength": 36,
+			"required": true
+		},
 		"aggregator_id": {
 			"type": "string",
 			"required": true
