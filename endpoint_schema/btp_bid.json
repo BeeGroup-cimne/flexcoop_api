@@ -50,8 +50,6 @@
 		},
 		"power": {
 			"type": "integer",
-			"min": -999,
-			"max": 999,
 			"required": true
 		},
 		"ramping_rate": {
