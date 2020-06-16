@@ -9,7 +9,7 @@ MONGO_PASSWORD = os.environ['MONGO_PASSWORD']
 MONGO_DBNAME = os.environ['MONGO_DBNAME']
 
 RENDERERS = [
-    'eve.render.JSONRenderer',
+    'eve_customization.render.NaNJSONRenderer',
     'eve.render.XMLRenderer'
 ]
 
