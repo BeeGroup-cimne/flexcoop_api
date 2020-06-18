@@ -35,29 +35,33 @@
 		"status": {
 			"type": "string",
 			"allowed": [
-				"created",
-				"placed"
+				"placed",
+				"modified",
+				"activated"
 			],
 			"required": true
 		},
 		"btp_message": {
-			"bsp": {
-				"type": "uuid",
-				"minlength": 36,
-				"maxlength": 36,
-				"required": true
-			},
-			"brp": {
-				"type": "uuid",
-				"minlength": 36,
-				"maxlength": 36
-			},
-			"request": {
-				"type": "integer"
-			},
-			"date_of_delivery": {
-				"type": "datetime",
-				"required": true
+			"type": "dict",
+			"schema": {
+				"bsp": {
+					"type": "uuid",
+					"minlength": 36,
+					"maxlength": 36,
+					"required": true
+				},
+				"brp": {
+					"type": "uuid",
+					"minlength": 36,
+					"maxlength": 36
+				},
+				"request": {
+					"type": "integer"
+				},
+				"date_of_delivery": {
+					"type": "datetime",
+					"required": true
+				}
 			}
 		}
 	}
