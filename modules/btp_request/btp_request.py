@@ -33,9 +33,9 @@ def on_deleted_btp_request_callback(item):
         btp_messageId = item['btp_requestId']
     else:
         return
-    bid_message_collection.delete_many({"btp_messageId" :  btp_requestId})
-    bid_collection.delete_many({"btp_messageId" :  btp_requestId})
-    bid_line_collection.delete_many({"btp_messageId" :  btp_requestId})
+    bid_message_collection.delete_many({"btp_messageId" :  btp_messageId})
+    bid_collection.delete_many({"btp_messageId" :  btp_messageId})
+    bid_line_collection.delete_many({"btp_messageId" :  btp_messageId})
 
 
 def set_hooks(app):
