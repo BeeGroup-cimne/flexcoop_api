@@ -4,11 +4,11 @@ import flask
 import requests
 from flask import current_app
 
-from flexcoop_utils import get_middleware_token
+from flexcoop_utils import ServiceToken
 
 cert = False #"/path/to/cert"
 
-def pre_dr_campaign_strategy_access_control_callback(request, lookup):
+def pre_dr_campaign_strategy_access_control_callback(request, lookup=None):
     account_id = request.account_id
     role = request.role
     aggregator_id = request.aggregator_id

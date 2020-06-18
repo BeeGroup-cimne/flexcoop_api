@@ -1,0 +1,175 @@
+{
+  "item_title": "contracts",
+  "id_field": "contract_id",
+  "item_lookup_field": "contract_id",
+  "cache_control": "max-age=10,must-revalidate",
+  "cache_expires": 10,
+  "item_url": "regex(\"[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}\")",
+  "resource_methods": [
+    "GET",
+    "POST"
+  ],
+  "item_methods": [
+    "GET",
+    "PATCH",
+    "DELETE"
+  ],
+  "schema": {
+    "contract_id": {
+      "type": "uuid",
+      "minlength": 36,
+      "maxlength": 36,
+      "required": true
+    },
+    "start_date": {
+      "type": "datetime",
+      "required": true
+    },
+    "end_date": {
+      "type": "datetime",
+      "required": true
+    },
+    "aggregator_id": {
+      "type": "string",
+      "minlength": 3,
+      "maxlength": 256,
+      "required": false
+    },
+    "account_id": {
+      "type": "uuid",
+      "minlength": 36,
+      "maxlength": 36,
+      "required": true
+    },
+    "details": {
+      "type": "dict",
+      "anyof": [
+        {
+          "schema": {
+            "description": {
+              "type": "string"
+            },
+            "existing_pv": {
+              "type": "boolean"
+            },
+            "notification" : {
+              "type": "string",
+              "regex": "^(every_DR_event|daily_report|weekly_report|monthly_report|never)$"
+            },
+            "date_of_signage": {
+              "type": "datetime"
+            },
+            "ct_down": {
+              "type": "float",
+              "min" : 0,
+              "required" : true
+            },
+            "ct_downND": {
+              "type": "float",
+              "min" : 0,
+              "required" : true
+            },
+            "ct_downNAD": {
+              "type": "float",
+              "min" : 0,
+              "required" : true
+            },
+            "ct_up": {
+              "type": "float",
+              "min" : 0,
+              "required" : true
+            },
+            "ct_upND": {
+              "type": "float",
+              "min" : 0,
+              "required" : true
+            },
+            "ct_upNAD": {
+              "type": "float",
+              "min" : 0,
+              "required" : true
+            },
+           "fix_cost": {
+              "type": "float",
+              "min" : 0,
+              "required" : true
+            },
+            "service_cost": {
+              "type": "float",
+              "min" : 0,
+              "required" : true
+            },
+            "maximum_power": {
+              "type": "float",
+              "min" : 0,
+              "required" : true
+            },
+            "maximum_number": {
+              "type": "integer",
+              "min" : 1,
+              "required" : true
+            }
+          }
+        },
+        {
+          "schema": {
+            "description": {
+              "type": "string"
+            },
+            "existing_pv": {
+              "type": "boolean"
+            },
+            "notification" : {
+              "type": "string",
+              "regex": "^(every_DR_event|daily_report|weekly_report|monthly_report|never)$"
+            },
+            "date_of_signage": {
+              "type": "datetime"
+            },
+            "maximum_power": {
+              "type": "float",
+              "min" : 0,
+              "required" : true
+            },
+            "maximum_number": {
+              "type": "integer",
+              "min" : 1,
+              "required" : true
+            },
+            "service_cost": {
+              "type": "float",
+              "min" : 0,
+              "required" : true
+            }
+          }
+        }
+      ],
+      "required": true
+    },
+    "status": {
+      "type": "string",
+      "regex": "^(published|edited_by_prosumer|edited_by_aggregator|on_hold|active|canceled|ended)$",
+      "required": true
+    },
+    "validated": {
+      "type": "boolean"
+    },
+    "assets": {
+      "type": "list",
+      "schema": {
+        "type": "uuid"
+      },
+      "minlength": 1,
+      "required": true
+    },
+    "contract_type": {
+      "type": "string",
+      "regex": "^(money_for_flex|savings_for_flex|more_sun_energy_at_home|more_energy_efficiency_at_home)$",
+      "required": true
+    },
+    "timestamp": {
+      "type": "datetime",
+      "required": true
+    }
+  }
+}

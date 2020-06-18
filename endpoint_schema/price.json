@@ -1,0 +1,33 @@
+{
+  "item_title": "price",
+  "cache_control": "max-age=10,must-revalidate",
+  "cache_expires": 10,
+  "aggregation":{
+    "index_field" : "timestamp",
+    "aggregate_fields" : {
+      "20A": "SUM",
+      "20DH": "SUM"
+    },
+    "groupby": "country",
+    "add_fields": ["country"]
+  },
+  "resource_methods": [
+    "GET"
+  ],
+  "item_methods": [],
+  "schema": {
+    "country": {
+      "type": "string"
+    },
+    "timestamp": {
+      "type": "datetime",
+      "required": true
+    },
+    "20A" : {
+      "type": "float"
+    },
+    "20DH" : {
+      "type": "float"
+    }
+  }
+}

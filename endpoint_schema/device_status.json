@@ -1,0 +1,57 @@
+{
+  "item_title": "device_status",
+  "cache_control": "max-age=10,must-revalidate",
+  "cache_expires": 10,
+  "resource_methods": [
+    "GET"
+  ],
+  "item_methods": [],
+  "schema": {
+    "device_id": {
+      "type": "uuid",
+      "minlength": 36,
+      "maxlength": 36,
+      "required": true,
+      "unique": true
+    },
+    "account_id": {
+      "type": "uuid",
+      "minlength": 36,
+      "maxlength": 36,
+      "required": true
+    },
+    "aggregator_id": {
+      "type": "string",
+      "minlength": 3,
+      "maxlength": 256,
+      "required": true
+    },
+    "device_class": {
+      "type": "string",
+      "allowed": [
+        "hvacDevice",
+        "lightingLoad",
+        "dhwDevice",
+        "otherLoad"
+      ],
+      "required": true
+    },
+    "timestamp": {
+      "type": "datetime",
+      "required": true
+    },
+    "operation_state" : {
+      "type": "string",
+      "allowed": ["0.0", "1.0"]
+    },
+    "fanspeed":  {
+      "type": "float"
+    },
+    "mode": {
+      "type": "float"
+    },
+    "set_point": {
+      "type": "float"
+    }
+  }
+}

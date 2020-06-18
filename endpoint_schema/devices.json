@@ -20,6 +20,11 @@
       "required": true,
       "unique": true
     },
+    "device_name": {
+      "type": "string",
+      "required": true,
+      "default": "NO NAME"
+    },
     "status": {
       "type": "dict",
       "schema": {
@@ -40,7 +45,6 @@
             ]
         },
         "operationState": {
-
           "type": "string",
           "allowed": [
             "0",
@@ -55,10 +59,16 @@
       "maxlength": 36,
       "required": true
     },
-    "aggregator_id": {
-      "type": "string",
+    "ven_id": {
+      "type": "uuid",
       "minlength": 36,
       "maxlength": 36,
+      "required": true
+    },
+    "aggregator_id": {
+      "type": "string",
+      "minlength": 3,
+      "maxlength": 256,
       "required": true
     },
 
@@ -78,53 +88,44 @@
       "allowed": [
         "yes",
         "no",
-        "unknown"
+        ""
       ],
       "required": true
+    },
+    "marketplace_availability": {
+      "type": "string",
+      "allowed": [
+        "yes",
+        "no"
+      ],
+      "required": false
+    },
+    "dr_availability": {
+      "type": "string",
+      "allowed": [
+        "yes",
+        "no"
+      ],
+      "required": false
     },
     "location": {
       "type": "point",
       "minlength": 1,
       "maxlength": 36,
-      "required": true
+      "required": false
     },
     "device_type": {
       "type": "string",
       "allowed": ["Demand","Generation","Storage"],
-      "required": true
+      "required": false
     },
     "max_capacity": {
       "type": "float",
-      "required": true
+      "required": false
     },
     "available_capacity": {
       "type": "float",
-      "required": true
-    },
-    "cluster_id": {
-      "type": "uuid",
-      "minlength": 36,
-      "maxlength": 36,
-      "required": false
-    },
-    "cluster_type": {
-      "type": "string",
-      "allowed": ["Cluster","TBD"],
-      "required": false
-    },
-    "vpp_id": {
-      "type": "uuid",
-      "minlength": 36,
-      "maxlength": 36,
       "required": false
     }
   }
 }
-
-
-
-
-
-
-
-

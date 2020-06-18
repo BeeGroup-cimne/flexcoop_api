@@ -216,12 +216,13 @@ pip install -r requirements.txt
    export MONGO_USERNAME='<mongo_username>'
    export MONGO_PASSWORD='<mongo_password>'
    export MONGO_DBNAME='<mongo_database>'
-   export OAUTH_PROVIDERS="<valid_oauth_providers" 
+   export OAUTH_PROVIDERS="<valid_oauth_providers>" 
    export CLIENT_OAUTH='service_provider_oauth_name'
    export CLIENT='client_id_of_this_project_in_client_oauth'
    export SECRET='secret_id_of_this_project_in_client_oauth'
    export NOTIFICATION_OPENADR_URL="url_to_notify_openADR_of_actions"
    export NOTIFICATION_OPENADR_CERT="cert_of_openadr_url"
+   export INTERCOMPONENT_SETTINGS="<inter_component_settings>" 
 
    ```
    *NOTES*: 
@@ -236,15 +237,37 @@ pip install -r requirements.txt
             'cert': True = known cert | False = disable ssl validation | 'path_to_cert' = path to a self signed certificate
             'client_id': 'client_id of the rest application in each provider'
         },{...}
-   }
+   }"
    
    #example:
    "{
     'cimne':{'url': 'https://oauth.middleware.platform.flexcoop.eu', 'cert':False, 'client_id': '688669'}
    }"
    ```
-   Look carefully the single and double quotes used in the variable value
-      
+
+   "INTERCOMPONENT_SETTINGS" is a dict containing the settings for sending intercomponent messages from the middleware: 
+   ``` bash
+   "{
+        'component shortname': {
+            'message_url': 'endpoint where component receives ICM messages',
+            'account_id': 'the account id supplied in the servicetoken in an ICM from that component' 
+        },{...}
+   }"
+   
+   #example:
+   "{
+    'OMP':{'message_url': 'https://marketplace.flexcoop.eu/1/interComponentMessage','account_id': 'marketplace'},
+    'LDEM':{'message_url': 'http://cloudtec.etra-id.com:6100/api/drevent/notify','account_id': 'LDEM'}, 
+   }"
+   ```
+   Look carefully the single and double quotes used in the variable value for "OAUTH_PROVIDERS" and "INTERCOMPONENT_SETTINGS"
+
+   
+   The optional boolean environment variable ICM_WORKER_THREAD controls, if the interComponentMessage worker thread 
+   is started. If not specified, ICM_WORKER_THREAD defaults to 'True'. Set it to 'False' on local instances will 
+   prevent delivery attempts from that instance when the DB changed (for the 'real' instance). 
+   
+    
    To be able to run several components on a single computer, the host port can be specified by an optional environment variable: 
    ```bash
    export HOST_PORT=8081

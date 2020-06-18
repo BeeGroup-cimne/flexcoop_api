@@ -1,59 +1,91 @@
 {
-  "item_title": "dr_event_ldem_baseline",
-  "item_lookup_field": "dr_campaign_id",
-  "item_url": "regex(\"[a-zA-Z0-9-]+\")",
-  "cache_control": "max-age=10,must-revalidate",
-  "cache_expires": 10,
-  "resource_methods": [
-    "POST",
-    "GET"
-  ],
-  "item_methods": [    
-    "GET",
-	"DELETE"
-  ],
-  "schema": {
-    "dr_campaign_id": {
-		"type": "uuid",
-		"minlength": 36,
-		"maxlength": 36,
-		"required": true
-    },
-	"ldem_id": {
-		"type": "uuid",
-		"minlength": 36,
-		"maxlength": 36,
-		"required": true
-    },
-	"start": {
-		"type": "datetime",
-		"required": true
-	},
-	"end": {
-		"type": "datetime",
-		"required": true
-	},
-	"flexibility": {
-      "type": "float",
-      "required": true
-    },	
-	"devices": {
-      "type": "list",
-      "schema": {
-        "type": "dict",
-        "schema": {
-          "deviceId": {
-            "type": "uuid",
-            "minlength": 36,
-            "maxlength": 36,
-            "required": true
-          },
-		  "consumption_modification": {
-            "type": "float",            
-            "required": true
-          }
-        }
-      }
-    }
-  }
+	"item_title": "dr_event_ldem_baseline",
+	"item_lookup_field": "dr_campaign_id",
+	"item_url": "regex(\"[a-zA-Z0-9-]+\")",
+	"cache_control": "max-age=10,must-revalidate",
+	"cache_expires": 10,
+	"resource_methods": [
+		"POST",
+		"GET"
+	],
+	"item_methods": [    
+		"GET",
+		"DELETE"
+	],
+	"schema": {
+		"dr_campaign_id": {
+			"type": "uuid",
+			"minlength": 36,
+			"maxlength": 36,
+			"required": true
+		},
+		"aggregator_id": {
+			"type": "string",
+			"required": true
+		},
+		"account_id": {
+			"type": "uuid",
+			"minlength": 36,
+			"maxlength": 36,
+			"required": true
+		},
+		"ldem_id": {
+			"type": "uuid",
+			"minlength": 36,
+			"maxlength": 36,
+			"required": true
+		},
+		"start": {
+			"type": "datetime",
+			"required": true
+		},
+		"end": {
+			"type": "datetime",
+			"required": true
+		},
+		"flexibility": {
+			"type": "float",
+			"required": true
+		},
+		"forecast_cons": {
+			"type": "float"
+		},
+		"real_cons": {
+			"type": "float"
+		},
+		"devices": {
+			"type": "list",
+			"schema": {
+				"type": "dict",
+				"schema": {
+					"deviceId": {
+						"type": "uuid",
+						"minlength": 36,
+						"maxlength": 36,
+						"required": true
+					},
+					"consumption_modification": {
+						"type": "float",            
+						"required": true
+					},
+					"account_id": {
+						"type": "uuid",
+						"minlength": 36,
+						"maxlength": 36,
+						"required": true
+					},
+					"device_class": {
+						"type": "string",
+						"allowed": [
+							"hvacDevice",
+							"lightingLoad",
+							"dhwDevice",
+							"otherLoad"
+						],
+						"required": true
+					}
+				}
+			}
+		}
+	}
 }

@@ -4,57 +4,41 @@
   "cache_expires": 10,
   "resource_methods": [
     "GET",
-    "POST",
-    "DELETE"
+    "POST"
   ],
   "item_methods": [
-    "GET",
-    "PATCH",
-    "PUT",
-    "DELETE"
   ],
   "schema": {
-    "venId": {
-      "type": "string",
-      "minlength": 1,
-      "maxlength": 100,
-      "required": true,
-      "unique": true
-    },
-    "comfortType": {
-      "type": "list",
-      "allowed": [
-        "Visual",
-        "Thermal"
-      ]
-    },
+    "account_id": {
+       "type": "uuid",
+       "minlength": 36,
+       "maxlength": 36,
+       "required": true
+     },
     "visualComfortProfile": {
-      "type": "dict",
-      "schema": {
-        "attr1": {
-          "type": "float"
-        },
-        "attr2": {
-          "type": "float"
-        },
-        "attr3": {
-          "type": "float"
-        }
-      }
+      "type": "string",
+      "allowed": [
+                "Dim",
+                "Less Brigth",
+                "Neutral",
+                "Bright",
+                "Very Bright"
+              ],
+      "required": true
     },
-    "thermalComfortProfile": {
-      "type": "dict",
-      "schema": {
-        "attr1": {
-          "type": "float"
-        },
-        "attr2": {
-          "type": "float"
-        },
-        "attr3": {
-          "type": "float"
-        }
-      }
+    "thermalComfortHeat": {
+      "type": "float",
+      "required": true
+    },
+    "thermalComfortCool": {
+      "type": "float",
+      "required": true
+    },
+    "WaterProfile": {
+      "type": "float",
+      "min": 50,
+      "max": 70,
+      "required": true
     }
+   }
   }
-}

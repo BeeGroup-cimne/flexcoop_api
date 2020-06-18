@@ -1,0 +1,91 @@
+{
+  "item_title": "user_settings",
+  "id_field": "account_id",
+  "item_lookup_field": "account_id",
+  "item_url": "regex(\"[a-zA-Z0-9-]+\")",
+  "cache_control": "max-age=10,must-revalidate",
+  "cache_expires": 10,
+  "resource_methods": [
+    "POST",
+    "GET"
+  ],
+  "item_methods": [
+    "GET",
+    "PATCH"
+  ],
+  "schema": {
+    "account_id": {
+      "type": "uuid",
+      "minlength": 36,
+      "maxlength": 36,
+      "required": true
+    },
+    "aggregator_id": {
+      "type": "string",
+      "minlength": 3,
+      "maxlength": 256,
+      "required": true
+    },
+    "ven_id": {
+      "type": "uuid",
+      "minlength": 36,
+      "maxlength": 36,
+      "required": true
+    },
+    "weather_station": {
+      "type": "string",
+      "required": true
+    },
+    "has_pv": {
+      "type": "string",
+      "allowed": [
+        "yes",
+        "no"
+      ],
+      "required": true,
+      "default": "no"
+    },
+    "hvac_max_power": {
+      "type": "list",
+      "required": true,
+      "schema": {
+        "type": "dict",
+        "schema": {
+          "device_id": {
+            "type": "uuid"
+          },
+          "boundaries": {
+            "type": "list",
+            "required": true,
+            "schema": {
+              "type": "dict",
+              "schema": {
+                "mode": {
+                  "type": "string",
+                  "allowed": [
+                    "heating",
+                    "cooling",
+                    "unique"
+                  ]
+                },
+                "max_power": {
+                  "type": "float"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "tariff": {
+      "type": "string",
+      "allowed": [
+        "2.0DHA",
+        "2.1DHA",
+        "2.0A",
+        "other"
+      ],
+      "required": false
+    }
+  }
+}

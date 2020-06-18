@@ -22,14 +22,31 @@
     },
     "aggregator_id": {
       "type": "string",
-      "minlength": 36,
-      "maxlength": 36,
+      "minlength": 3,
+      "maxlength": 256,
       "required": false
     },
+     "marketplace_availability": {
+      "type": "string",
+      "allowed": [
+        "yes",
+        "no"
+      ],
+      "required": false
+    },
+     "dr_availability": {
+      "type": "string",
+      "allowed": [
+        "yes",
+        "no"
+      ],
+      "required": false
+    },
+
     "status": {
       "type": "dict",
-      "schema":{
-        "setPoint" :{
+      "schema": {
+        "setPoint": {
           "type": "float"
         },
         "x-fanspeed": {
@@ -38,19 +55,19 @@
         "mode": {
           "type": "string",
           "allowed": [
-                "1",
-                "2",
-                "3",
-                "4",
-                "5"
-              ]
+            "1",
+            "2",
+            "3",
+            "4",
+            "5"
+          ]
         },
         "operationState": {
           "type": "string",
-              "allowed": [
-                "0",
-                "1"
-              ]
+          "allowed": [
+            "0",
+            "1"
+          ]
         }
       },
       "required": true

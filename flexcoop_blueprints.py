@@ -15,92 +15,107 @@ flexcoop_blueprints = Blueprint('1', __name__)
 @flexcoop_blueprints.route('/aggregate/<collection>/<resolution>', methods=['GET'])
 @requires_auth('aggregate')
 def aggregate_collection(collection, resolution):
-    page_param = app.config['QUERY_PAGE']
     try:
-        page = int(request.args[page_param])
-    except:
-        page = 1
+        page_param = app.config['QUERY_PAGE']
+        try:
+            page = int(request.args[page_param])
+        except:
+            page = 1
 
-    max_results = app.config['PAGINATION_DEFAULT']
-    if app.config['QUERY_MAX_RESULTS'] in request.args:
-        max_results = min(int(request.args[app.config['QUERY_MAX_RESULTS']]), app.config['PAGINATION_LIMIT'])
+        max_results = app.config['PAGINATION_DEFAULT']
+        if app.config['QUERY_MAX_RESULTS'] in request.args:
+            max_results = min(int(request.args[app.config['QUERY_MAX_RESULTS']]), app.config['PAGINATION_LIMIT'])
 
-    page_ini = (page - 1) * max_results
-    page_end = page * max_results
+        page_ini = (page - 1) * max_results
+        page_end = page * max_results
 
-    try:
-        where_param = literal_eval(request.args['where'])
-    except SyntaxError as e:
-        flask.abort(500, 'error!incorrect where query: {}'.format(e))
-    except Exception as e:
-        print(e)
-        where_param = {}
+        try:
+            where_param = literal_eval(request.args['where'])
+        except SyntaxError as e:
+            flask.abort(422, 'error!incorrect where query: {}'.format(e))
+        except Exception as e:
+            print(e)
+            where_param = {}
 
-    try:
-        sort_param = literal_eval(request.args['sort'])
-    except SyntaxError as e:
-        flask.abort(500, 'error!incorrect sort param: {}'.format(e))
-    except Exception as e:
-        sort_param = None
+        try:
+            sort_param = literal_eval(request.args['sort'])
+        except SyntaxError as e:
+            flask.abort(422, 'error!incorrect sort param: {}'.format(e))
+        except Exception as e:
+            sort_param = None
 
-    pre_timeseries_get_callback(request, where_param)
-    schema = app.config['DOMAIN'][collection]
-    timestamp_field = schema['aggregation']['index_field']
-    for k, v in where_param.items():
-        if k == timestamp_field:
-            if isinstance(v, dict):
-                for k1, v1 in v.items():
-                    where_param[k][k1] = datetime.strptime(v1, app.config['DATE_FORMAT'])
+        pre_timeseries_get_callback(request, where_param)
+        schema = app.config['DOMAIN'][collection]
+        timestamp_field = schema['aggregation']['index_field']
+        for k, v in where_param.items():
+            if k == timestamp_field:
+                if isinstance(v, dict):
+                    for k1, v1 in v.items():
+                        where_param[k][k1] = datetime.strptime(v1, app.config['DATE_FORMAT'])
+                else:
+                    where_param[k] = datetime.strptime(v, app.config['DATE_FORMAT'])
+
+        data = app.data.driver.db[collection].find(where_param)
+        if sort_param:
+            data = data.sort(sort_param)
+
+        df = pd.DataFrame.from_records(data)
+
+
+        if schema['aggregation']['groupby']:
+            grouped = df.groupby(schema['aggregation']['groupby'])
+            groups_df = []
+            for g, d in grouped:
+                groups_df.append(aggregate_timeseries(d, resolution, schema))
+            df = pd.concat(groups_df)
+        else:
+            df = aggregate_timeseries(df, resolution, schema)
+
+        total_len = len(df)
+        if total_len > max_results:
+            parameter_character = '?'
+            query_url = request.base_url
+            for key, value in request.args.items():
+                if key != page_param:
+                    query_url += "{}{}={}".format(parameter_character,key,value)
+                    parameter_character = '&'
+
+            items = df.iloc[page_ini:page_end]
+            max_page = math.ceil(total_len / max_results)
+            if page + 1 < max_page:
+                next_url = "{}{}{}={}".format(query_url,parameter_character, page_param, page + 1)
             else:
-                where_param[k] = datetime.strptime(v, app.config['DATE_FORMAT'])
-    data = app.data.driver.db[collection].find(where_param)
-    print(data.count())
-    if sort_param:
-        data = data.sort(sort_param)
+                next_url = None
+            last_url = "{}{}{}={}".format(query_url,parameter_character,page_param, max_page)
+        else:
+            items = df
+            next_url = None
+            max_page = 1
+            last_url = None
 
-    df = pd.DataFrame.from_records(data)
+        hateoas = {
+            "_meta": {
+                app.config['QUERY_MAX_RESULTS']: max_results,
+                "total": total_len,
+                "page": page,
+                "max_page": max_page
+            },
+            "_links": {
+                "self": {"href": request.url, "title": "aggregate"},
+                "parent": {"href": "/", "title": "home"},
+            },
+            "_items": items.to_dict(orient="records")
+        }
+        if next_url:
+            hateoas['_links']['next'] = {"href": next_url, "title": "next page"}
+        if last_url:
+            hateoas['_links']['last'] = {"href": last_url, "title": "last page"}
 
-
-    if schema['aggregation']['groupby']:
-        grouped = df.groupby(schema['aggregation']['groupby'])
-        groups_df = []
-        for g, d in grouped:
-            groups_df.append(aggregate_timeseries(d, resolution, schema))
-        df = pd.concat(groups_df)
-    else:
-        df = aggregate_timeseries(df, resolution, schema)
-
-    total_len = len(df)
-    if total_len > max_results:
-        items = df.iloc[page_ini:page_end]
-        next_url = "{}?{}={}".format(request.base_url, page_param, page + 1)
-        max_page = math.ceil(total_len/max_results)
-        last_url = "{}?{}={}".format(request.base_url,page_param, max_page)
-    else:
-        items = df
-        next_url = None
-        max_page = 1
-        last_url = None
-
-    hateoas = {
-        "_meta": {
-            app.config['QUERY_MAX_RESULTS']: max_results,
-            "total": total_len,
-            "page": page,
-            "max_page": max_page
-        },
-        "_links": {
-            "self": {"href": request.url, "title": "aggregate"},
-            "parent": {"href": "/", "title": "home"},
-        },
-        "_items": items.to_dict(orient="records")
-    }
-    if next_url:
-        hateoas['_links']['next'] = {"href": next_url, "title": "next page"}
-    if last_url:
-        hateoas['_links']['last'] = {"href": last_url, "title": "last page"}
-
-    return jsonify(hateoas)
+        return jsonify(hateoas)
+    except ValueError as e:
+        flask.abort(422, 'Unexpected error: {}'.format(e))
+    except Exception as e:
+        flask.abort(500, e)
 
 
 

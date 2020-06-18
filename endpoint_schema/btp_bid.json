@@ -1,24 +1,25 @@
 {
 	"item_title": "btp_bid",
-	"id_field": "bid_id",
-	"item_lookup_field": "bid_id",
+	"item_lookup_field": "btp_messageId",
 	"cache_control": "max-age=10,must-revalidate",
 	"cache_expires": 10,
 	"resource_methods": [
 		"POST",
-		"GET",
-		"DELETE"
+		"GET"
 	],
 	"item_methods":[
 		"GET",
-		"PATCH",
-		"DELETE"
+		"PATCH"
 	],
 	"schema": {
-		"bid_id": {
+		"btp_messageId": {
 			"type": "uuid",
 			"minlength": 36,
 			"maxlength": 36,
+			"required": true
+		},
+		"aggregator_id": {
+			"type": "string",
 			"required": true
 		},
 		"contract": {
@@ -28,6 +29,14 @@
 			"type": "uuid",
 			"minlength": 36,
 			"maxlength": 36,
+			"required": true
+		},
+		"regulation": {
+			"type": "string",
+			"allowed": [
+				"upwards",
+				"downwards"
+			],
 			"required": true
 		},
 		"object": {
@@ -46,9 +55,10 @@
 		},
 		"power": {
 			"type": "integer",
-			"min": -999,
-			"max": 999,
 			"required": true
+		},
+		"last_update": {
+			"type": "datetime"
 		},
 		"ramping_rate": {
 			"type": "float",
@@ -58,13 +68,7 @@
 		},
 		"location": {
 			"type": "string"
-		},
-		"btp_bid_line": {
-			"type": "list",
-			"minlength": 92,
-			"maxlength": 100,
-			"items": [{"type": "uuid"}]
-		}					
+		}						
 	}
 
 }

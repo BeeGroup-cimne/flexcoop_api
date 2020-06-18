@@ -19,7 +19,18 @@
       "required": true,
       "unique": true
     },
+    "device_name": {
+      "type": "string",
+      "required": true,
+      "default": "NO NAME"
+    },
     "account_id": {
+      "type": "uuid",
+      "minlength": 36,
+      "maxlength": 36,
+      "required": true
+    },
+    "ven_id": {
       "type": "uuid",
       "minlength": 36,
       "maxlength": 36,
@@ -27,20 +38,19 @@
     },
     "aggregator_id": {
       "type": "string",
-      "minlength": 36,
-      "maxlength": 36,
+      "minlength": 3,
+      "maxlength": 256,
       "required": true
     },
     "device_class": {
       "type": "string",
       "allowed": [
         "sensingDevice",
-        "hvacDevice",
-        "dhwDevice",
         "prosumerDeviceMetering",
         "pvDevice",
-        "otherLoad",
-        "spaceTotalMetering"
+        "dhwDevice",
+        "hvacDevice",
+        "otherLoad"
       ],
       "required": true
     },

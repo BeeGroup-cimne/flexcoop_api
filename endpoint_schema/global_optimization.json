@@ -1,0 +1,60 @@
+{
+  "item_title": "global_optimization",
+  "id_field": "global_optimizationId",
+  "item_lookup_field": "global_optimizationId",
+  "item_url": "regex(\"[a-zA-Z0-9-]+\")",
+  "cache_control": "max-age=10,must-revalidate",
+  "cache_expires": 10,
+  "resource_methods": [
+    "POST",
+    "GET"
+  ],
+  "item_methods": [
+    "GET",
+    "DELETE"
+  ],
+  "schema": {
+    "global_optimizationId": {
+      "type": "uuid",
+      "minlength": 36,
+      "maxlength": 36,
+      "required": true
+    },
+    "aggregator_id": {
+      "type": "string",
+      "minlength": 3,
+      "maxlength": 256,
+      "required": true
+    },
+    "timestamp": {
+			"type": "datetime",
+			"required": true
+    },
+    "cost": {
+			"type": "float",
+			"required": true
+    },
+    "energy": {
+			"type": "float",
+			"required": true
+    },
+    "users": {
+      "type": "list",
+      "required": true,
+      "schema": {
+        "type": "dict",
+        "schema": {
+          "account_id": {
+            "type": "uuid"
+          },
+          "a_down": {
+            "type": "float"
+          },
+          "a_up": {
+            "type": "float"
+          }
+        }
+      }
+    }
+  }
+}

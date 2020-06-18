@@ -4,25 +4,27 @@
   "item_lookup_field": "notification_id",
   "cache_control": "max-age=0,must-revalidate",
   "cache_expires": 10,
-   "item_url": "regex(\"[a-f0-9]{8}-?[a-f0-9]{4}-?4[a-f0-9]{3}-?[89ab][a-f0-9]{3}-?[a-f0-9]{12}\")",
+  "item_url": "regex(\"[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}\")",
   "resource_methods": [
     "GET",
-    "POST",
-    "DELETE"
+    "POST"
   ],
-  "item_methods": [],
+  "item_methods": ["GET","DELETE"],
   "schema": {
-    "sender_id": {
+    "notification_id": {
       "type": "uuid",
       "minlength": 36,
       "maxlength": 36,
-      "required": true,
-      "unique": true
+      "required": true
+    },
+    "sender_id": {
+      "type": "string",
+      "minlength": 3,
+      "required": true
     },
     "recipient_id": {
-      "type": "uuid",
-      "minlength": 36,
-      "maxlength": 36,
+      "type": "string",
+      "minlength": 3,
       "required": true
     },
     "creation_time": {
@@ -30,26 +32,30 @@
       "required": true
     },
     "message_type": {
-      "type": "uuid",
-      "minlength": 36,
-      "maxlength": 36,
-      "required": true
-    },
-    "message_response": {
-      "type": "integer",
-      "min": 100,
-      "max": 511,
-      "default": 100,
+      "type": "string",
+      "minlength": 3,
       "required": true
     },
     "delivery_attempt_time": {
       "type": "datetime",
       "required": false,
-      "default": "1970-01-01T00:00:00.000Z"
+      "readonly": true
+    },
+    "delivery_failure_response": {
+      "type": "integer",
+      "min": 100,
+      "max": 511,
+      "default": 100,
+      "required": false,
+      "readonly": true
+    },
+    "delivery_failure_message": {
+      "type": "string",
+      "required": false,
+      "readonly": true
     },
     "payload": {
-      "dict": {
-        }
+      "type": "dict"
     }
   }
 }

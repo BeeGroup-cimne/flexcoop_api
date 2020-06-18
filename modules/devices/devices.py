@@ -7,7 +7,7 @@ from flask import current_app
 from datetime import datetime
 
 
-def pre_devices_access_control_callback(request, lookup):
+def pre_devices_access_control_callback(request, lookup=None):
     account_id = request.account_id
     role = request.role
     aggregator_id = request.aggregator_id
@@ -19,21 +19,30 @@ def pre_devices_access_control_callback(request, lookup):
 
     elif role == 'service':
         pass
+    elif role == 'admin':
+        pass
     else:
         flask.abort(403, "Unknown user role")
 
 
 def translate_device_output(response):
-    items = response['_items']
+    if '_items' in response:
+        items = response['_items']
+    else:
+        items = [response]
+        return
     for item in items:
         db_item = current_app.data.driver.db['devices'].find_one({"device_id": item['device_id']})
-        item['device_class'] = db_item['rid']
-        for k, v in item['status'].items():
-            item['status'][k] = v['value']
+        if 'rid' in db_item:
+            item['device_class'] = db_item['rid']
+            item['ven_id'] = current_app.data.driver.db['virtual_end_node'].find_one({"account_id": item["account_id"]})['ven_id']
+            for k, v in item['status'].items():
+                item['status'][k] = v['value'] if v['value'] else 0
+
 
 def on_update_devices_callback(updates, original):
     # Only allow the modification of non OSB fields
-    allowed_fields = ['availability', 'location', 'device_type', 'max_capacity', 'available_capacity', 'cluster_id', 'cluster_type', 'vpp_id']
+    allowed_fields = ['device_name', 'availability', 'location', 'device_type', 'max_capacity', 'available_capacity', 'cluster_id', 'cluster_type', 'vpp_id', 'marketplace_availability', 'dr_availability', "_updated"]
     for field in updates:
         if field not in allowed_fields:
             if updates[field] != original[field]:
@@ -47,6 +56,11 @@ def on_insterted_devices_callback(items):
     if item:
         account_id = item['account_id']
         aggregator_id = item['aggregator_id']
+        endnode = current_app.data.driver.db['virtual_end_node'].find_one({"account_id": item["account_id"]})
+        ven_id = ""
+        if endnode:
+            ven_id = endnode['ven_id']
+
     else:
         return
     # To get all the identifiers of existing devices for that user
@@ -57,6 +71,7 @@ def on_insterted_devices_callback(items):
         ldm_collection.insert_one({
             'ldem_id': str(uuid.uuid1()),
             'account_id': account_id,
+			'ven_id': ven_id,
             'aggregator_id': aggregator_id,
             'creation_date': datetime.now(),
             'timestamp': None,
@@ -73,4 +88,5 @@ def set_hooks(app):
     app.on_pre_PATCH_devices += pre_devices_access_control_callback
     app.on_inserted_devices += on_insterted_devices_callback
     app.on_update_devices += on_update_devices_callback
+    app.on_fetched_item_devices += translate_device_output
 
