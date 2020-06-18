@@ -1,0 +1,24 @@
+{
+  "item_title": "price",
+  "cache_control": "max-age=10,must-revalidate",
+  "cache_expires": 10,
+  "aggregation":{
+    "index_field" : "timestamp",
+    "aggregate_fields" : {
+      "day_ahead_price": "SUM"
+    }
+  },
+  "resource_methods": [
+    "GET"
+  ],
+  "item_methods": [],
+  "schema": {
+    "timestamp": {
+      "type": "datetime",
+      "required": true
+    },
+    "day_ahead_price" : {
+      "type": "float"
+    }
+  }
+}
