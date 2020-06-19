@@ -1,6 +1,7 @@
 {
 	"item_title": "btp_bid_line",
 	"item_lookup_field": "btp_messageId",
+	"item_url": "regex(\"[a-zA-Z0-9-]+\")",
 	"cache_control": "max-age=10,must-revalidate",
 	"cache_expires": 10,
 	"resource_methods": [
