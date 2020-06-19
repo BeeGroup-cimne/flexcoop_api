@@ -1,7 +1,7 @@
 {
   "item_title": "btp_request",
   "id_field": "btp_requestId",
-  "item_lookup_field": "btp_requesstId",
+  "item_lookup_field": "btp_requestId",
   "cache_control": "max-age=10,must-revalidate",
   "cache_expires": 10,
   "resource_methods": [
