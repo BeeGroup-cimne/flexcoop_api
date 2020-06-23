@@ -44,6 +44,14 @@ def aggregate_collection(collection, resolution):
         except Exception as e:
             sort_param = None
 
+        try:
+            aggregate_field = request.args['aggregate']
+        except SyntaxError as e:
+            flask.abort(422, 'error!incorrect sort param: {}'.format(e))
+        except Exception as e:
+            aggregate_field = None
+
+
         pre_timeseries_get_callback(request, where_param)
         schema = app.config['DOMAIN'][collection]
         timestamp_field = schema['aggregation']['index_field']
@@ -81,8 +89,11 @@ def aggregate_collection(collection, resolution):
                 ignore_nan=True
             )
 
-        if schema['aggregation']['groupby']:
-            grouped = df.groupby(schema['aggregation']['groupby'])
+        if aggregate_field or schema['aggregation']['groupby']:
+            if aggregate_field:
+                grouped = df.groupby(schema['aggregation']['groupby'])
+            elif schema['aggregation']['groupby']:
+                grouped = df.groupby(schema['aggregation']['groupby'])
             groups_df = []
             for g, d in grouped:
                 groups_df.append(aggregate_timeseries(d, resolution, schema))
