@@ -7,8 +7,8 @@ import pandas as pd
 from bson import ObjectId
 from eve.auth import requires_auth
 from eve_swagger import add_documentation
-from flask import Blueprint, current_app as app, jsonify, request
-
+from flask import Blueprint, current_app as app, request
+import simplejson as json
 from modules.timeseries.timeseries import pre_timeseries_get_callback
 
 flexcoop_blueprints = Blueprint('1', __name__)
@@ -61,6 +61,25 @@ def aggregate_collection(collection, resolution):
 
         df = pd.DataFrame.from_records(data)
 
+        if df.empty:
+            hateoas = {
+                "_meta": {
+                    app.config['QUERY_MAX_RESULTS']: max_results,
+                    "total": 0,
+                    "page": page,
+                    "max_page": 1
+                },
+                "_links": {
+                    "self": {"href": request.url, "title": "aggregate"},
+                    "parent": {"href": "/", "title": "home"},
+                },
+                "_items": []
+            }
+            return json.dumps(
+                hateoas,
+                cls=app.data.json_encoder_class,
+                ignore_nan=True
+            )
 
         if schema['aggregation']['groupby']:
             grouped = df.groupby(schema['aggregation']['groupby'])
@@ -111,7 +130,11 @@ def aggregate_collection(collection, resolution):
         if last_url:
             hateoas['_links']['last'] = {"href": last_url, "title": "last page"}
 
-        return jsonify(hateoas)
+        return json.dumps(
+            hateoas,
+            cls=app.data.json_encoder_class,
+            ignore_nan=True
+        )
     except ValueError as e:
         flask.abort(422, 'Unexpected error: {}'.format(e))
     except Exception as e:
