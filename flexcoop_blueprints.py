@@ -145,7 +145,7 @@ def aggregate_collection(collection, resolution):
             hateoas,
             cls=app.data.json_encoder_class,
             ignore_nan=True
-        ), 200, {'Content-Type': 'text/json; charset=utf-8'}
+        ), 200, {'Content-Type': 'application/json; charset=utf-8'}
     except ValueError as e:
         flask.abort(422, 'Unexpected error: {}'.format(e))
     except Exception as e:
