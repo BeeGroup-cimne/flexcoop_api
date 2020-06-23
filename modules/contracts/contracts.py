@@ -86,8 +86,11 @@ def pre_patch__contracts(request, lookup):
 
         # All patches from aggregator or prosumer require a 'timestamp' field
         if 'timestamp' not in request.json:
-            error_str = error_str + ' missing timestamp'
-            has_error = True
+            if has_error:
+                flask.abort(403, description='PATCH contract of ' + error_str + ' field(s) not allowed'
+                                             + ' and patch requires a timestamp field')
+            else:
+                flask.abort(403, description='PATCH contract requires a timestamp field')
 
     if has_error:
         flask.abort(403, description='PATCH contract of ' + error_str + ' field(s) not allowed')
