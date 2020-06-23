@@ -45,11 +45,11 @@ def aggregate_collection(collection, resolution):
             sort_param = None
 
         try:
-            aggregate_field = request.args['aggregate']
+            group_by_param = request.args['group_by']
         except SyntaxError as e:
-            flask.abort(422, 'error!incorrect sort param: {}'.format(e))
+            flask.abort(422, 'error!incorrect groupby param: {}'.format(e))
         except Exception as e:
-            aggregate_field = None
+            group_by_param = None
 
 
         pre_timeseries_get_callback(request, where_param)
@@ -87,11 +87,11 @@ def aggregate_collection(collection, resolution):
                 hateoas,
                 cls=app.data.json_encoder_class,
                 ignore_nan=True
-            )
+            ), 200, {'Content-Type': 'application/json; charset=utf-8'}
 
-        if aggregate_field or schema['aggregation']['groupby']:
-            if aggregate_field:
-                grouped = df.groupby(schema['aggregation']['groupby'])
+        if group_by_param or schema['aggregation']['groupby']:
+            if group_by_param:
+                grouped = df.groupby(group_by_param)
             elif schema['aggregation']['groupby']:
                 grouped = df.groupby(schema['aggregation']['groupby'])
             groups_df = []
