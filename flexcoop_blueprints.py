@@ -7,8 +7,8 @@ import pandas as pd
 from bson import ObjectId
 from eve.auth import requires_auth
 from eve_swagger import add_documentation
-from flask import Blueprint, current_app as app, jsonify, request
-
+from flask import Blueprint, current_app as app, request
+import simplejson as json
 from modules.timeseries.timeseries import pre_timeseries_get_callback
 
 flexcoop_blueprints = Blueprint('1', __name__)
@@ -44,6 +44,14 @@ def aggregate_collection(collection, resolution):
         except Exception as e:
             sort_param = None
 
+        try:
+            group_by_param = request.args['group_by']
+        except SyntaxError as e:
+            flask.abort(422, 'error!incorrect groupby param: {}'.format(e))
+        except Exception as e:
+            group_by_param = None
+
+
         pre_timeseries_get_callback(request, where_param)
         schema = app.config['DOMAIN'][collection]
         timestamp_field = schema['aggregation']['index_field']
@@ -62,8 +70,11 @@ def aggregate_collection(collection, resolution):
         df = pd.DataFrame.from_records(data)
 
         if not  df.empty:
-            if schema['aggregation']['groupby']:
-                grouped = df.groupby(schema['aggregation']['groupby'])
+            if group_by_param or schema['aggregation']['groupby']:
+                if group_by_param:
+                    grouped = df.groupby(group_by_param)
+                elif schema['aggregation']['groupby']:
+                    grouped = df.groupby(schema['aggregation']['groupby'])
                 groups_df = []
                 for g, d in grouped:
                     groups_df.append(aggregate_timeseries(d, resolution, schema))
@@ -125,7 +136,11 @@ def aggregate_collection(collection, resolution):
                 "_items": pd.DataFrame().to_dict(orient="records")
             }
 
-        return jsonify(hateoas)
+        return json.dumps(
+            hateoas,
+            cls=app.data.json_encoder_class,
+            ignore_nan=True
+        ), 200, {'Content-Type': 'application/json; charset=utf-8'}
     except ValueError as e:
         flask.abort(422, 'Unexpected error: {}'.format(e))
     except Exception as e:

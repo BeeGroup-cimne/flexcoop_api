@@ -30,6 +30,10 @@
 			"type": "datetime",
 			"required": true
     },
+    "start": {
+			"type": "datetime",
+			"required": true
+    },
     "cost": {
 			"type": "float",
 			"required": true

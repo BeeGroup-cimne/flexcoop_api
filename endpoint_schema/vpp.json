@@ -1,50 +1,24 @@
 {
     "item_title": "vpp",
+    "id_field": "vpp_id",
+    "item_lookup_field": "vpp_id",
     "cache_control": "max-age=10,must-revalidate",
+    "item_url": "regex(\"[a-zA-Z0-9-]+\")",
     "cache_expires": 10,
     "resource_methods": [
-      "GET",
-      "POST"
+        "GET",
+        "POST"
+    ],
+    "item_methods": [
+        "GET",
+        "DELETE",
+        "PATCH"
     ],
     "schema": {
-        "cluster_id": {
-		    "required": true,
+        "vpp_id": {
             "type": "uuid",
             "minlength": 36,
-            "maxlength": 36
-        },
-        "name": {
-            "type": "string",
-            "required": true
-        },
-        "reliability": {
-            "type": "number",
-            "required": true
-        },
-        "devices_id": {
-            "type": "list",
-            "schema": {
-                "type": "uuid",
-                "minlength": 36,
-                "maxlength": 36,
-                "required": true
-            }
-        },
-        "ldems_id": {
-            "type": "list",
-            "schema": {
-                "type": "uuid",
-                "minlength": 36,
-                "maxlength": 36,
-                "required": true
-            }
-        },
-        "upwards_flex": {
-            "type": "number",
-            "required": true
-        },
-        "downwards_flex": {
-            "type": "number",
+            "maxlength": 36,
             "required": true
         },
         "aggregator_id": {
@@ -55,15 +29,75 @@
         },
         "location": {
             "type": "string",
-            "allowed": ["Spain","Netherlands"]
+            "allowed": [
+                "Spain",
+                "Netherlands"
+            ]
         },
         "criteria": {
             "type": "list",
             "schema": {
                 "type": "string",
-            "allowed": ["aFRR", "self-consumption", "wholesale"],
-            "required": true
+                "allowed": [
+                    "aFRR",
+                    "self-consumption",
+                    "wholesale"
+                ],
+                "required": true
             }
-        }       
+        },
+        "timestamp": {
+            "type": "datetime",
+            "required": true
+        },
+        "clusters": {
+            "type": "list",
+            "required": true,
+            "schema": {
+                "type": "dict",
+                "schema": {
+                    "cluster_id": {
+                        "required": true,
+                        "type": "uuid",
+                        "minlength": 36,
+                        "maxlength": 36
+                    },
+                    "name": {
+                        "type": "string",
+                        "required": true
+                    },
+                    "reliability": {
+                        "type": "number",
+                        "required": true
+                    },
+                    "devices_id": {
+                        "type": "list",
+                        "schema": {
+                            "type": "uuid",
+                            "minlength": 36,
+                            "maxlength": 36,
+                            "required": true
+                        }
+                    },
+                    "vens_id": {
+                        "type": "list",
+                        "schema": {
+                            "type": "uuid",
+                            "minlength": 36,
+                            "maxlength": 36,
+                            "required": true
+                        }
+                    },
+                    "upwards_flex": {
+                        "type": "number",
+                        "required": true
+                    },
+                    "downwards_flex": {
+                        "type": "number",
+                        "required": true
+                    }
+                }
+            }
+        }
     }
-  }
+}
