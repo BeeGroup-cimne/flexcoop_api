@@ -38,7 +38,7 @@ def translate_device_output(response):
         ven = current_app.data.driver.db['virtual_end_node'].find_one({"account_id": item["account_id"]})
         if ven and 'ven_id' in ven:
             item['ven_id'] = ven['ven_id']
-        name_map = current_app.driver.db['map_device_name'].find_one({"device_id": item['device_id']})
+        name_map = current_app.data.driver.db['map_device_name'].find_one({"device_id": item['device_id']})
         if name_map and 'device_name' in name_map:
             item['device_name'] = name_map['device_name']
         else:
