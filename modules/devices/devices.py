@@ -31,13 +31,20 @@ def translate_device_output(response):
     else:
         items = [response]
         return
-    for item in items:
+    for index, item in enumerate(items):
         db_item = current_app.data.driver.db['devices'].find_one({"device_id": item['device_id']})
         if 'rid' in db_item:
             item['device_class'] = db_item['rid']
-            item['ven_id'] = current_app.data.driver.db['virtual_end_node'].find_one({"account_id": item["account_id"]})['ven_id']
-            for k, v in item['status'].items():
-                item['status'][k] = v['value'] if v['value'] else 0
+        ven = current_app.data.driver.db['virtual_end_node'].find_one({"account_id": item["account_id"]})
+        if ven and 'ven_id' in ven:
+            item['ven_id'] = ven['ven_id']
+        name_map = current_app.data.driver.db['map_device_name'].find_one({"device_id": item['device_id']})
+        if name_map and 'device_name' in name_map:
+            item['device_name'] = name_map['device_name']
+        else:
+            item['device_name'] = db_item['rid'] + str(index)
+        for k, v in item['status'].items():
+            item['status'][k] = v['value'] if v['value'] else 0
 
 
 def on_update_devices_callback(updates, original):

@@ -1,6 +1,6 @@
 {
     "item_title": "settlement",
-    "id_field": "",
+    "id_field": "settlement_id",
     "item_lookup_field": "settlement_id",
     "cache_control": "max-age=10,must-revalidate",
     "cache_expires": 10,

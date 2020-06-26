@@ -69,77 +69,72 @@ def aggregate_collection(collection, resolution):
 
         df = pd.DataFrame.from_records(data)
 
-        if df.empty:
+        if not  df.empty:
+            if group_by_param or schema['aggregation']['groupby']:
+                if group_by_param:
+                    grouped = df.groupby(group_by_param)
+                elif schema['aggregation']['groupby']:
+                    grouped = df.groupby(schema['aggregation']['groupby'])
+                groups_df = []
+                for g, d in grouped:
+                    groups_df.append(aggregate_timeseries(d, resolution, schema))
+                df = pd.concat(groups_df)
+            else:
+                df = aggregate_timeseries(df, resolution, schema)
+
+            total_len = len(df)
+            if total_len > max_results:
+                parameter_character = '?'
+                query_url = request.base_url
+                for key, value in request.args.items():
+                    if key != page_param:
+                        query_url += "{}{}={}".format(parameter_character,key,value)
+                        parameter_character = '&'
+
+                items = df.iloc[page_ini:page_end]
+                max_page = math.ceil(total_len / max_results)
+                if page + 1 < max_page:
+                    next_url = "{}{}{}={}".format(query_url,parameter_character, page_param, page + 1)
+                else:
+                    next_url = None
+                last_url = "{}{}{}={}".format(query_url,parameter_character,page_param, max_page)
+            else:
+                items = df
+                next_url = None
+                max_page = 1
+                last_url = None
+
             hateoas = {
                 "_meta": {
                     app.config['QUERY_MAX_RESULTS']: max_results,
-                    "total": 0,
+                    "total": total_len,
                     "page": page,
-                    "max_page": 1
+                    "max_page": max_page
                 },
                 "_links": {
                     "self": {"href": request.url, "title": "aggregate"},
                     "parent": {"href": "/", "title": "home"},
                 },
-                "_items": []
+                "_items": items.to_dict(orient="records")
             }
-            return json.dumps(
-                hateoas,
-                cls=app.data.json_encoder_class,
-                ignore_nan=True
-            ), 200, {'Content-Type': 'application/json; charset=utf-8'}
-
-        if group_by_param or schema['aggregation']['groupby']:
-            if group_by_param:
-                grouped = df.groupby(group_by_param)
-            elif schema['aggregation']['groupby']:
-                grouped = df.groupby(schema['aggregation']['groupby'])
-            groups_df = []
-            for g, d in grouped:
-                groups_df.append(aggregate_timeseries(d, resolution, schema))
-            df = pd.concat(groups_df)
+            if next_url:
+                hateoas['_links']['next'] = {"href": next_url, "title": "next page"}
+            if last_url:
+                hateoas['_links']['last'] = {"href": last_url, "title": "last page"}
         else:
-            df = aggregate_timeseries(df, resolution, schema)
-
-        total_len = len(df)
-        if total_len > max_results:
-            parameter_character = '?'
-            query_url = request.base_url
-            for key, value in request.args.items():
-                if key != page_param:
-                    query_url += "{}{}={}".format(parameter_character,key,value)
-                    parameter_character = '&'
-
-            items = df.iloc[page_ini:page_end]
-            max_page = math.ceil(total_len / max_results)
-            if page + 1 < max_page:
-                next_url = "{}{}{}={}".format(query_url,parameter_character, page_param, page + 1)
-            else:
-                next_url = None
-            last_url = "{}{}{}={}".format(query_url,parameter_character,page_param, max_page)
-        else:
-            items = df
-            next_url = None
-            max_page = 1
-            last_url = None
-
-        hateoas = {
-            "_meta": {
-                app.config['QUERY_MAX_RESULTS']: max_results,
-                "total": total_len,
-                "page": page,
-                "max_page": max_page
-            },
-            "_links": {
-                "self": {"href": request.url, "title": "aggregate"},
-                "parent": {"href": "/", "title": "home"},
-            },
-            "_items": items.to_dict(orient="records")
-        }
-        if next_url:
-            hateoas['_links']['next'] = {"href": next_url, "title": "next page"}
-        if last_url:
-            hateoas['_links']['last'] = {"href": last_url, "title": "last page"}
+            hateoas = {
+                "_meta": {
+                    app.config['QUERY_MAX_RESULTS']: max_results,
+                    "total": 0,
+                    "page": 0,
+                    "max_page": 0
+                },
+                "_links": {
+                    "self": {"href": request.url, "title": "aggregate"},
+                    "parent": {"href": "/", "title": "home"},
+                },
+                "_items": pd.DataFrame().to_dict(orient="records")
+            }
 
         return json.dumps(
             hateoas,
