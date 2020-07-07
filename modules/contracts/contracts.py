@@ -84,6 +84,10 @@ def pre_patch__contracts(request, lookup):
                 error_str = error_str + 'details.date_of_signage,'
                 has_error = True
 
+        if 'contract_title' in request.json and role != 'aggregator':
+            error_str = error_str + 'contract_title,'
+            has_error = True
+
         # All patches from aggregator or prosumer require a 'timestamp' field
         if 'timestamp' not in request.json:
             if has_error:
