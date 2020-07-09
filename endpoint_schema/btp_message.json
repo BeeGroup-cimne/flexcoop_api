@@ -38,7 +38,8 @@
 			"allowed": [
 				"placed",
 				"modified",
-				"activated"
+				"activated",
+				"finished"
 			],
 			"required": true
 		},

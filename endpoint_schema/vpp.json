@@ -9,10 +9,10 @@
         "GET",
         "POST"
     ],
-    "item_methods": [    
-      "GET",
-      "DELETE",
-      "PATCH"
+    "item_methods": [
+        "GET",
+        "DELETE",
+        "PATCH"
     ],
     "schema": {
         "vpp_id": {
@@ -31,7 +31,8 @@
             "type": "string",
             "allowed": [
                 "Spain",
-                "Netherlands"
+                "Netherlands",
+                "Greece"
             ]
         },
         "criteria": {
@@ -95,8 +96,13 @@
                     "downwards_flex": {
                         "type": "number",
                         "required": true
+                    },
+                    "baseline": {
+                        "type": "number",
+                        "required": true
                     }
                 }
             }
         }
     }
+}

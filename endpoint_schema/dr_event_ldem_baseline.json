@@ -68,6 +68,13 @@
 						"type": "float",            
 						"required": true
 					},
+					"consumption_forecast": {
+						"type": "float",            
+						"required": true
+					},
+					"real_cons": {
+						"type": "float"
+					},
 					"account_id": {
 						"type": "uuid",
 						"minlength": 36,
