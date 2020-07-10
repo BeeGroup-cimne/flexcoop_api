@@ -41,6 +41,11 @@
       "maxlength": 36,
       "required": true
     },
+    "contract_title": {
+      "type": "string",
+      "default" : "",
+      "required": true
+    },
     "details": {
       "type": "dict",
       "anyof": [
