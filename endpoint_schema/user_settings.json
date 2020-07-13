@@ -20,6 +20,11 @@
       "maxlength": 36,
       "required": true
     },
+    "alias": {
+      "type": "string",
+      "minlength": 3,
+      "maxlength": 256
+    },
     "aggregator_id": {
       "type": "string",
       "minlength": 3,
@@ -52,6 +57,12 @@
         "type": "dict",
         "schema": {
           "device_id": {
+            "type": "uuid"
+          },
+          "control": {
+            "type": "uuid"
+          },
+          "metering": {
             "type": "uuid"
           },
           "boundaries": {
