@@ -4,6 +4,21 @@
 	"item_url": "regex(\"[a-zA-Z0-9-]+\")",
 	"cache_control": "max-age=10,must-revalidate",
 	"cache_expires": 10,
+	"aggregation": {
+		"index_field": "start",
+		"aggregate_fields": {
+			"flexibility": "SUM",
+			"forecast_cons": "SUM",
+			"real_cons": "SUM"
+		},
+		"groupby": "ldem_id",
+		"add_fields": [
+			"dr_campaign_id",
+			"aggregator_id",
+			"account_id",
+			"ldem_id"			
+		]
+	},
 	"resource_methods": [
 		"POST",
 		"GET"
