@@ -1,0 +1,185 @@
+{
+  "item_title": "pv_forecast",
+  "id_field": "account_id",
+  "item_lookup_field": "account_id",
+  "item_url": "regex(\"[a-zA-Z0-9-]+\")",
+  "cache_control": "max-age=10,must-revalidate",
+  "cache_expires": 10,
+  "resource_methods": [
+    "POST",
+    "GET"
+  ],
+  "item_methods": [
+    "GET",
+    "DELETE"
+  ],
+  "schema": {
+    "account_id": {
+      "type": "uuid",
+      "minlength": 36,
+      "maxlength": 36,
+      "required": true
+    },
+    "aggregator_id": {
+      "type": "string",
+      "minlength": 3,
+      "maxlength": 256,
+      "required": true
+    },
+    "device_id": {
+      "type": "uuid",
+      "minlength": 36,
+      "maxlength": 36,
+      "required": true,
+      "unique": true
+    },
+    "time": {
+      "type": "datetime",
+      "required": true
+    },
+    "forecast_1": {
+      "type": "float",
+      "required": true
+    },
+    "forecast_2": {
+      "type": "float",
+      "required": true
+    },
+    "forecast_3": {
+      "type": "float",
+      "required": true
+    },
+    "forecast_4": {
+      "type": "float",
+      "required": true
+    },
+    "forecast_5": {
+      "type": "float",
+      "required": true
+    },
+    "forecast_6": {
+      "type": "float",
+      "required": true
+    },
+    "forecast_7": {
+      "type": "float",
+      "required": true
+    },
+    "forecast_8": {
+      "type": "float",
+      "required": true
+    },
+    "forecast_9": {
+      "type": "float",
+      "required": true
+    },
+    "forecast_10": {
+      "type": "float",
+      "required": true
+    },
+    "forecast_11": {
+      "type": "float",
+      "required": true
+    },
+    "forecast_12": {
+      "type": "float",
+      "required": true
+    },
+    "forecast_13": {
+      "type": "float",
+      "required": true
+    },
+    "forecast_14": {
+      "type": "float",
+      "required": true
+    },
+    "forecast_15": {
+      "type": "float",
+      "required": true
+    },
+    "forecast_16": {
+      "type": "float",
+      "required": true
+    },
+    "forecast_17": {
+      "type": "float",
+      "required": true
+    },
+    "forecast_18": {
+      "type": "float",
+      "required": true
+    },
+    "forecast_19": {
+      "type": "float",
+      "required": true
+    },
+    "forecast_20": {
+      "type": "float",
+      "required": true
+    },
+    "forecast_21": {
+      "type": "float",
+      "required": true
+    },
+    "forecast_22": {
+      "type": "float",
+      "required": true
+    },
+    "forecast_23": {
+      "type": "float",
+      "required": true
+    },
+    "forecast_24": {
+      "type": "float",
+      "required": true
+    },
+    "forecast_25": {
+      "type": "float",
+      "required": true
+    },
+    "forecast_26": {
+      "type": "float",
+      "required": true
+    },
+    "forecast_27": {
+      "type": "float",
+      "required": true
+    },
+    "forecast_28": {
+      "type": "float",
+      "required": true
+    },
+    "forecast_29": {
+      "type": "float",
+      "required": true
+    },
+    "forecast_30": {
+      "type": "float",
+      "required": true
+    },
+    "forecast_31": {
+      "type": "float",
+      "required": true
+    },
+    "forecast_32": {
+      "type": "float",
+      "required": true
+    },
+    "forecast_33": {
+      "type": "float",
+      "required": true
+    },
+    "forecast_34": {
+      "type": "float",
+      "required": true
+    },
+    "forecast_35": {
+      "type": "float",
+      "required": true
+    },
+    "forecast_36": {
+      "type": "float",
+      "required": true
+    }
+  }
+}
