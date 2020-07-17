@@ -19,6 +19,9 @@
     },
     "day_ahead_price" : {
       "type": "float"
+    },
+    "country" : {
+      "type": "string"
     }
   }
 }
