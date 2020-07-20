@@ -8,7 +8,8 @@ from flexcoop_utils import ServiceToken
 from settings import INTERCOMPONENT_SETTINGS, ICM_WORKER_THREAD
 from requests.exceptions import ConnectionError
 
-inter_component_message_event = threading.Event()
+icm_worker_event = threading.Event()
+icm_worker_thread = None
 
 
 def inter_component_message_worker_thread(app):
@@ -123,7 +124,7 @@ def inter_component_message_worker_thread(app):
         dump_initial_messages()
         while True:
             try:
-                inter_component_message_event.clear()
+                icm_worker_event.clear()
 
                 # Find new messages
                 where = {"delivery_attempt_time": {"$exists": False}}
@@ -141,7 +142,7 @@ def inter_component_message_worker_thread(app):
                 for event in events:
                     message_delivery_attempt(event)
 
-                inter_component_message_event.wait(60)
+                icm_worker_event.wait(60)
 
             except Exception as err:
                 log_inter_component_message_error('ICM Worker: throw an exception ' + repr(err) + ' exception')
@@ -193,6 +194,11 @@ def pre_inter_component_message_POST_callback(request):
             log_inter_component_message_error(' ICM pre POST : notification_id already exists')
             flask.abort(409, 'notification_id already exists')
 
+    # Check if ICM Worker thread is running, if not restart it
+    if ICM_WORKER_THREAD and not icm_worker_thread.is_alive():
+        log_inter_component_message_error('Re-starting worker thread: interComponentMessage')
+        icm_worker_thread.start()
+
 
 def pre_inter_component_message_DELETE_callback(request, lookup):
     if request.role == 'admin':
@@ -204,10 +210,11 @@ def pre_inter_component_message_DELETE_callback(request, lookup):
 
 def post_inter_component_message_INSERTED_callback(items):
     if ICM_WORKER_THREAD:
-        inter_component_message_event.set()
+        icm_worker_event.set()
 
 
 def set_hooks(app):
+    global icm_worker_thread
     app.on_pre_GET_interComponentMessage += pre_inter_component_message_GET_callback
     app.on_pre_POST_interComponentMessage += pre_inter_component_message_POST_callback
     app.on_pre_DELETE_interComponentMessage += pre_inter_component_message_DELETE_callback
@@ -215,7 +222,7 @@ def set_hooks(app):
 
     if ICM_WORKER_THREAD:
         log_inter_component_message_error('Starting worker thread: interComponentMessage')
-        tp_thread = threading.Thread(target=inter_component_message_worker_thread, args=(app,), daemon=True)
-        tp_thread.start()
+        icm_worker_thread = threading.Thread(target=inter_component_message_worker_thread, args=(app,), daemon=True)
+        icm_worker_thread.start()
     else:
         log_inter_component_message_error('Configured to NOT start the interComponentMessage worker thread')
