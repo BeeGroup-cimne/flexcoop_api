@@ -142,14 +142,14 @@ def inter_component_message_worker_thread(app):
 
                 inter_component_message_event.wait(60)
 
-            except Exception as e:
-                log_inter_component_message_error('ICM Worker: throw an exception ' + repr(e) + ' exception')
+            except Exception as err:
+                log_inter_component_message_error('ICM Worker: throw an exception ' + repr(err) + ' exception')
                 traceback.print_exc()
-                date_now = datetime.datetime.utcnow().replace(microsecond=0)
-                update = {'$set': {'delivery_attempt_time': date_now,
-                                   'delivery_failure_response': 0,
-                                   'delivery_failure_message': 'ICM Worker exception: ' + repr(e)}}
-                flask.current_app.data.driver.db['interComponentMessage'].update_one({'_id': event['_id']}, update)
+                exc_now = datetime.datetime.utcnow().replace(microsecond=0)
+                exc_update = {'$set': {'delivery_attempt_time': exc_now,
+                                       'delivery_failure_response': 0,
+                                       'delivery_failure_message': 'ICM Worker exception: ' + repr(err)}}
+                flask.current_app.data.driver.db['interComponentMessage'].update_one({'_id': event['_id']}, exc_update)
 
 
 def log_inter_component_message_error(info):
