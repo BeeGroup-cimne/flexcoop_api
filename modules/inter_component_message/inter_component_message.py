@@ -48,7 +48,8 @@ def inter_component_message_worker_thread(app):
 
     def dump_initial_messages():
         max_age = datetime.datetime.utcnow() - datetime.timedelta(days=7)
-        query1 = {"delivery_failure_response": {"$exists": True, "$eq": 100}, "delivery_attempt_time": {"$gte": max_age}}
+        query1 = {"delivery_failure_response": {"$exists": True, "$eq": 100},
+                  "delivery_attempt_time": {"$gte": max_age}}
         outstanding = flask.current_app.data.driver.db['interComponentMessage'].find(query1)
         if outstanding.count() > 0:
             print('| There are ', outstanding.count(), ' interComponentMessage(s) still to be delivered')
@@ -93,7 +94,7 @@ def inter_component_message_worker_thread(app):
                     failure_message = 'POST ICM to ' + recipient + ' for ' \
                                       + msg['notification_id'] + ' / ' + msg['message_type'] + ' failed. ' \
                                       + '  http_status=' + str(response.status_code) \
-                                      + '  http_response='+ str(response.text)[:1024]
+                                      + '  http_response=' + str(response.text)[:1024]
                 else:
                     failure = False
 
@@ -154,7 +155,7 @@ def inter_component_message_worker_thread(app):
 
 def log_inter_component_message_error(info):
     date_now = datetime.datetime.utcnow().replace(microsecond=0)
-    print(date_now.strftime("%d.%b %Y %H:%M:%S") + '  ' + info);
+    print(date_now.strftime("%d.%b %Y %H:%M:%S") + '  ' + info)
 
 
 def find_service_for_recipient(account_id):
@@ -168,7 +169,7 @@ def pre_inter_component_message_GET_callback(request, lookup):
     if request.role == 'admin':
         pass
     else:
-        log_inter_component_message_error(' ICM pre GET : not allowed for '+request.role)
+        log_inter_component_message_error(' ICM pre GET : not allowed for ' + request.role)
         flask.abort(403, 'wrong role')
 
 
@@ -178,11 +179,11 @@ def pre_inter_component_message_POST_callback(request):
         pass
 
     elif request.role != 'service':
-        log_inter_component_message_error(' ICM pre POST : not allowed for '+request.role)
+        log_inter_component_message_error(' ICM pre POST : not allowed for ' + request.role)
         flask.abort(403, 'wrong role')
 
     if 'recipient_id' in request.json and request.json['recipient_id'] not in INTERCOMPONENT_SETTINGS:
-        log_inter_component_message_error(' ICM pre POST : unknown recipient '+request.json['recipient_id'])
+        log_inter_component_message_error(' ICM pre POST : unknown recipient ' + request.json['recipient_id'])
         flask.abort(406, 'unknown recipient')
 
     if 'notification_id' in request.json:
@@ -197,7 +198,7 @@ def pre_inter_component_message_DELETE_callback(request, lookup):
     if request.role == 'admin':
         pass
     else:
-        log_inter_component_message_error(' ICM pre DELETE : not allowed for '+request.role)
+        log_inter_component_message_error(' ICM pre DELETE : not allowed for ' + request.role)
         flask.abort(403)
 
 
@@ -214,7 +215,7 @@ def set_hooks(app):
 
     if ICM_WORKER_THREAD:
         log_inter_component_message_error('Starting worker thread: interComponentMessage')
-        tp_thread = threading.Thread(target= inter_component_message_worker_thread, args=(app,), daemon=True)
+        tp_thread = threading.Thread(target=inter_component_message_worker_thread, args=(app,), daemon=True)
         tp_thread.start()
     else:
         log_inter_component_message_error('Configured to NOT start the interComponentMessage worker thread')
