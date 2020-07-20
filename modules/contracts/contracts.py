@@ -44,6 +44,7 @@ def pre_patch__contracts(request, lookup):
 
     has_error = False
     error_str = ""
+    require_str = ""
     for entry in ['contract_id', 'start_date', 'end_date', 'aggregator_id', 'account_id',
                   'assets', 'contract_type']:
         if entry in request.json:
@@ -88,16 +89,23 @@ def pre_patch__contracts(request, lookup):
             error_str = error_str + 'contract_title,'
             has_error = True
 
+        if 'status' not in request.json:
+            has_error = True
+            require_str = require_str + 'status,'
+
         # All patches from aggregator or prosumer require a 'timestamp' field
         if 'timestamp' not in request.json:
-            if has_error:
-                flask.abort(403, description='PATCH contract of ' + error_str + ' field(s) not allowed'
-                                             + ' and patch requires a timestamp field')
-            else:
-                flask.abort(403, description='PATCH contract requires a timestamp field')
+            has_error = True
+            require_str = require_str + 'timestamp,'
 
     if has_error:
-        flask.abort(403, description='PATCH contract of ' + error_str + ' field(s) not allowed')
+        if len(error_str) != 0 and len(require_str) != 0:
+            flask.abort(403, description='PATCH contract of ' + error_str + ' field(s) not allowed'
+                                         + ' and patch requires ' + require_str + 'field(s)')
+        elif len(require_str) != 0:
+            flask.abort(403, description='PATCH contract requires ' + require_str + 'field(s)')
+        else:
+            flask.abort(403, description='PATCH contract of ' + error_str + ' field(s) not allowed')
 
     else:
         if role == 'prosumer' or role == 'aggregator':
