@@ -7,7 +7,11 @@
     "POST"
   ],
   "schema": {
-    "reliabilityCluster": {
+    "reliabilityClusterId":{
+      "type" : "string",
+      "required" : true
+    },
+    "devices": {
       "type": "list",
       "schema": {
         "type": "dict",

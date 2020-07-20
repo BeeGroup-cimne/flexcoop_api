@@ -7,36 +7,26 @@
     "POST"
   ],
   "schema": {
-    "venId": {
-      "type": "string",
-      "minlength": 1,
-      "maxlength": 100,
-      "required": true,
-      "unique": true
-    },
     "thermalComfort": {
+      "type": "list",
       "schema": {
-        "buildingParameters": {
-            "type": "dict",
-            "schema": {
-              "interval": {
-                "type": "integer",
-                "required": true
-              },
-              "tMin": {
-                "type": "float",
-                "required": true
-              },
-              "tMax": {
-                "type": "float",
-                "required": true
-              }
-            },
-          "required" : true
-        }
+        "type": "dict",
+        "schema": {
+          "interval": {
+            "type": "integer",
+            "required": true
+          },
+          "tMin": {
+            "type": "float",
+            "required": true
+          },
+          "tMax": {
+            "type": "float",
+            "required": true
+          }
+        },
+        "required": true
       }
     }
   }
 }
-
-

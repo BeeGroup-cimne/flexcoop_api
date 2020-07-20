@@ -33,10 +33,6 @@
       "schema": {
         "type": "dict",
         "schema": {
-          "clusterName": {
-            "type": "string",
-            "required": "true"
-          },
           "deviceIds": {
             "type": "list",
             "schema": {

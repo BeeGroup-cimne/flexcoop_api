@@ -13,17 +13,26 @@
     "DELETE"
   ],
   "schema": {
-    "date": {
-      "type": "datetime",
-      "required": true
+    "clusterId" : {
+      "type" : "string",
+      "required" : true
     },
-    "upwardsFlexibility": {
-      "type": "float",
-      "required": true
-    },
-    "downwardsFlexibility": {
-      "type": "float",
-      "required": true
-    }
+    "flexibility": {
+            "type": "dict",
+            "schema": {
+              "baseline": {
+                "type": "float"
+              },
+              "upwards": {
+                "type": "float"
+              },
+              "flexibility": {
+                "type": "float"
+              },
+              "interval": {
+                "type": "integer"
+              }
+            }
+          }
   }
 }
