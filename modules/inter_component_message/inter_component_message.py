@@ -3,11 +3,13 @@ import threading
 import requests
 import json
 import datetime
+import traceback
 from flexcoop_utils import ServiceToken
 from settings import INTERCOMPONENT_SETTINGS, ICM_WORKER_THREAD
 from requests.exceptions import ConnectionError
 
-inter_component_message_event = threading.Event()
+icm_worker_event = threading.Event()
+icm_worker_thread = None
 
 
 def inter_component_message_worker_thread(app):
@@ -47,7 +49,8 @@ def inter_component_message_worker_thread(app):
 
     def dump_initial_messages():
         max_age = datetime.datetime.utcnow() - datetime.timedelta(days=7)
-        query1 = {"delivery_failure_response": {"$exists": True, "$eq": 100}, "delivery_attempt_time": {"$gte": max_age}}
+        query1 = {"delivery_failure_response": {"$exists": True, "$eq": 100},
+                  "delivery_attempt_time": {"$gte": max_age}}
         outstanding = flask.current_app.data.driver.db['interComponentMessage'].find(query1)
         if outstanding.count() > 0:
             print('| There are ', outstanding.count(), ' interComponentMessage(s) still to be delivered')
@@ -92,7 +95,7 @@ def inter_component_message_worker_thread(app):
                     failure_message = 'POST ICM to ' + recipient + ' for ' \
                                       + msg['notification_id'] + ' / ' + msg['message_type'] + ' failed. ' \
                                       + '  http_status=' + str(response.status_code) \
-                                      + '  http_response='+ str(response.text)[:1024]
+                                      + '  http_response=' + str(response.text)[:1024]
                 else:
                     failure = False
 
@@ -120,30 +123,40 @@ def inter_component_message_worker_thread(app):
     with app.app_context():
         dump_initial_messages()
         while True:
-            inter_component_message_event.clear()
+            try:
+                icm_worker_event.clear()
 
-            # Find new messages
-            where = {"delivery_attempt_time": {"$exists": False}}
-            events = app.data.driver.db['interComponentMessage'].find(where)
-            for event in events:
-                message_delivery_attempt(event)
+                # Find new messages
+                where = {"delivery_attempt_time": {"$exists": False}}
+                events = app.data.driver.db['interComponentMessage'].find(where)
+                for event in events:
+                    message_delivery_attempt(event)
 
-            five_minutes_ago = datetime.datetime.utcnow() - datetime.timedelta(minutes=5)
-            one_day_ago = datetime.datetime.utcnow() - datetime.timedelta(days=1)
+                five_minutes_ago = datetime.datetime.utcnow() - datetime.timedelta(minutes=5)
+                one_day_ago = datetime.datetime.utcnow() - datetime.timedelta(days=1)
 
-            # Find undelivered messages
-            where = {"delivery_failure_response": {"$exists": True, "$eq": 100},
-                     "delivery_attempt_time": {"$exists": True, "$lte": five_minutes_ago, "$gte": one_day_ago}}
-            events = app.data.driver.db['interComponentMessage'].find(where)
-            for event in events:
-                message_delivery_attempt(event)
+                # Find undelivered messages
+                where = {"delivery_failure_response": {"$exists": True, "$eq": 100},
+                         "delivery_attempt_time": {"$exists": True, "$lte": five_minutes_ago, "$gte": one_day_ago}}
+                events = app.data.driver.db['interComponentMessage'].find(where)
+                for event in events:
+                    message_delivery_attempt(event)
 
-            inter_component_message_event.wait(60)
+                icm_worker_event.wait(60)
+
+            except Exception as err:
+                log_inter_component_message_error('ICM Worker: throw an exception ' + repr(err) + ' exception')
+                traceback.print_exc()
+                exc_now = datetime.datetime.utcnow().replace(microsecond=0)
+                exc_update = {'$set': {'delivery_attempt_time': exc_now,
+                                       'delivery_failure_response': 0,
+                                       'delivery_failure_message': 'ICM Worker exception: ' + repr(err)}}
+                flask.current_app.data.driver.db['interComponentMessage'].update_one({'_id': event['_id']}, exc_update)
 
 
 def log_inter_component_message_error(info):
     date_now = datetime.datetime.utcnow().replace(microsecond=0)
-    print(date_now.strftime("%d.%b %Y %H:%M:%S") + '  ' + info);
+    print(date_now.strftime("%d.%b %Y %H:%M:%S") + '  ' + info)
 
 
 def find_service_for_recipient(account_id):
@@ -157,7 +170,7 @@ def pre_inter_component_message_GET_callback(request, lookup):
     if request.role == 'admin':
         pass
     else:
-        log_inter_component_message_error(' ICM pre GET : not allowed for '+request.role)
+        log_inter_component_message_error(' ICM pre GET : not allowed for ' + request.role)
         flask.abort(403, 'wrong role')
 
 
@@ -167,11 +180,11 @@ def pre_inter_component_message_POST_callback(request):
         pass
 
     elif request.role != 'service':
-        log_inter_component_message_error(' ICM pre POST : not allowed for '+request.role)
+        log_inter_component_message_error(' ICM pre POST : not allowed for ' + request.role)
         flask.abort(403, 'wrong role')
 
     if 'recipient_id' in request.json and request.json['recipient_id'] not in INTERCOMPONENT_SETTINGS:
-        log_inter_component_message_error(' ICM pre POST : unknown recipient '+request.json['recipient_id'])
+        log_inter_component_message_error(' ICM pre POST : unknown recipient ' + request.json['recipient_id'])
         flask.abort(406, 'unknown recipient')
 
     if 'notification_id' in request.json:
@@ -181,21 +194,27 @@ def pre_inter_component_message_POST_callback(request):
             log_inter_component_message_error(' ICM pre POST : notification_id already exists')
             flask.abort(409, 'notification_id already exists')
 
+    # Check if ICM Worker thread is running, if not restart it
+    if ICM_WORKER_THREAD and not icm_worker_thread.is_alive():
+        log_inter_component_message_error('Re-starting worker thread: interComponentMessage')
+        icm_worker_thread.start()
+
 
 def pre_inter_component_message_DELETE_callback(request, lookup):
     if request.role == 'admin':
         pass
     else:
-        log_inter_component_message_error(' ICM pre DELETE : not allowed for '+request.role)
+        log_inter_component_message_error(' ICM pre DELETE : not allowed for ' + request.role)
         flask.abort(403)
 
 
 def post_inter_component_message_INSERTED_callback(items):
     if ICM_WORKER_THREAD:
-        inter_component_message_event.set()
+        icm_worker_event.set()
 
 
 def set_hooks(app):
+    global icm_worker_thread
     app.on_pre_GET_interComponentMessage += pre_inter_component_message_GET_callback
     app.on_pre_POST_interComponentMessage += pre_inter_component_message_POST_callback
     app.on_pre_DELETE_interComponentMessage += pre_inter_component_message_DELETE_callback
@@ -203,7 +222,7 @@ def set_hooks(app):
 
     if ICM_WORKER_THREAD:
         log_inter_component_message_error('Starting worker thread: interComponentMessage')
-        tp_thread = threading.Thread(target= inter_component_message_worker_thread, args=(app,), daemon=True)
-        tp_thread.start()
+        icm_worker_thread = threading.Thread(target=inter_component_message_worker_thread, args=(app,), daemon=True)
+        icm_worker_thread.start()
     else:
         log_inter_component_message_error('Configured to NOT start the interComponentMessage worker thread')
