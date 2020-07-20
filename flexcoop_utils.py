@@ -1,3 +1,5 @@
+from collections import Iterable
+
 import requests
 import datetime
 from eve.utils import config
@@ -15,7 +17,7 @@ def filter_field(data, schema):
                  fitem[k] = filter_field(data[k], v)
         print(fitem)
     else:
-        if 'value' in data:
+        if isinstance(data, Iterable) and 'value' in data:
             fitem = data['value']
         else:
             fitem = data
