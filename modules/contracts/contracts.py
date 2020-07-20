@@ -23,7 +23,7 @@ def pre_get__contracts_callback(request, lookup):
     elif role == 'admin':
         pass
 
-    elif role == 'service' and sub == "DSAR":
+    elif role == 'service' and sub == "DRSR":
         pass
 
     elif role == 'service' and sub == "OMP":
@@ -44,6 +44,7 @@ def pre_patch__contracts(request, lookup):
 
     has_error = False
     error_str = ""
+    require_str = ""
     for entry in ['contract_id', 'start_date', 'end_date', 'aggregator_id', 'account_id',
                   'assets', 'contract_type']:
         if entry in request.json:
@@ -65,6 +66,24 @@ def pre_patch__contracts(request, lookup):
             else:
                 error_str = error_str + key + ','
                 has_error = True
+
+    elif role == 'service' and sub == 'DRSR':
+        for key in request.json.keys():
+            if key == 'status' and request.json['status'] == 'ended':
+                pass
+            elif key == 'status':
+                has_error = True
+                require_str = require_str + 'status=ended,'
+            elif key == 'timestamp':
+                pass
+            else:
+                error_str = error_str + key + ','
+                has_error = True
+
+        # All patches from DRSR require a 'timestamp' field
+        if 'timestamp' not in request.json:
+            has_error = True
+            require_str = require_str + 'timestamp,'
 
     else:
         # Others can't patch 'validated'
@@ -88,16 +107,23 @@ def pre_patch__contracts(request, lookup):
             error_str = error_str + 'contract_title,'
             has_error = True
 
+        if 'status' not in request.json:
+            has_error = True
+            require_str = require_str + 'status,'
+
         # All patches from aggregator or prosumer require a 'timestamp' field
         if 'timestamp' not in request.json:
-            if has_error:
-                flask.abort(403, description='PATCH contract of ' + error_str + ' field(s) not allowed'
-                                             + ' and patch requires a timestamp field')
-            else:
-                flask.abort(403, description='PATCH contract requires a timestamp field')
+            has_error = True
+            require_str = require_str + 'timestamp,'
 
     if has_error:
-        flask.abort(403, description='PATCH contract of ' + error_str + ' field(s) not allowed')
+        if len(error_str) != 0 and len(require_str) != 0:
+            flask.abort(403, description='PATCH contract of ' + error_str + ' field(s) not allowed'
+                                         + ' and patch requires ' + require_str + 'field(s)')
+        elif len(require_str) != 0:
+            flask.abort(403, description='PATCH contract requires ' + require_str + 'field(s)')
+        else:
+            flask.abort(403, description='PATCH contract of ' + error_str + ' field(s) not allowed')
 
     else:
         if role == 'prosumer' or role == 'aggregator':
@@ -113,6 +139,9 @@ def pre_patch__contracts(request, lookup):
             lookup["aggregator_id"] = aggregator_id
 
         elif role == 'service' and sub == 'OMP':
+            pass
+
+        elif role == 'service' and sub == 'DRSR':
             pass
 
         # Todo: Remove temporary Sprint4 'admin' allowance to PATCH contracts
