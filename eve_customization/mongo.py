@@ -17,6 +17,6 @@ class Mongo1(Mongo):
             if 'device_class' in spec:
                 value = spec.pop("device_class")
                 spec['rid'] = value
-            req.where = json.dumps(spec)
-            print(req.where)
+            # req.where = json.dumps(spec)
+            # print(req.where)
         return super(Mongo1, self).find(resource, req, sub_resource_lookup, perform_count=True)
