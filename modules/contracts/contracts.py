@@ -23,7 +23,7 @@ def pre_get__contracts_callback(request, lookup):
     elif role == 'admin':
         pass
 
-    elif role == 'service' and sub == "DSAR":
+    elif role == 'service' and sub == "DRSR":
         pass
 
     elif role == 'service' and sub == "OMP":
@@ -66,6 +66,24 @@ def pre_patch__contracts(request, lookup):
             else:
                 error_str = error_str + key + ','
                 has_error = True
+
+    elif role == 'service' and sub == 'DRSR':
+        for key in request.json.keys():
+            if key == 'status' and request.json['status'] == 'ended':
+                pass
+            elif key == 'status':
+                has_error = True
+                require_str = require_str + 'status=ended,'
+            elif key == 'timestamp':
+                pass
+            else:
+                error_str = error_str + key + ','
+                has_error = True
+
+        # All patches from DRSR require a 'timestamp' field
+        if 'timestamp' not in request.json:
+            has_error = True
+            require_str = require_str + 'timestamp,'
 
     else:
         # Others can't patch 'validated'
@@ -121,6 +139,9 @@ def pre_patch__contracts(request, lookup):
             lookup["aggregator_id"] = aggregator_id
 
         elif role == 'service' and sub == 'OMP':
+            pass
+
+        elif role == 'service' and sub == 'DRSR':
             pass
 
         # Todo: Remove temporary Sprint4 'admin' allowance to PATCH contracts
