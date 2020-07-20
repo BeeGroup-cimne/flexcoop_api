@@ -3,6 +3,7 @@ import threading
 import requests
 import json
 import datetime
+import traceback
 from flexcoop_utils import ServiceToken
 from settings import INTERCOMPONENT_SETTINGS, ICM_WORKER_THREAD
 from requests.exceptions import ConnectionError
@@ -120,25 +121,35 @@ def inter_component_message_worker_thread(app):
     with app.app_context():
         dump_initial_messages()
         while True:
-            inter_component_message_event.clear()
+            try:
+                inter_component_message_event.clear()
 
-            # Find new messages
-            where = {"delivery_attempt_time": {"$exists": False}}
-            events = app.data.driver.db['interComponentMessage'].find(where)
-            for event in events:
-                message_delivery_attempt(event)
+                # Find new messages
+                where = {"delivery_attempt_time": {"$exists": False}}
+                events = app.data.driver.db['interComponentMessage'].find(where)
+                for event in events:
+                    message_delivery_attempt(event)
 
-            five_minutes_ago = datetime.datetime.utcnow() - datetime.timedelta(minutes=5)
-            one_day_ago = datetime.datetime.utcnow() - datetime.timedelta(days=1)
+                five_minutes_ago = datetime.datetime.utcnow() - datetime.timedelta(minutes=5)
+                one_day_ago = datetime.datetime.utcnow() - datetime.timedelta(days=1)
 
-            # Find undelivered messages
-            where = {"delivery_failure_response": {"$exists": True, "$eq": 100},
-                     "delivery_attempt_time": {"$exists": True, "$lte": five_minutes_ago, "$gte": one_day_ago}}
-            events = app.data.driver.db['interComponentMessage'].find(where)
-            for event in events:
-                message_delivery_attempt(event)
+                # Find undelivered messages
+                where = {"delivery_failure_response": {"$exists": True, "$eq": 100},
+                         "delivery_attempt_time": {"$exists": True, "$lte": five_minutes_ago, "$gte": one_day_ago}}
+                events = app.data.driver.db['interComponentMessage'].find(where)
+                for event in events:
+                    message_delivery_attempt(event)
 
-            inter_component_message_event.wait(60)
+                inter_component_message_event.wait(60)
+
+            except Exception as e:
+                log_inter_component_message_error('ICM Worker: throw an exception ' + repr(e) + ' exception')
+                traceback.print_exc()
+                date_now = datetime.datetime.utcnow().replace(microsecond=0)
+                update = {'$set': {'delivery_attempt_time': date_now,
+                                   'delivery_failure_response': 0,
+                                   'delivery_failure_message': 'ICM Worker exception: ' + repr(e)}}
+                flask.current_app.data.driver.db['interComponentMessage'].update_one({'_id': event['_id']}, update)
 
 
 def log_inter_component_message_error(info):
