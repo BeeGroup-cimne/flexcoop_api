@@ -24,10 +24,14 @@
       ]
     },
     "deviceId": {
-      "type": "uuid",
+      "type": "string",
       "minlength": 36,
       "maxlength": 36,
       "required": true
+    },
+    "startDate": {
+      "type" : "datetime",
+      "required" : true
     },
     "horizon": {
       "type": "integer"

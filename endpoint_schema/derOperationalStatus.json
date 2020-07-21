@@ -23,10 +23,9 @@
     },
     "deviceId": {
       "type": "string",
-      "minlength": 1,
-      "maxlength": 100,
-      "required": true,
-      "unique": true
+      "minlength": 36,
+      "maxlength": 36,
+      "required": true
     },
     "type": {
       "type": "list",

@@ -7,17 +7,24 @@
     "POST"
   ],
   "schema": {
-    "venIds": {
+    "clusterId": {
+      "type": "string",
+      "required": true
+    },
+    "startDate": {
+      "type": "datetime"
+    },
+    "deviceIds": {
       "type": "list",
-      "required": "true",
       "schema": {
         "type": "dict",
         "schema": {
-          "venId": {
+          "deviceId": {
             "type": "string",
-            "minlength": 1,
-            "maxlength": 100,
-            "unique": true
+            "minlength": 36,
+            "maxlength": 36,
+            "unique": true,
+            "required": true
           }
         }
       }

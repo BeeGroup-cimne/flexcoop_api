@@ -15,43 +15,42 @@
   "schema": {
     "requestCriteria": {
       "type": "list",
-      "required": true,
-      "schema": {
-        "type": "string"
-      }
-    },
-    "clusterId": {
-      "type": "uuid",
-      "minlength": 1,
-      "maxlength": 64,
+      "items": [
+        {
+          "type": "string"
+        }
+      ],
       "required": true
     },
-    "timestamp": {
-      "type": "datetime",
+    "clusterId": {
+      "type": "string",
       "minlength": 1,
       "maxlength": 64,
       "required": true
     },
     "derCluster": {
       "type": "list",
-      "required": "true",
       "schema": {
         "type": "dict",
         "schema": {
-          "clusterName": {
-            "type": "string",
-            "required": "true"
-          },
-          "deviceId": {
+          "deviceIds": {
             "type": "list",
-            "items": [
-              {
-                "type": "uuid"
+            "schema": {
+              "type": "dict",
+              "schema": {
+                "deviceId": {
+                  "type": "string",
+                  "minlength": 36,
+                  "maxlength": 36,
+                  "unique": true,
+                  "required": true
+                }
               }
-            ],
+            },
             "required": true
           }
-        }
+        },
+        "required": true
       }
     }
   }

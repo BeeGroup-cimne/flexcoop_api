@@ -18,8 +18,7 @@
       "type": "string",
       "minlength": 36,
       "maxlength": 36,
-      "required": true,
-      "unique": true
+      "required": true
     },
     "derDevice": {
       "type": "string",

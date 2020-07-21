@@ -22,7 +22,7 @@
       "unique": true
     },
     "deviceId": {
-      "type": "uuid",
+      "type": "string",
       "minlength": 36,
       "maxlength": 36,
       "required": true

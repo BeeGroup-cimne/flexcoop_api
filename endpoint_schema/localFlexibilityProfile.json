@@ -7,48 +7,41 @@
     "POST"
   ],
   "schema": {
-    "localFlexibilityProfileList": {
+    "deviceId": {
+      "type": "string",
+      "minlength": 36,
+      "maxlength": 36,
+      "required": true,
+      "unique": true
+    },
+    "derDevice": {
+      "type": "string",
+      "allowed": [
+        "Light",
+        "HVAC",
+        "DHW",
+        "EV"
+      ]
+    },
+    "flexibility": {
       "type": "list",
       "schema": {
         "type": "dict",
         "schema": {
-          "deviceId": {
-            "type": "uuid",
-            "minlength": 36,
-            "maxlength": 36,
-            "required": true,
-            "unique": true
+          "baseline": {
+            "type": "float"
           },
-          "derDevice": {
-            "type": "string",
-            "allowed": [
-              "Light",
-              "HVAC",
-              "DHW",
-              "EV"
-            ]
+          "upwards": {
+            "type": "float"
           },
           "flexibility": {
-            "type": "dict",
-            "schema": {
-              "baseline": {
-                "type": "float"
-              },
-              "upwards": {
-                "type": "float"
-              },
-              "flexibility": {
-                "type": "float"
-              },
-              "interval": {
-                "type": "integer"
-              }
-            }
+            "type": "float"
+          },
+          "interval": {
+            "type": "integer"
           }
-        },
-        "required": true
+        }
       }
     }
   }
 }
-

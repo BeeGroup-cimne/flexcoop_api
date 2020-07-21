@@ -9,9 +9,18 @@
   "schema": {
     "outliers": {
       "type": "list",
-      "allowed": [
-        "Devices with no flexibility"
-      ]
+      "schema": {
+        "type": "dict",
+        "schema": {
+          "deviceId": {
+            "type": "string",
+            "minlength": 36,
+            "maxlength": 36,
+            "unique": true,
+            "required": true
+          }
+        }
+      }
     },
     "startDate": {
       "type": "datetime"

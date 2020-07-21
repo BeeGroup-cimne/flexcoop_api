@@ -1,0 +1,32 @@
+{
+  "item_title": "thermalComfortLevels",
+  "cache_control": "max-age=10,must-revalidate",
+  "cache_expires": 10,
+  "resource_methods": [
+    "GET",
+    "POST"
+  ],
+  "schema": {
+    "thermalComfort": {
+      "type": "list",
+      "schema": {
+        "type": "dict",
+        "schema": {
+          "interval": {
+            "type": "integer",
+            "required": true
+          },
+          "tMin": {
+            "type": "float",
+            "required": true
+          },
+          "tMax": {
+            "type": "float",
+            "required": true
+          }
+        },
+        "required": true
+      }
+    }
+  }
+}

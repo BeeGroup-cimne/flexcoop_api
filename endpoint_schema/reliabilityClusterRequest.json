@@ -19,15 +19,16 @@
     "endDate": {
       "type": "datetime"
     },
-    "devices": {
+    "deviceIds": {
       "type": "list",
       "schema": {
         "type": "dict",
         "schema": {
           "deviceId": {
-            "type": "uuid",
+            "type": "string",
             "minlength": 36,
             "maxlength": 36,
+            "unique": true,
             "required": true
           }
         }
