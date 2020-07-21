@@ -13,10 +13,8 @@ class Mongo1(Mongo):
     def find(self, resource, req, sub_resource_lookup, perform_count=True):
         if resource in ["data_points", "devices"]:
             spec = self._convert_where_request_to_dict(req)
-            # print(spec)
             if 'device_class' in spec:
                 value = spec.pop("device_class")
                 spec['rid'] = value
-            # req.where = json.dumps(spec)
-            # print(req.where)
+            req.where = json.dumps(spec)
         return super(Mongo1, self).find(resource, req, sub_resource_lookup, perform_count=True)

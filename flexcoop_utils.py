@@ -15,7 +15,6 @@ def filter_field(data, schema):
         for k, v in schema['schema'].items():
             if k in data:
                  fitem[k] = filter_field(data[k], v)
-        print(fitem)
     else:
         if isinstance(data, Iterable) and 'value' in data:
             fitem = data['value']
