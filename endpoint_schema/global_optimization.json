@@ -30,6 +30,10 @@
 			"type": "datetime",
 			"required": true
     },
+    "iteration_number": {
+      "type": "float",
+			"required": true
+    },
     "start": {
 			"type": "datetime",
 			"required": true
