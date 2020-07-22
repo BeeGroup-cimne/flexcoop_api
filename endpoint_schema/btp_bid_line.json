@@ -1,6 +1,6 @@
 {
 	"item_title": "btp_bid_line",
-	"item_lookup_field": "btp_messageId",
+	"item_lookup_field": "btp_bid_lineId",
 	"item_url": "regex(\"[a-zA-Z0-9-]+\")",
 	"cache_control": "max-age=10,must-revalidate",
 	"cache_expires": 10,
@@ -13,6 +13,12 @@
 		"PATCH"
 	],
 	"schema": {
+		"btp_bid_lineId": {
+			"type": "uuid",
+			"minlength": 36,
+			"maxlength": 36,
+			"required": true
+		},
 		"btp_messageId": {
 			"type": "uuid",
 			"minlength": 36,

@@ -46,6 +46,12 @@
 					},
 					"flex": {
 						"type": "float"
+					},
+					"contract_id": {
+						"type": "uuid"
+					},
+					"contract_name": {
+						"type": "string"
 					}
 				}
 			}
@@ -60,6 +66,12 @@
 					},
 					"flex": {
 						"type": "float"
+					},
+					"contract_id": {
+						"type": "uuid"
+					},
+					"contract_name": {
+						"type": "string"
 					}
 				}
 			},

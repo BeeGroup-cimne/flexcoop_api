@@ -16,7 +16,9 @@
 			"dr_campaign_id",
 			"aggregator_id",
 			"account_id",
-			"ldem_id"			
+			"ldem_id"		,
+			"contract_id",
+			"contract_name"
 		]
 	},
 	"resource_methods": [
@@ -57,6 +59,12 @@
 		"end": {
 			"type": "datetime",
 			"required": true
+		},
+		"contract_id": {
+			"type": "uuid"
+		},
+		"contract_name": {
+			"type": "string"
 		},
 		"flexibility": {
 			"type": "float",
