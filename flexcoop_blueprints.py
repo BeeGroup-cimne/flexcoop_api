@@ -169,7 +169,10 @@ def aggregate_timeseries(df, resolution, schema):
             df_aggregated[field] = series
 
     for field in schema['aggregation']['add_fields']:
-        df_aggregated[field] = [df[field][0]] * len(df_aggregated)
+        if field in df:
+            df_aggregated[field] = [df[field][0]] * len(df_aggregated)
+        else:
+            df_aggregated[field] = [None] * len(df_aggregated)
 
     df_aggregated[timestamp_field] = df_aggregated.index.strftime(app.config['DATE_FORMAT'])
     df_aggregated = df_aggregated.reset_index(drop=True)
