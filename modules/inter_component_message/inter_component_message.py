@@ -51,7 +51,7 @@ def inter_component_message_worker_thread(app):
         max_age = datetime.datetime.utcnow() - datetime.timedelta(days=7)
         query1 = {"delivery_failure_response": {"$exists": True, "$eq": 100},
                   "delivery_attempt_time": {"$gte": max_age}}
-        outstanding = flask.current_app.data.driver.db['interComponentMessage'].find(query1)
+        outstanding = app.data.driver.db['interComponentMessage'].find(query1)
         if outstanding.count() > 0:
             print('| There are ', outstanding.count(), ' interComponentMessage(s) still to be delivered')
             for msg_raw in outstanding:
@@ -59,13 +59,13 @@ def inter_component_message_worker_thread(app):
                 print('|  ', json.dumps(msg, default=datetime_serializer))
 
         query2 = {"delivery_failure_response": {"$exists": True, "$ne": 100, "$ne": 200}}
-        errors = flask.current_app.data.driver.db['interComponentMessage'].find(query2)
+        errors = app.data.driver.db['interComponentMessage'].find(query2)
         if errors.count() > 0:
             print('| There are ', errors.count(), ' rejected interComponentMessage(s) ')
             for msg_raw in errors:
                 msg = cleanup_message(msg_raw, False)
                 print('|  ', json.dumps(msg, default=datetime_serializer))
-                # flask.current_app.data.driver.db['interComponentMessage'].delete_one({'_id': msg_raw['_id']})
+                # app.data.driver.db['interComponentMessage'].delete_one({'_id': msg_raw['_id']})
 
     def message_delivery_attempt(msg_raw):
         msg = cleanup_message(msg_raw, True)
@@ -110,15 +110,15 @@ def inter_component_message_worker_thread(app):
             update = {'$set': {'delivery_attempt_time': date_now,
                                'delivery_failure_response': failure_response,
                                'delivery_failure_message': failure_message}}
-            flask.current_app.data.driver.db['interComponentMessage'].update_one({'_id': event['_id']}, update)
+            app.data.driver.db['interComponentMessage'].update_one({'_id': event['_id']}, update)
         # Todo: Remove temporary Sprint4 variant that keeps the ICM message in the DB
         else:
             update = {'$set': {'delivery_attempt_time': date_now,
                                'delivery_failure_response': 200,
                                'delivery_failure_message': 'OKAY'}}
-            flask.current_app.data.driver.db['interComponentMessage'].update_one({'_id': event['_id']}, update)
+            app.data.driver.db['interComponentMessage'].update_one({'_id': event['_id']}, update)
         # else:
-        #    flask.current_app.data.driver.db['interComponentMessage'].delete_one({'_id': event['_id']})
+        #    app.data.driver.db['interComponentMessage'].delete_one({'_id': event['_id']})
 
     with app.app_context():
         dump_initial_messages()
@@ -151,7 +151,7 @@ def inter_component_message_worker_thread(app):
                 exc_update = {'$set': {'delivery_attempt_time': exc_now,
                                        'delivery_failure_response': 0,
                                        'delivery_failure_message': 'ICM Worker exception: ' + repr(err)}}
-                flask.current_app.data.driver.db['interComponentMessage'].update_one({'_id': event['_id']}, exc_update)
+                app.data.driver.db['interComponentMessage'].update_one({'_id': event['_id']}, exc_update)
 
 
 def log_inter_component_message_error(info):
@@ -195,9 +195,8 @@ def pre_inter_component_message_POST_callback(request):
             flask.abort(409, 'notification_id already exists')
 
     # Check if ICM Worker thread is running, if not restart it
-    if ICM_WORKER_THREAD and not icm_worker_thread.is_alive():
-        log_inter_component_message_error('Re-starting worker thread: interComponentMessage')
-        icm_worker_thread.start()
+    if ICM_WORKER_THREAD:
+        icm_worker_restart_thread_if_not_alive(flask.current_app._get_current_object())
 
 
 def pre_inter_component_message_DELETE_callback(request, lookup):
@@ -210,19 +209,29 @@ def pre_inter_component_message_DELETE_callback(request, lookup):
 
 def post_inter_component_message_INSERTED_callback(items):
     if ICM_WORKER_THREAD:
+        icm_worker_restart_thread_if_not_alive(flask.current_app._get_current_object())
         icm_worker_event.set()
 
 
-def set_hooks(app):
+def icm_worker_restart_thread_if_not_alive(app):
     global icm_worker_thread
+    if icm_worker_thread is None or not hasattr(icm_worker_thread, "is_alive") or not icm_worker_thread.is_alive():
+        if icm_worker_thread is None:
+            log_inter_component_message_error('Starting worker thread: interComponentMessage')
+        else:
+            log_inter_component_message_error('Starting worker thread: interComponentMessage  (Re-Start)')
+
+        icm_worker_thread = threading.Thread(target=inter_component_message_worker_thread, args=(app,), daemon=True)
+        icm_worker_thread.start()
+
+
+def set_hooks(app):
     app.on_pre_GET_interComponentMessage += pre_inter_component_message_GET_callback
     app.on_pre_POST_interComponentMessage += pre_inter_component_message_POST_callback
     app.on_pre_DELETE_interComponentMessage += pre_inter_component_message_DELETE_callback
     app.on_inserted_interComponentMessage += post_inter_component_message_INSERTED_callback
 
     if ICM_WORKER_THREAD:
-        log_inter_component_message_error('Starting worker thread: interComponentMessage')
-        icm_worker_thread = threading.Thread(target=inter_component_message_worker_thread, args=(app,), daemon=True)
-        icm_worker_thread.start()
+        icm_worker_restart_thread_if_not_alive(app)
     else:
         log_inter_component_message_error('Configured to NOT start the interComponentMessage worker thread')
