@@ -1,5 +1,6 @@
 {
 	"item_title": "dr_event_ldem_baseline",
+	"id_field": "dr_event_id",
 	"item_lookup_field": "dr_campaign_id",
 	"item_url": "regex(\"[a-zA-Z0-9-]+\")",
 	"cache_control": "max-age=10,must-revalidate",
@@ -27,9 +28,16 @@
 	],
 	"item_methods": [    
 		"GET",
-		"DELETE"
+		"DELETE",
+		"PATCH"
 	],
 	"schema": {
+		"dr_event_id": {
+      "type": "uuid",
+      "minlength": 36,
+      "maxlength": 36,
+      "required": true
+    },
 		"dr_campaign_id": {
 			"type": "uuid",
 			"minlength": 36,
