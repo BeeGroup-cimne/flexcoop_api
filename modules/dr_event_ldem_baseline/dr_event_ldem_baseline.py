@@ -19,7 +19,7 @@ def pre_dr_event_ldem_baseline_access_control_callback(request, lookup=None):
         lookup["aggregator_id"] = aggregator_id
 
     elif role == 'service':
-        if account_id not in ['GDEM', 'DRSR', 'LDEM', 'DFP']:
+        if account_id not in ['GDEM', 'DRSR', 'LDEM', 'DFP', 'cimne_client']:
             flask.abort(403, "The component {} can't have access to DR event LDEM baseline".format(account_id))
     else:
         flask.abort(403, "Unknown user role")
