@@ -29,9 +29,9 @@
     },
     "aggregator_id": {
       "required": true,
-      "type": "uuid",
-      "minlength": 36,
-      "maxlength": 36
+      "type": "string",
+      "minlength": 3,
+      "maxlength": 256
     },
     "contract_id": {
       "required": true,
