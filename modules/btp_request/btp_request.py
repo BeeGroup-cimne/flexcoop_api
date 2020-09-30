@@ -16,8 +16,10 @@ def pre_btp_request_access_control_callback(request, lookup=None):
         flask.abort(403, "Prosumer can't have access to BTP Request")
 
     elif role == 'aggregator':
-        lookup["aggregator_id"] = aggregator_id
-
+        try:
+            lookup["aggregator_id"] = aggregator_id
+        except:
+            pass
     elif role == 'service':
         if account_id not in ['GDEM']:
             flask.abort(403, "The component {} can't have access to BTP Request".format(account_id))
@@ -41,5 +43,5 @@ def on_deleted_btp_request_callback(item):
 def set_hooks(app):
     app.on_pre_GET_btp_request += pre_btp_request_access_control_callback    
     app.on_pre_DELETE_btp_request += pre_btp_request_access_control_callback    
-    app.on_pre_POST_btp_request += pre_btp_request_access_control_callback    
+    app.on_pre_POST_btp_request += pre_btp_request_access_control_callback
     app.on_delete_item_btp_request += on_deleted_btp_request_callback
