@@ -18,7 +18,7 @@ def pre_local_access_control_callback(request, lookup=None):
         flask.abort(403, "Prosumer can't have access to Local Demand Manager")
 
     elif role == 'service':
-        if account_id not in ['LDEM', 'GDEM']:
+        if account_id not in ['LDEM', 'GDEM', 'DRSR']:
             flask.abort(403, "The component {} can't have access to Local Demand Manager".format(account_id))
     else:
         flask.abort(403, "Unknown user role")
