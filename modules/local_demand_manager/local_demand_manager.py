@@ -13,6 +13,8 @@ def pre_local_access_control_callback(request, lookup=None):
     aggregator_id = request.aggregator_id
     if role == 'prosumer':
         flask.abort(403, "Prosumer can't have access to Local Demand Manager")
+    elif role == 'aggregator':
+        lookup["aggregator_id"] = aggregator_id
 
     elif role == 'service':
         if account_id not in ['LDEM', 'GDEM', 'DRSR']:
