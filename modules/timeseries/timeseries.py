@@ -38,6 +38,7 @@ def pre_raw_data_get_callback(request, lookup=None):
 def set_hooks(app):
     app.on_pre_GET_indoor_sensing += pre_timeseries_get_callback
     app.on_pre_GET_meter += pre_timeseries_get_callback
+    app.on_pre_GET_atw_heatpumps += pre_timeseries_get_callback
     app.on_pre_GET_occupancy += pre_timeseries_get_callback
     app.on_pre_GET_device_status += pre_timeseries_get_callback
     app.on_pre_GET_meter_current += pre_raw_data_get_callback

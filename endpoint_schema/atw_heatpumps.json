@@ -1,0 +1,84 @@
+{
+  "item_title": "atw_heatpumps",
+  "cache_control": "max-age=10,must-revalidate",
+  "cache_expires": 10,
+  "aggregation":{
+    "index_field" : "timestamp",
+    "aggregate_fields" : {
+      "calculatedflowtempC": "AVG",
+      "heatmediumflowC": "AVG",
+      "roomtemperatureC": "AVG",
+      "returntempC": "AVG",
+      "hotwatertopC": "AVG",
+      "hotwaterchargingC": "AVG",
+      "outdoortempC": "AVG",
+      "externalflowtempC": "AVG"
+    },
+    "groupby": "device_id",
+    "add_fields": ["account_id", "aggregator_id", "device_id", "device_class"]
+  },
+  "resource_methods": [
+    "GET"
+  ],
+  "item_methods": [],
+  "schema": {
+    "device_id": {
+      "type": "uuid",
+      "minlength": 36,
+      "maxlength": 36,
+      "required": true,
+      "unique": true
+    },
+    "account_id": {
+      "type": "uuid",
+      "minlength": 36,
+      "maxlength": 36,
+      "required": true
+    },
+    "aggregator_id": {
+      "type": "string",
+      "minlength": 3,
+      "maxlength": 256,
+      "required": true
+    },
+    "device_class": {
+      "type": "string",
+      "allowed": [
+        "hvacDevice",
+        "dhwDevice",
+        "prosumerDeviceMetering",
+        "pvDevice",
+        "otherLoad"
+      ],
+      "required": true
+    },
+    "timestamp": {
+      "type": "datetime",
+      "required": true
+    },
+    "calculatedflowtempC" : {
+      "type": "float"
+    },
+    "heatmediumflowC":  {
+      "type": "float"
+    },
+    "roomtemperatureC": {
+      "type": "float"
+    },
+    "returntempC": {
+      "type": "float"
+    },
+    "hotwatertopC": {
+      "type": "float"
+    },
+    "hotwaterchargingC": {
+      "type": "float"
+    },
+    "outdoortempC": {
+      "type": "float"
+    },
+    "externalflowtempC": {
+      "type": "float"
+    }
+  }
+}
