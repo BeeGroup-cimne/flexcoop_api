@@ -44,6 +44,11 @@
 			],
 			"required": true
 		},
+		"dr_campaign_id": {
+			"type": "uuid",
+			"minlength": 36,
+			"maxlength": 36
+		},
 		"btp_message": {
 			"type": "dict",
 			"schema": {
