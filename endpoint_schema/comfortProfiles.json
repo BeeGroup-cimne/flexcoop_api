@@ -15,29 +15,22 @@
        "maxlength": 36,
        "required": true
      },
-    "visualComfortProfile": {
-      "type": "string",
-      "allowed": [
-                "Dim",
-                "Less Brigth",
-                "Neutral",
-                "Bright",
-                "Very Bright"
-              ],
+    "thermalComfortMorning": {
+      "type": "float",
+      "min": 12,
+      "max": 22,
       "required": true
     },
-    "thermalComfortHeat": {
+    "thermalComfortAfternoon": {
       "type": "float",
+      "min": 12,
+      "max": 22,
       "required": true
     },
-    "thermalComfortCool": {
+    "thermalComfortNigth": {
       "type": "float",
-      "required": true
-    },
-    "WaterProfile": {
-      "type": "float",
-      "min": 50,
-      "max": 70,
+      "min": 12,
+      "max": 22,
       "required": true
     }
    }
