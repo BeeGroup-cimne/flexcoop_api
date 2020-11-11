@@ -7,26 +7,31 @@
     "POST"
   ],
   "schema": {
-    "thermalComfort": {
-      "type": "list",
-      "schema": {
-        "type": "dict",
-        "schema": {
-          "interval": {
-            "type": "integer",
-            "required": true
-          },
-          "tMin": {
-            "type": "float",
-            "required": true
-          },
-          "tMax": {
-            "type": "float",
-            "required": true
-          }
-        },
-        "required": true
-      }
+    "account_id": {
+       "type": "uuid",
+       "minlength": 36,
+       "maxlength": 36,
+       "required": true
+    },
+    "ven_id": {
+       "type": "uuid",
+       "minlength": 36,
+       "maxlength": 36,
+       "required": true
+    },
+    "start_date": {
+      "type": "datetime",
+      "required": true
+    },
+    "end_date": {
+      "type": "datetime",
+      "required": true
+    },
+    "t_min" : {
+      "type": "float"
+    },
+    "t_max" : {
+      "type": "float"
     }
   }
 }
