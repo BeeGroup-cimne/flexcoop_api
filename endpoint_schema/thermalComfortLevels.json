@@ -19,6 +19,12 @@
        "maxlength": 36,
        "required": true
     },
+    "aggregator_id": {
+      "type": "string",
+      "minlength": 3,
+      "maxlength": 256,
+      "required": true
+    },
     "start_date": {
       "type": "datetime",
       "required": true

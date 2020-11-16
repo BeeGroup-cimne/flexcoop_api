@@ -14,7 +14,7 @@ def pre_access_control_callback(request, lookup=None):
     if role == 'prosumer':
         lookup["account_id"] = account_id
     elif role == 'aggregator':
-        pass
+        lookup["aggregator_id"] = aggregator_id
     elif role == 'service':
         pass
     elif role == 'admin':
