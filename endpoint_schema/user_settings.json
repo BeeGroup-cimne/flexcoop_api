@@ -65,6 +65,9 @@
           "metering": {
             "type": "uuid"
           },
+          "sensor": {
+            "type": "uuid"
+          },
           "boundaries": {
             "type": "list",
             "required": true,
