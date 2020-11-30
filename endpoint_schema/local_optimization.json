@@ -63,6 +63,12 @@
 			"type": "float",
 			"required": true
     },
+    "minSetpoint": {
+			"type": "float"
+    },
+    "maxSetpoint": {
+			"type": "float"
+    },
     "mode": {
       "type": "string",
       "allowed": [
