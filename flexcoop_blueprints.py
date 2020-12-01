@@ -163,6 +163,8 @@ def aggregate_timeseries(df, resolution, schema):
             series = df[field].resample(resolution).mean()
         if operation == "SUM":
             series = df[field].resample(resolution).agg(pd.Series.sum, skipna=False)
+        if operation == "MIN":
+            series = df[field].resample(resolution).min()
         if df_aggregated is None:
             df_aggregated = pd.DataFrame(data={field: series}, index=aggregated_index)
         else:

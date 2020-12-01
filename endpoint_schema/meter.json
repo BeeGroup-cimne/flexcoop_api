@@ -8,7 +8,8 @@
       "current": "AVG",
       "kwh": "SUM",
       "voltage": "AVG",
-      "watts": "AVG"
+      "watts": "AVG",
+      "verified_kwh": "MIN"
     },
     "groupby": "device_id",
     "add_fields": ["account_id", "aggregator_id", "device_id", "device_class"]
@@ -57,6 +58,9 @@
     },
     "kwh":  {
       "type": "float"
+    },
+    "verified_kwh":{
+      "type": "boolean"
     },
     "voltage": {
       "type": "float"
