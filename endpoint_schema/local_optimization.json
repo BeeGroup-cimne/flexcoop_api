@@ -24,7 +24,8 @@
   ],
   "item_methods": [
     "GET",
-    "DELETE"
+    "DELETE",
+    "PATCH"
   ],
   "schema": {
     "local_optimizationId": {
