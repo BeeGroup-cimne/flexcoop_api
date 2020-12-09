@@ -90,6 +90,9 @@
     },
     "gridPowerPrice": {
       "type": "float"
+    },
+    "activated": {
+      "type": "boolean"
     }
   }
 }
