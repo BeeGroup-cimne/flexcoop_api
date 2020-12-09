@@ -24,7 +24,8 @@
   ],
   "item_methods": [
     "GET",
-    "DELETE"
+    "DELETE",
+    "PATCH"
   ],
   "schema": {
     "local_optimizationId": {
@@ -90,6 +91,9 @@
     },
     "gridPowerPrice": {
       "type": "float"
+    },
+    "activated": {
+      "type": "boolean"
     }
   }
 }
