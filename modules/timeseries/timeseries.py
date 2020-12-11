@@ -45,3 +45,6 @@ def set_hooks(app):
     app.on_pre_GET_meter_kwh += pre_raw_data_get_callback
     app.on_pre_GET_meter_voltage += pre_raw_data_get_callback
     app.on_pre_GET_meter_watts += pre_raw_data_get_callback
+    app.on_pre_GET_ambient_temperature += pre_raw_data_get_callback
+    app.on_pre_GET_sensor_temperature += pre_raw_data_get_callback
+    app.on_pre_GET_temperature += pre_raw_data_get_callback
