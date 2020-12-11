@@ -1,0 +1,45 @@
+{
+  "item_title": "ambient_temperature",
+  "cache_control": "max-age=10,must-revalidate",
+  "cache_expires": 10,
+  "resource_methods": [
+    "GET"
+  ],
+  "item_methods": [],
+  "schema": {
+    "device_id": {
+      "type": "uuid",
+      "minlength": 36,
+      "maxlength": 36,
+      "required": true,
+      "unique": true
+    },
+    "account_id": {
+      "type": "uuid",
+      "minlength": 36,
+      "maxlength": 36,
+      "required": true
+    },
+    "aggregator_id": {
+      "type": "string",
+      "minlength": 3,
+      "maxlength": 256,
+      "required": true
+    },
+    "device_class": {
+      "type": "string",
+      "allowed": [
+        "hvacDevice",
+        "sensingDevice"
+      ],
+      "required": true
+    },
+    "dtstart": {
+      "type": "string",
+      "required": true
+    },
+    "value" : {
+      "type": "float"
+    }
+  }
+}
