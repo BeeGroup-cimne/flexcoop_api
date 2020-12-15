@@ -44,9 +44,6 @@ def translate_device_output(response):
                     item['device_name'] = name_map['device_name']
                 else:
                     item['device_name'] = db_item['rid'] + str(index)
-                for k, v in item['status'].items():
-                    item['status'][k] = v['value'] if v['value'] else 0
-
 
 def on_update_devices_callback(updates, original):
     # Only allow the modification of non OSB fields
