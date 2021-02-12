@@ -2,6 +2,7 @@
   "item_title": "weather",
   "cache_control": "max-age=10,must-revalidate",
   "cache_expires": 10,
+  "disable_documentation": true,
   "aggregation":{
     "index_field" : "time",
     "aggregate_fields" : {
