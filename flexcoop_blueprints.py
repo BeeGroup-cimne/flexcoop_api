@@ -162,7 +162,7 @@ def aggregate_timeseries(df, resolution, schema):
         if operation == "AVG":
             series = df[field].resample(resolution).mean()
         if operation == "SUM":
-            series = df[field].resample(resolution).agg(pd.Series.sum, skipna=False)
+            series = df[field].resample(resolution).agg(pd.Series.sum, skipna=True)
         if operation == "MIN":
             series = df[field].resample(resolution).min()
         if df_aggregated is None:
